@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/Theme.Example"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp" >
+
+        <ImageView
+            android:id="@+id/ivBookImage"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@drawable/ic_done_work" />
+
+        <ProgressBar
+            android:id="@+id/pbImagePreLoad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvBookName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/ivBookImage"           
+            android:text="Bangla First Paper"
+            android:textStyle="bold"
+            android:textColor="@color/text_color"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/tvAgentName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvBookName"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/ivBookImage"
+            android:text="Md. Sajedul karim"
+            android:textColor="@color/text_color"
+            android:textSize="15sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/tvNumberOfBook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tvAgentName"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/ivBookImage"
+            android:text="45"
+            android:textColor="@color/text_color"
+            android:textSize="15sp"
+            android:textStyle="normal" />
+
+    </RelativeLayout>
+
+</LinearLayout>

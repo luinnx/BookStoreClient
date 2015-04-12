@@ -8,19 +8,69 @@
         android:minSdkVersion="16"
         android:targetSdkVersion="21" />
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+
     <application
+        android:name="com.bookstore.app.base.BookStoreApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.NoTitleBar" >
         <activity
-            android:name=".MainActivity"
+            android:name="com.bookstore.app.activity.SplashScreenActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.bookstore.app.activity.AdminHomeActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.bookstore.app.activity.AgentHomeActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.bookstore.app.activity.IndividualAgentDetailsActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.bookstore.app.activity.AddAgentActivity"
+            android:label="Create Agent" >
+        </activity>
+        <activity
+            android:name="com.bookstore.app.activity.AddTeacherActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.bookstore.app.activity.AddBookActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.bookstore.app.activity.AgentListActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.bookstore.app.activity.BookListActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.bookstore.app.activity.TeacherListActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.bookstore.app.activity.IndividualBookDetailsActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.bookstore.app.activity.IndividualJobDetailsActivity"
+            android:label="@string/app_name" >
         </activity>
     </application>
 

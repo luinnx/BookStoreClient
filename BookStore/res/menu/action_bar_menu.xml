@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/actionLocation"
+        android:icon="@drawable/ic_agent_location"
+        android:showAsAction="ifRoom"
+        android:title="Location"/>
+    <item
+        android:id="@+id/actionAdd"
+        android:icon="@drawable/ic_action_add_all"
+        android:showAsAction="ifRoom"
+        android:title="Add">
+        <menu>
+            <item
+                android:id="@+id/action_add_book"
+                android:icon="@drawable/ic_add_book"
+                android:showAsAction="ifRoom"
+                android:title="Add Book"/>
+            <item
+                android:id="@+id/action_add_agent"
+                android:icon="@drawable/ic_person_24"
+                android:showAsAction="ifRoom"
+                android:title="Add Agent"/>
+            <item
+                android:id="@+id/action_add_teacher"
+                android:icon="@drawable/ic_teacher_24"
+                android:showAsAction="ifRoom"
+                android:title="Add Teacher"/>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/actionList"
+        android:icon="@drawable/ic_all_list_24"
+        android:showAsAction="ifRoom"
+        android:title="All List">
+        <menu>
+            <item
+                android:id="@+id/action_Agent_list"
+                android:icon="@drawable/ic_person_24"
+                android:showAsAction="ifRoom"
+                android:title="Agent List"/>
+            <item
+                android:id="@+id/action_book_list"
+                android:icon="@drawable/ic_add_book"
+                android:showAsAction="ifRoom"
+                android:title="Book List"/>
+            <item
+                android:id="@+id/action_teacher_list"
+                android:icon="@drawable/ic_teacher_24"
+                android:showAsAction="ifRoom"
+                android:title="Teacher List"/>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/action_create_job"
+        android:icon="@drawable/ic_create_job24"
+        android:showAsAction="ifRoom"
+        android:title="Create Job"/>
+
+    <!-- Help -->
+    <item
+        android:id="@+id/action_more"
+        android:background="@color/actionbar_color"
+        android:icon="@drawable/ic_launcher"
+        android:showAsAction="never"
+        android:title="More..">
+        <menu>
+            <item
+                android:id="@+id/action_ContactUs"
+                android:icon="@drawable/ic_contact_us24"
+                android:showAsAction="ifRoom"
+                android:title="Contact Us"/>
+            <item
+                android:id="@+id/action_logout"
+                android:icon="@drawable/ic_logout_24"
+                android:showAsAction="ifRoom"
+                android:title="Logout"/>
+        </menu>
+    </item>
+
+</menu>

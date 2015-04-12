@@ -1,0 +1,20 @@
+package com.bookstore.app.utils;
+
+public class CommonUrls {
+
+	static CommonUrls commonUrls;
+	
+	public String BASE_URL="http://192.168.0.103:8080/BookStoreService/api/";
+	public String IMAGE_BASE_URL="";
+	
+	public String getCompletedJobList=BASE_URL+"admin/admin_joblist?job_status=%s";
+
+	public static CommonUrls getInstance() {
+		return commonUrls;
+	}
+
+	public static void initialization() {
+		if (commonUrls == null)
+			commonUrls = new CommonUrls();
+	}
+}

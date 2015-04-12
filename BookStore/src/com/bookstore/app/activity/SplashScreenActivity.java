@@ -1,0 +1,194 @@
+package com.bookstore.app.activity;
+
+import com.bookstore.app.asynctasks.DownloadableAsyncTask;
+import com.bookstore.app.interfaces.IAsynchronousTask;
+import com.bookstore.app.utils.CommonConstraints;
+import com.bookstore.app.utils.CommonTasks;
+import com.google.android.gms.plus.model.people.Person.AgeRange;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+public class SplashScreenActivity extends Activity implements OnClickListener, AnimationListener, IAsynchronousTask{
+
+	Animation imageAnimation;
+	LinearLayout llLoginPanel;
+	EditText etUserName, etPassword;
+	ImageView ivLogo;
+	Button b_Login,b_ForgotPassword;
+	DownloadableAsyncTask downloadAsyncTask;
+	ProgressDialog dialog;
+	String username, password;
+	CheckBox box;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_splash_screen);
+		initViews();
+	}
+	
+	private void initViews() {
+		ivLogo = (ImageView) findViewById(R.id.ivLogo);
+		etUserName = (EditText) findViewById(R.id.etUserName);
+		etPassword = (EditText) findViewById(R.id.etPassword);
+		b_Login = (Button) findViewById(R.id.b_Login);
+		box=(CheckBox) findViewById(R.id.cbIsLoginAsAdmin);
+		b_ForgotPassword= (Button) findViewById(R.id.b_ForgotPassword);
+		llLoginPanel = (LinearLayout) findViewById(R.id.llLoginPanel);
+
+		imageAnimation = AnimationUtils.loadAnimation(this, R.anim.splash);
+
+		b_Login.setOnClickListener(this);
+		b_ForgotPassword.setOnClickListener(this);
+
+		if (CommonTasks.getPreferences(SplashScreenActivity.this,
+				CommonConstraints.USER_USERNAME).equals("")) {
+			imageAnimation.setAnimationListener(SplashScreenActivity.this);
+			ivLogo.setAnimation(imageAnimation);
+			imageAnimation.start();
+		} else {
+
+			new Handler().postDelayed(new Runnable() {
+
+				@Override
+				public void run() {
+					SplashScreenActivity.this.finish();
+
+					if (CommonTasks.getPreferences(SplashScreenActivity.this, "USER_TYPE")
+							.equals("1")) {
+						Intent intent = new Intent(SplashScreenActivity.this,
+								AdminHomeActivity.class);
+						intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+						startActivity(intent);
+						overridePendingTransition(android.R.anim.slide_in_left,
+								android.R.anim.slide_out_right);
+					} else if (CommonTasks.getPreferences(SplashScreenActivity.this,
+							"USER_TYPE").equals("2")) {
+						Intent intent = new Intent(SplashScreenActivity.this,
+								AgentHomeActivity.class);
+						intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+						startActivity(intent);
+						overridePendingTransition(android.R.anim.slide_in_left,
+								android.R.anim.slide_out_right);
+					}
+
+				}
+			}, 2000);
+
+		}
+
+	}
+	
+
+	@Override
+	public void onAnimationEnd(Animation arg0) {
+		llLoginPanel.animate().alpha(1.0f).setDuration(1000);
+
+	}
+
+	@Override
+	public void onAnimationRepeat(Animation arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onAnimationStart(Animation arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void validation() {
+		/*if (etUserName.getText().toString().equals("")) {
+			Toast.makeText(this, "Enter UserName!", Toast.LENGTH_SHORT).show();
+			return;
+		} else {
+			username = etUserName.getText().toString();
+
+		}
+		if (etPassword.getText().toString().equals("")) {
+			Toast.makeText(this, "Enter Password!", Toast.LENGTH_SHORT).show();
+			return;
+		} else {
+			password = etPassword.getText().toString();
+
+		}
+		if (!CommonTasks.isOnline(this)) {
+			CommonTasks.goSettingPage(this);
+			return;
+		}
+		LoginRequest();*/
+		
+		if(box.isChecked()){
+			Intent intent = new Intent(SplashScreenActivity.this,
+					AdminHomeActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			startActivity(intent);
+			overridePendingTransition(android.R.anim.slide_in_left,
+					android.R.anim.slide_out_right);
+		}else{
+			Intent intent = new Intent(SplashScreenActivity.this,
+					AgentHomeActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			startActivity(intent);
+			overridePendingTransition(android.R.anim.slide_in_left,
+					android.R.anim.slide_out_right);
+		}
+				
+	}
+
+	private void LoginRequest() {
+		if (downloadAsyncTask != null)
+			downloadAsyncTask.cancel(true);
+		downloadAsyncTask = new DownloadableAsyncTask(this);
+		downloadAsyncTask.execute();
+
+	}
+
+	@Override
+	public void showProgressBar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hideProgressBar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Object doInBackground() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void processDataAfterDownload(Object data) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onClick(View view) {
+		if(view.getId()==R.id.b_Login){
+			validation();
+		}
+		
+	}
+
+	
+}

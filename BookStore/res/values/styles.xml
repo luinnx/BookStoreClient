@@ -59,7 +59,7 @@
     </style>
     
     <style name="Application_Background">
-        <item name="android:background">#F2F2F2</item>
+        <item name="android:background">@color/app_background_color</item>
     </style>
 
 </resources>

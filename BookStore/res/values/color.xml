@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="app_background_color">#FDFDFD</color>
+    <color name="slide_background">#55DEDEDE</color>
+    <color name="text_color">#000</color>
+    <color name="button_unpressed_color">#00C2A9</color>
+    <color name="actionbar_color">#00C2A9</color>
+    <color name="edit_text_color">#00C2A9</color>
+
+</resources>
