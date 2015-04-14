@@ -49,7 +49,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:text="Agent Personal Info"
-                android:textColor="#000"
+                android:textColor="@color/text_color"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -64,35 +64,36 @@
                 android:id="@+id/etAgentname"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
+                android:gravity="left"
                 android:hint="Enter Agent name"
                 android:inputType="text"
-                android:textColor="#000" >
-
+                android:textColor="@color/text_color" >
             </EditText>
-            
+
             <EditText
                 android:id="@+id/etAgentEmail"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
+                android:gravity="left"
                 android:hint="Enter Email Address"
                 android:inputType="text"
-                android:textColor="#000" >
-
+                android:textColor="@color/text_color" >
             </EditText>
 
             <EditText
                 android:id="@+id/etAgentAddress"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
+                android:gravity="left"
                 android:hint="Enter Home Address"
                 android:inputType="text"
-                android:textColor="#000" >
+                android:textColor="@color/text_color" >
             </EditText>
 
             <TextView
@@ -100,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="Agent Administrative Info"
-                android:textColor="#000"
+                android:textColor="@color/text_color"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -115,36 +116,35 @@
                 android:id="@+id/etAgentMPONumber"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
+                android:gravity="left"
                 android:hint="Enter MPO Number"
                 android:inputType="text"
-                android:textColor="#000" >
+                android:textColor="@color/text_color" >
             </EditText>
 
             <EditText
                 android:id="@+id/etAgentMobileNumber"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
+                android:gravity="left"
                 android:hint="Enter Phone Number"
                 android:inputType="phone"
-                android:textColor="#000" >
+                android:textColor="@color/text_color" >
             </EditText>
 
             <Button
                 android:id="@+id/btnOk"
+                style="@style/Button_Style"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:background="#245b9b"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text="Submit"
-                android:textColor="#fff"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:text="Submit" />
         </LinearLayout>
     </ScrollView>
 

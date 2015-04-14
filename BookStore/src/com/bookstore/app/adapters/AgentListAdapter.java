@@ -87,11 +87,12 @@ public class AgentListAdapter extends ArrayAdapter<AgentEntity> {
 			holder.tvAgentAddress.setText(agentEntity.address);
 			holder.tvJoinDate.setText(agentEntity.create_date);
 			
-			if(agentEntity.pic_url != null){
+			aq.id(holder.ivAgentImage).image(context.getResources().getDrawable(R.drawable.ic_person_24));
+			/*if(agentEntity.pic_url != null){
 				aq.id(holder.ivAgentImage).image(context.getResources().getDrawable(R.drawable.ic_person_24));
 			}else{
 				aq.id(holder.ivAgentImage).image((CommonUrls.getInstance().IMAGE_BASE_URL+agentEntity.pic_url.toString()),imgOptions);
-			}
+			}*/
 			
 		}catch(Exception ex){
 			CommonTasks.showLogs(context, ex.getMessage());

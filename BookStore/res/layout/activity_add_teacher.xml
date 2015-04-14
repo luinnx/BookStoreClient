@@ -48,8 +48,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:text="Agent Personal Info"
-                android:textColor="#000"
+                android:text="Teachers Personal Info"
+                android:textColor="@color/text_color"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -61,26 +61,15 @@
                 android:background="#00F" />
 
             <EditText
-                android:id="@+id/etTeachername"
+                android:id="@+id/etTeacherFullName"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:hint="Teacher Name"
+                android:gravity="left"
+                android:layout_marginLeft="5dp"
+                android:hint="Teacher Full Name"
                 android:inputType="text"
-                android:textColor="#000" >
-
-            </EditText>
-
-            <EditText
-                android:id="@+id/etInstitutionName"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:hint="Institution Name"
-                android:inputType="text"
-                android:textColor="#000" >
+                android:textColor="@color/text_color" >
             </EditText>
 
             <EditText
@@ -88,22 +77,61 @@
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
+                android:gravity="left"
+                android:layout_marginLeft="5dp"
                 android:hint="Enter Phone Number"
                 android:inputType="phone"
-                android:textColor="#000" />
+                android:textColor="@color/text_color" />
 
-            <Button
-                android:id="@+id/btnOk"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="Teachers Administrative Info"
+                android:textColor="@color/text_color"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#00F" />
+
+            <EditText
+                android:id="@+id/etTeacherUserName"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="5dp"
-                android:background="#245b9b"
+                android:gravity="left"
+                android:layout_marginLeft="5dp"
+                android:hint="Teacher User Name"
+                android:inputType="text"
+                android:textColor="@color/text_color" >
+            </EditText>
+
+            <EditText
+                android:id="@+id/etInstitutionName"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:gravity="left"
+                android:layout_marginLeft="5dp"
+                android:hint="Institution Name"
+                android:inputType="text"
+                android:textColor="@color/text_color" >
+            </EditText>
+
+            <Button
+                android:id="@+id/btnOk"
+                style="@style/Button_Style"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text="Submit"
-                android:textColor="#fff"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:text="Submit" />
         </LinearLayout>
     </ScrollView>
 

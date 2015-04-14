@@ -86,13 +86,15 @@ public class BookListAdapter extends ArrayAdapter<BookEntity> {
 			
 			holder.tvBookName.setText(bookEntity.full_name);
 			holder.tvWritterName.setText(bookEntity.Auther_name);
-			holder.tvNumberOfBook.setText(bookEntity.quantity);
+			holder.tvNumberOfBook.setText(""+bookEntity.avaible);
 			
-			if(bookEntity.pic_url != null){
+			aq.id(holder.ivBookImage).image(context.getResources().getDrawable(R.drawable.ic_add_book));
+			
+			/*if(bookEntity.pic_url != null){
 				aq.id(holder.ivBookImage).image(context.getResources().getDrawable(R.drawable.ic_add_book));
 			}else{
 				aq.id(holder.ivBookImage).image((CommonUrls.getInstance().IMAGE_BASE_URL+bookEntity.pic_url.toString()),imgOptions);
-			}
+			}*/
 			
 		}catch(Exception ex){
 			CommonTasks.showLogs(context, ex.getMessage());

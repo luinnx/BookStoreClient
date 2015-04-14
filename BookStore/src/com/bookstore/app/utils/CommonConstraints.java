@@ -21,6 +21,7 @@ public class CommonConstraints {
 	public final static String USER_USERNAME = "registered_user_name";
 	public final static String USER_PASSWORD = "registered_user_password";
 	public final static String USER_MOBILE_NUMBER = "registered_user_mobilenumber";
+	public final static String USER_TYPE="USER_TYPE";
 	
 	//job status
 	public final static int COMPLETED_JOB=1;

@@ -63,7 +63,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:text="Bangla First Paper"
-                    android:textColor="#000"
+                    android:textColor="@color/text_color"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -73,8 +73,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:text="Book Info"
-                android:textColor="#000"
+                android:text="Book Basic Info"
+                android:textColor="@color/text_color"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.4"
                     android:text="Author"
-                    android:textColor="#000"
+                    android:textColor="@color/text_color"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -105,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
                     android:text="Bangla Academy"
-                    android:textColor="#000"
+                    android:textColor="@color/text_color"
                     android:textSize="15sp"
                     android:textStyle="normal" />
             </TableRow>
@@ -121,7 +121,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.4"
                     android:text="Publisher"
-                    android:textColor="#000"
+                    android:textColor="@color/text_color"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -131,59 +131,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
                     android:text="Bangla Academy"
-                    android:textColor="#000"
-                    android:textSize="15sp"
-                    android:textStyle="normal" />
-            </TableRow>
-            
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
-                    android:text="Quantity"
-                    android:textColor="#000"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvBookQuantity"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.6"
-                    android:text="35"
-                    android:textColor="#000"
-                    android:textSize="15sp"
-                    android:textStyle="normal" />
-            </TableRow>
-            
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
-                    android:text="Available"
-                    android:textColor="#000"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvAvailable"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.6"
-                    android:text="30"
-                    android:textColor="#000"
+                    android:textColor="@color/text_color"
                     android:textSize="15sp"
                     android:textStyle="normal" />
             </TableRow>
@@ -199,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.4"
                     android:text="ISBN Number"
-                    android:textColor="#000"
+                    android:textColor="@color/text_color"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -209,7 +157,50 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
                     android:text="ACRTTJ555"
-                    android:textColor="#000"
+                    android:textColor="@color/text_color"
+                    android:textSize="15sp"
+                    android:textStyle="normal" />
+            </TableRow>
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="Book Administrative Info"
+                android:textColor="@color/text_color"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#00F" />
+            
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:text="Quantity"
+                    android:textColor="@color/text_color"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvBookQuantity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:text="35"
+                    android:textColor="@color/text_color"
                     android:textSize="15sp"
                     android:textStyle="normal" />
             </TableRow>
@@ -224,8 +215,36 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.4"
+                    android:text="Available"
+                    android:textColor="@color/text_color"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvAvailable"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:text="30"
+                    android:textColor="@color/text_color"
+                    android:textSize="15sp"
+                    android:textStyle="normal" />
+            </TableRow>
+            
+            
+            
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
                     android:text="Publish Date"
-                    android:textColor="#000"
+                    android:textColor="@color/text_color"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -235,7 +254,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
                     android:text="19 march , 2015"
-                    android:textColor="#000"
+                    android:textColor="@color/text_color"
                     android:textSize="15sp"
                     android:textStyle="normal" />
             </TableRow>
@@ -251,7 +270,33 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.4"
                     android:text="Price"
-                    android:textColor="#000"
+                    android:textColor="@color/text_color"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvBookCondition"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:text="New Book"
+                    android:textColor="@color/text_color"
+                    android:textSize="15sp"
+                    android:textStyle="normal" />
+            </TableRow>
+            
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:text="Price"
+                    android:textColor="@color/text_color"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -261,7 +306,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
                     android:text="325"
-                    android:textColor="#000"
+                    android:textColor="@color/text_color"
                     android:textSize="15sp"
                     android:textStyle="normal" />
             </TableRow>
@@ -270,14 +315,11 @@
                 android:id="@+id/btnOk"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+                style="@style/Button_Style"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
-                android:background="#245b9b"
                 android:gravity="center"
-                android:text="OK"
-                android:textColor="#fff"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:text="OK"/>
         </LinearLayout>
     </ScrollView>
 

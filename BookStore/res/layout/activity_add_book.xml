@@ -49,7 +49,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:text="Book Basic Info"
-                android:textColor="#000"
+                android:textColor="@color/text_color"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -64,104 +64,124 @@
                 android:id="@+id/etBookName"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
+                android:gravity="left"
                 android:hint="Book Name"
                 android:inputType="text"
-                android:textColor="#000" >
-
+                android:textColor="@color/text_color" >
             </EditText>
 
             <EditText
                 android:id="@+id/etWritterName"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
+                android:gravity="left"
                 android:hint="Enter Writter Name"
                 android:inputType="text"
-                android:textColor="#000" >
+                android:textColor="@color/text_color" >
             </EditText>
-            
+
             <EditText
                 android:id="@+id/etPublisherName"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
+                android:gravity="left"
                 android:hint="Enter Publisher Name"
                 android:inputType="text"
-                android:textColor="#000" >
+                android:textColor="@color/text_color" >
             </EditText>
-            
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="Book Administrative Info"
+                android:textColor="@color/text_color"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#00F" />
+
             <EditText
                 android:id="@+id/etBookCondition"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
+                android:gravity="left"
                 android:hint="Enter Book Condition"
                 android:inputType="text"
-                android:textColor="#000" >
+                android:textColor="@color/text_color" >
             </EditText>
-            
-             <EditText
+
+            <EditText
                 android:id="@+id/etBookQuantity"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
+                android:gravity="left"
                 android:hint="Enter Quantity"
                 android:inputType="phone"
-                android:textColor="#000" >
+                android:textColor="@color/text_color" >
             </EditText>
-            
-              <EditText
+
+            <EditText
                 android:id="@+id/etISBNNumber"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
+                android:gravity="left"
                 android:hint="Enter ISBN Number"
                 android:inputType="text"
-                android:textColor="#000" >
+                android:textColor="@color/text_color" >
             </EditText>
-             <EditText
+
+            <EditText
                 android:id="@+id/etPublishDate"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
+                android:gravity="left"
                 android:hint="Publish date"
                 android:inputType="text"
-                android:textColor="#000" >
+                android:textColor="@color/text_color" >
             </EditText>
-            
-               <EditText
+
+            <EditText
                 android:id="@+id/etBookPrice"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
+                android:gravity="left"
                 android:hint="Enter Book Price"
                 android:inputType="text"
-                android:textColor="#000" >
+                android:textColor="@color/text_color" >
             </EditText>
-
-           
 
             <Button
                 android:id="@+id/btnOk"
+                style="@style/Button_Style"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:background="#245b9b"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text="Submit"
-                android:textColor="#fff"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:text="Submit" />
         </LinearLayout>
     </ScrollView>
 

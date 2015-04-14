@@ -2,10 +2,10 @@ package com.bookstore.app.managers;
 
 
 import com.bookstore.app.entities.AgentListRoot;
+import com.bookstore.app.entities.BookListRoot;
 import com.bookstore.app.entities.JobListRoot;
+import com.bookstore.app.entities.TeacherListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
-import com.bookstore.app.utils.CommonUrls;
-import com.bookstore.app.utils.JSONfunctions;
 
 public class AdminManager implements IAdminManager{
 
@@ -27,6 +27,18 @@ public class AdminManager implements IAdminManager{
 
 	@Override
 	public AgentListRoot getAgentList() {
+		
+		return null;
+	}
+
+	@Override
+	public BookListRoot getBookList() {
+		
+		return null;
+	}
+
+	@Override
+	public TeacherListRoot getTeacherList() {
 		
 		return null;
 	}

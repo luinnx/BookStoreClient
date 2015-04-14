@@ -86,7 +86,7 @@ public class JobListAdapter extends ArrayAdapter<JobEntity> {
 			
 			holder.tvAgentName.setText(jobEntity.agentname);
 			holder.tvBookName.setText(jobEntity.bookname);
-			holder.tvNumberOfBook.setText(jobEntity.quantity);
+			holder.tvNumberOfBook.append(""+jobEntity.quantity);
 			
 			if(jobEntity.bookImage != null){
 				aq.id(holder.ivBookImage).image(context.getResources().getDrawable(R.drawable.ic_launcher));

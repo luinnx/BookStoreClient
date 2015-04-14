@@ -86,7 +86,7 @@ public class SplashScreenActivity extends Activity implements OnClickListener, A
 					}
 
 				}
-			}, 2000);
+			}, 0000);
 
 		}
 
@@ -133,6 +133,7 @@ public class SplashScreenActivity extends Activity implements OnClickListener, A
 		LoginRequest();*/
 		
 		if(box.isChecked()){
+			CommonTasks.savePreferencesForReasonCode(this, CommonConstraints.USER_TYPE, "1");
 			Intent intent = new Intent(SplashScreenActivity.this,
 					AdminHomeActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -140,6 +141,7 @@ public class SplashScreenActivity extends Activity implements OnClickListener, A
 			overridePendingTransition(android.R.anim.slide_in_left,
 					android.R.anim.slide_out_right);
 		}else{
+			CommonTasks.savePreferencesForReasonCode(this, CommonConstraints.USER_TYPE, "2");
 			Intent intent = new Intent(SplashScreenActivity.this,
 					AgentHomeActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);

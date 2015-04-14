@@ -13,42 +13,44 @@
         android:layout_marginTop="10dp"
         android:src="@drawable/ic_person" />
 
-    <TextView
-        android:id="@+id/tvAgentImage"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:text="Md. Sajedul Karim"
-        android:textColor="@color/text_color"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-    
-
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp" >
+        android:layout_marginTop="5dp" >
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:gravity="left"
-                android:text="Personal Info"
-                android:textColor="@color/text_color"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Personal Info"
+                    android:textColor="@color/text_color"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ivEditAgentsProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_edit_personal_info" />
+            </RelativeLayout>
 
             <View
                 android:layout_width="fill_parent"
@@ -76,17 +78,17 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
-                        android:text="Address"
+                        android:text="Name"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvAddress"
+                        android:id="@+id/tvAgentName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Dimla , Nilphamari"
+                        android:text="Md. Sajedul Karim"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -102,17 +104,129 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
-                        android:text="Location"
+                        android:text="Mobile"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvCurrentLocation"
+                        android:id="@+id/tvMobileNumber"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Dimla,Nilphamari,Bangladesh"
+                        android:text="01737186095"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp"
+                        android:textStyle="normal" />
+                </TableRow>
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.4"
+                        android:text="Email"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvEmail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:text="mesukcse08@gmail.com"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp"
+                        android:textStyle="normal" />
+                </TableRow>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llEditPersonalInfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:visibility="gone" >
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.4"
+                        android:text="Email"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/tvEditAgentName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:hint="Enter Name"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp"
+                        android:textStyle="normal" />
+                </TableRow>
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.4"
+                        android:text="Email"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/tvEditAgentEmail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:hint="Enter Email"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp"
+                        android:textStyle="normal" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.4"
+                        android:text="Mobile Number"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/tvEditMobileNumber"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:hint="Mobile Number"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -182,17 +296,17 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
-                        android:text="Mobile Number"
+                        android:text="Address"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvMobileNumber"
+                        android:id="@+id/tvAgentAddress"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="01737186095"
+                        android:text="Jol Dhaka, Nilphamari,Bangladesh"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -261,12 +375,12 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
-                android:weightSum="2" >
+                android:weightSum="1" >
 
                 <Button
                     android:id="@+id/btnOk"
@@ -275,15 +389,6 @@
                     android:layout_height="40dp"
                     android:layout_weight="1"
                     android:text="OK" />
-
-                <Button
-                    android:id="@+id/btnCall"
-                    style="@style/Button_Style"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                    android:text="Call" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

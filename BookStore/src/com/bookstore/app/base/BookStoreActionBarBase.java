@@ -5,6 +5,7 @@ import com.bookstore.app.activity.AddBookActivity;
 import com.bookstore.app.activity.AddTeacherActivity;
 import com.bookstore.app.activity.AgentListActivity;
 import com.bookstore.app.activity.BookListActivity;
+import com.bookstore.app.activity.CreateJobActivity;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.activity.TeacherListActivity;
 import com.bookstore.app.utils.CommonTasks;
@@ -88,6 +89,11 @@ public class BookStoreActionBarBase extends FragmentActivity {
 			int4.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			startActivity(int4);
 			break;
+		case R.id.action_create_job:
+			Intent int5 = new Intent(getApplicationContext(),
+					CreateJobActivity.class);
+			int5.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			startActivity(int5);
 
 		case R.id.actionLocation:
 			CommonTasks.showLogs(getApplicationContext(), "Location");

@@ -2,6 +2,7 @@ package com.bookstore.app.fragments;
 
 import java.util.ArrayList;
 
+import com.bookstore.app.activity.AgentIndividualJobDetailsActivity;
 import com.bookstore.app.activity.IndividualJobDetailsActivity;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.adapters.JobListAdapter;
@@ -11,6 +12,7 @@ import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
 import com.bookstore.app.utils.CommonConstraints;
+import com.bookstore.app.utils.CommonTasks;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -100,9 +102,15 @@ public class PendingJobsFragment extends Fragment implements IAsynchronousTask, 
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		Intent intent=new Intent(getActivity(), IndividualJobDetailsActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-		startActivity(intent);
+		if(CommonTasks.getPreferences(getActivity(), CommonConstraints.USER_TYPE).equals("1")){
+			Intent intent=new Intent(getActivity(), IndividualJobDetailsActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			startActivity(intent);
+		}else{
+			Intent intent=new Intent(getActivity(), AgentIndividualJobDetailsActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			startActivity(intent);
+		}
 		
 	}
 

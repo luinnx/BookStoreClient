@@ -74,29 +74,23 @@
 
         <Button
             android:id="@+id/b_Login"
+            style="@style/Button_Style"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="0dp"
-            android:background="#245b9b"
-            android:text="SIGN IN"
-            android:textColor="#fff"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:text="SIGN IN" />
 
         <Button
             android:id="@+id/b_ForgotPassword"
+            style="@style/Button_Style"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="5dp"
-            android:background="#245b9b"
-            android:text="Forgot Password ?"
-            android:textColor="#fff"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:text="Forgot Password ?" />
     </LinearLayout>
 
 </RelativeLayout>

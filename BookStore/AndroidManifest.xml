@@ -72,6 +72,18 @@
             android:name="com.bookstore.app.activity.IndividualJobDetailsActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name="com.bookstore.app.activity.CreateJobActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.bookstore.app.activity.AgentIndividualJobDetailsActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.bookstore.app.activity.AgentMyProfileActivity"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>

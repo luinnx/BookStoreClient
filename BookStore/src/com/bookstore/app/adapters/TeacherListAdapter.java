@@ -72,7 +72,7 @@ public class TeacherListAdapter extends ArrayAdapter<TeacherEntity> {
 
 			holder.tvInstitutionName.setText(teacherEntity.institute);
 			holder.tvTeacherName.setText(teacherEntity.full_name);
-			holder.tvMobileNumber.setText(teacherEntity.mobile_no);
+			holder.tvMobileNumber.setText("Mobile : "+teacherEntity.mobile_no);
 
 		} catch (Exception ex) {
 			CommonTasks.showLogs(context, ex.getMessage());

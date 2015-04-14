@@ -15,10 +15,10 @@
 
     <ImageView
         android:id="@+id/ivAppName"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="25dp"
         android:layout_marginRight="5dp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_app_name" />
@@ -27,68 +27,39 @@
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="5dp" >
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp" >
 
         <LinearLayout
-            android:id="@+id/llPersonalInfo"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="7dp"
-            android:layout_marginRight="7dp"
-            android:layout_marginTop="5dp"
             android:orientation="vertical" >
 
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp" >
-
-                <ImageView
-                    android:id="@+id/ivJobImage"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/ic_book_64" />
+                android:layout_height="wrap_content" >
 
                 <TextView
-                    android:id="@+id/tvNameBook"
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_toRightOf="@+id/ivJobImage"
-                    android:text="Bangla First Paper"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Book Details"
                     android:textColor="@color/text_color"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/ivNameImage"
+                <ImageView
+                    android:id="@+id/ivAddBook"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvNameBook"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/ivJobImage"
-                    android:text="Jod Status: Pending"
-                    android:textColor="@color/text_color"
-                    android:textSize="18sp"
-                    android:textStyle="italic" />
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_more_32" />
             </RelativeLayout>
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:gravity="left"
-                android:text="BooK Info"
-                android:textColor="@color/text_color"
-                android:textSize="15sp"
-                android:textStyle="bold" />
 
             <View
                 android:layout_width="fill_parent"
@@ -98,13 +69,14 @@
                 android:background="#00F" />
 
             <LinearLayout
+                android:id="@+id/llBookView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
-                android:layout_marginRight="7dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
-                android:orientation="vertical"
-                android:padding="10dp" >
+                android:visibility="gone"
+                android:orientation="vertical" >
 
                 <TableRow
                     android:layout_width="fill_parent"
@@ -115,13 +87,38 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
-                        android:text="Author "
+                        android:text="Book Name"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvAuthor"
+                        android:id="@+id/tvBookName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:text="Bangla First Parer"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp"
+                        android:textStyle="normal" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.4"
+                        android:text="Author Name"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvAuthorName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
@@ -134,7 +131,6 @@
                 <TableRow
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -147,7 +143,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvCurrentLocation"
+                        android:id="@+id/tvPublisherName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
@@ -160,7 +156,6 @@
                 <TableRow
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -173,11 +168,11 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvISBN"
+                        android:id="@+id/tvISBNNumber"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="ACRgg2569"
+                        android:text="ACRER235K"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -186,24 +181,23 @@
                 <TableRow
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:orientation="horizontal" >
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
-                        android:text="Quantity"
+                        android:text="Available"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvQuantity"
+                        android:id="@+id/tvAvailableBooks"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="65"
+                        android:text="35"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -212,66 +206,53 @@
                 <TableRow
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:orientation="horizontal" >
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
-                        android:text="Publish date"
+                        android:text="Order"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tvPublishDate"
+                    <EditText
+                        android:id="@+id/etOrderAmountBooks"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_weight="0.6"
-                        android:text="19 jan , 2015"
-                        android:textColor="@color/text_color"
-                        android:textSize="15sp"
-                        android:textStyle="normal" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.4"
-                        android:text="Price"
-                        android:textColor="@color/text_color"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvPrice"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:text="365"
+                        android:gravity="center"
+                        android:hint="Amount of books"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
             </LinearLayout>
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:gravity="left"
-                android:text="Teacher Info"
-                android:textColor="@color/text_color"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Teacher Details"
+                    android:textColor="@color/text_color"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ivAddTeacher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_more_32" />
+            </RelativeLayout>
 
             <View
                 android:layout_width="fill_parent"
@@ -281,14 +262,14 @@
                 android:background="#00F" />
 
             <LinearLayout
-                android:id="@+id/llTeacherInfo"
+                android:id="@+id/llTeacherView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
-                android:layout_marginRight="7dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:visibility="gone"
                 android:layout_marginTop="5dp"
-                android:orientation="vertical"
-                android:padding="10dp" >
+                android:orientation="vertical" >
 
                 <TableRow
                     android:layout_width="fill_parent"
@@ -299,17 +280,17 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
-                        android:text="Name"
+                        android:text="Teacher Name"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvMpoNumber"
+                        android:id="@+id/tvTeacherName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Anisur Rahman"
+                        android:text="Md. Anisur Rahman"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -318,7 +299,6 @@
                 <TableRow
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -331,7 +311,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvMobileNumber"
+                        android:id="@+id/tvTeacherInstitutionName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
@@ -344,7 +324,6 @@
                 <TableRow
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -361,23 +340,36 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="01737186598"
+                        android:text="01737186095"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
             </LinearLayout>
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:gravity="left"
-                android:text="Agent Info"
-                android:textColor="@color/text_color"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Agent Details"
+                    android:textColor="@color/text_color"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ivAddAgent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_more_32" />
+            </RelativeLayout>
 
             <View
                 android:layout_width="fill_parent"
@@ -387,14 +379,14 @@
                 android:background="#00F" />
 
             <LinearLayout
-                android:id="@+id/llAgentInfo"
+                android:id="@+id/llAgentView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
-                android:layout_marginRight="7dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:visibility="gone"
                 android:layout_marginTop="5dp"
-                android:orientation="vertical"
-                android:padding="10dp" >
+                android:orientation="vertical" >
 
                 <TableRow
                     android:layout_width="fill_parent"
@@ -405,7 +397,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
-                        android:text="Name"
+                        android:text="Agent Name"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -415,7 +407,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Md. Sajedul Karim"
+                        android:text="Md. Saedul Karim"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -424,7 +416,6 @@
                 <TableRow
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -437,7 +428,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvAgentsAddress"
+                        android:id="@+id/tvAgentAddress"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
@@ -450,24 +441,23 @@
                 <TableRow
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:orientation="horizontal" >
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
-                        android:text="Current Location"
+                        android:text="MPO No."
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvAgentsCurrentLocation"
+                        android:id="@+id/tvAgentMPONumber"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Dimla, Nilphamari"
+                        android:text="ACR123HJY"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -476,7 +466,6 @@
                 <TableRow
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -489,11 +478,11 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvAgentsMobileNumber"
+                        android:id="@+id/tvAgentMobileNumber"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="01737186598"
+                        android:text="01737186095"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -501,15 +490,15 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/btnOk"
+                android:id="@+id/btnSubmit"
                 style="@style/Button_Style"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="3dp"
-                android:text="OK" />
+                android:layout_marginTop="5dp"
+                android:text="Submit" />
         </LinearLayout>
     </ScrollView>
 
