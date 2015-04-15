@@ -4,17 +4,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bookstore.app.base.AgentActionbarBase;
 
 public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 		implements OnClickListener {
-	LinearLayout llJobSubmitView;
+	LinearLayout llJobSubmitView, llTeacherInfo, llAgentInfo;
 	RelativeLayout rlJobSubmitView;
-	ImageView ivSubmitJob;
+	ImageView ivSubmitJob, ivJobImage;
+	TextView tvNameBook, tvJobStatus, tvAuthor, tvCurrentLocation, tvISBN,
+			tvQuantity, tvPublishDate, tvPrice, tvMpoNumber, tvInstitution,
+			tvTeacherMobileNumber, tvAgentName, tvAgentsAddress,
+			tvAgentsCurrentLocation, tvAgentsMobileNumber, tvTeachersName;
+	EditText etTeachersPassword;
 	Button btnOk;
 
 	@Override
@@ -27,8 +34,8 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 	private void initViews() {
 		ivSubmitJob = (ImageView) findViewById(R.id.ivSubmitJob);
 		llJobSubmitView = (LinearLayout) findViewById(R.id.llJobSubmitView);
-		btnOk=(Button) findViewById(R.id.btnOk);
-		rlJobSubmitView=(RelativeLayout) findViewById(R.id.rlJobSubmitView);
+		btnOk = (Button) findViewById(R.id.btnOk);
+		rlJobSubmitView = (RelativeLayout) findViewById(R.id.rlJobSubmitView);
 		ivSubmitJob.setOnClickListener(this);
 		btnOk.setOnClickListener(this);
 
@@ -37,7 +44,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 	@Override
 	public void onClick(View view) {
 		if (view.getId() == R.id.ivSubmitJob) {
-			if (llJobSubmitView.getVisibility()==View.VISIBLE) {
+			if (llJobSubmitView.getVisibility() == View.VISIBLE) {
 				llJobSubmitView.setVisibility(View.GONE);
 				ivSubmitJob.setImageDrawable(getResources().getDrawable(
 						R.drawable.ic_more_32));
@@ -49,11 +56,11 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 				btnOk.setText("Submit");
 			}
 
-		}else if(view.getId()==R.id.btnOk){
-			if(btnOk.getText().toString().equals("OK")){
+		} else if (view.getId() == R.id.btnOk) {
+			if (btnOk.getText().toString().equals("OK")) {
 				super.onBackPressed();
-			}else{
-				
+			} else {
+
 			}
 		}
 

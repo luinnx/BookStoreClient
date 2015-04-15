@@ -1,10 +1,19 @@
 package com.bookstore.app.activity;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bookstore.app.base.BookStoreActionBarBase;
 
-public class IndividualBookDetailsActivity extends BookStoreActionBarBase{
+public class IndividualBookDetailsActivity extends BookStoreActionBarBase {
+
+	ImageView ivBookImage;
+	TextView tvBookName, tvAddress, tvCurrentLocation, tvISBNNumber,
+			tvBookQuantity, tvAvailable, tvPublishDate, tvBookCondition,
+			tvBookPrice;
+	Button btnOk;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

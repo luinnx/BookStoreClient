@@ -47,7 +47,7 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:id="@+id/ivJobImage"
+                    android:id="@+id/ivBookImage"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
@@ -56,7 +56,7 @@
                     android:src="@drawable/ic_add_book" />
 
                 <TextView
-                    android:id="@+id/ivNameImage"
+                    android:id="@+id/tvBookName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

@@ -69,7 +69,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/ivNameImage"
+                    android:id="@+id/tvJobStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvNameBook"
@@ -333,7 +333,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvMobileNumber"
+                        android:id="@+id/tvInstitution"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
@@ -593,6 +593,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
                         android:hint="Teachers Password"
+                        android:inputType="textPassword"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
