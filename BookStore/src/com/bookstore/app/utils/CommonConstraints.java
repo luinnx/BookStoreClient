@@ -23,6 +23,10 @@ public class CommonConstraints {
 	public final static String USER_MOBILE_NUMBER = "registered_user_mobilenumber";
 	public final static String USER_TYPE="USER_TYPE";
 	
+	//USER INFO
+	public final static int ADMIN_TYPE=1;
+	public final static int AGENT_TYPE=2;
+	public final static String USER_ID="user_id";
 	//job status
 	public final static int COMPLETED_JOB=1;
 	public final static int PENDING_JOB=0;

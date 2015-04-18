@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
+import android.provider.Settings.Secure;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -38,6 +39,11 @@ public class CommonTasks {
 	
 	public static void showToast(Context context,String message){
 		Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+	}
+	
+	public static String getPhoneId(Context _context){
+		String phoneId=Secure.getString(_context.getContentResolver(), Secure.ANDROID_ID);
+		return phoneId;
 	}
 	
 	public static void showLogs(Context context,String message){

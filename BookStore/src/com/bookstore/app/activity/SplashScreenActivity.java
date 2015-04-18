@@ -1,7 +1,10 @@
 package com.bookstore.app.activity;
 
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
+import com.bookstore.app.entities.LoginEntity;
+import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
+import com.bookstore.app.managers.AdminManager;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
 import com.google.android.gms.plus.model.people.Person.AgeRange;
@@ -21,32 +24,36 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
-public class SplashScreenActivity extends Activity implements OnClickListener, AnimationListener, IAsynchronousTask{
+public class SplashScreenActivity extends Activity implements OnClickListener,
+		AnimationListener, IAsynchronousTask {
 
 	Animation imageAnimation;
 	LinearLayout llLoginPanel;
 	EditText etUserName, etPassword;
 	ImageView ivLogo;
-	Button b_Login,b_ForgotPassword;
+	Button b_Login, b_ForgotPassword;
 	DownloadableAsyncTask downloadAsyncTask;
 	ProgressDialog dialog;
 	String username, password;
 	CheckBox box;
+	String userType = "AGENT";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash_screen);
 		initViews();
 	}
-	
+
 	private void initViews() {
 		ivLogo = (ImageView) findViewById(R.id.ivLogo);
 		etUserName = (EditText) findViewById(R.id.etUserName);
 		etPassword = (EditText) findViewById(R.id.etPassword);
 		b_Login = (Button) findViewById(R.id.b_Login);
-		box=(CheckBox) findViewById(R.id.cbIsLoginAsAdmin);
-		b_ForgotPassword= (Button) findViewById(R.id.b_ForgotPassword);
+		box = (CheckBox) findViewById(R.id.cbIsLoginAsAdmin);
+		b_ForgotPassword = (Button) findViewById(R.id.b_ForgotPassword);
 		llLoginPanel = (LinearLayout) findViewById(R.id.llLoginPanel);
 
 		imageAnimation = AnimationUtils.loadAnimation(this, R.anim.splash);
@@ -67,16 +74,16 @@ public class SplashScreenActivity extends Activity implements OnClickListener, A
 				public void run() {
 					SplashScreenActivity.this.finish();
 
-					if (CommonTasks.getPreferences(SplashScreenActivity.this, "USER_TYPE")
-							.equals("1")) {
+					if (CommonTasks.getPreferences(SplashScreenActivity.this,
+							"USER_TYPE").equals("1")) {
 						Intent intent = new Intent(SplashScreenActivity.this,
 								AdminHomeActivity.class);
 						intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 						startActivity(intent);
 						overridePendingTransition(android.R.anim.slide_in_left,
 								android.R.anim.slide_out_right);
-					} else if (CommonTasks.getPreferences(SplashScreenActivity.this,
-							"USER_TYPE").equals("2")) {
+					} else if (CommonTasks.getPreferences(
+							SplashScreenActivity.this, "USER_TYPE").equals("2")) {
 						Intent intent = new Intent(SplashScreenActivity.this,
 								AgentHomeActivity.class);
 						intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -91,7 +98,6 @@ public class SplashScreenActivity extends Activity implements OnClickListener, A
 		}
 
 	}
-	
 
 	@Override
 	public void onAnimationEnd(Animation arg0) {
@@ -112,7 +118,7 @@ public class SplashScreenActivity extends Activity implements OnClickListener, A
 	}
 
 	private void validation() {
-		/*if (etUserName.getText().toString().equals("")) {
+		if (etUserName.getText().toString().equals("")) {
 			Toast.makeText(this, "Enter UserName!", Toast.LENGTH_SHORT).show();
 			return;
 		} else {
@@ -130,26 +136,25 @@ public class SplashScreenActivity extends Activity implements OnClickListener, A
 			CommonTasks.goSettingPage(this);
 			return;
 		}
-		LoginRequest();*/
-		
-		if(box.isChecked()){
-			CommonTasks.savePreferencesForReasonCode(this, CommonConstraints.USER_TYPE, "1");
-			Intent intent = new Intent(SplashScreenActivity.this,
-					AdminHomeActivity.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-			startActivity(intent);
-			overridePendingTransition(android.R.anim.slide_in_left,
-					android.R.anim.slide_out_right);
-		}else{
-			CommonTasks.savePreferencesForReasonCode(this, CommonConstraints.USER_TYPE, "2");
-			Intent intent = new Intent(SplashScreenActivity.this,
-					AgentHomeActivity.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-			startActivity(intent);
-			overridePendingTransition(android.R.anim.slide_in_left,
-					android.R.anim.slide_out_right);
-		}
-				
+		LoginRequest();
+
+		/*
+		 * if(box.isChecked()){ CommonTasks.savePreferencesForReasonCode(this,
+		 * CommonConstraints.USER_TYPE, "1"); Intent intent = new
+		 * Intent(SplashScreenActivity.this, AdminHomeActivity.class);
+		 * intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+		 * startActivity(intent);
+		 * overridePendingTransition(android.R.anim.slide_in_left,
+		 * android.R.anim.slide_out_right); }else{
+		 * CommonTasks.savePreferencesForReasonCode(this,
+		 * CommonConstraints.USER_TYPE, "2"); Intent intent = new
+		 * Intent(SplashScreenActivity.this, AgentHomeActivity.class);
+		 * intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+		 * startActivity(intent);
+		 * overridePendingTransition(android.R.anim.slide_in_left,
+		 * android.R.anim.slide_out_right); }
+		 */
+
 	}
 
 	private void LoginRequest() {
@@ -163,34 +168,71 @@ public class SplashScreenActivity extends Activity implements OnClickListener, A
 	@Override
 	public void showProgressBar() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void hideProgressBar() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public Object doInBackground() {
-		// TODO Auto-generated method stub
-		return null;
+		IAdminManager adminManager = new AdminManager();
+		if (box.isChecked()) {
+			return adminManager.getAuthentication(username, password,
+					CommonTasks.getPhoneId(getApplicationContext()),
+					CommonConstraints.ADMIN_TYPE);
+		} else {
+			return adminManager.getAuthentication(username, password,
+					CommonTasks.getPhoneId(getApplicationContext()),
+					CommonConstraints.AGENT_TYPE);
+		}
+
 	}
 
 	@Override
 	public void processDataAfterDownload(Object data) {
-		// TODO Auto-generated method stub
-		
+		if (data != null) {
+			LoginEntity entity = (LoginEntity) data;
+			if (entity.status) {
+				CommonTasks.savePreferencesForReasonCode(this,
+						CommonConstraints.USER_TYPE, "" + entity.type);
+				CommonTasks.savePreferencesForReasonCode(this,
+						CommonConstraints.USER_ID, "" + entity.id);
+
+				if (entity.type == 1) {
+					// Admin
+					Intent intent = new Intent(SplashScreenActivity.this,
+							AdminHomeActivity.class);
+					intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+					startActivity(intent);
+					overridePendingTransition(android.R.anim.slide_in_left,
+							android.R.anim.slide_out_right);
+				} else {
+					// Agent
+					Intent intent = new Intent(SplashScreenActivity.this,
+							AgentHomeActivity.class);
+					intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+					startActivity(intent);
+					overridePendingTransition(android.R.anim.slide_in_left,
+							android.R.anim.slide_out_right);
+				}
+
+			} else {
+				CommonTasks.showToast(getApplicationContext(), entity.message);
+			}
+		}
+
 	}
 
 	@Override
 	public void onClick(View view) {
-		if(view.getId()==R.id.b_Login){
+		if (view.getId() == R.id.b_Login) {
 			validation();
 		}
-		
+
 	}
 
-	
 }

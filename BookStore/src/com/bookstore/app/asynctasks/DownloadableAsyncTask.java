@@ -23,7 +23,7 @@ public class DownloadableAsyncTask extends AsyncTask<Void, Void, Object> {
 	protected Object doInBackground(Void... params) {
 		try {
 			if (asynchronousTask != null) {
-				asynchronousTask.doInBackground();
+				return asynchronousTask.doInBackground();
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();

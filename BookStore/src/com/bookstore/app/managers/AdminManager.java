@@ -4,8 +4,11 @@ package com.bookstore.app.managers;
 import com.bookstore.app.entities.AgentListRoot;
 import com.bookstore.app.entities.BookListRoot;
 import com.bookstore.app.entities.JobListRoot;
+import com.bookstore.app.entities.LoginEntity;
 import com.bookstore.app.entities.TeacherListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
+import com.bookstore.app.utils.CommonUrls;
+import com.bookstore.app.utils.JSONfunctions;
 
 public class AdminManager implements IAdminManager{
 
@@ -41,6 +44,14 @@ public class AdminManager implements IAdminManager{
 	public TeacherListRoot getTeacherList() {
 		
 		return null;
+	}
+
+	@Override
+	public LoginEntity getAuthentication(String email, String password, String imei,
+			int userType) {
+		LoginEntity entity=null;
+		entity=(LoginEntity) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().getAuthentication, email,password,imei,userType), LoginEntity.class);
+		return entity;
 	}
 
 }

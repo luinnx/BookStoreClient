@@ -42,7 +42,7 @@ public class JSONfunctions {
 	 * @param url
 	 * @return
 	 */
-	public static int TIMEOUT_MILLISEC = 50000; // = 50 seconds \
+	public static int TIMEOUT_MILLISEC = 100000; // = 50 seconds \
 
 	public static Object retrieveDataFromStream(String _url, Class<?> dataClass) {
 		InputStream inputStream = null;
