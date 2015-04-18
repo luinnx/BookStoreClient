@@ -10,7 +10,9 @@ public class CommonUrls {
 	public String IMAGE_BASE_URL="";
 	
 	public String getAuthentication=BASE_URL+"user/authentication?email=%s&password=%s&IMEI=%s&type=%s";
-	public String getCompletedJobList=BASE_URL+"admin/admin_joblist?job_status=%s";
+	public String getCompletedJobList=BASE_URL+"admin/job_list?job_status=%s";
+	public String individualJobDetails=BASE_URL+"admin/job_details?job_id=%s";
+	public String createAgent=BASE_URL+"admin/add_agent";
 
 	public static CommonUrls getInstance() {
 		return commonUrls;

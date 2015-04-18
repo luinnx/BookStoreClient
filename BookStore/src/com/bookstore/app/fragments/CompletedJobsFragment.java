@@ -8,6 +8,7 @@ import com.bookstore.app.activity.R;
 import com.bookstore.app.adapters.JobListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.entities.JobEntity;
+import com.bookstore.app.entities.JobListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
@@ -31,6 +32,7 @@ public class CompletedJobsFragment extends Fragment implements IAsynchronousTask
 	ProgressDialog dialog;
 	JobListAdapter adapter;
 	ListView listView;
+	JobListRoot jobListRoot=null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_completed_jobs, container, false);
@@ -87,7 +89,15 @@ public class CompletedJobsFragment extends Fragment implements IAsynchronousTask
 
 	@Override
 	public void processDataAfterDownload(Object data) {
-		ArrayList<JobEntity> list=new ArrayList<JobEntity>();
+		
+		if(data!=null){
+			jobListRoot=new JobListRoot();
+			jobListRoot=(JobListRoot) data;
+			adapter=new JobListAdapter(getActivity(), R.layout.job_list_item, jobListRoot.jobList);
+			listView.setAdapter(adapter);
+		}
+		
+		/*ArrayList<JobEntity> list=new ArrayList<JobEntity>();
 		JobEntity entity=new JobEntity();
 		entity.agentname="sajedul karim";
 		entity.bookname="Bangla First Paper";
@@ -105,15 +115,16 @@ public class CompletedJobsFragment extends Fragment implements IAsynchronousTask
 		entity.bookImage="";
 		list.add(entity);
 		adapter=new JobListAdapter(getActivity(), R.layout.job_list_item, list);
-		listView.setAdapter(adapter);
+		listView.setAdapter(adapter);*/
 		
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-		
+		JobEntity jobEntity=jobListRoot.jobList.get(position);
 		if(CommonTasks.getPreferences(getActivity(), CommonConstraints.USER_TYPE).equals("1")){
 			Intent intent=new Intent(getActivity(), IndividualJobDetailsActivity.class);
+			intent.putExtra("JOB_ID", ""+jobEntity.jobid);
 			intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			startActivity(intent);
 		}else{
