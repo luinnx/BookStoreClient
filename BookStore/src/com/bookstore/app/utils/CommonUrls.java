@@ -26,6 +26,7 @@ public class CommonUrls {
 	public String agentJobList = BASE_URL
 			+ "agent/job_list?agentId=%s&job_status=%s&pageIndex=%s";
 	public String agentJobDetails = BASE_URL + "agent/job_details?jobID=%s";
+	public String jobSubimt = BASE_URL + "agent/job_submit?teacherUserName=%s&teacherPassword=%s&bookID=%s&no_of_book=%s&jobid=%s&job_status=%s";
 
 	public static CommonUrls getInstance() {
 		return commonUrls;
