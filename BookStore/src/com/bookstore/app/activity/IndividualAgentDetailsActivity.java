@@ -13,7 +13,6 @@ import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
 import com.bookstore.app.utils.CommonTasks;
-import com.bookstore.app.utils.TimeUtils;
 
 public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 		implements IAsynchronousTask {

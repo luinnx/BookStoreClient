@@ -22,6 +22,8 @@
         android:layout_marginRight="5dp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_app_name" />
+    
+    
 
     <ScrollView
         android:id="@+id/scrollView1"
