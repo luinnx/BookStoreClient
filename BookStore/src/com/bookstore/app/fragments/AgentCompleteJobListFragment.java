@@ -1,8 +1,10 @@
 package com.bookstore.app.fragments;
 
+import com.bookstore.app.activity.AgentIndividualJobDetailsActivity;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.adapters.AgentJobListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
+import com.bookstore.app.entities.AgentJobList;
 import com.bookstore.app.entities.AgentJobListRoot;
 import com.bookstore.app.interfaces.IAgent;
 import com.bookstore.app.interfaces.IAsynchronousTask;
@@ -11,14 +13,18 @@ import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class AgentCompleteJobListFragment extends Fragment implements IAsynchronousTask{
+public class AgentCompleteJobListFragment extends Fragment implements IAsynchronousTask, OnItemClickListener{
 	ListView complete_job_list;
 	DownloadableAsyncTask downloadableAsyncTask;
 	ProgressDialog progressDialog;
@@ -34,7 +40,7 @@ public class AgentCompleteJobListFragment extends Fragment implements IAsynchron
 
 	private void initalization(ViewGroup root) {
 		complete_job_list = (ListView) root.findViewById(R.id.complete_job_list);
-		
+		complete_job_list.setOnItemClickListener(this);
 		LoadCompletedJob();
 	}
 
@@ -72,6 +78,23 @@ public class AgentCompleteJobListFragment extends Fragment implements IAsynchron
 				adapter = new AgentJobListAdapter(getActivity(), R.layout.agent_job_list_item, agentJobListRoot.agentJobList);
 				complete_job_list.setAdapter(adapter);
 			}
+		}
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		try{
+			AgentJobList agentJobList = (AgentJobList) complete_job_list.getItemAtPosition(position);
+			if(agentJobList != null){
+				Intent intent = new Intent(getActivity(), AgentIndividualJobDetailsActivity.class);
+				intent.putExtra("JOB_ID", ""+agentJobList.JobID);
+				intent.putExtra("MODE", "1");
+				intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				startActivity(intent);
+			}
+		}catch(Exception ex){
+			Log.e("SB", ex.getMessage());
 		}
 	}
 }

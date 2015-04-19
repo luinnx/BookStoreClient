@@ -5,23 +5,31 @@
     android:background="@color/app_background_color"
     android:orientation="vertical" >
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/ic_launcher" />
-
-    <ImageView
-        android:id="@+id/ivAppName"
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_app_name" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp" >
+
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_launcher" />
+
+        <ImageView
+            android:id="@+id/ivAppName"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_toRightOf="@id/ivLogo"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_app_name" />
+    </RelativeLayout>
 
     <ScrollView
         android:id="@+id/scrollView1"
@@ -52,7 +60,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="50dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:src="@drawable/ic_book_64" />
 
@@ -63,8 +71,8 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_toRightOf="@+id/ivJobImage"
-                    android:text="Bangla First Paper"
-                    android:textColor="@color/text_color"
+                    android:text=""
+                    android:textColor="@color/text_view_color"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -75,8 +83,8 @@
                     android:layout_below="@+id/tvNameBook"
                     android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@+id/ivJobImage"
-                    android:text="Jod Status: Pending"
-                    android:textColor="@color/text_color"
+                    android:text=""
+                    android:textColor="@color/text_view_color"
                     android:textSize="15sp"
                     android:textStyle="italic" />
             </RelativeLayout>
@@ -88,7 +96,7 @@
                 android:layout_marginTop="5dp"
                 android:gravity="left"
                 android:text="BooK Info"
-                android:textColor="@color/text_color"
+                android:textColor="@color/text_view_color"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -118,7 +126,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:text="Author "
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/text_view_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -144,16 +152,16 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:text="Publisher"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/text_view_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvCurrentLocation"
+                        android:id="@+id/tvPublisherName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Grontho Kutir"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -170,7 +178,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:text="ISBN"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/text_view_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -179,7 +187,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="ACRgg2569"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -196,7 +204,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:text="Quantity"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/text_view_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -205,7 +213,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="65"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -222,7 +230,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:text="Publish date"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/text_view_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -231,7 +239,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="19 jan , 2015"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -248,7 +256,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:text="Price"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/text_view_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -257,7 +265,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="365"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -271,7 +279,7 @@
                 android:layout_marginTop="5dp"
                 android:gravity="left"
                 android:text="Teacher Info"
-                android:textColor="@color/text_color"
+                android:textColor="@color/text_view_color"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -302,16 +310,16 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:text="Name"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/text_view_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvMpoNumber"
+                        android:id="@+id/tvTeacherName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Anisur Rahman"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -328,7 +336,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:text="Institution"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/text_view_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -337,7 +345,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Hatibandha Alimuddin Degree Colliage"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -354,7 +362,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:text="Mobile"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/text_view_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -363,7 +371,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="01737186598"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -377,7 +385,7 @@
                 android:layout_marginTop="5dp"
                 android:gravity="left"
                 android:text="Agent Info"
-                android:textColor="@color/text_color"
+                android:textColor="@color/text_view_color"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -408,7 +416,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:text="Name"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/text_view_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -417,7 +425,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Md. Sajedul Karim"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -434,7 +442,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:text="Address"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/text_view_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -443,7 +451,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Dimla , Nilphamari"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -460,7 +468,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:text="Current Location"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/text_view_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -469,7 +477,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Dimla, Nilphamari"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -486,7 +494,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:text="Mobile"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/text_view_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -495,105 +503,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="01737186598"
-                        android:textColor="@color/text_color"
-                        android:textSize="15sp"
-                        android:textStyle="normal" />
-                </TableRow>
-            </LinearLayout>
-
-            <RelativeLayout
-                android:id="@+id/rlJobSubmitView"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:text="Submit Job"
-                    android:textColor="@color/text_color"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/ivSubmitJob"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/ic_more_32" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:background="#00F" />
-
-            <LinearLayout
-                android:id="@+id/llJobSubmitView"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
-                android:orientation="vertical"
-                android:visibility="gone" >
-
-                <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="0.4"
-                        android:text="Teachers Name"
-                        android:textColor="@color/text_color"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvTeachersName"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:text="Md. Anisur rahman"
-                        android:textColor="@color/text_color"
-                        android:textSize="15sp"
-                        android:textStyle="normal" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="0.4"
-                        android:text="Password"
-                        android:textColor="@color/text_color"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/etTeachersPassword"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:hint="Teachers Password"
-                        android:inputType="textPassword"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />

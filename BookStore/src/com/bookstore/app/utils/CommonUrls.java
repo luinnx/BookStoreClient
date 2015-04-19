@@ -23,6 +23,7 @@ public class CommonUrls {
 	// agent service api
 	public String agentJobList = BASE_URL
 			+ "agent/job_list?agentId=%s&job_status=%s&pageIndex=%s";
+	public String agentJobDetails = BASE_URL + "agent/job_details?jobID=%s";
 
 	public static CommonUrls getInstance() {
 		return commonUrls;

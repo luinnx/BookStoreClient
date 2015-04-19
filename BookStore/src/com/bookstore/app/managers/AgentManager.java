@@ -3,6 +3,7 @@ package com.bookstore.app.managers;
 import android.util.Log;
 
 import com.bookstore.app.entities.AgentJobListRoot;
+import com.bookstore.app.entities.JobDetails;
 import com.bookstore.app.interfaces.IAgent;
 import com.bookstore.app.utils.CommonUrls;
 import com.bookstore.app.utils.JSONfunctions;
@@ -19,6 +20,17 @@ public class AgentManager implements IAgent{
 			Log.e("BS", ex.getMessage());
 		}
 		return agentJobListRoot;
+	}
+
+	@Override
+	public JobDetails getJobDetails(String jobID) {
+		JobDetails jobDetails = null;
+		try{
+			jobDetails = (JobDetails) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().agentJobDetails, jobID), JobDetails.class);
+		}catch(Exception ex){
+			Log.e("BS", ex.getMessage());
+		}
+		return jobDetails;
 	}
 
 }
