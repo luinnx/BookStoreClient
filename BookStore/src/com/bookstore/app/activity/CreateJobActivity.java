@@ -149,11 +149,11 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 	public Object doInBackground() {
 		IAdminManager adminManager=new AdminManager();
 		if(MODE.equals("BOOK_MODE")){
-			return adminManager.getBookList();
+			return adminManager.getBookList(0);
 		}else if(MODE.equals("TEACHER_MODE")){
 			return adminManager.getTeacherList();
 		}else if(MODE.equals("AGENT_MODE")){
-			return adminManager.getAgentList();
+			return adminManager.getAgentList(0);
 		}
 		return null;
 	}

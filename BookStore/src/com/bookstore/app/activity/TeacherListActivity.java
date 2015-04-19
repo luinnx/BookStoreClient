@@ -59,7 +59,7 @@ public class TeacherListActivity extends BookStoreActionBarBase implements
 	@Override
 	public Object doInBackground() {
 		IAdminManager manager = new AdminManager();
-		return manager.getAgentList();
+		return manager.getAgentList(0);
 	}
 
 	@Override

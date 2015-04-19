@@ -61,7 +61,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_toRightOf="@+id/ivJobBookImage"
-                    android:text="Bangla First Paper"
+                    android:text=""
                     android:textColor="@color/text_color"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -71,9 +71,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvNameBook"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/ivJobBookImage"
-                    android:text="Jod Status: Pending"
+                    android:text=""
                     android:textColor="@color/text_color"
                     android:textSize="18sp"
                     android:textStyle="italic" />
@@ -115,7 +115,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
-                        android:text="Author "
+                        android:text="Author"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -125,7 +125,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Bangla Academy"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -135,6 +135,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:visibility="gone"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -151,7 +152,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Grontho Kutir"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -177,7 +178,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="ACRgg2569"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -203,7 +204,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="65"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -229,7 +230,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="19 jan , 2015"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -255,7 +256,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="365"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -305,11 +306,11 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvMpoNumber"
+                        android:id="@+id/tvTeacherName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Anisur Rahman"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -331,11 +332,11 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvMobileNumber"
+                        android:id="@+id/tvInstitude"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Hatibandha Alimuddin Degree Colliage"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -361,7 +362,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="01737186598"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -415,7 +416,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Md. Sajedul Karim"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -441,7 +442,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Dimla , Nilphamari"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -467,7 +468,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Dimla, Nilphamari"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -493,7 +494,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="01737186598"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />

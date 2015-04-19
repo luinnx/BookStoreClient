@@ -14,9 +14,11 @@ import com.bookstore.app.adapters.AgentListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.BookStoreActionBarBase;
 import com.bookstore.app.entities.AgentEntity;
+import com.bookstore.app.entities.AgentListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
+import com.bookstore.app.utils.CommonTasks;
 
 public class AgentListActivity extends BookStoreActionBarBase implements
 		OnItemClickListener, IAsynchronousTask {
@@ -25,6 +27,7 @@ public class AgentListActivity extends BookStoreActionBarBase implements
 	DownloadableAsyncTask downloadableAsyncTask;
 	ProgressDialog dialog;
 	AgentListAdapter adapter;
+	AgentListRoot agentListRoot=null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +47,10 @@ public class AgentListActivity extends BookStoreActionBarBase implements
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View view, int position,
 			long arg3) {
+		AgentEntity agentEntity=agentListRoot.agentList.get(position);
 		Intent intent = new Intent(getApplicationContext(),
 				IndividualAgentDetailsActivity.class);
+		intent.putExtra("AGENT_ID", ""+agentEntity._id);
 		intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		startActivity(intent);
 	}
@@ -60,53 +65,37 @@ public class AgentListActivity extends BookStoreActionBarBase implements
 
 	@Override
 	public void showProgressBar() {
-		// TODO Auto-generated method stub
+		dialog = new ProgressDialog(this, ProgressDialog.THEME_HOLO_LIGHT);
+		dialog.setMessage("Loading , Plaese wait...");
+		dialog.setCancelable(false);
+		dialog.show();
 
 	}
 
 	@Override
 	public void hideProgressBar() {
-		// TODO Auto-generated method stub
+		dialog.dismiss();
 
 	}
 
 	@Override
 	public Object doInBackground() {
 		IAdminManager manager = new AdminManager();
-		return manager.getAgentList();
+		return manager.getAgentList(0);
 	}
 
 	@Override
 	public void processDataAfterDownload(Object data) {
-		ArrayList<AgentEntity> entities = new ArrayList<AgentEntity>();
-		AgentEntity entity = new AgentEntity();
-		entity._id = 1;
-		entity.address = "Nilphamari";
-		entity.create_date = "20 jan , 2015";
-		entity.email = "mesukcse08@gmail.com";
-		entity.full_name = "Md. Sajedul Karim";
-		entity.gcm_id = "12354875wdhwhdgjwh";
-		entity.isActive = 1;
-		entity.mobile_no = "01737186095";
-		entity.mpo_no = "kutir123";
-		entity.pic_url = "";
-		entities.add(entity);
 
-		entity = new AgentEntity();
-		entity._id = 2;
-		entity.address = "Jamal Pur";
-		entity.create_date = "20 Dec , 2014";
-		entity.email = "mhasan@gmail.com";
-		entity.full_name = "Md. Mahbub hasan";
-		entity.gcm_id = "1jjghs4875wdhwhdgjwh";
-		entity.isActive = 1;
-		entity.mobile_no = "01937569856";
-		entity.mpo_no = "kutir124";
-		entity.pic_url = "";
-		entities.add(entity);
-		adapter = new AgentListAdapter(getApplicationContext(),
-				R.layout.agent_list_item, entities);
-		lvAllAgentList.setAdapter(adapter);
+		if (data != null) {
+			agentListRoot = new AgentListRoot();
+			agentListRoot = (AgentListRoot) data;
+			adapter = new AgentListAdapter(getApplicationContext(),
+					R.layout.agent_list_item, agentListRoot.agentList);
+			lvAllAgentList.setAdapter(adapter);
+		} else {
+			CommonTasks.showToast(getApplicationContext(), "No Agent Found");
+		}
 	}
 
 }

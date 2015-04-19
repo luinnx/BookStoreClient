@@ -23,7 +23,8 @@ public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 	TextView tvNameBook, tvJobStatus, tvAuthor, tvCurrentLocation, tvISBN,
 			tvQuantity, tvPublishDate, tvPrice, tvMpoNumber, tvMobileNumber,
 			tvTeacherMobileNumber, tvAgentName, tvAgentsAddress,
-			tvAgentsCurrentLocation, tvAgentsMobileNumber;
+			tvAgentsCurrentLocation, tvAgentsMobileNumber, tvInstitude,
+			tvTeacherName;
 	Button btnOk;
 
 	DownloadableAsyncTask downloadableAsyncTask;
@@ -51,7 +52,8 @@ public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 		tvQuantity = (TextView) findViewById(R.id.tvQuantity);
 		tvPublishDate = (TextView) findViewById(R.id.tvPublishDate);
 		tvPrice = (TextView) findViewById(R.id.tvPrice);
-		tvMpoNumber = (TextView) findViewById(R.id.tvMpoNumber);
+		tvTeacherName = (TextView) findViewById(R.id.tvTeacherName);
+		tvInstitude = (TextView) findViewById(R.id.tvInstitude);
 		tvMobileNumber = (TextView) findViewById(R.id.tvMobileNumber);
 		tvTeacherMobileNumber = (TextView) findViewById(R.id.tvTeacherMobileNumber);
 		tvAgentName = (TextView) findViewById(R.id.tvAgentName);
@@ -83,13 +85,16 @@ public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 
 	@Override
 	public void showProgressBar() {
-		// TODO Auto-generated method stub
+		dialog = new ProgressDialog(this, ProgressDialog.THEME_HOLO_LIGHT);
+		dialog.setMessage("Loading , Plaese wait...");
+		dialog.setCancelable(false);
+		dialog.show();
 
 	}
 
 	@Override
 	public void hideProgressBar() {
-		// TODO Auto-generated method stub
+		dialog.dismiss();
 
 	}
 
@@ -106,13 +111,22 @@ public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 			jobEntity = (JobEntity) data;
 
 			tvNameBook.setText(jobEntity.bookname);
-			tvJobStatus.setText("" + jobEntity.jobstatus);
+			
+			if(jobEntity.jobstatus){
+				tvJobStatus.setText("Status : Completed" );
+			}else{
+				tvJobStatus.setText("Status : Pending" );
+			}
+			
 			tvAuthor.setText(jobEntity.authername);
-			tvCurrentLocation.setText(jobEntity.agentcurrentlocation);
+			tvAgentsCurrentLocation.setText(jobEntity.agentcurrentlocation);
 			tvISBN.setText(jobEntity.isbn);
-			tvQuantity.setText(""+jobEntity.quantity);
+			tvQuantity.setText("" + jobEntity.quantity);
 			tvPublishDate.setText(jobEntity.publishdate);
 			tvPrice.setText("" + jobEntity.bookprice);
+			
+			tvTeacherName.setText(jobEntity.teachername);
+			tvInstitude.setText(jobEntity.institute);
 			tvTeacherMobileNumber.setText(jobEntity.teachermobilenumber);
 			tvAgentName.setText(jobEntity.agentname);
 			tvAgentsAddress.setText(jobEntity.agentaddress);

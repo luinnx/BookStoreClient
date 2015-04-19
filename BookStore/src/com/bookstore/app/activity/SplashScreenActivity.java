@@ -138,23 +138,6 @@ public class SplashScreenActivity extends Activity implements OnClickListener,
 		}
 		LoginRequest();
 
-		/*
-		 * if(box.isChecked()){ CommonTasks.savePreferencesForReasonCode(this,
-		 * CommonConstraints.USER_TYPE, "1"); Intent intent = new
-		 * Intent(SplashScreenActivity.this, AdminHomeActivity.class);
-		 * intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-		 * startActivity(intent);
-		 * overridePendingTransition(android.R.anim.slide_in_left,
-		 * android.R.anim.slide_out_right); }else{
-		 * CommonTasks.savePreferencesForReasonCode(this,
-		 * CommonConstraints.USER_TYPE, "2"); Intent intent = new
-		 * Intent(SplashScreenActivity.this, AgentHomeActivity.class);
-		 * intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-		 * startActivity(intent);
-		 * overridePendingTransition(android.R.anim.slide_in_left,
-		 * android.R.anim.slide_out_right); }
-		 */
-
 	}
 
 	private void LoginRequest() {
@@ -167,13 +150,16 @@ public class SplashScreenActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void showProgressBar() {
-		// TODO Auto-generated method stub
+		dialog = new ProgressDialog(this, ProgressDialog.THEME_HOLO_LIGHT);
+		dialog.setMessage("Login , Plaese wait...");
+		dialog.setCancelable(false);
+		dialog.show();
 
 	}
 
 	@Override
 	public void hideProgressBar() {
-		// TODO Auto-generated method stub
+		dialog.dismiss();
 
 	}
 
@@ -225,6 +211,8 @@ public class SplashScreenActivity extends Activity implements OnClickListener,
 			} else {
 				CommonTasks.showToast(getApplicationContext(), entity.message);
 			}
+		}else{
+			CommonTasks.showToast(getApplicationContext(), "Internal Server Error!!!");
 		}
 
 	}

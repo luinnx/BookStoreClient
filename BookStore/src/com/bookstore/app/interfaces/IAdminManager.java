@@ -1,5 +1,6 @@
 package com.bookstore.app.interfaces;
 
+import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
 import com.bookstore.app.entities.BookListRoot;
 import com.bookstore.app.entities.JobEntity;
@@ -19,9 +20,10 @@ public interface IAdminManager {
 			String mobile_no, String address, byte[] pic_url, String mpo_no,
 			int isActive, int type);
 
-	public AgentListRoot getAgentList();
+	public AgentListRoot getAgentList(int pageIndex);
+	public AgentEntity getIndividualAgentDetails(String agentID);
 
-	public BookListRoot getBookList();
+	public BookListRoot getBookList(int pageIndex);
 
 	public TeacherListRoot getTeacherList();
 

@@ -2,6 +2,7 @@ package com.bookstore.app.managers;
 
 import android.util.Base64;
 
+import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
 import com.bookstore.app.entities.BookListRoot;
 import com.bookstore.app.entities.JobEntity;
@@ -36,16 +37,21 @@ public class AdminManager implements IAdminManager {
 	}
 
 	@Override
-	public AgentListRoot getAgentList() {
-
+	public AgentListRoot getAgentList(int pageIndex) {
+		AgentListRoot agentListRoot = null;
+		try {
+			agentListRoot = (AgentListRoot) JSONfunctions
+					.retrieveDataFromStream(String.format(
+							CommonUrls.getInstance().getAllAgent, pageIndex),
+							AgentListRoot.class);
+			if (agentListRoot.agentList.size() > 0)
+				return agentListRoot;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 		return null;
 	}
 
-	@Override
-	public BookListRoot getBookList() {
-
-		return null;
-	}
 
 	@Override
 	public TeacherListRoot getTeacherList() {
@@ -72,16 +78,12 @@ public class AdminManager implements IAdminManager {
 		return entity;
 	}
 
-	/*public String password;
-	public String email;
-	public String mobile_no;
-	public String address;
-	public String pic_url;
-	public String gcm_id;
-	public String mpo_no;
-	public int isActive;
-	public int type;
-	public String rowPic;*/
+	/*
+	 * public String password; public String email; public String mobile_no;
+	 * public String address; public String pic_url; public String gcm_id;
+	 * public String mpo_no; public int isActive; public int type; public String
+	 * rowPic;
+	 */
 
 	@Override
 	public boolean createAgent(String full_name, String password, String email,
@@ -114,6 +116,29 @@ public class AdminManager implements IAdminManager {
 		}
 
 		return result;
+	}
+
+	@Override
+	public AgentEntity getIndividualAgentDetails(String agentID) {
+		AgentEntity agentEntity = null;
+		try {
+			agentEntity = (AgentEntity) JSONfunctions.retrieveDataFromStream(
+					String.format(
+							CommonUrls.getInstance().getIndividualAgentDetails,
+							agentID), AgentEntity.class);
+			if (agentEntity != null)
+				return agentEntity;
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public BookListRoot getBookList(int pageIndex) {
+		BookListRoot bookListRoot=null;
+		//bookListRoot=JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance()., args), dataClass)
+		return null;
 	}
 
 }

@@ -13,26 +13,28 @@
         android:layout_marginTop="10dp"
         android:src="@drawable/ic_person" />
 
-    <TextView
+    <!--
+         <TextView
         android:id="@+id/tvAgentName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:gravity="center"
-        android:text="Md. Sajedul Karim"
+        android:text=""
         android:textColor="@color/text_color"
         android:textSize="18sp"
         android:textStyle="bold" />
-    
+    -->
+
 
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp" >
+        android:layout_marginTop="5dp" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -66,6 +68,31 @@
                 android:layout_marginTop="5dp"
                 android:orientation="vertical"
                 android:padding="10dp" >
+                
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.4"
+                        android:text="Name"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvAgentName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:text=""
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp"
+                        android:textStyle="normal" />
+                </TableRow>
 
                 <TableRow
                     android:layout_width="fill_parent"
@@ -86,37 +113,13 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Dimla , Nilphamari"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
 
-                <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.4"
-                        android:text="Location"
-                        android:textColor="@color/text_color"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvCurrentLocation"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:text="Dimla,Nilphamari,Bangladesh"
-                        android:textColor="@color/text_color"
-                        android:textSize="15sp"
-                        android:textStyle="normal" />
-                </TableRow>
+              
             </LinearLayout>
 
             <TextView
@@ -166,7 +169,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="KUTIR123"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -192,7 +195,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="01737186095"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -218,7 +221,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Jol Dhaka, Nilphamari,Bangladesh"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -244,7 +247,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="25 jan , 2015"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -261,10 +264,10 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
                 android:orientation="horizontal"
                 android:weightSum="2" >
 
