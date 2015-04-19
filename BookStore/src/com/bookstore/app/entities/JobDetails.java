@@ -39,5 +39,9 @@ public class JobDetails {
 	public String TeacherUserName;
 	@SerializedName("agentaddress")
 	public String AgentAddress;
+	@SerializedName("bookid")
+	public int BookID;
+	@SerializedName("asignedbook")
+	public int No_Of_Book;
 	
 }

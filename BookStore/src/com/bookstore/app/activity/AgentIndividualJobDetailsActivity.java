@@ -1,7 +1,10 @@
 package com.bookstore.app.activity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -17,6 +20,8 @@ import com.bookstore.app.entities.JobDetails;
 import com.bookstore.app.interfaces.IAgent;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AgentManager;
+import com.bookstore.app.utils.CommonTasks;
+import com.bookstore.app.utils.CommonUrls;
 
 public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implements OnClickListener, IAsynchronousTask {
 	DownloadableAsyncTask downloadableAsyncTask;
@@ -24,9 +29,13 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 	TextView tvNameBook, tvJobStatus, tvAuthor, tvPublisherName, tvISBN,
 		tvQuantity, tvPublishDate, tvPrice, tvTeacherName, tvInstitution,
 		tvTeacherMobileNumber, tvAgentName, tvAgentsAddress,
-		tvAgentsCurrentLocation, tvAgentsMobileNumber;
+		tvAgentsCurrentLocation, tvAgentsMobileNumber, tvDialogCancel, tvDialogOK;
+	EditText etTeacherPassword;
 	Button btnOk;
 	String jobID = "", mode = "";
+	AlertDialog alertDialog;
+	boolean isJobSubmit = false;
+	JobDetails jobDetails= null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +84,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 	public void onClick(View view) {
 		if(view.getId() == R.id.btnOk){
 			if(btnOk.getText().toString().equals("Submit")){
-				
+				jobSubmit();
 			}else{
 				onBackPressed();
 			}
@@ -105,16 +114,32 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 	@Override
 	public Object doInBackground() {
 		IAgent agent = new AgentManager();
-		return agent.getJobDetails(jobID);
+		if(isJobSubmit)
+			return agent.jobSubmit(jobDetails.TeacherUserName, etTeacherPassword.getText().toString(),
+					jobDetails.BookID, jobDetails.No_Of_Book, 
+					Integer.parseInt(jobID), 1);
+		else
+			return agent.getJobDetails(jobID);
 	}
 
 	@Override
 	public void processDataAfterDownload(Object data) {
 		if(data != null){
-			JobDetails jobDetails = (JobDetails) data;
-			if(jobDetails != null){
-				setValue(jobDetails);
+			if(isJobSubmit){
+				boolean result = (boolean) data;
+				if(result){
+					alertDialog.dismiss();
+				}else{
+					CommonTasks.showToast(this, "UnExpected error. Please try again!");
+					alertDialog.dismiss();
+				}
+			}else{
+				jobDetails = (JobDetails) data;
+				if(jobDetails != null){
+					setValue(jobDetails);
+				}
 			}
+			
 		}
 	}
 
@@ -140,6 +165,44 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 		tvAgentsAddress.setText(jobDetails.AgentAddress);
 		tvAgentsCurrentLocation.setText(jobDetails.AgentCurrentLocation);
 		tvAgentsMobileNumber.setText(jobDetails.AgentMobileNumber);
+	}
+	
+	private void jobSubmit(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT);
+		LayoutInflater inflater = getLayoutInflater();
+		View josSubmitView = inflater.inflate(R.layout.job_submit_dialog, null);
+		builder.setView(josSubmitView);
+		builder.setTitle("Job Submit");
+		builder.setCancelable(false);
+		
+		etTeacherPassword = (EditText) josSubmitView.findViewById(R.id.etTeacherPassword);
+		tvDialogCancel = (TextView) josSubmitView.findViewById(R.id.tvDialogCancel);
+		tvDialogOK = (TextView) josSubmitView.findViewById(R.id.tvDialogOK);
+		
+		tvDialogCancel.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				alertDialog.dismiss();
+			}
+		});
+		
+		tvDialogOK.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				isJobSubmit = true;
+				if(etTeacherPassword.getText().toString().equals("")){
+					CommonTasks.showToast(AgentIndividualJobDetailsActivity.this, "Please enter password");
+					isJobSubmit = false;
+					return;
+				}
+				LoadInformation();
+			}
+		});
+		
+		alertDialog = builder.create();
+		alertDialog.show();
 	}
 
 }

@@ -1,9 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    style="@style/Application_Background" >
-    
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/etTeacherPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword" 
+        android:singleLine="true"
+        android:hint="Enter Password"
+        android:layout_margin="5dp">
+        <requestFocus />
+    </EditText>
+    <View 
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#DADADA"/>
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView 
+            android:id="@+id/tvDialogCancel"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:text="Cancel"
+            android:textColor="@color/text_view_color"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_weight="1"/>
+        <View 
+            android:layout_width="1dp"
+            android:layout_height="40dp"
+            android:background="#DADADA"/>
+        <TextView 
+            android:id="@+id/tvDialogOK"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:text="Ok"
+            android:textColor="@color/text_view_color"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
 </LinearLayout>

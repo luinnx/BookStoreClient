@@ -33,4 +33,22 @@ public class AgentManager implements IAgent{
 		return jobDetails;
 	}
 
+	@Override
+	public boolean jobSubmit(String teacherUserName, String teacherPassword,
+			int bookID, int no_of_book, int jobid, int job_status) {
+		boolean result = false;
+		try{
+			result = (boolean) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().jobSubimt, 
+					teacherUserName,
+					teacherPassword,
+					bookID,
+					no_of_book,
+					jobid,
+					job_status), Boolean.class);
+		}catch(Exception ex){
+			Log.e("BS", ex.getMessage());
+		}
+		return result;
+	}
+
 }
