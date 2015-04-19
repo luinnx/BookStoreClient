@@ -204,6 +204,7 @@ public class SplashScreenActivity extends Activity implements OnClickListener,
 
 				if (entity.type == 1) {
 					// Admin
+					this.finish();
 					Intent intent = new Intent(SplashScreenActivity.this,
 							AdminHomeActivity.class);
 					intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -212,6 +213,7 @@ public class SplashScreenActivity extends Activity implements OnClickListener,
 							android.R.anim.slide_out_right);
 				} else {
 					// Agent
+					this.finish();
 					Intent intent = new Intent(SplashScreenActivity.this,
 							AgentHomeActivity.class);
 					intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);

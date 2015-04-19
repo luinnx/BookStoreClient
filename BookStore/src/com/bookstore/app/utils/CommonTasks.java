@@ -3,6 +3,10 @@ package com.bookstore.app.utils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,6 +21,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class CommonTasks {
+	private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+	
 	public static void savePreferencesForReasonCode(Context context,
 			String key, String value) {
 		SharedPreferences sharedPreferences = PreferenceManager
@@ -82,5 +88,20 @@ public class CommonTasks {
 		});
 		
 		builder.show();
+	}
+	
+	public static boolean checkPlayServices(Activity context) {
+	    int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(context);
+	    if (resultCode != ConnectionResult.SUCCESS) {
+	        if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+	            GooglePlayServicesUtil.getErrorDialog(resultCode, context,
+	                    PLAY_SERVICES_RESOLUTION_REQUEST).show();
+	        } else {
+	            Log.e("BSA", "This device is not supported.");
+	            context.finish();
+	        }
+	        return false;
+	    }
+	    return true;
 	}
 }

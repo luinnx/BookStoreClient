@@ -13,6 +13,9 @@ public class CommonUrls {
 	public String getCompletedJobList=BASE_URL+"admin/job_list?job_status=%s";
 	public String individualJobDetails=BASE_URL+"admin/job_details?job_id=%s";
 	public String createAgent=BASE_URL+"admin/add_agent";
+	
+	//agent service api
+	public String agentJobList = BASE_URL + "agent/job_list?agentId=%s&job_status=%s&pageIndex=%s";
 
 	public static CommonUrls getInstance() {
 		return commonUrls;

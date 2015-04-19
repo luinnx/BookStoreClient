@@ -1,6 +1,5 @@
 package com.bookstore.app.base;
 
-import com.bookstore.app.activity.AgentListActivity;
 import com.bookstore.app.activity.AgentMyProfileActivity;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.utils.CommonTasks;
