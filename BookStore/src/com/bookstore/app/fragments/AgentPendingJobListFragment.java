@@ -42,6 +42,12 @@ public class AgentPendingJobListFragment extends Fragment implements IAsynchrono
 	private void initalization(ViewGroup root) {
 		pending_job_list = (ListView) root.findViewById(R.id.pending_job_list);
 		pending_job_list.setOnItemClickListener(this);
+		
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
 		LoadPendingJob();
 	}
 

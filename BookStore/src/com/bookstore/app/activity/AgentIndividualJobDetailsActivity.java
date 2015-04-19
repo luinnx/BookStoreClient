@@ -126,9 +126,11 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 	public void processDataAfterDownload(Object data) {
 		if(data != null){
 			if(isJobSubmit){
-				boolean result = (boolean) data;
+				Boolean result = (Boolean) data;
 				if(result){
 					alertDialog.dismiss();
+					CommonTasks.showToast(this, "Job Submit done.");
+					onBackPressed();
 				}else{
 					CommonTasks.showToast(this, "UnExpected error. Please try again!");
 					alertDialog.dismiss();

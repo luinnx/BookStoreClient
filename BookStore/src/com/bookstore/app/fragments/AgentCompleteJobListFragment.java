@@ -40,7 +40,12 @@ public class AgentCompleteJobListFragment extends Fragment implements IAsynchron
 
 	private void initalization(ViewGroup root) {
 		complete_job_list = (ListView) root.findViewById(R.id.complete_job_list);
-		complete_job_list.setOnItemClickListener(this);
+		complete_job_list.setOnItemClickListener(this);		
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
 		LoadCompletedJob();
 	}
 
