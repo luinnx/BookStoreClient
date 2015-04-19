@@ -62,7 +62,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="Bangla First Paper"
+                    android:text=""
                     android:textColor="@color/text_color"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -104,7 +104,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
-                    android:text="Bangla Academy"
+                    android:text=""
                     android:textColor="@color/text_color"
                     android:textSize="15sp"
                     android:textStyle="normal" />
@@ -126,11 +126,11 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvCurrentLocation"
+                    android:id="@+id/tvPublisherName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
-                    android:text="Bangla Academy"
+                    android:text=""
                     android:textColor="@color/text_color"
                     android:textSize="15sp"
                     android:textStyle="normal" />
@@ -156,7 +156,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
-                    android:text="ACRTTJ555"
+                    android:text=""
                     android:textColor="@color/text_color"
                     android:textSize="15sp"
                     android:textStyle="normal" />
@@ -199,7 +199,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
-                    android:text="35"
+                    android:text=""
                     android:textColor="@color/text_color"
                     android:textSize="15sp"
                     android:textStyle="normal" />
@@ -225,7 +225,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
-                    android:text="30"
+                    android:text=""
                     android:textColor="@color/text_color"
                     android:textSize="15sp"
                     android:textStyle="normal" />
@@ -253,7 +253,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
-                    android:text="19 march , 2015"
+                    android:text=""
                     android:textColor="@color/text_color"
                     android:textSize="15sp"
                     android:textStyle="normal" />
@@ -279,7 +279,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
-                    android:text="New Book"
+                    android:text=""
                     android:textColor="@color/text_color"
                     android:textSize="15sp"
                     android:textStyle="normal" />
@@ -305,7 +305,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
-                    android:text="325"
+                    android:text=""
                     android:textColor="@color/text_color"
                     android:textSize="15sp"
                     android:textStyle="normal" />

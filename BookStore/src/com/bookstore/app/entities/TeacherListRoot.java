@@ -6,7 +6,7 @@ import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 public class TeacherListRoot {
-	@SerializedName("teacherList")
+	@SerializedName("TeacherList")
 	public List<TeacherEntity> teacherList;
 	
 	public TeacherListRoot(){

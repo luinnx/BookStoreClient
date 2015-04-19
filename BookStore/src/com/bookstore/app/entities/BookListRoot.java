@@ -6,7 +6,7 @@ import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 public class BookListRoot {
-	@SerializedName("bookList")
+	@SerializedName("BookList")
 	public List<BookEntity> bookList;
 	
 	public BookListRoot(){

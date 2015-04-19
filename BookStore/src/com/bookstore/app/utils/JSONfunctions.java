@@ -49,6 +49,7 @@ public class JSONfunctions {
 		URI url = null;
 		try {
 			url = new URI("" + _url);
+			
 		} catch (URISyntaxException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

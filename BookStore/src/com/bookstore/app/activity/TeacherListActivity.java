@@ -10,9 +10,11 @@ import com.bookstore.app.adapters.TeacherListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.BookStoreActionBarBase;
 import com.bookstore.app.entities.TeacherEntity;
+import com.bookstore.app.entities.TeacherListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
+import com.bookstore.app.utils.CommonTasks;
 
 public class TeacherListActivity extends BookStoreActionBarBase implements
 		IAsynchronousTask {
@@ -59,28 +61,22 @@ public class TeacherListActivity extends BookStoreActionBarBase implements
 	@Override
 	public Object doInBackground() {
 		IAdminManager manager = new AdminManager();
-		return manager.getAgentList(0);
+		return manager.getTeacherList();
 	}
 
 	@Override
 	public void processDataAfterDownload(Object data) {
-		ArrayList<TeacherEntity> entities = new ArrayList<TeacherEntity>();
-		TeacherEntity entity = new TeacherEntity();
-		entity._id = 1;
-		entity.full_name = "Anisur Rahman";
-		entity.institute = "Alimuddin Degree Colliage";
-		entity.mobile_no = "01739856984";
-		entities.add(entity);
 
-		entity = new TeacherEntity();
-		entity._id = 1;
-		entity.full_name = "Shariful Islam";
-		entity.institute = "Nilphamari Degree Colliage";
-		entity.mobile_no = "0173966984";
-		entities.add(entity);
-		adapter = new TeacherListAdapter(getApplicationContext(),
-				R.layout.teacher_list_item, entities);
-		lvAllTeacherList.setAdapter(adapter);
+		if (data != null) {
+			TeacherListRoot teacherListRoot = new TeacherListRoot();
+			teacherListRoot = (TeacherListRoot) data;
+			adapter = new TeacherListAdapter(getApplicationContext(),
+					R.layout.teacher_list_item, teacherListRoot.teacherList);
+			lvAllTeacherList.setAdapter(adapter);
+		}else{
+			CommonTasks.showToast(getApplicationContext(), "Internal Server Error. Please Try again later");
+		}
+
 	}
 
 }

@@ -21,6 +21,7 @@ public class CommonUrls {
 			+ "admin/agent_details?agentID=%s";
 	public String getAllTeacher=BASE_URL+"admin/all_teacher_list";
 	public String getAllBooks=BASE_URL+"admin/get_book_list?pageIndex=%s";
+	public String getIndividualBookInfo=BASE_URL+"admin/get_book_info?bookId=%s";
 
 	// agent service api
 	public String agentJobList = BASE_URL

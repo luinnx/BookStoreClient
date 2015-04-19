@@ -2,6 +2,7 @@ package com.bookstore.app.interfaces;
 
 import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
+import com.bookstore.app.entities.BookEntity;
 import com.bookstore.app.entities.BookListRoot;
 import com.bookstore.app.entities.JobEntity;
 import com.bookstore.app.entities.JobListRoot;
@@ -24,6 +25,7 @@ public interface IAdminManager {
 	public AgentEntity getIndividualAgentDetails(String agentID);
 
 	public BookListRoot getBookList(int pageIndex);
+	public BookEntity getIndividualBookDetails(String bookID);
 
 	public TeacherListRoot getTeacherList();
 

@@ -4,6 +4,7 @@ import android.util.Base64;
 
 import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
+import com.bookstore.app.entities.BookEntity;
 import com.bookstore.app.entities.BookListRoot;
 import com.bookstore.app.entities.JobEntity;
 import com.bookstore.app.entities.JobListRoot;
@@ -55,8 +56,15 @@ public class AdminManager implements IAdminManager {
 
 	@Override
 	public TeacherListRoot getTeacherList() {
+		TeacherListRoot listRoot=null;
+		try{
+			listRoot=(TeacherListRoot) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().getAllTeacher), TeacherListRoot.class);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+			
 
-		return null;
+		return listRoot;
 	}
 
 	@Override
@@ -137,8 +145,15 @@ public class AdminManager implements IAdminManager {
 	@Override
 	public BookListRoot getBookList(int pageIndex) {
 		BookListRoot bookListRoot=null;
-		//bookListRoot=JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance()., args), dataClass)
-		return null;
+		bookListRoot=(BookListRoot) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().getAllBooks,pageIndex), BookListRoot.class);
+		return bookListRoot;
+	}
+
+	@Override
+	public BookEntity getIndividualBookDetails(String bookID) {
+		BookEntity bookEntity=null;
+		bookEntity=(BookEntity) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().getIndividualBookInfo, bookID), BookEntity.class);
+		return bookEntity;
 	}
 
 }

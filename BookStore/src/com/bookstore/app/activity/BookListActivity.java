@@ -14,6 +14,7 @@ import com.bookstore.app.adapters.BookListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.BookStoreActionBarBase;
 import com.bookstore.app.entities.BookEntity;
+import com.bookstore.app.entities.BookListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
@@ -25,6 +26,7 @@ public class BookListActivity extends BookStoreActionBarBase implements
 	DownloadableAsyncTask downloadableAsyncTask;
 	ProgressDialog dialog;
 	BookListAdapter adapter;
+	BookListRoot bookListRoot=null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +46,11 @@ public class BookListActivity extends BookStoreActionBarBase implements
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View view, int position,
 			long arg3) {
+		BookEntity bookEntity=new BookEntity();
+		bookEntity=bookListRoot.bookList.get(position);
 		Intent intent = new Intent(getApplicationContext(),
 				IndividualBookDetailsActivity.class);
+		intent.putExtra("BOOK_ID", bookEntity._id);
 		intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		startActivity(intent);
 	}
@@ -73,38 +78,19 @@ public class BookListActivity extends BookStoreActionBarBase implements
 	@Override
 	public Object doInBackground() {
 		IAdminManager manager = new AdminManager();
-		return manager.getAgentList(0);
+		return manager.getBookList(0);
 	}
 
 	@Override
 	public void processDataAfterDownload(Object data) {
-		ArrayList<BookEntity> entities = new ArrayList<BookEntity>();
-		BookEntity entity = new BookEntity();
-		entity._id = 1;
-		entity.full_name = "Bangla First paper";
-		entity.Auther_name = "Bangla Academy";
-		entity.isbn_no = "ACDSG123";
-		entity.avaible = 128;
-		entity.quantity = 200;
-		entity.pic_url = null;
-		entity.price = 200;
-		entity.publisher_name = "Grontho Kutir";
-		entities.add(entity);
 
-		entity = new BookEntity();
-		entity._id = 2;
-		entity.full_name = "English First paper";
-		entity.Auther_name = "Bangla Academy";
-		entity.isbn_no = "ACDSG124";
-		entity.avaible = 136;
-		entity.quantity = 250;
-		entity.pic_url = null;
-		entity.price = 250;
-		entity.publisher_name = "Grontho Kutir";
-		entities.add(entity);
-		adapter = new BookListAdapter(getApplicationContext(),
-				R.layout.agent_list_item, entities);
-		lvAllAgentList.setAdapter(adapter);
+		if (data != null) {
+			bookListRoot = new BookListRoot();
+			bookListRoot = (BookListRoot) data;
+			adapter = new BookListAdapter(getApplicationContext(),
+					R.layout.agent_list_item, bookListRoot.bookList);
+			lvAllAgentList.setAdapter(adapter);
+		}
 	}
 
 }
