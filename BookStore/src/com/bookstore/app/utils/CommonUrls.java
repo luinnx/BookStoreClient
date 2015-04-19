@@ -6,7 +6,7 @@ public class CommonUrls {
 
 	// public String BASE_URL="http://192.168.0.103:8080/BookStoreService/api/";
 
-	public String BASE_URL = "http://192.168.0.101:8080/BookStoreService/api/";
+	public String BASE_URL = "http://192.168.0.101:8084/BookStoreService/api/";
 	public String IMAGE_BASE_URL = "";
 
 	public String getAuthentication = BASE_URL

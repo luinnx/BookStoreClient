@@ -15,7 +15,6 @@ import android.support.v4.view.ViewPager;
 
 public class AgentHomeActivity extends AgentActionbarBase implements TabListener {
 	String[] tab = { "Completed Jobs", "Pending Jobs" };
-	ActionBar actionBar;
 	ViewPager pager;
 	AgentViewPagerAdapter adapter;
 
@@ -32,7 +31,6 @@ public class AgentHomeActivity extends AgentActionbarBase implements TabListener
 	@SuppressWarnings("deprecation")
 	private void initialization() {
 		pager = (ViewPager) findViewById(R.id.agentMasterPage);
-		actionBar = getActionBar();
 		adapter = new AgentViewPagerAdapter(getSupportFragmentManager());
 		pager.setAdapter(adapter);
 		

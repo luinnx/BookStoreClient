@@ -53,7 +53,7 @@ public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 		tvPublishDate = (TextView) findViewById(R.id.tvPublishDate);
 		tvPrice = (TextView) findViewById(R.id.tvPrice);
 		tvTeacherName = (TextView) findViewById(R.id.tvTeacherName);
-		tvInstitude = (TextView) findViewById(R.id.tvInstitude);
+		tvInstitude = (TextView) findViewById(R.id.tvInstitudes);
 		tvMobileNumber = (TextView) findViewById(R.id.tvMobileNumber);
 		tvTeacherMobileNumber = (TextView) findViewById(R.id.tvTeacherMobileNumber);
 		tvAgentName = (TextView) findViewById(R.id.tvAgentName);

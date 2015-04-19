@@ -12,8 +12,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class AgentActionbarBase extends FragmentActivity {
-	ActionBar actionBar;
+public abstract class AgentActionbarBase extends FragmentActivity {
+	public ActionBar actionBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
