@@ -3,5 +3,8 @@
 
     <string name="app_name">Book Store</string>
     <string name="hello_world">Hello world!</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
 
 </resources>

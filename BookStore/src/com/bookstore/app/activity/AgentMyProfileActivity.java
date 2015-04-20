@@ -2,9 +2,12 @@ package com.bookstore.app.activity;
 
 import java.util.Date;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.format.DateUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -18,7 +21,9 @@ import com.bookstore.app.base.AgentActionbarBase;
 import com.bookstore.app.entities.AgentInfo;
 import com.bookstore.app.interfaces.IAgent;
 import com.bookstore.app.interfaces.IAsynchronousTask;
+import com.bookstore.app.interfaces.IUser;
 import com.bookstore.app.managers.AgentManager;
+import com.bookstore.app.managers.UserManager;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
 
@@ -27,9 +32,11 @@ public class AgentMyProfileActivity extends AgentActionbarBase implements
 	DownloadableAsyncTask downloadableAsyncTask;
 	ProgressDialog progressDialog;
 	TextView tvAgentName, tvMobileNumber, tvEmail, tvMpoNumber, tvAgentAddress,
-			tvAgentCurrentLocation, tvCreateDate;
-
-	Button btnOk;
+			tvAgentCurrentLocation, tvCreateDate,tvDialogCancel,tvDialogOK;
+	EditText etOldPassword, etNewPassword, etConfirmPassword;
+	Button btnOk,btnForgotPassword;
+	AlertDialog alertDialog;
+	boolean isChangePassword;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +54,21 @@ public class AgentMyProfileActivity extends AgentActionbarBase implements
 		tvAgentCurrentLocation =  (TextView) findViewById(R.id.tvAgentCurrentLocation);
 		tvCreateDate = (TextView) findViewById(R.id.tvCreateDate);
 		btnOk = (Button) findViewById(R.id.btnOk);
+		btnForgotPassword = (Button) findViewById(R.id.btnForgotPassword);
 		
 		btnOk.setOnClickListener(this);
+		btnForgotPassword.setOnClickListener(this);
 		
 		LoadInformation();
 	}
 
 	@Override
 	public void onClick(View view) {
-
+		if(view.getId() == R.id.btnOk){
+			onBackPressed();
+		}else if(view.getId() == R.id.btnForgotPassword){
+			ChangePassword();
+		}
 	}
 	
 	private void LoadInformation() {
@@ -79,18 +92,41 @@ public class AgentMyProfileActivity extends AgentActionbarBase implements
 	}
 
 	@Override
-	public Object doInBackground() {
-		IAgent agent = new AgentManager();
-		return agent.getAgentInformation(Integer.parseInt(CommonTasks.getPreferences(this, CommonConstraints.USER_ID)));
+	public Object doInBackground() {		
+		if(isChangePassword){
+			IUser user = new UserManager();
+			return user.changePassword(
+					Integer.parseInt(CommonTasks.getPreferences(this, CommonConstraints.USER_ID)), 
+					etOldPassword.getText().toString().trim(), 
+					etNewPassword.getText().toString().trim(), 
+					Integer.parseInt(CommonTasks.getPreferences(this, CommonConstraints.USER_TYPE)));
+		}else{
+			IAgent agent = new AgentManager();
+			return agent.getAgentInformation(Integer.parseInt(CommonTasks.getPreferences(this, CommonConstraints.USER_ID)));
+		}		
+		
 	}
 
 	@Override
 	public void processDataAfterDownload(Object data) {
 		if(data != null){
-			AgentInfo agentInfo = (AgentInfo) data;
-			if(agentInfo != null){
-				setData(agentInfo);
-			}
+			if(isChangePassword){
+				Boolean result = (Boolean) data;
+				if(result){
+					alertDialog.dismiss();
+					CommonTasks.showToast(this, "Password Chagne Successfully");
+					isChangePassword = false;
+				}else{
+					alertDialog.dismiss();
+					isChangePassword =false;
+					CommonTasks.showToast(this, "UnExpected Error! Please try again!");
+				}
+			}else{
+				AgentInfo agentInfo = (AgentInfo) data;
+				if(agentInfo != null){
+					setData(agentInfo);
+				}
+			}			
 		}
 	}
 
@@ -103,6 +139,57 @@ public class AgentMyProfileActivity extends AgentActionbarBase implements
 		tvAgentCurrentLocation.setText(agentInfo.AgentLocation);
 		tvCreateDate.setText((String) DateUtils.getRelativeTimeSpanString(
 				agentInfo.AgentCreateDate, new Date().getTime(), DateUtils.DAY_IN_MILLIS));
+	}
+	
+	private void ChangePassword(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT);
+		LayoutInflater inflater = getLayoutInflater();
+		View chagnePasswordView = inflater.inflate(R.layout.change_password, null);
+		builder.setView(chagnePasswordView); 
+		builder.setTitle("Change Password");
+		
+		etOldPassword = (EditText) chagnePasswordView.findViewById(R.id.etOldPassword);
+		etNewPassword = (EditText) chagnePasswordView.findViewById(R.id.etNewPassword);
+		etConfirmPassword = (EditText) chagnePasswordView.findViewById(R.id.etConfirmPassword);
+		
+		tvDialogCancel = (TextView) chagnePasswordView.findViewById(R.id.tvDialogCancel);
+		tvDialogOK = (TextView) chagnePasswordView.findViewById(R.id.tvDialogOK);
+		
+		tvDialogCancel.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				alertDialog.dismiss();
+			}
+		});
+		
+		tvDialogOK.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(etOldPassword.getText().toString().trim().equals("")){
+					CommonTasks.showToast(AgentMyProfileActivity.this, "Plese enter old password!");
+					return;
+				}
+				if(etNewPassword.getText().toString().trim().equals("")){
+					CommonTasks.showToast(AgentMyProfileActivity.this, "Plese enter new password!");
+					return;
+				}
+				if(etConfirmPassword.getText().toString().trim().equals("")){
+					CommonTasks.showToast(AgentMyProfileActivity.this, "Plese enter confirm password!");
+					return;
+				}
+				if(etConfirmPassword.getText().toString().trim().equals(etNewPassword.getText().toString()) == false){
+					CommonTasks.showToast(AgentMyProfileActivity.this, "Password not match!");
+					return;
+				}
+				isChangePassword = true;
+				LoadInformation();
+			}
+		});
+		
+		alertDialog = builder.create();
+		alertDialog.show();
 	}
 
 }
