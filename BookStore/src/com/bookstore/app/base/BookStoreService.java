@@ -1,6 +1,7 @@
 package com.bookstore.app.base;
 
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
+import com.bookstore.app.customview.AddLocation;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.interfaces.IUser;
 import com.bookstore.app.managers.UserManager;
@@ -10,13 +11,18 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import android.app.Service;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
-public class BookStoreService extends Service implements IAsynchronousTask{
+public class BookStoreService extends Service implements IAsynchronousTask, LocationListener{
 	DownloadableAsyncTask downloadAsyncTask;
 	GoogleCloudMessaging gcm;
 	String regid = "";
+	double latitide, longitude;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -29,7 +35,14 @@ public class BookStoreService extends Service implements IAsynchronousTask{
 		if(regid.isEmpty()){
 			LoadInformation();
 		}
+		getLocation();
 		return START_STICKY;
+	}
+
+	private void getLocation() {
+		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+		locationManager.requestLocationUpdates(
+				LocationManager.NETWORK_PROVIDER, 600000, 0, this);
 	}
 
 	private void LoadInformation() {
@@ -75,6 +88,26 @@ public class BookStoreService extends Service implements IAsynchronousTask{
 				CommonTasks.savePreferencesForReasonCode(this, CommonConstraints.GCMID, regid);
 			}
 		}
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		new AddLocation(this).execute(location);
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		
 	}
 
 }

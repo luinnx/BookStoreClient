@@ -51,4 +51,15 @@ public class AgentManager implements IAgent{
 		return result;
 	}
 
+	@Override
+	public boolean addLocation(int agentid, double latitude, double longitude) {
+		boolean result = false;
+		try{
+			result = (Boolean) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().agentLocation, agentid, latitude, longitude), Boolean.class);
+		}catch(Exception ex){
+			Log.e("BS", ex.getMessage());
+		}
+		return result;
+	}
+
 }
