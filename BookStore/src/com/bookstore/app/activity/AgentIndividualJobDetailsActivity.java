@@ -2,7 +2,9 @@ package com.bookstore.app.activity;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +43,10 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_individual_agent_jod_details);
+		
+		NotificationManager notificationManager = (android.app.NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		notificationManager.cancel(1);
+		
 		initialization();
 	}
 
