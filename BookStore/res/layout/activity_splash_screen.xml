@@ -33,7 +33,7 @@
             android:src="@drawable/ic_app_name" />
 
         <EditText
-            android:id="@+id/etUserName"
+            android:id="@+id/etUserNames"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
@@ -48,7 +48,7 @@
         </EditText>
 
         <EditText
-            android:id="@+id/etPassword"
+            android:id="@+id/etPasswords"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"

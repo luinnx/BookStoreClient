@@ -49,12 +49,13 @@ public class SplashScreenActivity extends Activity implements OnClickListener,
 
 	private void initViews() {
 		ivLogo = (ImageView) findViewById(R.id.ivLogo);
-		etUserName = (EditText) findViewById(R.id.etUserName);
-		etPassword = (EditText) findViewById(R.id.etPassword);
+		llLoginPanel = (LinearLayout) findViewById(R.id.llLoginPanel);
+		etUserName = (EditText) findViewById(R.id.etUserNames);
+		etPassword = (EditText) findViewById(R.id.etPasswords);
 		b_Login = (Button) findViewById(R.id.b_Login);
 		box = (CheckBox) findViewById(R.id.cbIsLoginAsAdmin);
 		b_ForgotPassword = (Button) findViewById(R.id.b_ForgotPassword);
-		llLoginPanel = (LinearLayout) findViewById(R.id.llLoginPanel);
+		
 
 		imageAnimation = AnimationUtils.loadAnimation(this, R.anim.splash);
 
@@ -122,14 +123,14 @@ public class SplashScreenActivity extends Activity implements OnClickListener,
 			Toast.makeText(this, "Enter UserName!", Toast.LENGTH_SHORT).show();
 			return;
 		} else {
-			username = etUserName.getText().toString();
+			username = etUserName.getText().toString().trim();
 
 		}
 		if (etPassword.getText().toString().equals("")) {
 			Toast.makeText(this, "Enter Password!", Toast.LENGTH_SHORT).show();
 			return;
 		} else {
-			password = etPassword.getText().toString();
+			password = etPassword.getText().toString().trim();
 
 		}
 		if (!CommonTasks.isOnline(this)) {

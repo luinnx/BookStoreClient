@@ -32,6 +32,9 @@ public class CommonUrls {
 	public String agentJobDetails = BASE_URL + "agent/job_details?jobID=%s";
 	public String jobSubimt = BASE_URL + "agent/job_submit?teacherUserName=%s&teacherPassword=%s&bookID=%s&no_of_book=%s&jobid=%s&job_status=%s";
 
+	// User Common Service
+	public String addGCMID = BASE_URL+"user/add_gcm?userID=%s&type=%s&gcmID=%s";
+	
 	public static CommonUrls getInstance() {
 		return commonUrls;
 	}
