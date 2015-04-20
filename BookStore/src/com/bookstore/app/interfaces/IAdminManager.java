@@ -22,11 +22,22 @@ public interface IAdminManager {
 			int isActive, int type);
 
 	public AgentListRoot getAgentList(int pageIndex);
+
 	public AgentEntity getIndividualAgentDetails(String agentID);
 
 	public BookListRoot getBookList(int pageIndex);
+
 	public BookEntity getIndividualBookDetails(String bookID);
 
+	public Boolean addTeacher(String fullName, String userName,
+			String password, String mobileNumber, String Institude);
+
 	public TeacherListRoot getTeacherList();
+
+	public Boolean addBook(String bookName, String writterName,
+			String publisherName, String bookCondition, String bookPrice,
+			String isbnNumber, String publishDate, byte[] pic_url,
+			String bookQuantity, String catagoryId, String subCatagoryID,
+			String subSubCatagoryID);
 
 }

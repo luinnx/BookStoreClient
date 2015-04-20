@@ -53,16 +53,16 @@ public class AdminManager implements IAdminManager {
 		return null;
 	}
 
-
 	@Override
 	public TeacherListRoot getTeacherList() {
-		TeacherListRoot listRoot=null;
-		try{
-			listRoot=(TeacherListRoot) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().getAllTeacher), TeacherListRoot.class);
-		}catch(Exception ex){
+		TeacherListRoot listRoot = null;
+		try {
+			listRoot = (TeacherListRoot) JSONfunctions.retrieveDataFromStream(
+					String.format(CommonUrls.getInstance().getAllTeacher),
+					TeacherListRoot.class);
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-			
 
 		return listRoot;
 	}
@@ -144,16 +144,73 @@ public class AdminManager implements IAdminManager {
 
 	@Override
 	public BookListRoot getBookList(int pageIndex) {
-		BookListRoot bookListRoot=null;
-		bookListRoot=(BookListRoot) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().getAllBooks,pageIndex), BookListRoot.class);
+		BookListRoot bookListRoot = null;
+		bookListRoot = (BookListRoot) JSONfunctions.retrieveDataFromStream(
+				String.format(CommonUrls.getInstance().getAllBooks, pageIndex),
+				BookListRoot.class);
 		return bookListRoot;
 	}
 
 	@Override
 	public BookEntity getIndividualBookDetails(String bookID) {
-		BookEntity bookEntity=null;
-		bookEntity=(BookEntity) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().getIndividualBookInfo, bookID), BookEntity.class);
+		BookEntity bookEntity = null;
+		bookEntity = (BookEntity) JSONfunctions.retrieveDataFromStream(
+				String.format(CommonUrls.getInstance().getIndividualBookInfo,
+						bookID), BookEntity.class);
 		return bookEntity;
 	}
 
+	@Override
+	public Boolean addTeacher(String fullName, String userName,
+			String password, String mobileNumber, String Institude) {
+		Boolean result = false;
+		result = (Boolean) JSONfunctions.retrieveDataFromStream(String.format(
+				CommonUrls.getInstance().addTeacher, fullName, userName,
+				password, Institude, mobileNumber), Boolean.class);
+
+		return result;
+	}
+
+	/*
+	 * public int id; public int catagory_id; public int sub_catagoty; public
+	 * String sub_sub_catagoty; public String fullname; public String
+	 * auther_name; public String publisher_name; public String condition;
+	 * public int quantity; public String isbn; public String puslish_date;
+	 * public double price; public String pic_url; public String rowPic;
+	 */
+
+	@Override
+	public Boolean addBook(String bookName, String writterName,
+			String publisherName, String bookCondition, String bookPrice,
+			String isbnNumber, String publishDate, byte[] pic_url,
+			String bookQuantity, String catagoryId, String subCatagoryID,
+			String subSubCatagoryID) {
+		Boolean result = false;
+		try {
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("fullname", bookName);
+			jsonObject.put("auther_name", writterName);
+			jsonObject.put("publisher_name", publisherName);
+			jsonObject.put("puslish_date", publishDate);
+			jsonObject.put("condition", bookCondition);
+			jsonObject.put("quantity", bookQuantity);
+			jsonObject.put("price", bookPrice);
+
+			jsonObject.put("catagory_id", catagoryId);
+			jsonObject.put("sub_catagoty", subCatagoryID);
+			jsonObject.put("sub_sub_catagoty", subSubCatagoryID);
+
+			jsonObject.put(
+					"rowPic",
+					pic_url != null ? Base64.encodeToString(pic_url,
+							Base64.NO_WRAP) : "");
+			result = (Boolean) JSONfunctions.retrieveDataFromJsonPost(
+					CommonUrls.getInstance().createAgent, jsonObject,
+					Boolean.class);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return result;
+	}
 }

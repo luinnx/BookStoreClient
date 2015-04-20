@@ -111,6 +111,18 @@
                 android:inputType="text"
                 android:textColor="@color/text_color" >
             </EditText>
+            
+            <EditText
+                android:id="@+id/etTeacherPassword"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:gravity="left"
+                android:layout_marginLeft="5dp"
+                android:hint="Teacher Teacher password"
+                android:inputType="textPassword"
+                android:textColor="@color/text_color" >
+            </EditText>
 
             <EditText
                 android:id="@+id/etInstitutionName"

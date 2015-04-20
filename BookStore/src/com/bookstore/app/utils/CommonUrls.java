@@ -16,12 +16,15 @@ public class CommonUrls {
 	public String individualJobDetails = BASE_URL
 			+ "admin/job_details?job_id=%s";
 	public String createAgent = BASE_URL + "admin/add_agent";
+	public String createBook = BASE_URL + "admin/add_book";
 	public String getAllAgent = BASE_URL + "admin/get_agent_list?pageIndex=%s";
 	public String getIndividualAgentDetails = BASE_URL
 			+ "admin/agent_details?agentID=%s";
 	public String getAllTeacher=BASE_URL+"admin/all_teacher_list";
 	public String getAllBooks=BASE_URL+"admin/get_book_list?pageIndex=%s";
 	public String getIndividualBookInfo=BASE_URL+"admin/get_book_info?bookId=%s";
+	public String addTeacher=BASE_URL+"admin/add_teacher?full_name=%s&user_name=%s&password=%s&institute=%s&" +
+			"mobile=%s";
 
 	// agent service api
 	public String agentJobList = BASE_URL
