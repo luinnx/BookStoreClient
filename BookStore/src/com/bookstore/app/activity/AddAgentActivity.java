@@ -6,6 +6,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,6 +17,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,6 +45,7 @@ public class AddAgentActivity extends BookStoreActionBarBase implements
 	File file;
 	public byte[] selectedFile;
 	public String filename = "";
+	Uri uriSavedImage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -140,18 +145,62 @@ public class AddAgentActivity extends BookStoreActionBarBase implements
 	}
 
 	private void getImageFromCamera() {
+		
+		File image = new File(appFolderCheckandCreate(), "img" + getTimeStamp() + ".jpg");
+        uriSavedImage = Uri.fromFile(image);
+		
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
+		intent.putExtra("return-data", true);
 		startActivityForResult(intent, 100);
 	}
 
+	private String appFolderCheckandCreate(){
+
+	    String appFolderPath="";
+	    File externalStorage = Environment.getExternalStorageDirectory();
+
+	    if (externalStorage.canWrite()) 
+	    {
+	        appFolderPath = externalStorage.getAbsolutePath() + "/BookStore";
+	        File dir = new File(appFolderPath);
+
+	        if (!dir.exists()) 
+	        {
+	              dir.mkdirs();
+	        }
+
+	    }
+	    else
+	    {
+	      CommonTasks.showToast(getApplicationContext(),"  Storage media not found or is full ! ");
+	    }
+
+	    return appFolderPath;
+	}
+	
+	private String getTimeStamp() {
+
+	    final long timestamp = new Date().getTime();
+
+	    final Calendar cal = Calendar.getInstance();
+	                   cal.setTimeInMillis(timestamp);
+
+	    final String timeString = new SimpleDateFormat("HH_mm_ss_SSS").format(cal.getTime());
+
+
+	    return timeString;
+	}
+	
 	@Override
 	protected void onActivityResult(int requestCode, int responseCode,
 			Intent data) {
 		super.onActivityResult(requestCode, responseCode, data);
 		if (requestCode == 100) {
 			if (responseCode == RESULT_OK) {
-				Uri currImageURI = data.getData();
-				file = new File(getRealPathFromURI(currImageURI));
+				Uri currImageURI = uriSavedImage;
+				file = new File(currImageURI.getPath());
+				//file = new File(getRealPathFromURI(currImageURI));
 				filename = file.getName().replaceAll("[-+^:,]", "")
 						.replace(" ", "");
 				Bitmap b = decodeImage(file);
@@ -169,6 +218,20 @@ public class AddAgentActivity extends BookStoreActionBarBase implements
 				}
 				selectedFile = stream.toByteArray();
 				ivCaptureImage.setImageBitmap(b);
+				try{
+					if (file.exists()) {
+					    if (file.delete()) {
+					        System.out.println("file Deleted :" + file);
+					    } else {
+					        System.out.println("file not Deleted :" + file);
+					    }
+					    sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
+					    		 Uri.parse("file://" +  Environment.getExternalStorageDirectory())));
+					}
+				}catch(Exception ex){
+					ex.printStackTrace();
+				}
+				
 			}
 		}
 	}
