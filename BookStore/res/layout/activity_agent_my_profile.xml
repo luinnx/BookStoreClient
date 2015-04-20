@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/ivBooKImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:src="@drawable/ic_person" />
@@ -27,36 +27,23 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <RelativeLayout
+            <TextView
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:text="Personal Info"
-                    android:textColor="@color/text_color"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/ivEditAgentsProfile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="3dp"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/ic_edit_personal_info" />
-            </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="Personal Info"
+                android:textColor="@color/text_view_color"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginTop="3dp"
                 android:background="#00F" />
 
             <LinearLayout
@@ -79,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:text="Name"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/text_view_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -88,7 +75,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Md. Sajedul Karim"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -105,7 +92,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:text="Mobile"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/text_view_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -114,11 +101,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="01737186095"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
+
                 <TableRow
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -130,7 +118,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:text="Email"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/text_view_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -139,108 +127,20 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="mesukcse08@gmail.com"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
             </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llEditPersonalInfo"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
-                android:layout_marginRight="7dp"
-                android:layout_marginTop="5dp"
-                android:orientation="vertical"
-                android:padding="10dp"
-                android:visibility="gone" >
-
-                <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.4"
-                        android:text="Email"
-                        android:textColor="@color/text_color"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/tvEditAgentName"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:hint="Enter Name"
-                        android:textColor="@color/text_color"
-                        android:textSize="15sp"
-                        android:textStyle="normal" />
-                </TableRow>
-                <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.4"
-                        android:text="Email"
-                        android:textColor="@color/text_color"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/tvEditAgentEmail"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:hint="Enter Email"
-                        android:textColor="@color/text_color"
-                        android:textSize="15sp"
-                        android:textStyle="normal" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.4"
-                        android:text="Mobile Number"
-                        android:textColor="@color/text_color"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/tvEditMobileNumber"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:hint="Mobile Number"
-                        android:textColor="@color/text_color"
-                        android:textSize="15sp"
-                        android:textStyle="normal" />
-                </TableRow>
-            </LinearLayout>
-
-            <TextView
+            <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:gravity="left"
                 android:text="Administrative Info"
-                android:textColor="@color/text_color"
+                android:textColor="@color/text_view_color"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -249,6 +149,7 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginTop="3dp"
                 android:background="#00F" />
 
             <LinearLayout
@@ -271,7 +172,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:text="MPO Number"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/text_view_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -280,7 +181,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="KUTIR123"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -297,7 +198,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:text="Address"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/text_view_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -306,7 +207,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Jol Dhaka, Nilphamari,Bangladesh"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -323,7 +224,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:text="Location"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/text_view_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -332,7 +233,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="Jol Dhaka, Nilphamari,Bangladesh"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -349,7 +250,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:text="Create Date"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/text_view_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -358,7 +259,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
-                        android:text="25 jan , 2015"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />

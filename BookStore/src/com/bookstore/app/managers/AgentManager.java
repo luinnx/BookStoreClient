@@ -1,10 +1,15 @@
 package com.bookstore.app.managers;
 
+import java.net.URLEncoder;
+
 import android.util.Log;
 
+import com.bookstore.app.entities.AgentInfo;
 import com.bookstore.app.entities.AgentJobListRoot;
 import com.bookstore.app.entities.JobDetails;
 import com.bookstore.app.interfaces.IAgent;
+import com.bookstore.app.utils.CommonConstraints;
+import com.bookstore.app.utils.CommonTasks;
 import com.bookstore.app.utils.CommonUrls;
 import com.bookstore.app.utils.JSONfunctions;
 
@@ -52,14 +57,29 @@ public class AgentManager implements IAgent{
 	}
 
 	@Override
-	public boolean addLocation(int agentid, double latitude, double longitude) {
+	public boolean addLocation(int agentid, double latitude, double longitude, String locationName) {
 		boolean result = false;
 		try{
-			result = (Boolean) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().agentLocation, agentid, latitude, longitude), Boolean.class);
+			result = (Boolean) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().agentLocation, 
+					agentid, 
+					latitude, 
+					longitude,
+					URLEncoder.encode(locationName, CommonConstraints.EncodingCode)), Boolean.class);
 		}catch(Exception ex){
 			Log.e("BS", ex.getMessage());
 		}
 		return result;
+	}
+
+	@Override
+	public AgentInfo getAgentInformation(int agentID) {
+		AgentInfo agentInfo = null;
+		try{
+			agentInfo = (AgentInfo) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().getAgentInformation, agentID), AgentInfo.class);
+		}catch(Exception ex){
+			Log.e("BS", ex.getMessage());
+		}
+		return agentInfo;
 	}
 
 }
