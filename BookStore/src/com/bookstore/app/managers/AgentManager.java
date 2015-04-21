@@ -82,4 +82,18 @@ public class AgentManager implements IAgent{
 		return agentInfo;
 	}
 
+	@Override
+	public boolean addDonetion(int agentID, double amount, String comment) {
+		boolean result = false;
+		try{
+			result = (Boolean) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().agentDonation, 
+					agentID, 
+					amount,
+					URLEncoder.encode(comment, CommonConstraints.EncodingCode)), Boolean.class);
+		}catch(Exception ex){
+			Log.e("BS", ex.getMessage());
+		}
+		return result;
+	}
+
 }

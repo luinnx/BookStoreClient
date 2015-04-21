@@ -6,7 +6,7 @@ public class CommonUrls {
 
 	// public String BASE_URL="http://192.168.0.103:8080/BookStoreService/api/";
 
-	public String BASE_URL = "http://192.168.0.101:8084/BookStoreService/api/";
+	public String BASE_URL = "http://192.168.0.50:8084/BookStoreService/api/";
 	public String IMAGE_BASE_URL = "";
 
 	public String getAuthentication = BASE_URL
@@ -34,7 +34,7 @@ public class CommonUrls {
 	public String jobSubimt = BASE_URL + "agent/job_submit?teacherUserName=%s&teacherPassword=%s&bookID=%s&no_of_book=%s&jobid=%s&job_status=%s";
 	public String agentLocation = BASE_URL+"agent/add_location?agentid=%s&latitude=%s&longitude=%s&locationName=%s";
 	public String getAgentInformation = BASE_URL + "agent/agent_info?agent_id=%s";
-	public String agentDonation = BASE_URL + "agent/";
+	public String agentDonation = BASE_URL + "agent/add_donetion?agent_id=%s&amount=%s&comment=%s";
 	
 	// User Common Service
 	public String addGCMID = BASE_URL+"user/add_gcm?userID=%s&type=%s&gcmID=%s";

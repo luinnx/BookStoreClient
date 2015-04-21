@@ -6,5 +6,7 @@
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="donation_amount">Amount</string>
+    <string name="donation_comment">Comment</string>
 
 </resources>

@@ -10,4 +10,5 @@ public interface IAgent {
 	public boolean jobSubmit(String teacherUserName, String teacherPassword, int bookID, int no_of_book, int jobid, int job_status);
 	public boolean addLocation(int agentid, double latitude, double longitude, String locationName);
 	public AgentInfo getAgentInformation(int agentID);
+	public boolean addDonetion(int agentID, double amount, String comment);
 }
