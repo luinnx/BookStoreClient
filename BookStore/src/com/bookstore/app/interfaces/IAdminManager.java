@@ -39,5 +39,6 @@ public interface IAdminManager {
 			String isbnNumber, String publishDate, byte[] pic_url,
 			String bookQuantity, String catagoryId, String subCatagoryID,
 			String subSubCatagoryID);
+	public BookListRoot querySpeceficTypesBook(String catagory,String subCatagory,String subSubCatagory);
 
 }

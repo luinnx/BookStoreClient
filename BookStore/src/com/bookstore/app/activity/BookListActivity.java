@@ -88,7 +88,7 @@ public class BookListActivity extends BookStoreActionBarBase implements
 			bookListRoot = new BookListRoot();
 			bookListRoot = (BookListRoot) data;
 			adapter = new BookListAdapter(getApplicationContext(),
-					R.layout.agent_list_item, bookListRoot.bookList);
+					R.layout.book_list_item, bookListRoot.bookList);
 			lvAllAgentList.setAdapter(adapter);
 		}
 	}

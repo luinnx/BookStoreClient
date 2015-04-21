@@ -31,7 +31,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/ivBookImage"
-            android:text="Bangla Second Part"
+            android:text=""
             android:textColor="#000"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -44,7 +44,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/ivBookImage"
-            android:text="Bangla Academy"
+            android:text=""
             android:textColor="#000"
             android:textSize="15sp"
             android:textStyle="normal" />
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@id/tvWriterName"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/ivBookImage"
             android:text=""

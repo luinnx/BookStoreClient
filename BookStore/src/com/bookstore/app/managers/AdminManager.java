@@ -213,4 +213,14 @@ public class AdminManager implements IAdminManager {
 		}
 		return result;
 	}
+
+	@Override
+	public BookListRoot querySpeceficTypesBook(String catagory,
+			String subCatagory, String subSubCatagory) {
+		BookListRoot bookListRoot=null;
+		bookListRoot=(BookListRoot)JSONfunctions.retrieveDataFromStream(String.format(
+				CommonUrls.getInstance().searchSpeceficBooks, catagory, subCatagory,
+				subSubCatagory),  BookListRoot.class);
+		return bookListRoot;
+	}
 }
