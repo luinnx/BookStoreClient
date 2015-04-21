@@ -114,7 +114,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 
 	private void selectSpeceficBook() {
 		selectSpeceficBooksDialog = new Dialog(this);
-		selectSpeceficBooksDialog.setContentView(R.layout.select_specefic_book);
+		selectSpeceficBooksDialog.setContentView(R.layout.select_specefic_books);
 		selectSpeceficBooksDialog.setCancelable(true);
 		selectSpeceficBooksDialog.setTitle("Select Specefic Book");
 		spCategory = (Spinner) selectSpeceficBooksDialog
