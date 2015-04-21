@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.androidquery.AQuery;
+import com.androidquery.callback.ImageOptions;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.AgentActionbarBase;
 import com.bookstore.app.entities.AgentInfo;
@@ -26,6 +28,9 @@ import com.bookstore.app.managers.AgentManager;
 import com.bookstore.app.managers.UserManager;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
+import com.bookstore.app.utils.CommonUrls;
+import com.bookstore.app.utils.CommonValues;
+import com.bookstore.app.utils.ImageLoader;
 
 public class AgentMyProfileActivity extends AgentActionbarBase implements
 		OnClickListener, IAsynchronousTask {
@@ -35,8 +40,12 @@ public class AgentMyProfileActivity extends AgentActionbarBase implements
 			tvAgentCurrentLocation, tvCreateDate,tvDialogCancel,tvDialogOK;
 	EditText etOldPassword, etNewPassword, etConfirmPassword;
 	Button btnOk,btnForgotPassword;
+	ImageView ivAgentImage;
 	AlertDialog alertDialog;
 	boolean isChangePassword;
+	AQuery aq;
+	ImageOptions imgOptions;
+	ImageLoader imageLoader;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +64,17 @@ public class AgentMyProfileActivity extends AgentActionbarBase implements
 		tvCreateDate = (TextView) findViewById(R.id.tvCreateDate);
 		btnOk = (Button) findViewById(R.id.btnOk);
 		btnForgotPassword = (Button) findViewById(R.id.btnForgotPassword);
+		ivAgentImage = (ImageView) findViewById(R.id.ivAgentImage);
 		
 		btnOk.setOnClickListener(this);
 		btnForgotPassword.setOnClickListener(this);
+		
+		aq = new AQuery(this);	
+		imageLoader = new ImageLoader(this);	
+		imgOptions = CommonValues.getInstance().defaultImageOptions; 		
+		imgOptions.targetWidth=100;
+		imgOptions.ratio=0;//AQuery.RATIO_PRESERVE;
+		imgOptions.round = 8;
 		
 		LoadInformation();
 	}
@@ -139,6 +156,7 @@ public class AgentMyProfileActivity extends AgentActionbarBase implements
 		tvAgentCurrentLocation.setText(agentInfo.AgentLocation);
 		tvCreateDate.setText((String) DateUtils.getRelativeTimeSpanString(
 				agentInfo.AgentCreateDate, new Date().getTime(), DateUtils.DAY_IN_MILLIS));
+		aq.id(ivAgentImage).image(CommonUrls.getInstance().IMAGE_BASE_URL+agentInfo.AgentPicUrl, imgOptions);
 	}
 	
 	private void ChangePassword(){

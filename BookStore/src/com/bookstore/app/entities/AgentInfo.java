@@ -19,5 +19,7 @@ public class AgentInfo {
 	public String AgentName;
 	@SerializedName("mponumber")
 	public String AgentMPONumber;
+	@SerializedName("agentpicurl")
+	public String AgentPicUrl;
 	
 }
