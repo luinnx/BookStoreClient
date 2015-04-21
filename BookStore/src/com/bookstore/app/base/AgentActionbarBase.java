@@ -101,7 +101,7 @@ public abstract class AgentActionbarBase extends FragmentActivity {
 				}
 				Donation donation = new Donation();
 				donation.Amount = Double.parseDouble(etDonationAmount.getText().toString());
-				donation.Comment = etDonationComment.getText().toString();
+				donation.Comment = etDonationComment.getText().toString();				
 				new AddDonation(AgentActionbarBase.this).execute(donation);
 				alertDialog.dismiss();
 			}
