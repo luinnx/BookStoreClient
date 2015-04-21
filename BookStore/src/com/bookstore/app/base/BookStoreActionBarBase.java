@@ -7,7 +7,9 @@ import com.bookstore.app.activity.AgentListActivity;
 import com.bookstore.app.activity.BookListActivity;
 import com.bookstore.app.activity.CreateJobActivity;
 import com.bookstore.app.activity.R;
+import com.bookstore.app.activity.SplashScreenActivity;
 import com.bookstore.app.activity.TeacherListActivity;
+import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
 
 import android.app.ActionBar;
@@ -102,7 +104,13 @@ public class BookStoreActionBarBase extends FragmentActivity {
 			CommonTasks.showLogs(getApplicationContext(), "Contact US");
 			break;
 		case R.id.action_logout:
-			CommonTasks.showLogs(getApplicationContext(), "Log Out");
+			CommonTasks.savePreferencesForReasonCode(this,
+					CommonConstraints.USER_TYPE, "" + "");
+			Intent intent2=new Intent(getApplicationContext(),SplashScreenActivity.class);
+			intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			overridePendingTransition(android.R.anim.slide_in_left,
+					android.R.anim.slide_out_right);
+			startActivity(intent2);
 			break;
 		default:
 			break;

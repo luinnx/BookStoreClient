@@ -113,6 +113,7 @@ public class AddTeacherActivity extends BookStoreActionBarBase implements
 			if (result) {
 				CommonTasks.showToast(getApplicationContext(),
 						"Teacher addition succesfull");
+				super.onBackPressed();
 			} else {
 				CommonTasks.showToast(getApplicationContext(),
 						"Teacher Addition failed. Please Try again");

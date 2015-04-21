@@ -7,7 +7,6 @@ import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
-import com.google.android.gms.plus.model.people.Person.AgeRange;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -225,5 +224,11 @@ public class SplashScreenActivity extends Activity implements OnClickListener,
 		}
 
 	}
-
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent(Intent.ACTION_MAIN);
+		intent.addCategory(Intent.CATEGORY_HOME);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(intent);
+	}
 }

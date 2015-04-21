@@ -6,6 +6,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,6 +17,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,14 +31,15 @@ import android.widget.Spinner;
 
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.BookStoreActionBarBase;
+import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
+import com.bookstore.app.managers.AdminManager;
 import com.bookstore.app.utils.CommonTasks;
 
 public class AddBookActivity extends BookStoreActionBarBase implements
 		OnClickListener, IAsynchronousTask {
 
-	Spinner spBookTypes, spBooksTypesElements, spTextBooksElements,
-			spThirdDegreeElements;
+	Spinner spCategory, spSubCatagory, spTextBooksElements, spSubSubCatagory;
 	String[] bookTypes, guideSubElements, textBookSubElements,
 			thirdDergeeSubElements;
 	String bookType, secondDegreeSubElement;
@@ -43,12 +48,17 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 	EditText etBookName, etWritterName, etPublisherName, etBookCondition,
 			etBookQuantity, etISBNNumber, etPublishDate, etBookPrice;
 	Button btnOk;
-	
+	String bookName, writterName, publisherName, bookCondition, bookQuantity,
+			isbnNumber, publishDate, bookPrice;
+	int category, subCatagory, subSubCatagory;
+
 	DownloadableAsyncTask downloadAsyncTask;
 	ProgressDialog dialog;
 	File file;
 	public byte[] selectedFile;
 	public String filename = "";
+	
+	Uri uriSavedImage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,50 +82,73 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 		btnOk = (Button) findViewById(R.id.btnOk);
 		btnOk.setOnClickListener(this);
 
-		spBookTypes = (Spinner) findViewById(R.id.spBookTypes);
-		spBooksTypesElements = (Spinner) findViewById(R.id.spBooksTypesElements);
-		spThirdDegreeElements = (Spinner) findViewById(R.id.spThirdDegreeElements);
+		spCategory = (Spinner) findViewById(R.id.spCategory);
+		spSubCatagory = (Spinner) findViewById(R.id.spSubCatagory);
+		spSubSubCatagory = (Spinner) findViewById(R.id.spSubSubCatagory);
 		bookTypes = new String[] { "Guide Books", "Text Books" };
 		guideSubElements = new String[] { "SSC", "HSC", "DEGREE", "HONOURS",
 				"MASTERS", "TEST PAPERS" };
 		textBookSubElements = new String[] { "DEGREE", "HONOURS" };
 		thirdDergeeSubElements = new String[] { "1st Year", "2nd Year",
 				"3rd Year" };
-		spBookTypes.setAdapter(new ArrayAdapter<String>(this,
+		spCategory.setAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_dropdown_item_1line, bookTypes));
 
-		spBookTypes.setOnItemSelectedListener(new OnItemSelectedListener() {
+		spCategory.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-				bookType = spBookTypes.getSelectedItem().toString();
-				spBooksTypesElements.setVisibility(View.VISIBLE);
+					int position, long arg3) {
+				category = position;
+				bookType = spCategory.getSelectedItem().toString();
+				spSubCatagory.setVisibility(View.VISIBLE);
 				if (bookType.equals("Guide Books")) {
-					spBooksTypesElements.setAdapter(new ArrayAdapter<String>(
+					spSubCatagory.setAdapter(new ArrayAdapter<String>(
 							AddBookActivity.this,
 							android.R.layout.simple_dropdown_item_1line,
 							guideSubElements));
-					spBooksTypesElements
+					spSubCatagory
 							.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 								@Override
 								public void onItemSelected(AdapterView<?> arg0,
-										View arg1, int arg2, long arg3) {
-									secondDegreeSubElement = spBooksTypesElements
+										View arg1, int position, long arg3) {
+									subCatagory = position;
+									secondDegreeSubElement = spSubCatagory
 											.getSelectedItem().toString();
 
 									if (secondDegreeSubElement
 											.equals("HONOURS")) {
-										spThirdDegreeElements
+										spSubSubCatagory
 												.setVisibility(View.VISIBLE);
-										spThirdDegreeElements
+										spSubSubCatagory
 												.setAdapter(new ArrayAdapter<String>(
 														AddBookActivity.this,
 														android.R.layout.simple_dropdown_item_1line,
 														thirdDergeeSubElements));
+										spSubSubCatagory
+												.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+													@Override
+													public void onItemSelected(
+															AdapterView<?> arg0,
+															View arg1,
+															int arg2, long arg3) {
+														subSubCatagory = arg2;
+
+													}
+
+													@Override
+													public void onNothingSelected(
+															AdapterView<?> arg0) {
+														// TODO Auto-generated
+														// method stub
+
+													}
+												});
 									} else {
-										spThirdDegreeElements
+										subSubCatagory=11;
+										spSubSubCatagory
 												.setVisibility(View.GONE);
 									}
 
@@ -128,39 +161,62 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 								}
 							});
 				} else {
-					spBooksTypesElements.setAdapter(new ArrayAdapter<String>(
+					spSubCatagory.setAdapter(new ArrayAdapter<String>(
 							AddBookActivity.this,
 							android.R.layout.simple_dropdown_item_1line,
 							textBookSubElements));
-					spBooksTypesElements
+					spSubCatagory
 							.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 								@Override
 								public void onItemSelected(AdapterView<?> arg0,
-										View arg1, int arg2, long arg3) {
-									secondDegreeSubElement = spBooksTypesElements
+										View arg1, int position, long arg3) {
+									subCatagory = position;
+									secondDegreeSubElement = spSubCatagory
 											.getSelectedItem().toString();
 									if (secondDegreeSubElement
 											.equals("HONOURS")) {
-										spThirdDegreeElements
+										spSubSubCatagory
 												.setVisibility(View.VISIBLE);
 										thirdDergeeSubElements = new String[] {
 												"1st Year", "2nd Year",
 												"3rd Year" };
-										spThirdDegreeElements
+										spSubSubCatagory
 												.setAdapter(new ArrayAdapter<String>(
 														AddBookActivity.this,
 														android.R.layout.simple_dropdown_item_1line,
 														thirdDergeeSubElements));
+										spSubSubCatagory
+												.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+													@Override
+													public void onItemSelected(
+															AdapterView<?> arg0,
+															View arg1,
+															int position,
+															long arg3) {
+
+														subSubCatagory = position;
+													}
+
+													@Override
+													public void onNothingSelected(
+															AdapterView<?> arg0) {
+														// TODO Auto-generated
+														// method stub
+
+													}
+												});
 									} else {
-										spThirdDegreeElements
+										spSubSubCatagory
 												.setVisibility(View.VISIBLE);
 										thirdDergeeSubElements = new String[] { "1st Year" };
-										spThirdDegreeElements
+										spSubSubCatagory
 												.setAdapter(new ArrayAdapter<String>(
 														AddBookActivity.this,
 														android.R.layout.simple_dropdown_item_1line,
 														thirdDergeeSubElements));
+										subSubCatagory = 1;
 									}
 
 								}
@@ -191,6 +247,7 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 			 * etBookName, etWritterName, etPublisherName, etBookCondition,
 			 * etBookQuantity, etISBNNumber, etPublishDate, etBookPrice
 			 */
+
 			if (etBookName.getText().toString().trim().equals("")) {
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Enter book name");
@@ -223,13 +280,27 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Enter book Price");
 				return;
+			} else if (selectedFile == null) {
+				CommonTasks.showToast(getApplicationContext(),
+						"Please Capture Image");
+				return;
 			}
+
+			bookName = etBookName.getText().toString().trim();
+			writterName = etWritterName.getText().toString().trim();
+			publisherName = etPublisherName.getText().toString().trim();
+			bookCondition = etBookCondition.getText().toString().trim();
+			bookQuantity = etBookQuantity.getText().toString().trim();
+			isbnNumber = etISBNNumber.getText().toString().trim();
+			publishDate = etPublishDate.getText().toString().trim();
+			bookPrice = etBookPrice.getText().toString().trim();
 			loadInformation();
 
 		} else if (view.getId() == R.id.ivCaptureImage) {
 			getImageFromCamera();
 		}
 	}
+
 	private void loadInformation() {
 		if (downloadAsyncTask != null)
 			downloadAsyncTask.cancel(true);
@@ -244,30 +315,82 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 		dialog.setMessage("Adding Agent , Plaese wait...");
 		dialog.setCancelable(false);
 		dialog.show();
-		
+
 	}
 
 	@Override
 	public void hideProgressBar() {
 		dialog.dismiss();
-		
+
 	}
+
+	/*
+	 * String bookName, String writterName, String publisherName, String
+	 * bookCondition, String bookPrice, String isbnNumber, String publishDate,
+	 * byte[] pic_url, String bookQuantity, String catagoryId, String
+	 * subCatagoryID, String subSubCatagoryID)
+	 */
 
 	@Override
 	public Object doInBackground() {
-		// TODO Auto-generated method stub
-		return null;
+		IAdminManager adminManager = new AdminManager();
+		return adminManager.addBook(bookName, writterName, publisherName,
+				bookCondition, bookPrice, isbnNumber, publishDate,
+				selectedFile, bookQuantity, ""+category, ""+subCatagory,
+				""+subSubCatagory);
 	}
 
 	@Override
 	public void processDataAfterDownload(Object data) {
 		// TODO Auto-generated method stub
+
+	}
+
+	private void getImageFromCamera() {
+		File image = new File(appFolderCheckandCreate(), "img" + getTimeStamp() + ".jpg");
+        uriSavedImage = Uri.fromFile(image);
 		
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
+		intent.putExtra("return-data", true);
+		startActivityForResult(intent, 100);
 	}
 	
-	private void getImageFromCamera() {
-		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		startActivityForResult(intent, 100);
+	private String appFolderCheckandCreate(){
+
+	    String appFolderPath="";
+	    File externalStorage = Environment.getExternalStorageDirectory();
+
+	    if (externalStorage.canWrite()) 
+	    {
+	        appFolderPath = externalStorage.getAbsolutePath() + "/BookStore";
+	        File dir = new File(appFolderPath);
+
+	        if (!dir.exists()) 
+	        {
+	              dir.mkdirs();
+	        }
+
+	    }
+	    else
+	    {
+	      CommonTasks.showToast(getApplicationContext(),"  Storage media not found or is full ! ");
+	    }
+
+	    return appFolderPath;
+	}
+	
+	private String getTimeStamp() {
+
+	    final long timestamp = new Date().getTime();
+
+	    final Calendar cal = Calendar.getInstance();
+	                   cal.setTimeInMillis(timestamp);
+
+	    final String timeString = new SimpleDateFormat("HH_mm_ss_SSS").format(cal.getTime());
+
+
+	    return timeString;
 	}
 
 	@Override
@@ -276,8 +399,9 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 		super.onActivityResult(requestCode, responseCode, data);
 		if (requestCode == 100) {
 			if (responseCode == RESULT_OK) {
-				Uri currImageURI = data.getData();
-				file = new File(getRealPathFromURI(currImageURI));
+				Uri currImageURI = uriSavedImage;
+				file = new File(currImageURI.getPath());
+				//file = new File(getRealPathFromURI(currImageURI));
 				filename = file.getName().replaceAll("[-+^:,]", "")
 						.replace(" ", "");
 				Bitmap b = decodeImage(file);
@@ -295,6 +419,20 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 				}
 				selectedFile = stream.toByteArray();
 				ivCaptureImage.setImageBitmap(b);
+				try{
+					if (file.exists()) {
+					    if (file.delete()) {
+					        System.out.println("file Deleted :" + file);
+					    } else {
+					        System.out.println("file not Deleted :" + file);
+					    }
+					    sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
+					    		 Uri.parse("file://" +  Environment.getExternalStorageDirectory())));
+					}
+				}catch(Exception ex){
+					ex.printStackTrace();
+				}
+				
 			}
 		}
 	}
