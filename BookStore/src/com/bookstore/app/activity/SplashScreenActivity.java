@@ -20,6 +20,7 @@ public class SplashScreenActivity extends Activity {
 
 		if (CommonTasks.getPreferences(SplashScreenActivity.this,
 				CommonConstraints.USER_ID).equals("")) {
+			this.finish();
 			Intent intent = new Intent(SplashScreenActivity.this,
 					LoginActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -30,6 +31,7 @@ public class SplashScreenActivity extends Activity {
 
 			if (CommonTasks.getPreferences(SplashScreenActivity.this,
 					"USER_TYPE").equals("1")) {
+				this.finish();
 				Intent intent = new Intent(SplashScreenActivity.this,
 						AdminHomeActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -38,6 +40,7 @@ public class SplashScreenActivity extends Activity {
 						android.R.anim.slide_out_right);
 			} else if (CommonTasks.getPreferences(SplashScreenActivity.this,
 					"USER_TYPE").equals("2")) {
+				this.finish();
 				Intent intent = new Intent(SplashScreenActivity.this,
 						AgentHomeActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);

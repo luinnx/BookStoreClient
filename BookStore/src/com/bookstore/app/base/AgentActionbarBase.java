@@ -1,9 +1,11 @@
 package com.bookstore.app.base;
 
 import com.bookstore.app.activity.AgentMyProfileActivity;
+import com.bookstore.app.activity.LoginActivity;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.customview.AddDonation;
 import com.bookstore.app.entities.Donation;
+import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
 import com.google.android.gms.drive.internal.al;
 
@@ -60,6 +62,15 @@ public abstract class AgentActionbarBase extends FragmentActivity {
 					AgentMyProfileActivity.class);
 			int2.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			startActivity(int2);
+			break;
+		case R.id.action_logout:
+			CommonTasks.savePreferencesForReasonCode(this,
+					CommonConstraints.USER_ID, "" + "");
+			Intent intent2=new Intent(getApplicationContext(),LoginActivity.class);
+			intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			overridePendingTransition(android.R.anim.slide_in_left,
+					android.R.anim.slide_out_right);
+			startActivity(intent2);
 			break;
 			
 		}
