@@ -4,6 +4,7 @@ import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
 import com.bookstore.app.entities.BookEntity;
 import com.bookstore.app.entities.BookListRoot;
+import com.bookstore.app.entities.JobCreateEntity;
 import com.bookstore.app.entities.JobEntity;
 import com.bookstore.app.entities.JobListRoot;
 import com.bookstore.app.entities.LoginEntity;
@@ -40,5 +41,8 @@ public interface IAdminManager {
 			String bookQuantity, String catagoryId, String subCatagoryID,
 			String subSubCatagoryID);
 	public BookListRoot querySpeceficTypesBook(String catagory,String subCatagory,String subSubCatagory);
+	public JobCreateEntity createJob(String bookName, String bookID, String no_of_book, 
+            String teacherID, String teacher_institute, String jobStatus, 
+            String agentID, String agentGCMID, String adminId);
 
 }

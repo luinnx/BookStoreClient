@@ -12,6 +12,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -27,11 +28,14 @@ import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
 import com.bookstore.app.entities.BookEntity;
 import com.bookstore.app.entities.BookListRoot;
+import com.bookstore.app.entities.JobCreateEntity;
 import com.bookstore.app.entities.TeacherEntity;
 import com.bookstore.app.entities.TeacherListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
+import com.bookstore.app.utils.CommonConstraints;
+import com.bookstore.app.utils.CommonTasks;
 
 public class CreateJobActivity extends BookStoreActionBarBase implements
 		OnClickListener, IAsynchronousTask {
@@ -49,17 +53,23 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 	LinearLayout llBookView, llTeacherView, llAgentView;
 	ImageView ivAddTeacher, ivAddAgent;
 	TextView tvTeacherName, tvTeacherInstitutionName, tvTeacherMobileNumber;
+	EditText etOrderAmountBooks;
 	TeacherListAdapter teacherListAdapter;
 
 	AgentListAdapter agentListAdapter;
 	TextView tvAgentName, tvAgentAddress, tvAgentMPONumber,
 			tvAgentMobileNumber;
 
-	int category, subCatagory, subSubCatagory;
+	int category, subCatagory;
+	String subSubCatagory;
 	String[] bookTypes, guideSubElements, textBookSubElements,
 			thirdDergeeSubElements;
 	String bookType, secondDegreeSubElement;
 	Spinner spCategory, spSubCatagory, spSubSubCatagory;
+	Button btnSubmit;
+	BookEntity bookEntity=null;
+	AgentEntity agentEntity=null;
+	TeacherEntity teacherEntity=null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +92,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 		tvTeacherMobileNumber = (TextView) findViewById(R.id.tvTeacherMobileNumber);
 		ivAddTeacher = (ImageView) findViewById(R.id.ivAddTeacher);
 		llTeacherView = (LinearLayout) findViewById(R.id.llTeacherView);
+		etOrderAmountBooks=(EditText) findViewById(R.id.etOrderAmountBooks);
 
 		ivAddAgent = (ImageView) findViewById(R.id.ivAddAgent);
 		tvAgentName = (TextView) findViewById(R.id.tvAgentName);
@@ -89,10 +100,13 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 		tvAgentMPONumber = (TextView) findViewById(R.id.tvAgentMPONumber);
 		tvAgentMobileNumber = (TextView) findViewById(R.id.tvAgentMobileNumber);
 		llAgentView = (LinearLayout) findViewById(R.id.llAgentView);
+		
+		btnSubmit=(Button) findViewById(R.id.btnSubmit);
 
 		ivAddBook.setOnClickListener(this);
 		ivAddTeacher.setOnClickListener(this);
 		ivAddAgent.setOnClickListener(this);
+		btnSubmit.setOnClickListener(this);
 
 	}
 
@@ -107,6 +121,9 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 			loadInformation();
 		} else if (view.getId() == R.id.ivAddAgent) {
 			MODE = "AGENT_MODE";
+			loadInformation();
+		}else if(view.getId()==R.id.btnSubmit){
+			MODE="JOB_SUBMIT";
 			loadInformation();
 		}
 
@@ -183,7 +200,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 															AdapterView<?> arg0,
 															View arg1,
 															int arg2, long arg3) {
-														subSubCatagory = arg2;
+														subSubCatagory = ""+arg2;
 
 													}
 
@@ -196,7 +213,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 													}
 												});
 									} else {
-										subSubCatagory = 11;
+										subSubCatagory = "-1";
 										spSubSubCatagory
 												.setVisibility(View.GONE);
 									}
@@ -245,7 +262,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 															int position,
 															long arg3) {
 
-														subSubCatagory = position;
+														subSubCatagory = ""+position;
 													}
 
 													@Override
@@ -265,7 +282,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 														CreateJobActivity.this,
 														android.R.layout.simple_dropdown_item_1line,
 														thirdDergeeSubElements));
-										subSubCatagory = 1;
+										subSubCatagory = ""+0;
 									}
 
 								}
@@ -311,7 +328,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long arg3) {
-				BookEntity bookEntity = new BookEntity();
+				bookEntity = new BookEntity();
 				bookEntity = entities.bookList.get(position);
 				tvBookName.setText(bookEntity.full_name);
 				tvAuthorName.setText(bookEntity.Auther_name);
@@ -351,27 +368,52 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 			return adminManager.getTeacherList();
 		} else if (MODE.equals("AGENT_MODE")) {
 			return adminManager.getAgentList(0);
+		}else if (MODE.equals("JOB_SUBMIT")) {
+			/*String bookName, String bookID, String no_of_book, String teacherID, String teacher_institute,
+			String jobStatus, String agentID, String agentGCMID, String adminId)*/
+
+			return adminManager.createJob(bookEntity.full_name, ""+bookEntity._id, ""+etOrderAmountBooks.getText().toString().trim(), 
+							""+teacherEntity._id, teacherEntity.institute, ""+0, ""+agentEntity._id, agentEntity.gcm_id,
+							CommonTasks.getPreferences(getApplicationContext(), CommonConstraints.USER_ID));
 		}
 		return null;
 	}
 
 	@Override
 	public void processDataAfterDownload(Object data) {
-		if (MODE.equals("BOOK_MODE")) {
-			BookListRoot bookListRoot = new BookListRoot();
-			bookListRoot = (BookListRoot) data;
-			getAllBookDialog(bookListRoot);
-		} else if (MODE.equals("TEACHER_MODE")) {
-			TeacherListRoot teacherListRoot = new TeacherListRoot();
-			teacherListRoot = (TeacherListRoot) data;
-			getAllTeacherDialog(teacherListRoot);
+		if(data!=null){
+			if (MODE.equals("BOOK_MODE")) {
+				BookListRoot bookListRoot = new BookListRoot();
+				bookListRoot = (BookListRoot) data;
+				if(bookListRoot.bookList.size()>0){
+					getAllBookDialog(bookListRoot);
+				}else{
+					CommonTasks.showToast(getApplicationContext(), "No Book found");
+				}
+				
+			} else if (MODE.equals("TEACHER_MODE")) {
+				TeacherListRoot teacherListRoot = new TeacherListRoot();
+				teacherListRoot = (TeacherListRoot) data;
+				getAllTeacherDialog(teacherListRoot);
 
-		} else if (MODE.equals("AGENT_MODE")) {
+			} else if (MODE.equals("AGENT_MODE")) {
 
-			AgentListRoot agentListRoot = new AgentListRoot();
-			agentListRoot = (AgentListRoot) data;
-			getAllAgentDialog(agentListRoot);
+				AgentListRoot agentListRoot = new AgentListRoot();
+				agentListRoot = (AgentListRoot) data;
+				getAllAgentDialog(agentListRoot);
+			}else if (MODE.equals("JOB_SUBMIT")) {
+				JobCreateEntity createEntity=new JobCreateEntity();
+				createEntity=(JobCreateEntity) data;
+				if(createEntity.status){
+					CommonTasks.showToast(getApplicationContext(), createEntity.message);
+				}else{
+					CommonTasks.showToast(getApplicationContext(), createEntity.message);
+				}
+			}
+		}else{
+			CommonTasks.showToast(getApplicationContext(), "Internal Server Error!!!");
 		}
+		
 
 	}
 
@@ -391,7 +433,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long arg3) {
-				AgentEntity agentEntity = new AgentEntity();
+				agentEntity = new AgentEntity();
 				agentEntity = entities.agentList.get(position);
 
 				tvAgentName.setText(agentEntity.full_name);
@@ -423,7 +465,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long arg3) {
-				TeacherEntity teacherEntity = new TeacherEntity();
+				teacherEntity = new TeacherEntity();
 				teacherEntity = entities.teacherList.get(position);
 
 				tvTeacherName.setText(teacherEntity.full_name);

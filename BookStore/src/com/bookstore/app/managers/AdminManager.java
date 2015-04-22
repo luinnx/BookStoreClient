@@ -1,16 +1,21 @@
 package com.bookstore.app.managers;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import android.util.Base64;
 
 import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
 import com.bookstore.app.entities.BookEntity;
 import com.bookstore.app.entities.BookListRoot;
+import com.bookstore.app.entities.JobCreateEntity;
 import com.bookstore.app.entities.JobEntity;
 import com.bookstore.app.entities.JobListRoot;
 import com.bookstore.app.entities.LoginEntity;
 import com.bookstore.app.entities.TeacherListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
+import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonUrls;
 import com.bookstore.app.utils.JSONfunctions;
 
@@ -217,10 +222,35 @@ public class AdminManager implements IAdminManager {
 	@Override
 	public BookListRoot querySpeceficTypesBook(String catagory,
 			String subCatagory, String subSubCatagory) {
-		BookListRoot bookListRoot=null;
-		bookListRoot=(BookListRoot)JSONfunctions.retrieveDataFromStream(String.format(
-				CommonUrls.getInstance().searchSpeceficBooks, catagory, subCatagory,
-				subSubCatagory),  BookListRoot.class);
+		BookListRoot bookListRoot = null;
+		bookListRoot = (BookListRoot) JSONfunctions.retrieveDataFromStream(
+				String.format(CommonUrls.getInstance().searchSpeceficBooks,
+						catagory, subCatagory, subSubCatagory),
+				BookListRoot.class);
 		return bookListRoot;
+	}
+
+	@Override
+	public JobCreateEntity createJob(String bookName, String bookID,
+			String no_of_book, String teacherID, String teacher_institute,
+			String jobStatus, String agentID, String agentGCMID, String adminId) {
+
+		JobCreateEntity result = null;
+		try {
+			bookName = URLEncoder.encode(bookName,
+					CommonConstraints.EncodingCode);
+			teacher_institute = URLEncoder.encode(teacher_institute,
+					CommonConstraints.EncodingCode);
+			result = (JobCreateEntity) JSONfunctions.retrieveDataFromStream(
+					String.format(CommonUrls.getInstance().createJob, bookName,
+							bookID, no_of_book, teacherID, teacher_institute,
+							jobStatus, agentID, URLEncoder.encode(agentGCMID,
+									CommonConstraints.EncodingCode), adminId),
+					JobCreateEntity.class);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
 }
