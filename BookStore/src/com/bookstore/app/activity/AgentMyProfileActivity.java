@@ -39,6 +39,7 @@ public class AgentMyProfileActivity extends AgentActionbarBase implements
 	TextView tvAgentName, tvMobileNumber, tvEmail, tvMpoNumber, tvAgentAddress,
 			tvAgentCurrentLocation, tvCreateDate,tvDialogCancel,tvDialogOK;
 	EditText etOldPassword, etNewPassword, etConfirmPassword;
+	
 	Button btnOk,btnForgotPassword;
 	ImageView ivAgentImage;
 	AlertDialog alertDialog;
