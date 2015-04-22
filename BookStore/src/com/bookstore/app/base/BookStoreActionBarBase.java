@@ -6,6 +6,7 @@ import com.bookstore.app.activity.AddTeacherActivity;
 import com.bookstore.app.activity.AgentListActivity;
 import com.bookstore.app.activity.BookListActivity;
 import com.bookstore.app.activity.CreateJobActivity;
+import com.bookstore.app.activity.LoginActivity;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.activity.SplashScreenActivity;
 import com.bookstore.app.activity.TeacherListActivity;
@@ -54,6 +55,8 @@ public class BookStoreActionBarBase extends FragmentActivity {
 			Intent intent = new Intent(getApplicationContext(),
 					AddAgentActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			overridePendingTransition(android.R.anim.slide_in_left,
+					android.R.anim.slide_out_right);
 			startActivity(intent);
 			break;
 		case R.id.action_add_book:
@@ -61,6 +64,8 @@ public class BookStoreActionBarBase extends FragmentActivity {
 			Intent int1 = new Intent(getApplicationContext(),
 					AddBookActivity.class);
 			int1.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			overridePendingTransition(android.R.anim.slide_in_left,
+					android.R.anim.slide_out_right);
 			startActivity(int1);
 			break;
 		case R.id.action_add_teacher:
@@ -68,6 +73,8 @@ public class BookStoreActionBarBase extends FragmentActivity {
 			Intent intt = new Intent(getApplicationContext(),
 					AddTeacherActivity.class);
 			intt.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			overridePendingTransition(android.R.anim.slide_in_left,
+					android.R.anim.slide_out_right);
 			startActivity(intt);
 			break;
 		case R.id.action_Agent_list:
@@ -75,6 +82,8 @@ public class BookStoreActionBarBase extends FragmentActivity {
 			Intent int2 = new Intent(getApplicationContext(),
 					AgentListActivity.class);
 			int2.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			overridePendingTransition(android.R.anim.slide_in_left,
+					android.R.anim.slide_out_right);
 			startActivity(int2);
 			break;
 		case R.id.action_book_list:
@@ -82,6 +91,8 @@ public class BookStoreActionBarBase extends FragmentActivity {
 			Intent int3 = new Intent(getApplicationContext(),
 					BookListActivity.class);
 			int3.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			overridePendingTransition(android.R.anim.slide_in_left,
+					android.R.anim.slide_out_right);
 			startActivity(int3);
 			break;
 		case R.id.action_teacher_list:
@@ -89,12 +100,16 @@ public class BookStoreActionBarBase extends FragmentActivity {
 			Intent int4 = new Intent(getApplicationContext(),
 					TeacherListActivity.class);
 			int4.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			overridePendingTransition(android.R.anim.slide_in_left,
+					android.R.anim.slide_out_right);
 			startActivity(int4);
 			break;
 		case R.id.action_create_job:
 			Intent int5 = new Intent(getApplicationContext(),
 					CreateJobActivity.class);
 			int5.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			overridePendingTransition(android.R.anim.slide_in_left,
+					android.R.anim.slide_out_right);
 			startActivity(int5);
 
 		case R.id.actionLocation:
@@ -102,11 +117,12 @@ public class BookStoreActionBarBase extends FragmentActivity {
 			break;
 		case R.id.action_ContactUs:
 			CommonTasks.showLogs(getApplicationContext(), "Contact US");
+			
 			break;
 		case R.id.action_logout:
 			CommonTasks.savePreferencesForReasonCode(this,
-					CommonConstraints.USER_TYPE, "" + "");
-			Intent intent2=new Intent(getApplicationContext(),SplashScreenActivity.class);
+					CommonConstraints.USER_ID, "" + "");
+			Intent intent2=new Intent(getApplicationContext(),LoginActivity.class);
 			intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			overridePendingTransition(android.R.anim.slide_in_left,
 					android.R.anim.slide_out_right);
