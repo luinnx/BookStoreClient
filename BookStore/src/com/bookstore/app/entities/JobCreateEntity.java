@@ -6,5 +6,7 @@ public class JobCreateEntity {
 	@SerializedName("status")
 	public boolean status;
 	@SerializedName("message")
+	
+	
     public String message;
 }
