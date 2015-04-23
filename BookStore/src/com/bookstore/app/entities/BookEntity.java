@@ -7,8 +7,8 @@ public class BookEntity {
 	public int _id;
 	@SerializedName("full_name")
 	public String full_name;
-	@SerializedName("Auther_name")
-	public String Auther_name;
+	@SerializedName("auther_name")
+	public String auther_name;
 	@SerializedName("publisher_name")
 	public String publisher_name;
 	@SerializedName("isbn_no")

@@ -124,6 +124,11 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 			loadInformation();
 		}else if(view.getId()==R.id.btnSubmit){
 			MODE="JOB_SUBMIT";
+			if(etOrderAmountBooks.getText().toString().trim().equals("")){
+				CommonTasks.showToast(getApplicationContext(), "Please Enter Amount of Books");
+				return;
+			}
+				
 			loadInformation();
 		}
 
@@ -331,7 +336,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 				bookEntity = new BookEntity();
 				bookEntity = entities.bookList.get(position);
 				tvBookName.setText(bookEntity.full_name);
-				tvAuthorName.setText(bookEntity.Auther_name);
+				tvAuthorName.setText(bookEntity.auther_name);
 				tvPublisherName.setText(bookEntity.publisher_name);
 				tvISBNNumber.setText(bookEntity.isbn_no);
 				tvAvailableBooks.setText("" + bookEntity.avaible);

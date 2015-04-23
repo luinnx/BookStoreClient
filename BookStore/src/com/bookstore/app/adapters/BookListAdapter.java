@@ -85,7 +85,7 @@ public class BookListAdapter extends ArrayAdapter<BookEntity> {
 			}
 			
 			holder.tvBookName.setText(bookEntity.full_name);
-			holder.tvWritterName.setText(bookEntity.Auther_name);
+			holder.tvWritterName.setText(bookEntity.auther_name);
 			holder.tvNumberOfBook.setText(""+bookEntity.avaible);
 			
 			aq.id(holder.ivBookImage).image(context.getResources().getDrawable(R.drawable.ic_add_book));

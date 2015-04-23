@@ -280,11 +280,11 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Enter book Price");
 				return;
-			} else if (selectedFile == null) {
+			} /*else if (selectedFile == null) {
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Capture Image");
 				return;
-			}
+			}*/
 
 			bookName = etBookName.getText().toString().trim();
 			writterName = etWritterName.getText().toString().trim();
@@ -343,7 +343,12 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 	@Override
 	public void processDataAfterDownload(Object data) {
 		if(data!=null){
-			
+			Boolean result=(Boolean) data;
+			if(result){
+				CommonTasks.showToast(getApplicationContext(), "Add Book Succesfull");
+			}else{
+				CommonTasks.showToast(getApplicationContext(), "Book Addition failed, Try again later");
+			}
 		}else{
 			CommonTasks.showToast(getApplicationContext(), "Internal Server Error , Please Try again");
 		}
