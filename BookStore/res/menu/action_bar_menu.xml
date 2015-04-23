@@ -62,10 +62,16 @@
     <item
         android:id="@+id/action_more"
         android:background="@color/actionbar_color"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/ic_more"
         android:showAsAction="never"
         android:title="More..">
         <menu>
+            
+            <item
+                android:id="@+id/action_donation"
+                android:icon="@drawable/ic_donation_32"
+                android:showAsAction="ifRoom"
+                android:title="Donation"/>
             <item
                 android:id="@+id/action_ContactUs"
                 android:icon="@drawable/ic_contact_us24"

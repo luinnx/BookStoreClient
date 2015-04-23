@@ -9,6 +9,7 @@ import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
 import com.bookstore.app.entities.BookEntity;
 import com.bookstore.app.entities.BookListRoot;
+import com.bookstore.app.entities.DonationListRoot;
 import com.bookstore.app.entities.JobCreateEntity;
 import com.bookstore.app.entities.JobEntity;
 import com.bookstore.app.entities.JobListRoot;
@@ -169,9 +170,16 @@ public class AdminManager implements IAdminManager {
 	public Boolean addTeacher(String fullName, String userName,
 			String password, String mobileNumber, String Institude) {
 		Boolean result = false;
-		result = (Boolean) JSONfunctions.retrieveDataFromStream(String.format(
-				CommonUrls.getInstance().addTeacher, fullName, userName,
-				password, Institude, mobileNumber), Boolean.class);
+		try {
+			result = (Boolean) JSONfunctions.retrieveDataFromStream(String.format(
+					CommonUrls.getInstance().addTeacher, URLEncoder.encode(fullName,
+							CommonConstraints.EncodingCode), userName,
+					password, URLEncoder.encode(Institude,
+							CommonConstraints.EncodingCode), mobileNumber), Boolean.class);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return result;
 	}
@@ -210,7 +218,7 @@ public class AdminManager implements IAdminManager {
 					pic_url != null ? Base64.encodeToString(pic_url,
 							Base64.NO_WRAP) : "");
 			result = (Boolean) JSONfunctions.retrieveDataFromJsonPost(
-					CommonUrls.getInstance().createAgent, jsonObject,
+					CommonUrls.getInstance().createBook, jsonObject,
 					Boolean.class);
 
 		} catch (Exception ex) {
@@ -252,5 +260,12 @@ public class AdminManager implements IAdminManager {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	@Override
+	public DonationListRoot getAllDonationList(int index) {
+		DonationListRoot donationListRoot=null;
+		donationListRoot=(DonationListRoot) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().getDonationList, index), DonationListRoot.class);
+		return donationListRoot;
 	}
 }

@@ -6,6 +6,7 @@ import com.bookstore.app.activity.AddTeacherActivity;
 import com.bookstore.app.activity.AgentListActivity;
 import com.bookstore.app.activity.BookListActivity;
 import com.bookstore.app.activity.CreateJobActivity;
+import com.bookstore.app.activity.DonationListActivity;
 import com.bookstore.app.activity.LoginActivity;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.activity.SplashScreenActivity;
@@ -111,6 +112,14 @@ public class BookStoreActionBarBase extends FragmentActivity {
 			overridePendingTransition(android.R.anim.slide_in_left,
 					android.R.anim.slide_out_right);
 			startActivity(int5);
+			
+		case R.id.action_donation:
+			Intent int6 = new Intent(getApplicationContext(),
+					DonationListActivity.class);
+			int6.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			overridePendingTransition(android.R.anim.slide_in_left,
+					android.R.anim.slide_out_right);
+			startActivity(int6);
 
 		case R.id.actionLocation:
 			CommonTasks.showLogs(getApplicationContext(), "Location");

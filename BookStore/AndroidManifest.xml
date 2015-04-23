@@ -108,6 +108,10 @@
             android:name="com.bookstore.app.activity.AgentMyProfileActivity"
             android:label="Profile" >
         </activity>
+        <activity
+            android:name="com.bookstore.app.activity.DonationListActivity"
+            android:label="Profile" >
+        </activity>
 
         <receiver
             android:name="com.bookstore.app.base.GcmBroadcastReceiver"

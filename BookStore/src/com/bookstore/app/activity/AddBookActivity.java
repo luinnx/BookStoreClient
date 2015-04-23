@@ -342,7 +342,11 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 
 	@Override
 	public void processDataAfterDownload(Object data) {
-		// TODO Auto-generated method stub
+		if(data!=null){
+			
+		}else{
+			CommonTasks.showToast(getApplicationContext(), "Internal Server Error , Please Try again");
+		}
 
 	}
 
