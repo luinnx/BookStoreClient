@@ -280,11 +280,11 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Enter book Price");
 				return;
-			} /*else if (selectedFile == null) {
+			} else if (selectedFile == null) {
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Capture Image");
 				return;
-			}*/
+			}
 
 			bookName = etBookName.getText().toString().trim();
 			writterName = etWritterName.getText().toString().trim();

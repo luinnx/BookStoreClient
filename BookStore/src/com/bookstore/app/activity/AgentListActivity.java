@@ -94,7 +94,7 @@ public class AgentListActivity extends BookStoreActionBarBase implements
 					R.layout.agent_list_item, agentListRoot.agentList);
 			lvAllAgentList.setAdapter(adapter);
 		} else {
-			CommonTasks.showToast(getApplicationContext(), "No Agent Found");
+			CommonTasks.showToast(getApplicationContext(), "Internal Server  Error!!! Please Try again later");
 		}
 	}
 

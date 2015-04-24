@@ -2,6 +2,7 @@ package com.bookstore.app.interfaces;
 
 import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
+import com.bookstore.app.entities.AgentLocationMapRoot;
 import com.bookstore.app.entities.BookEntity;
 import com.bookstore.app.entities.BookListRoot;
 import com.bookstore.app.entities.DonationListRoot;
@@ -47,5 +48,6 @@ public interface IAdminManager {
             String agentID, String agentGCMID, String adminId);
 	
 	public DonationListRoot getAllDonationList(int index);
+	public AgentLocationMapRoot getAgentsLocation();
 
 }

@@ -3,6 +3,7 @@ package com.bookstore.app.base;
 import com.bookstore.app.activity.AddAgentActivity;
 import com.bookstore.app.activity.AddBookActivity;
 import com.bookstore.app.activity.AddTeacherActivity;
+import com.bookstore.app.activity.AdminMapActivity;
 import com.bookstore.app.activity.AgentListActivity;
 import com.bookstore.app.activity.BookListActivity;
 import com.bookstore.app.activity.CreateJobActivity;
@@ -123,7 +124,12 @@ public class BookStoreActionBarBase extends FragmentActivity {
 			startActivity(int6);
 
 		case R.id.actionLocation:
-			CommonTasks.showLogs(getApplicationContext(), "Location");
+			Intent int7 = new Intent(getApplicationContext(),
+					AdminMapActivity.class);
+			int7.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			overridePendingTransition(android.R.anim.slide_in_left,
+					android.R.anim.slide_out_right);
+			startActivity(int7);
 			break;
 		case R.id.action_ContactUs:
 			CommonTasks.showLogs(getApplicationContext(), "Contact US");

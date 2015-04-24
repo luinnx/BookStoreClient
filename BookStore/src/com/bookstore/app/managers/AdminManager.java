@@ -7,6 +7,7 @@ import android.util.Base64;
 
 import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
+import com.bookstore.app.entities.AgentLocationMapRoot;
 import com.bookstore.app.entities.BookEntity;
 import com.bookstore.app.entities.BookListRoot;
 import com.bookstore.app.entities.DonationListRoot;
@@ -206,6 +207,7 @@ public class AdminManager implements IAdminManager {
 			jsonObject.put("publisher_name", publisherName);
 			jsonObject.put("puslish_date", publishDate);
 			jsonObject.put("condition", bookCondition);
+			jsonObject.put("isbn", isbnNumber);
 			jsonObject.put("quantity", bookQuantity);
 			jsonObject.put("price", bookPrice);
 
@@ -267,5 +269,12 @@ public class AdminManager implements IAdminManager {
 		DonationListRoot donationListRoot=null;
 		donationListRoot=(DonationListRoot) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().getDonationList, index), DonationListRoot.class);
 		return donationListRoot;
+	}
+
+	@Override
+	public AgentLocationMapRoot getAgentsLocation() {
+		AgentLocationMapRoot agentLocationMapRoot=null;
+		agentLocationMapRoot=(AgentLocationMapRoot) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().getAgentsLocationList), AgentLocationMapRoot.class);
+		return agentLocationMapRoot;
 	}
 }

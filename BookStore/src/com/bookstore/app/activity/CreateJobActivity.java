@@ -1,7 +1,5 @@
 package com.bookstore.app.activity;
 
-import java.util.ArrayList;
-
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -67,9 +65,9 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 	String bookType, secondDegreeSubElement;
 	Spinner spCategory, spSubCatagory, spSubSubCatagory;
 	Button btnSubmit;
-	BookEntity bookEntity=null;
-	AgentEntity agentEntity=null;
-	TeacherEntity teacherEntity=null;
+	BookEntity bookEntity = null;
+	AgentEntity agentEntity = null;
+	TeacherEntity teacherEntity = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +90,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 		tvTeacherMobileNumber = (TextView) findViewById(R.id.tvTeacherMobileNumber);
 		ivAddTeacher = (ImageView) findViewById(R.id.ivAddTeacher);
 		llTeacherView = (LinearLayout) findViewById(R.id.llTeacherView);
-		etOrderAmountBooks=(EditText) findViewById(R.id.etOrderAmountBooks);
+		etOrderAmountBooks = (EditText) findViewById(R.id.etOrderAmountBooks);
 
 		ivAddAgent = (ImageView) findViewById(R.id.ivAddAgent);
 		tvAgentName = (TextView) findViewById(R.id.tvAgentName);
@@ -100,8 +98,8 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 		tvAgentMPONumber = (TextView) findViewById(R.id.tvAgentMPONumber);
 		tvAgentMobileNumber = (TextView) findViewById(R.id.tvAgentMobileNumber);
 		llAgentView = (LinearLayout) findViewById(R.id.llAgentView);
-		
-		btnSubmit=(Button) findViewById(R.id.btnSubmit);
+
+		btnSubmit = (Button) findViewById(R.id.btnSubmit);
 
 		ivAddBook.setOnClickListener(this);
 		ivAddTeacher.setOnClickListener(this);
@@ -122,13 +120,28 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 		} else if (view.getId() == R.id.ivAddAgent) {
 			MODE = "AGENT_MODE";
 			loadInformation();
-		}else if(view.getId()==R.id.btnSubmit){
-			MODE="JOB_SUBMIT";
-			if(etOrderAmountBooks.getText().toString().trim().equals("")){
-				CommonTasks.showToast(getApplicationContext(), "Please Enter Amount of Books");
+		} else if (view.getId() == R.id.btnSubmit) {
+			MODE = "JOB_SUBMIT";
+
+			if (bookEntity == null) {
+				CommonTasks.showToast(getApplicationContext(),
+						"Please Select a Books Books");
+				return;
+			} else if (teacherEntity == null) {
+				CommonTasks.showToast(getApplicationContext(),
+						"Please Select a teacher");
+				return;
+			} else if (agentEntity == null) {
+				CommonTasks.showToast(getApplicationContext(),
+						"Please Select an Agent");
+				return;
+			} else if (etOrderAmountBooks.getText().toString().trim()
+					.equals("")) {
+				CommonTasks.showToast(getApplicationContext(),
+						"Please Enter Amount of Books");
 				return;
 			}
-				
+
 			loadInformation();
 		}
 
@@ -136,7 +149,8 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 
 	private void selectSpeceficBook() {
 		selectSpeceficBooksDialog = new Dialog(this);
-		selectSpeceficBooksDialog.setContentView(R.layout.select_specefic_books);
+		selectSpeceficBooksDialog
+				.setContentView(R.layout.select_specefic_books);
 		selectSpeceficBooksDialog.setCancelable(true);
 		selectSpeceficBooksDialog.setTitle("Select Specefic Book");
 		spCategory = (Spinner) selectSpeceficBooksDialog
@@ -205,7 +219,8 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 															AdapterView<?> arg0,
 															View arg1,
 															int arg2, long arg3) {
-														subSubCatagory = ""+arg2;
+														subSubCatagory = ""
+																+ arg2;
 
 													}
 
@@ -267,7 +282,8 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 															int position,
 															long arg3) {
 
-														subSubCatagory = ""+position;
+														subSubCatagory = ""
+																+ position;
 													}
 
 													@Override
@@ -287,7 +303,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 														CreateJobActivity.this,
 														android.R.layout.simple_dropdown_item_1line,
 														thirdDergeeSubElements));
-										subSubCatagory = ""+0;
+										subSubCatagory = "" + 0;
 									}
 
 								}
@@ -373,29 +389,37 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 			return adminManager.getTeacherList();
 		} else if (MODE.equals("AGENT_MODE")) {
 			return adminManager.getAgentList(0);
-		}else if (MODE.equals("JOB_SUBMIT")) {
-			/*String bookName, String bookID, String no_of_book, String teacherID, String teacher_institute,
-			String jobStatus, String agentID, String agentGCMID, String adminId)*/
+		} else if (MODE.equals("JOB_SUBMIT")) {
+			/*
+			 * String bookName, String bookID, String no_of_book, String
+			 * teacherID, String teacher_institute, String jobStatus, String
+			 * agentID, String agentGCMID, String adminId)
+			 */
 
-			return adminManager.createJob(bookEntity.full_name, ""+bookEntity._id, ""+etOrderAmountBooks.getText().toString().trim(), 
-							""+teacherEntity._id, teacherEntity.institute, ""+0, ""+agentEntity._id, agentEntity.gcm_id,
-							CommonTasks.getPreferences(getApplicationContext(), CommonConstraints.USER_ID));
+			return adminManager.createJob(bookEntity.full_name, ""
+					+ bookEntity._id, ""
+					+ etOrderAmountBooks.getText().toString().trim(), ""
+					+ teacherEntity._id, teacherEntity.institute, "" + 0, ""
+					+ agentEntity._id, agentEntity.gcm_id, CommonTasks
+					.getPreferences(getApplicationContext(),
+							CommonConstraints.USER_ID));
 		}
 		return null;
 	}
 
 	@Override
 	public void processDataAfterDownload(Object data) {
-		if(data!=null){
+		if (data != null) {
 			if (MODE.equals("BOOK_MODE")) {
 				BookListRoot bookListRoot = new BookListRoot();
 				bookListRoot = (BookListRoot) data;
-				if(bookListRoot.bookList.size()>0){
+				if (bookListRoot.bookList.size() > 0) {
 					getAllBookDialog(bookListRoot);
-				}else{
-					CommonTasks.showToast(getApplicationContext(), "No Book found");
+				} else {
+					CommonTasks.showToast(getApplicationContext(),
+							"No Book found");
 				}
-				
+
 			} else if (MODE.equals("TEACHER_MODE")) {
 				TeacherListRoot teacherListRoot = new TeacherListRoot();
 				teacherListRoot = (TeacherListRoot) data;
@@ -406,19 +430,21 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 				AgentListRoot agentListRoot = new AgentListRoot();
 				agentListRoot = (AgentListRoot) data;
 				getAllAgentDialog(agentListRoot);
-			}else if (MODE.equals("JOB_SUBMIT")) {
-				JobCreateEntity createEntity=new JobCreateEntity();
-				createEntity=(JobCreateEntity) data;
-				if(createEntity.status){
-					CommonTasks.showToast(getApplicationContext(), createEntity.message);
-				}else{
-					CommonTasks.showToast(getApplicationContext(), createEntity.message);
+			} else if (MODE.equals("JOB_SUBMIT")) {
+				JobCreateEntity createEntity = new JobCreateEntity();
+				createEntity = (JobCreateEntity) data;
+				if (createEntity.status) {
+					CommonTasks.showToast(getApplicationContext(),
+							createEntity.message);
+				} else {
+					CommonTasks.showToast(getApplicationContext(),
+							createEntity.message);
 				}
 			}
-		}else{
-			CommonTasks.showToast(getApplicationContext(), "Internal Server Error!!!");
+		} else {
+			CommonTasks.showToast(getApplicationContext(),
+					"Internal Server Error!!!");
 		}
-		
 
 	}
 
