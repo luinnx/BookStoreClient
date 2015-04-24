@@ -2,27 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/Theme.Example"
+    style="@style/Application_Background"
     android:orientation="vertical" >
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="3dp" >
+        android:padding="5dp" >
 
         <ImageView
             android:id="@+id/ivAgentImage"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
             android:src="@drawable/ic_person" />
-
-        <ProgressBar
-            android:id="@+id/pbImagePreLoad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tvAgentName"
@@ -34,7 +27,7 @@
             android:text=""
             android:textStyle="bold"
             android:textColor="@color/text_color"
-            android:textSize="18sp"/>
+            android:textSize="25sp"/>
 
         <TextView
             android:id="@+id/tvDonationAmount"
@@ -46,7 +39,7 @@
             android:layout_toRightOf="@+id/ivAgentImage"
             android:text=""
             android:textColor="@color/text_color"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textStyle="normal" />
 
         <TextView
@@ -60,7 +53,7 @@
             android:layout_toRightOf="@+id/ivAgentImage"
             android:text=""
             android:textColor="@color/text_color"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textStyle="italic" />
 
     </RelativeLayout>
