@@ -122,6 +122,7 @@ public class BookStoreActionBarBase extends FragmentActivity {
 			overridePendingTransition(android.R.anim.slide_in_left,
 					android.R.anim.slide_out_right);
 			startActivity(int6);
+			break;
 
 		case R.id.actionLocation:
 			Intent int7 = new Intent(getApplicationContext(),

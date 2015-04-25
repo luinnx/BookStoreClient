@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/ivBookImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="800dp"
+            android:layout_height="80dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_done_work" />
 
@@ -27,7 +27,7 @@
             android:text=""
             android:textStyle="bold"
             android:textColor="@color/text_color"
-            android:textSize="25sp"/>
+            android:textSize="22sp"/>
 
         <TextView
             android:id="@+id/tvAgentName"

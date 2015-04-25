@@ -7,6 +7,7 @@
     <color name="button_unpressed_color">#00C2A9</color>
     <color name="actionbar_color">#00C2A9</color>
     <color name="edit_text_color">#00C2A9</color>
-    <color name="text_view_color">#00C2A9</color>
+    <!-- <color name="text_view_color">#00C2A9</color> -->
+    <color name="text_view_color">#000</color>
 
 </resources>

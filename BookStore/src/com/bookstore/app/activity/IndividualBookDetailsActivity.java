@@ -22,7 +22,7 @@ public class IndividualBookDetailsActivity extends BookStoreActionBarBase
 	ImageView ivBookImage;
 	TextView tvBookName, tvAddress, tvCurrentLocation, tvISBNNumber,
 			tvBookQuantity, tvAvailable, tvPublishDate, tvBookCondition,
-			tvBookPrice,tvPublisherName;
+			tvBookPrice,tvPublisherName,tvAuthorName;
 	Button btnOk;
 	DownloadableAsyncTask downloadableAsyncTask;
 	ProgressDialog dialog;
@@ -47,6 +47,7 @@ public class IndividualBookDetailsActivity extends BookStoreActionBarBase
 		tvPublishDate = (TextView) findViewById(R.id.tvPublishDate);
 		tvBookCondition = (TextView) findViewById(R.id.tvBookCondition);
 		tvBookPrice = (TextView) findViewById(R.id.tvBookPrice);
+		tvAuthorName= (TextView) findViewById(R.id.tvAuthorName);
 		btnOk = (Button) findViewById(R.id.btnOk);
 		btnOk.setOnClickListener(this);
 
@@ -96,6 +97,7 @@ public class IndividualBookDetailsActivity extends BookStoreActionBarBase
 			tvAvailable.setText(""+bookEntity.avaible);
 			tvPublishDate.setText(bookEntity.publish_date);
 			tvBookCondition.setText(bookEntity.condition);
+			tvAuthorName.setText(bookEntity.auther_name);
 			tvBookPrice.setText("" + bookEntity.price);
 		} else {
 			CommonTasks.showToast(getApplicationContext(),

@@ -436,6 +436,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 				if (createEntity.status) {
 					CommonTasks.showToast(getApplicationContext(),
 							createEntity.message);
+					super.onBackPressed();
 				} else {
 					CommonTasks.showToast(getApplicationContext(),
 							createEntity.message);
