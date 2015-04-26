@@ -1,9 +1,11 @@
 package com.bookstore.app.adapters;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,8 +86,9 @@ public class DonationListAdapter extends ArrayAdapter<DonationEntity> {
 			}
 			
 			holder.tvAgentName.setText(donation.agent_name);
-			holder.tvDonationAmount.setText(String.valueOf(donation.Amount));
-			holder.tvDonationDate.setText(""+donation.date);
+			holder.tvDonationAmount.setText("Amount :"+String.valueOf(donation.Amount));
+			holder.tvDonationDate.setText("Date :"+ (String) DateUtils.getRelativeTimeSpanString(
+					donation.date, new Date().getTime(), DateUtils.DAY_IN_MILLIS));
 			
 			if(donation.pic_url != null){
 				aq.id(holder.ivAgentImage).image(context.getResources().getDrawable(R.drawable.ic_person));

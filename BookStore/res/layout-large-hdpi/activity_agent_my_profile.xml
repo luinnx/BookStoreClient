@@ -11,6 +11,8 @@
         android:layout_height="300dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        android:scaleType="fitXY"
+        android:background="@drawable/pic_border"
         android:src="@drawable/ic_person" />
 
     <ScrollView

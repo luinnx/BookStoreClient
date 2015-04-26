@@ -68,10 +68,8 @@ public class AgentListAdapter extends ArrayAdapter<AgentEntity> {
 				jobView = inflater.inflate(R.layout.agent_list_item, null);
 				
 				holder.ivAgentImage = (ImageView) jobView.findViewById(R.id.ivBookImage);
-				holder.pbImagePreLoad = (ProgressBar) jobView.findViewById(R.id.pbImagePreLoad);
 				holder.tvAgentName = (TextView) jobView.findViewById(R.id.tvAgentName);
 				holder.tvAgentAddress = (TextView) jobView.findViewById(R.id.tvAgentAddress);
-				holder.tvJoinDate = (TextView) jobView.findViewById(R.id.tvAgentJoinDate);
 				aq = new AQuery(context);
 				imageLoader = new ImageLoader(context);
 				imgOptions = CommonValues.getInstance().defaultImageOptions; 		
@@ -85,7 +83,6 @@ public class AgentListAdapter extends ArrayAdapter<AgentEntity> {
 			
 			holder.tvAgentName.setText(agentEntity.full_name);
 			holder.tvAgentAddress.setText(agentEntity.address);
-			holder.tvJoinDate.setText(agentEntity.create_date);
 			
 			//aq.id(holder.ivAgentImage).image(context.getResources().getDrawable(R.drawable.ic_person_24));
 			if(agentEntity.pic_url .equals("")){
@@ -103,8 +100,6 @@ public class AgentListAdapter extends ArrayAdapter<AgentEntity> {
 	public class ViewHolder {
 		public TextView tvAgentName;
 		public TextView tvAgentAddress;
-		public TextView tvJoinDate;
 		public ImageView ivAgentImage;
-		public ProgressBar pbImagePreLoad;
 	}
 }

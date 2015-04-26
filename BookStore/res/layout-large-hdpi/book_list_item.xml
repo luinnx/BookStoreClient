@@ -7,21 +7,24 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp" >
+        android:layout_height="wrap_content" >
 
         <ImageView
             android:id="@+id/ivBookImage"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/pic_border"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
             android:src="@drawable/ic_add_book" />
 
         <TextView
             android:id="@+id/tvBookName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/ivBookImage"
             android:text=""
             android:textColor="@color/text_color"
@@ -33,12 +36,12 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvBookName"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/ivBookImage"
             android:text=""
             android:textColor="@color/text_color"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="normal" />
 
         <TextView
@@ -47,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@id/tvWriterName"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/ivBookImage"
             android:text=""

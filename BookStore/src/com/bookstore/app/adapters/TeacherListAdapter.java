@@ -70,9 +70,9 @@ public class TeacherListAdapter extends ArrayAdapter<TeacherEntity> {
 				holder = (ViewHolder) jobView.getTag();
 			}
 
-			holder.tvInstitutionName.setText(teacherEntity.institute);
+			holder.tvInstitutionName.setText("Institute :"+teacherEntity.institute);
 			holder.tvTeacherName.setText(teacherEntity.full_name);
-			holder.tvMobileNumber.setText("Mobile : "+teacherEntity.mobile_no);
+			holder.tvMobileNumber.setText("Mobile No: "+teacherEntity.mobile_no);
 
 		} catch (Exception ex) {
 			CommonTasks.showLogs(context, ex.getMessage());

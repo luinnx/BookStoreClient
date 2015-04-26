@@ -1,5 +1,7 @@
 package com.bookstore.app.fragments;
 
+import java.util.ArrayList;
+
 import com.bookstore.app.activity.AgentIndividualJobDetailsActivity;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.adapters.AgentJobListAdapter;
@@ -81,6 +83,9 @@ public class AgentCompleteJobListFragment extends Fragment implements IAsynchron
 			AgentJobListRoot agentJobListRoot = (AgentJobListRoot) data;
 			if(agentJobListRoot.agentJobList!=null&& agentJobListRoot.agentJobList.size()>0){
 				adapter = new AgentJobListAdapter(getActivity(), R.layout.agent_job_list_item, agentJobListRoot.agentJobList);
+				complete_job_list.setAdapter(adapter);
+			}else{
+				adapter = new AgentJobListAdapter(getActivity(), R.layout.agent_job_list_item, new ArrayList<>(agentJobListRoot.agentJobList));
 				complete_job_list.setAdapter(adapter);
 			}
 		}

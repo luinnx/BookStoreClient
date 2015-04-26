@@ -12,6 +12,7 @@
         android:layout_gravity="center"
         android:scaleType="fitXY"
         android:layout_marginTop="10dp"
+        android:background="@drawable/pic_border"
         android:src="@drawable/ic_person" />
 
 

@@ -10,7 +10,7 @@ public class DonationEntity {
 	@SerializedName("full_name")
 	public String agent_name;
 	@SerializedName("donationdate")
-	public String date;
+	public long date;
 	@SerializedName("pic_url")
 	public String pic_url;
 }

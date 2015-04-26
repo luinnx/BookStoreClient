@@ -1,5 +1,7 @@
 package com.bookstore.app.fragments;
 
+import java.util.ArrayList;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -83,6 +85,9 @@ public class AgentPendingJobListFragment extends Fragment implements IAsynchrono
 			AgentJobListRoot agentJobListRoot = (AgentJobListRoot) data;
 			if(agentJobListRoot.agentJobList!=null&& agentJobListRoot.agentJobList.size()>0){
 				adapter = new AgentPendingJobListAdapter(getActivity(), R.layout.agent_job_list_item, agentJobListRoot.agentJobList);
+				pending_job_list.setAdapter(adapter);
+			}else{
+				adapter = new AgentPendingJobListAdapter(getActivity(), R.layout.agent_job_list_item, new ArrayList<>(agentJobListRoot.agentJobList));
 				pending_job_list.setAdapter(adapter);
 			}
 		}

@@ -96,9 +96,16 @@ public class PendingJobsFragment extends Fragment implements IAsynchronousTask,
 		if (data != null) {
 			jobListRoot = new JobListRoot();
 			jobListRoot = (JobListRoot) data;
-			adapter = new JobListAdapter(getActivity(), R.layout.job_list_item,
-					jobListRoot.jobList);
-			listView.setAdapter(adapter);
+			if(jobListRoot != null && jobListRoot.jobList.size()>0){
+				adapter = new JobListAdapter(getActivity(), R.layout.job_list_item,
+						jobListRoot.jobList);
+				listView.setAdapter(adapter);
+			}else{
+				adapter = new JobListAdapter(getActivity(), R.layout.job_list_item,
+						new ArrayList<>(jobListRoot.jobList));
+				listView.setAdapter(adapter);
+			}
+			
 		}
 
 		/*

@@ -84,9 +84,9 @@ public class JobListAdapter extends ArrayAdapter<JobEntity> {
 				holder = (ViewHolder) jobView.getTag();
 			}
 			
-			holder.tvAgentName.setText(jobEntity.agentname);
+			holder.tvAgentName.setText("Assigned agnet :"+jobEntity.agentname);
 			holder.tvBookName.setText(jobEntity.bookname);
-			holder.tvNumberOfBook.setText("Items :"+jobEntity.quantity);
+			holder.tvNumberOfBook.setText("Items No:"+jobEntity.quantity);
 			
 			if(jobEntity.bookImage != null){
 				aq.id(holder.ivBookImage).image(context.getResources().getDrawable(R.drawable.ic_launcher));

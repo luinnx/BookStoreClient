@@ -1,8 +1,11 @@
 package com.bookstore.app.activity;
 
+import java.util.Date;
+
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -110,7 +113,8 @@ public class DonationListActivity extends BookStoreActionBarBase implements
 		
 		tvAgentName.setText(donationEntity.agent_name);
 		tvDonationAmount.setText(""+donationEntity.Amount);
-		tvRequestDate.setText(donationEntity.date);
+		tvRequestDate.setText((String) DateUtils.getRelativeTimeSpanString(
+				donationEntity.date, new Date().getTime(), DateUtils.DAY_IN_MILLIS));
 		tvRequestPurpose.setText(donationEntity.Comment);
 		
 		btnOK.setOnClickListener(new View.OnClickListener() {
