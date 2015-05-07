@@ -102,7 +102,7 @@ public class CompletedJobsFragment extends Fragment implements
 				listView.setAdapter(adapter);
 			}else{
 				adapter = new JobListAdapter(getActivity(), R.layout.job_list_item,
-						new ArrayList<>(jobListRoot.jobList));
+						jobListRoot.jobList);
 				listView.setAdapter(adapter);
 			}
 			

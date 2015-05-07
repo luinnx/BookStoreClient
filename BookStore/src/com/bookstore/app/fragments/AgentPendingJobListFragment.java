@@ -87,7 +87,7 @@ public class AgentPendingJobListFragment extends Fragment implements IAsynchrono
 				adapter = new AgentPendingJobListAdapter(getActivity(), R.layout.agent_job_list_item, agentJobListRoot.agentJobList);
 				pending_job_list.setAdapter(adapter);
 			}else{
-				adapter = new AgentPendingJobListAdapter(getActivity(), R.layout.agent_job_list_item, new ArrayList<>(agentJobListRoot.agentJobList));
+				adapter = new AgentPendingJobListAdapter(getActivity(), R.layout.agent_job_list_item, agentJobListRoot.agentJobList);
 				pending_job_list.setAdapter(adapter);
 			}
 		}

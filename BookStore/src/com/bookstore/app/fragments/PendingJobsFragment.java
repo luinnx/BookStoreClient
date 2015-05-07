@@ -102,19 +102,11 @@ public class PendingJobsFragment extends Fragment implements IAsynchronousTask,
 				listView.setAdapter(adapter);
 			}else{
 				adapter = new JobListAdapter(getActivity(), R.layout.job_list_item,
-						new ArrayList<>(jobListRoot.jobList));
+						jobListRoot.jobList);
 				listView.setAdapter(adapter);
 			}
 			
 		}
-
-		/*
-		 * ArrayList<JobEntity> list=new ArrayList<JobEntity>(); JobEntity
-		 * entity=new JobEntity(); entity.agentname="Sumit saha";
-		 * entity.bookname="Higher Math"; entity.agentaddress="Savar";
-		 * entity.bookImage=""; entity.teacherinstitute="Savar";
-		 * entity.quantity=13; list.add(entity);
-		 */
 
 	}
 

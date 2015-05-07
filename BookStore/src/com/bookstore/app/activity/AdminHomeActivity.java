@@ -2,6 +2,8 @@ package com.bookstore.app.activity;
 
 import com.bookstore.app.adapters.MyPagerAdapter;
 import com.bookstore.app.base.BookStoreActionBarBase;
+import com.bookstore.app.base.BookStoreService;
+import com.bookstore.app.utils.CommonTasks;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -22,6 +24,8 @@ public class AdminHomeActivity extends BookStoreActionBarBase implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_admin_home);
+		if(CommonTasks.checkPlayServices(this))
+			startService(new Intent(this, BookStoreService.class));
 
 		pager = (ViewPager) findViewById(R.id.viewPager);
 
