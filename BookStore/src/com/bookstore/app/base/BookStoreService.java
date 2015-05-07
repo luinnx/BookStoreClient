@@ -35,7 +35,9 @@ public class BookStoreService extends Service implements IAsynchronousTask, Loca
 		if(regid.isEmpty()){
 			LoadInformation();
 		}
-		getLocation();
+		if(CommonTasks.getPreferences(this, CommonConstraints.USER_TYPE).equals("2")){
+			getLocation();
+		}		
 		return START_STICKY;
 	}
 
