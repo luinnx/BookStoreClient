@@ -6,8 +6,11 @@ public class CommonUrls {
 
 	// public String BASE_URL="http://192.168.0.103:8080/BookStoreService/api/";
 
-	public String BASE_URL = "http://192.168.0.50:8084/BookStoreService/api/";
-	public String IMAGE_BASE_URL = "http://192.168.0.50:8084/BookStoreService";
+	/*public String BASE_URL = "http://192.168.0.50:8084/BookStoreService/api/";
+	public String IMAGE_BASE_URL = "http://192.168.0.50:8084/BookStoreService";*/
+	
+	public String BASE_URL = "http://182.48.75.85:8080/BookStoreService/api/";
+	public String IMAGE_BASE_URL = "http://182.48.75.85:8080/BookStoreService";
 
 	public String getAuthentication = BASE_URL
 			+ "user/authentication?email=%s&password=%s&IMEI=%s&type=%s";
