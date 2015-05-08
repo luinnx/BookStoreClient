@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -25,6 +27,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -44,7 +47,7 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 			thirdDergeeSubElements;
 	String bookType, secondDegreeSubElement;
 
-	ImageView ivCaptureImage;
+	ImageView ivCaptureImage, ivPublishDate;
 	EditText etBookName, etWritterName, etPublisherName, etBookCondition,
 			etBookQuantity, etISBNNumber, etPublishDate, etBookPrice;
 	Button btnOk;
@@ -57,7 +60,11 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 	File file;
 	public byte[] selectedFile;
 	public String filename = "";
-	
+
+	private int year;
+	private int month;
+	private int day;
+
 	Uri uriSavedImage;
 
 	@Override
@@ -78,6 +85,9 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 		etPublishDate = (EditText) findViewById(R.id.etPublishDate);
 		etBookPrice = (EditText) findViewById(R.id.etBookPrice);
 		ivCaptureImage = (ImageView) findViewById(R.id.ivCaptureImage);
+		ivPublishDate = (ImageView) findViewById(R.id.ivPublishDate);
+
+		ivPublishDate.setOnClickListener(this);
 		ivCaptureImage.setOnClickListener(this);
 		btnOk = (Button) findViewById(R.id.btnOk);
 		btnOk.setOnClickListener(this);
@@ -147,7 +157,7 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 													}
 												});
 									} else {
-										subSubCatagory=11;
+										subSubCatagory = 11;
 										spSubSubCatagory
 												.setVisibility(View.GONE);
 									}
@@ -298,8 +308,43 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 
 		} else if (view.getId() == R.id.ivCaptureImage) {
 			getImageFromCamera();
+		} else if (view.getId() == R.id.ivPublishDate) {
+			final Calendar c = Calendar.getInstance();
+			year = c.get(Calendar.YEAR);
+			month = c.get(Calendar.MONTH);
+			day = c.get(Calendar.DAY_OF_MONTH);
+			showDialog(1);
+			// return new DatePickerDialog(this, mDateSetListener, cyear,
+			// cmonth, cday);
 		}
 	}
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case 1:
+			// set date picker as current date
+			return new DatePickerDialog(this, datePickerListener, year, month,
+					day);
+		}
+		return null;
+	}
+
+	private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+
+		// when dialog box is closed, below method will be called.
+		public void onDateSet(DatePicker view, int selectedYear,
+				int selectedMonth, int selectedDay) {
+			year = selectedYear;
+			month = selectedMonth;
+			day = selectedDay;
+
+			etPublishDate.setText(new StringBuilder().append(year)
+					.append("-").append(month+1).append("-").append(day)
+					.append(" "));
+
+		}
+	};
 
 	private void loadInformation() {
 		if (downloadAsyncTask != null)
@@ -336,70 +381,71 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 		IAdminManager adminManager = new AdminManager();
 		return adminManager.addBook(bookName, writterName, publisherName,
 				bookCondition, bookPrice, isbnNumber, publishDate,
-				selectedFile, bookQuantity, ""+category, ""+subCatagory,
-				""+subSubCatagory);
+				selectedFile, bookQuantity, "" + category, "" + subCatagory, ""
+						+ subSubCatagory);
 	}
 
 	@Override
 	public void processDataAfterDownload(Object data) {
-		if(data!=null){
-			Boolean result=(Boolean) data;
-			if(result){
-				CommonTasks.showToast(getApplicationContext(), "Add Book Succesfull");
-			}else{
-				CommonTasks.showToast(getApplicationContext(), "Book Addition failed, Try again later");
+		if (data != null) {
+			Boolean result = (Boolean) data;
+			if (result) {
+				CommonTasks.showToast(getApplicationContext(),
+						"Add Book Succesfull");
+			} else {
+				CommonTasks.showToast(getApplicationContext(),
+						"Book Addition failed, Try again later");
 			}
-		}else{
-			CommonTasks.showToast(getApplicationContext(), "Internal Server Error , Please Try again");
+		} else {
+			CommonTasks.showToast(getApplicationContext(),
+					"Internal Server Error , Please Try again");
 		}
 
 	}
 
 	private void getImageFromCamera() {
-		File image = new File(appFolderCheckandCreate(), "img" + getTimeStamp() + ".jpg");
-        uriSavedImage = Uri.fromFile(image);
-		
+		File image = new File(appFolderCheckandCreate(), "img" + getTimeStamp()
+				+ ".jpg");
+		uriSavedImage = Uri.fromFile(image);
+
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, 100);
 	}
-	
-	private String appFolderCheckandCreate(){
 
-	    String appFolderPath="";
-	    File externalStorage = Environment.getExternalStorageDirectory();
+	private String appFolderCheckandCreate() {
 
-	    if (externalStorage.canWrite()) 
-	    {
-	        appFolderPath = externalStorage.getAbsolutePath() + "/BookStore";
-	        File dir = new File(appFolderPath);
+		String appFolderPath = "";
+		File externalStorage = Environment.getExternalStorageDirectory();
 
-	        if (!dir.exists()) 
-	        {
-	              dir.mkdirs();
-	        }
+		if (externalStorage.canWrite()) {
+			appFolderPath = externalStorage.getAbsolutePath() + "/BookStore";
+			File dir = new File(appFolderPath);
 
-	    }
-	    else
-	    {
-	      CommonTasks.showToast(getApplicationContext(),"  Storage media not found or is full ! ");
-	    }
+			if (!dir.exists()) {
+				dir.mkdirs();
+			}
 
-	    return appFolderPath;
+		} else {
+			CommonTasks.showToast(getApplicationContext(),
+					"  Storage media not found or is full ! ");
+		}
+
+		return appFolderPath;
 	}
-	
+
 	private String getTimeStamp() {
 
-	    final long timestamp = new Date().getTime();
+		final long timestamp = new Date().getTime();
 
-	    final Calendar cal = Calendar.getInstance();
-	                   cal.setTimeInMillis(timestamp);
+		final Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(timestamp);
 
-	    final String timeString = new SimpleDateFormat("HH_mm_ss_SSS").format(cal.getTime());
+		final String timeString = new SimpleDateFormat("HH_mm_ss_SSS")
+				.format(cal.getTime());
 
-
-	    return timeString;
+		return timeString;
 	}
 
 	@Override
@@ -410,7 +456,7 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 			if (responseCode == RESULT_OK) {
 				Uri currImageURI = uriSavedImage;
 				file = new File(currImageURI.getPath());
-				//file = new File(getRealPathFromURI(currImageURI));
+				// file = new File(getRealPathFromURI(currImageURI));
 				filename = file.getName().replaceAll("[-+^:,]", "")
 						.replace(" ", "");
 				Bitmap b = decodeImage(file);
@@ -428,20 +474,22 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 				}
 				selectedFile = stream.toByteArray();
 				ivCaptureImage.setImageBitmap(b);
-				try{
+				try {
 					if (file.exists()) {
-					    if (file.delete()) {
-					        System.out.println("file Deleted :" + file);
-					    } else {
-					        System.out.println("file not Deleted :" + file);
-					    }
-					    sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
-					    		 Uri.parse("file://" +  Environment.getExternalStorageDirectory())));
+						if (file.delete()) {
+							System.out.println("file Deleted :" + file);
+						} else {
+							System.out.println("file not Deleted :" + file);
+						}
+						sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
+								Uri.parse("file://"
+										+ Environment
+												.getExternalStorageDirectory())));
 					}
-				}catch(Exception ex){
+				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-				
+
 			}
 		}
 	}
