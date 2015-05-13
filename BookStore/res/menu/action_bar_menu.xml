@@ -50,6 +50,11 @@
                 android:icon="@drawable/ic_teacher_24"
                 android:showAsAction="ifRoom"
                 android:title="Teacher List"/>
+            <item
+                android:id="@+id/action_tada_list"
+                android:icon="@drawable/ic_teacher_24"
+                android:showAsAction="ifRoom"
+                android:title="T.A.D.A List"/>
         </menu>
     </item>
     <item

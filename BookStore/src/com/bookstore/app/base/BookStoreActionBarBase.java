@@ -1,5 +1,6 @@
 package com.bookstore.app.base;
 
+import com.bookstore.app.activity.ActivityTADADetails;
 import com.bookstore.app.activity.AddAgentActivity;
 import com.bookstore.app.activity.AddBookActivity;
 import com.bookstore.app.activity.AddTeacherActivity;
@@ -113,6 +114,14 @@ public class BookStoreActionBarBase extends FragmentActivity {
 			overridePendingTransition(android.R.anim.slide_in_left,
 					android.R.anim.slide_out_right);
 			startActivity(int5);
+			break;
+		case R.id.action_tada_list:
+			Intent tadaIntent = new Intent(getApplicationContext(),
+					ActivityTADADetails.class);
+			tadaIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			overridePendingTransition(android.R.anim.slide_in_left,
+					android.R.anim.slide_out_right);
+			startActivity(tadaIntent);
 			break;
 			
 		case R.id.action_donation:

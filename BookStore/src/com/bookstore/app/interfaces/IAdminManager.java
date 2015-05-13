@@ -6,6 +6,7 @@ import com.bookstore.app.entities.AgentLocationMapRoot;
 import com.bookstore.app.entities.BookEntity;
 import com.bookstore.app.entities.BookListRoot;
 import com.bookstore.app.entities.DonationListRoot;
+import com.bookstore.app.entities.IndividualTADA;
 import com.bookstore.app.entities.JobCreateEntity;
 import com.bookstore.app.entities.JobEntity;
 import com.bookstore.app.entities.JobListRoot;
@@ -49,5 +50,7 @@ public interface IAdminManager {
 	
 	public DonationListRoot getAllDonationList(int index);
 	public AgentLocationMapRoot getAgentsLocation();
+	
+	public IndividualTADA getTada(int id);
 
 }

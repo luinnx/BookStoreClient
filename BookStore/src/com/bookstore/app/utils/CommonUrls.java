@@ -43,7 +43,7 @@ public class CommonUrls {
 			"description=%s&vehicelName=%s&distance=%s&amount=%s&otherAmount=%s&totalAmount=%s&status=%s";
 	public String agent_tada_list=BASE_URL+"agent/get_tada_list?agent_id=%s&pageindex=%s";
 	public String individual_tada_info=BASE_URL+"admin/individula_tada?id=%s";
-	
+	public String getTadaDetails = BASE_URL+"admin/individula_tada?id=%s";
 	
 	// User Common Service
 	public String addGCMID = BASE_URL+"user/add_gcm?userID=%s&type=%s&gcmID=%s";

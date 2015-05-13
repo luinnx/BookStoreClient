@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import android.util.Base64;
+import android.util.Log;
 
 import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
@@ -11,6 +12,7 @@ import com.bookstore.app.entities.AgentLocationMapRoot;
 import com.bookstore.app.entities.BookEntity;
 import com.bookstore.app.entities.BookListRoot;
 import com.bookstore.app.entities.DonationListRoot;
+import com.bookstore.app.entities.IndividualTADA;
 import com.bookstore.app.entities.JobCreateEntity;
 import com.bookstore.app.entities.JobEntity;
 import com.bookstore.app.entities.JobListRoot;
@@ -276,5 +278,16 @@ public class AdminManager implements IAdminManager {
 		AgentLocationMapRoot agentLocationMapRoot=null;
 		agentLocationMapRoot=(AgentLocationMapRoot) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().getAgentsLocationList), AgentLocationMapRoot.class);
 		return agentLocationMapRoot;
+	}
+
+	@Override
+	public IndividualTADA getTada(int id) {
+		IndividualTADA individualTADA = null;
+		try{
+			individualTADA = (IndividualTADA) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().getTadaDetails, id), IndividualTADA.class);
+		}catch(Exception ex){
+			Log.e("BSA", ex.getMessage());
+		}
+		return individualTADA;
 	}
 }
