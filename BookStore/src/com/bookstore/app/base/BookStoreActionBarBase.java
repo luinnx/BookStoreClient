@@ -5,6 +5,7 @@ import com.bookstore.app.activity.AddAgentActivity;
 import com.bookstore.app.activity.AddBookActivity;
 import com.bookstore.app.activity.AddTeacherActivity;
 import com.bookstore.app.activity.AdminMapActivity;
+import com.bookstore.app.activity.AdminTADAListActivity;
 import com.bookstore.app.activity.AgentListActivity;
 import com.bookstore.app.activity.BookListActivity;
 import com.bookstore.app.activity.CreateJobActivity;
@@ -117,7 +118,7 @@ public class BookStoreActionBarBase extends FragmentActivity {
 			break;
 		case R.id.action_tada_list:
 			Intent tadaIntent = new Intent(getApplicationContext(),
-					ActivityTADADetails.class);
+					AdminTADAListActivity.class);
 			tadaIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			overridePendingTransition(android.R.anim.slide_in_left,
 					android.R.anim.slide_out_right);

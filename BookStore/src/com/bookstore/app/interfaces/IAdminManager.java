@@ -11,6 +11,7 @@ import com.bookstore.app.entities.JobCreateEntity;
 import com.bookstore.app.entities.JobEntity;
 import com.bookstore.app.entities.JobListRoot;
 import com.bookstore.app.entities.LoginEntity;
+import com.bookstore.app.entities.TaDaListRoot;
 import com.bookstore.app.entities.TeacherListRoot;
 
 public interface IAdminManager {
@@ -52,5 +53,6 @@ public interface IAdminManager {
 	public AgentLocationMapRoot getAgentsLocation();
 	
 	public IndividualTADA getTada(int id);
+	public TaDaListRoot getAllTaDaList(int pageIndex);
 
 }

@@ -17,6 +17,7 @@ import com.bookstore.app.entities.JobCreateEntity;
 import com.bookstore.app.entities.JobEntity;
 import com.bookstore.app.entities.JobListRoot;
 import com.bookstore.app.entities.LoginEntity;
+import com.bookstore.app.entities.TaDaListRoot;
 import com.bookstore.app.entities.TeacherListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.utils.CommonConstraints;
@@ -289,5 +290,19 @@ public class AdminManager implements IAdminManager {
 			Log.e("BSA", ex.getMessage());
 		}
 		return individualTADA;
+	}
+
+	@Override
+	public TaDaListRoot getAllTaDaList(int pageIndex) {
+		TaDaListRoot listRoot=null;
+		try{
+			listRoot=(TaDaListRoot) JSONfunctions.retrieveDataFromStream(String
+					.format(CommonUrls.getInstance().getTadaList,
+							pageIndex), TaDaListRoot.class);
+		}catch(Exception exception){
+			Log.e("BS", exception.getMessage());
+		}
+		
+		return listRoot;
 	}
 }

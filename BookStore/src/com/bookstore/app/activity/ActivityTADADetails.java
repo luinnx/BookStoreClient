@@ -57,7 +57,8 @@ public class ActivityTADADetails extends BookStoreActionBarBase implements OnCli
 		
 		btnDone.setOnClickListener(this);
 		
-		
+		Bundle bundle = getIntent().getExtras();
+		tadaID = bundle.getInt("TADA");
 	}
 	
 
@@ -92,7 +93,7 @@ public class ActivityTADADetails extends BookStoreActionBarBase implements OnCli
 	@Override
 	public Object doInBackground() {
 		IAdminManager adminManager = new AdminManager();
-		return adminManager.getTada(1);
+		return adminManager.getTada(tadaID);
 	}
 
 	@Override

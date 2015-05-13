@@ -88,9 +88,7 @@ public class TaDaListAdapter extends ArrayAdapter<TadaListEntity> {
 			holder.tvDistance.setText(""+taDaEntity.distance+" KM");
 			holder.tvTotalAmount.setText(""+taDaEntity.totalamount +"Tk.");
 			
-			if(taDaEntity.agentpic .equals("")){
-				aq.id(holder.ivAgentImage).image(context.getResources().getDrawable(R.drawable.ic_person_24));
-			}else{
+			if(taDaEntity.agentpic != null){
 				aq.id(holder.ivAgentImage).image((CommonUrls.getInstance().IMAGE_BASE_URL+taDaEntity.agentpic.toString()),imgOptions);
 			}
 			
