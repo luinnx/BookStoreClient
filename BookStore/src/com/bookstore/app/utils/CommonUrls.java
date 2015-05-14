@@ -39,6 +39,9 @@ public class CommonUrls {
 	public String agentLocation = BASE_URL+"agent/add_location?agentid=%s&latitude=%s&longitude=%s&locationName=%s";
 	public String getAgentInformation = BASE_URL + "agent/agent_info?agent_id=%s";
 	public String agentDonation = BASE_URL + "agent/add_donetion?agent_id=%s&amount=%s&comment=%s";
+	public String submit_tada=BASE_URL + "agent/addTada?agentID=%s&date=%s&startPlace=%s&startTime=%s&endPlace=%s&endTime=%s&" +
+			"description=%s&vehicelName=%s&distance=%s&amount=%s&otherAmount=%s&totalAmount=%s&status=%s";
+	
 	
 	// User Common Service
 	public String addGCMID = BASE_URL+"user/add_gcm?userID=%s&type=%s&gcmID=%s";
