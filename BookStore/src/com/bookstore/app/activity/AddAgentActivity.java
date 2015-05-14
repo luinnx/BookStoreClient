@@ -142,6 +142,7 @@ public class AddAgentActivity extends BookStoreActionBarBase implements
 			Boolean boolean1 = (Boolean) data;
 			if(boolean1){
 				CommonTasks.showToast(getApplicationContext(), "Agent Creation Succesfull.");
+				super.onBackPressed();
 			}else{
 				CommonTasks.showToast(getApplicationContext(), "Agent Creation failed. Please try again later.");
 			}

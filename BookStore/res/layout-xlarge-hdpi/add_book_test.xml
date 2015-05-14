@@ -183,17 +183,35 @@
                 android:textColor="@color/text_color" >
             </EditText>
 
-            <EditText
-                android:id="@+id/etPublishDate"
+            <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:gravity="left"
-                android:hint="Publish date"
-                android:inputType="text"
-                android:textColor="@color/text_color" >
-            </EditText>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/ivPublishDate"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="3dp"
+                    android:gravity="right"
+                    android:src="@drawable/ic_date_picker" />
+
+                <EditText
+                    android:id="@+id/etPublishDate"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/ivPublishDate"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:inputType="date"
+                    android:focusable="false"
+                    android:textColor="@color/text_color" >
+                </EditText>
+            </RelativeLayout>
 
             <EditText
                 android:id="@+id/etBookPrice"
@@ -203,7 +221,7 @@
                 android:layout_marginTop="5dp"
                 android:gravity="left"
                 android:hint="Enter Book Price"
-                android:inputType="text"
+                android:inputType="number"
                 android:textColor="@color/text_color" >
             </EditText>
 

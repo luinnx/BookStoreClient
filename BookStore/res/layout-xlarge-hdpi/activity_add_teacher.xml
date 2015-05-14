@@ -119,7 +119,7 @@
                 android:layout_marginTop="5dp"
                 android:gravity="left"
                 android:layout_marginLeft="5dp"
-                android:hint="Teacher Teacher password"
+                android:hint="Teacher password"
                 android:inputType="textPassword"
                 android:textColor="@color/text_color" >
             </EditText>

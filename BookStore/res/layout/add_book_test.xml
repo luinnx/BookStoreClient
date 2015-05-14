@@ -221,7 +221,7 @@
                 android:layout_marginTop="5dp"
                 android:gravity="left"
                 android:hint="Enter Book Price"
-                android:inputType="text"
+                android:inputType="number"
                 android:textColor="@color/text_color" >
             </EditText>
 

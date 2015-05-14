@@ -80,7 +80,7 @@
                 android:layout_marginTop="5dp"
                 android:gravity="left"
                 android:hint="Enter Email Address"
-                android:inputType="text"
+                android:inputType="textEmailAddress"
                 android:textColor="@color/text_color" >
             </EditText>
             
@@ -92,7 +92,7 @@
                 android:layout_marginTop="5dp"
                 android:gravity="left"
                 android:hint="Enter Password"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:textColor="@color/text_color" >
             </EditText>
 
