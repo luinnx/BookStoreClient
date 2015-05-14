@@ -1,7 +1,6 @@
 package com.bookstore.app.entities;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 

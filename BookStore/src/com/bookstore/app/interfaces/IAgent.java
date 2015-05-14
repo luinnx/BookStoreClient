@@ -3,6 +3,7 @@ package com.bookstore.app.interfaces;
 import com.bookstore.app.entities.AgentInfo;
 import com.bookstore.app.entities.AgentJobListRoot;
 import com.bookstore.app.entities.JobDetails;
+import com.bookstore.app.entities.TaDaListRoot;
 
 public interface IAgent {
 	public AgentJobListRoot getJobList(int agentId, int job_status,
@@ -25,4 +26,5 @@ public interface IAgent {
 			String startTime, String endPlace, String endTime,
 			String description, String vehicelName, String distance,
 			String amount, String otherAmount,String totalAmount, String status);
+	public TaDaListRoot getAllTaDaList(String agentId,int pageIndex);
 }

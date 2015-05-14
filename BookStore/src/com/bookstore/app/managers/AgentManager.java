@@ -2,17 +2,14 @@ package com.bookstore.app.managers;
 
 import java.net.URLEncoder;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.util.Log;
 
 import com.bookstore.app.entities.AgentInfo;
 import com.bookstore.app.entities.AgentJobListRoot;
 import com.bookstore.app.entities.JobDetails;
+import com.bookstore.app.entities.TaDaListRoot;
 import com.bookstore.app.interfaces.IAgent;
 import com.bookstore.app.utils.CommonConstraints;
-import com.bookstore.app.utils.CommonTasks;
 import com.bookstore.app.utils.CommonUrls;
 import com.bookstore.app.utils.JSONfunctions;
 
@@ -120,6 +117,20 @@ public class AgentManager implements IAgent {
 				Boolean.class);
 
 		return result;
+	}
+
+	@Override
+	public TaDaListRoot getAllTaDaList(String agentId,int pageIndex) {
+		TaDaListRoot listRoot=null;
+		try{
+			listRoot=(TaDaListRoot) JSONfunctions.retrieveDataFromStream(String
+					.format(CommonUrls.getInstance().agent_tada_list,agentId,
+							pageIndex), TaDaListRoot.class);
+		}catch(Exception exception){
+			Log.e("BS", exception.getMessage());
+		}
+		
+		return listRoot;
 	}
 
 }

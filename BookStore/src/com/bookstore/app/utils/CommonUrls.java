@@ -41,6 +41,8 @@ public class CommonUrls {
 	public String agentDonation = BASE_URL + "agent/add_donetion?agent_id=%s&amount=%s&comment=%s";
 	public String submit_tada=BASE_URL + "agent/addTada?agentID=%s&date=%s&startPlace=%s&startTime=%s&endPlace=%s&endTime=%s&" +
 			"description=%s&vehicelName=%s&distance=%s&amount=%s&otherAmount=%s&totalAmount=%s&status=%s";
+	public String agent_tada_list=BASE_URL+"agent/get_tada_list?agent_id=%s&pageindex=%s";
+	public String individual_tada_info=BASE_URL+"admin/individula_tada?id=%s";
 	
 	
 	// User Common Service
