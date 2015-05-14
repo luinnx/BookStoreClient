@@ -98,6 +98,10 @@ public class AddAgentActivity extends BookStoreActionBarBase implements
 						"Enter Agent Mobile Password");
 				return;
 			}
+			if (!CommonTasks.isOnline(this)) {
+				CommonTasks.goSettingPage(this);
+				return;
+			}
 			LoginRequest();
 		}
 

@@ -21,7 +21,7 @@ public class TeacherListActivity extends BookStoreActionBarBase implements
 
 	ListView lvAllTeacherList;
 	DownloadableAsyncTask downloadableAsyncTask;
-	ProgressDialog dialog;
+	ProgressDialog progressDialog;
 	TeacherListAdapter adapter;
 
 	@Override
@@ -29,6 +29,11 @@ public class TeacherListActivity extends BookStoreActionBarBase implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_all_teacher_list);
 		initViews();
+
+		if (!CommonTasks.isOnline(this)) {
+			CommonTasks.goSettingPage(this);
+			return;
+		}
 		loadInforMation();
 
 	}
@@ -48,13 +53,16 @@ public class TeacherListActivity extends BookStoreActionBarBase implements
 
 	@Override
 	public void showProgressBar() {
-		// TODO Auto-generated method stub
+		progressDialog = new ProgressDialog(this, ProgressDialog.THEME_HOLO_LIGHT);
+		progressDialog.setCancelable(false);
+		progressDialog.setMessage("Please Wait.");
+		progressDialog.show();
 
 	}
 
 	@Override
 	public void hideProgressBar() {
-		// TODO Auto-generated method stub
+		progressDialog.dismiss();
 
 	}
 
@@ -73,8 +81,9 @@ public class TeacherListActivity extends BookStoreActionBarBase implements
 			adapter = new TeacherListAdapter(getApplicationContext(),
 					R.layout.teacher_list_item, teacherListRoot.teacherList);
 			lvAllTeacherList.setAdapter(adapter);
-		}else{
-			CommonTasks.showToast(getApplicationContext(), "Internal Server Error. Please Try again later");
+		} else {
+			CommonTasks.showToast(getApplicationContext(),
+					"Internal Server Error. Please Try again later");
 		}
 
 	}

@@ -30,7 +30,7 @@ public class PendingJobsFragment extends Fragment implements IAsynchronousTask,
 		OnItemClickListener {
 
 	DownloadableAsyncTask downloadableAsyncTask;
-	ProgressDialog dialog;
+	ProgressDialog progressDialog;
 	JobListAdapter adapter;
 	ListView listView;
 	JobListRoot jobListRoot = null;
@@ -61,6 +61,11 @@ public class PendingJobsFragment extends Fragment implements IAsynchronousTask,
 	@Override
 	public void onResume() {
 		super.onResume();
+		
+		if (!CommonTasks.isOnline(getActivity())) {
+			CommonTasks.goSettingPage(getActivity());
+			return;
+		}
 		loadInformation();
 	}
 
@@ -73,13 +78,16 @@ public class PendingJobsFragment extends Fragment implements IAsynchronousTask,
 
 	@Override
 	public void showProgressBar() {
-		// TODO Auto-generated method stub
+		progressDialog = new ProgressDialog(getActivity(), ProgressDialog.THEME_HOLO_LIGHT);
+		progressDialog.setCancelable(false);
+		progressDialog.setMessage("Please Wait.");
+		progressDialog.show();
 
 	}
 
 	@Override
 	public void hideProgressBar() {
-		// TODO Auto-generated method stub
+		progressDialog.dismiss();
 
 	}
 

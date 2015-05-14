@@ -18,7 +18,8 @@ import com.bookstore.app.managers.AgentManager;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
 
-public class AgentTADAListActivity extends AgentActionbarBase implements OnItemClickListener, IAsynchronousTask {
+public class AgentTADAListActivity extends AgentActionbarBase implements
+		OnItemClickListener, IAsynchronousTask {
 
 	ListView lvAllTaDaList;
 	DownloadableAsyncTask downloadableAsyncTask;
@@ -30,6 +31,10 @@ public class AgentTADAListActivity extends AgentActionbarBase implements OnItemC
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_agent_tada_list);
 		initViews();
+		if (!CommonTasks.isOnline(this)) {
+			CommonTasks.goSettingPage(this);
+			return;
+		}
 		loadInformation();
 	}
 
@@ -38,7 +43,7 @@ public class AgentTADAListActivity extends AgentActionbarBase implements OnItemC
 			downloadableAsyncTask.cancel(true);
 		downloadableAsyncTask = new DownloadableAsyncTask(this);
 		downloadableAsyncTask.execute();
-		
+
 	}
 
 	private void initViews() {
@@ -50,7 +55,7 @@ public class AgentTADAListActivity extends AgentActionbarBase implements OnItemC
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -59,35 +64,36 @@ public class AgentTADAListActivity extends AgentActionbarBase implements OnItemC
 		dialog.setMessage("Loading , Plaese wait...");
 		dialog.setCancelable(false);
 		dialog.show();
-		
+
 	}
 
 	@Override
 	public void hideProgressBar() {
 		dialog.dismiss();
-		
+
 	}
 
 	@Override
 	public Object doInBackground() {
-		IAgent agent=new AgentManager();
-		return agent.getAllTaDaList(CommonTasks.getPreferences(getApplicationContext(), CommonConstraints.USER_ID),0);
+		IAgent agent = new AgentManager();
+		return agent.getAllTaDaList(CommonTasks.getPreferences(
+				getApplicationContext(), CommonConstraints.USER_ID), 0);
 	}
 
 	@Override
 	public void processDataAfterDownload(Object data) {
-		if(data!=null){
-			TaDaListRoot taDaListRoot =(TaDaListRoot) data;
-			
+		if (data != null) {
+			TaDaListRoot taDaListRoot = (TaDaListRoot) data;
+
 			adapter = new TaDaListAdapter(getApplicationContext(),
 					R.layout.agent_list_item, taDaListRoot.tadaList);
 			lvAllTaDaList.setAdapter(adapter);
-			
-			
-		}else{
-			CommonTasks.showToast(getApplicationContext(), "Internal Server Error. Please Try again");
+
+		} else {
+			CommonTasks.showToast(getApplicationContext(),
+					"Internal Server Error. Please Try again");
 		}
-		
+
 	}
 
 }

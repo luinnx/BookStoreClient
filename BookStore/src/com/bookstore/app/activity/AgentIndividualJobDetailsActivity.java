@@ -83,6 +83,10 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 			btnOk.setText("Submit");
 		}
 		
+		if (!CommonTasks.isOnline(this)) {
+			CommonTasks.goSettingPage(this);
+			return;
+		}
 		LoadInformation();
 	}
 
@@ -203,6 +207,10 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 				if(etTeacherPassword.getText().toString().equals("")){
 					CommonTasks.showToast(AgentIndividualJobDetailsActivity.this, "Please enter password");
 					isJobSubmit = false;
+					return;
+				}
+				if (!CommonTasks.isOnline(getApplicationContext())) {
+					CommonTasks.goSettingPage(getApplicationContext());
 					return;
 				}
 				LoadInformation();

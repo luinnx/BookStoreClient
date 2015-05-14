@@ -68,6 +68,10 @@ public class AddTeacherActivity extends BookStoreActionBarBase implements
 						"Enter Institude name");
 				return;
 			}
+			if (!CommonTasks.isOnline(this)) {
+				CommonTasks.goSettingPage(this);
+				return;
+			}
 			loadInformation();
 		}
 

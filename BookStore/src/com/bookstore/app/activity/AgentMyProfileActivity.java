@@ -77,6 +77,10 @@ public class AgentMyProfileActivity extends AgentActionbarBase implements
 		imgOptions.ratio=0;//AQuery.RATIO_PRESERVE;
 		imgOptions.round = 8;
 		
+		if (!CommonTasks.isOnline(this)) {
+			CommonTasks.goSettingPage(this);
+			return;
+		}
 		LoadInformation();
 	}
 
@@ -200,6 +204,11 @@ public class AgentMyProfileActivity extends AgentActionbarBase implements
 				}
 				if(etConfirmPassword.getText().toString().trim().equals(etNewPassword.getText().toString()) == false){
 					CommonTasks.showToast(AgentMyProfileActivity.this, "Password not match!");
+					return;
+				}
+				
+				if (!CommonTasks.isOnline(getApplicationContext())) {
+					CommonTasks.goSettingPage(getApplicationContext());
 					return;
 				}
 				isChangePassword = true;

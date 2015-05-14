@@ -34,6 +34,11 @@ public class AgentListActivity extends BookStoreActionBarBase implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_all_agent_list);
 		initViews();
+		
+		if (!CommonTasks.isOnline(this)) {
+			CommonTasks.goSettingPage(this);
+			return;
+		}
 		loadInforMation();
 
 	}

@@ -48,6 +48,10 @@ public class AgentCompleteJobListFragment extends Fragment implements IAsynchron
 	@Override
 	public void onResume() {
 		super.onResume();
+		if (!CommonTasks.isOnline(getActivity())) {
+			CommonTasks.goSettingPage(getActivity());
+			return;
+		}
 		LoadCompletedJob();
 	}
 

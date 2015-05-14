@@ -182,7 +182,10 @@ public class AgentTA_DA_Activity_New extends AgentActionbarBase implements
 						"Enter Tour Cost");
 				return;
 			}
-
+			if (!CommonTasks.isOnline(this)) {
+				CommonTasks.goSettingPage(this);
+				return;
+			}
 			loadInformation();
 
 		} else if (view.getId() == R.id.ivStartTime) {

@@ -15,6 +15,7 @@ import com.bookstore.app.entities.JobEntity;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
+import com.bookstore.app.utils.CommonTasks;
 
 public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 		implements OnClickListener, IAsynchronousTask {
@@ -63,7 +64,10 @@ public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 
 		Bundle bundle = getIntent().getExtras();
 		jobID = bundle.getString("JOB_ID");
-
+		if (!CommonTasks.isOnline(this)) {
+			CommonTasks.goSettingPage(this);
+			return;
+		}
 		loadInformation();
 
 	}

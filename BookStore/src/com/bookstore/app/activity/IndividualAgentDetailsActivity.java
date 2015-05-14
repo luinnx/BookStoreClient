@@ -69,6 +69,11 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 
 		Bundle bundle = getIntent().getExtras();
 		agentId = bundle.getString("AGENT_ID");
+		
+		if (!CommonTasks.isOnline(this)) {
+			CommonTasks.goSettingPage(this);
+			return;
+		}
 		loadInforMation();
 	}
 

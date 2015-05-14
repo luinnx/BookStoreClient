@@ -23,6 +23,7 @@ import com.bookstore.app.entities.AgentLocationMapRoot;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
+import com.bookstore.app.utils.CommonTasks;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -57,7 +58,10 @@ public class AdminMapActivity extends BookStoreActionBarBase implements IAsynchr
 	private void Initalization() {
 		SupportMapFragment fragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.frAgentLocationMap);
 		atmFinderMap = fragment.getMap();
-		
+		if (!CommonTasks.isOnline(this)) {
+			CommonTasks.goSettingPage(this);
+			return;
+		}
 		LoginRequest();
 	}
 
@@ -71,14 +75,17 @@ public class AdminMapActivity extends BookStoreActionBarBase implements IAsynchr
 	
 	@Override
 	public void showProgressBar() {
-		// TODO Auto-generated method stub
-		
+		progressDialog = new ProgressDialog(this, ProgressDialog.THEME_HOLO_LIGHT);
+		progressDialog.setCancelable(false);
+		progressDialog.setMessage("Please Wait.");
+		progressDialog.show();
+
 	}
 
 	@Override
 	public void hideProgressBar() {
-		// TODO Auto-generated method stub
-		
+		progressDialog.dismiss();
+
 	}
 
 	@Override

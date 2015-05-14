@@ -33,6 +33,10 @@ public class AdminTADAListActivity extends BookStoreActionBarBase implements OnI
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_agent_tada_list);
 		initViews();
+		if (!CommonTasks.isOnline(this)) {
+			CommonTasks.goSettingPage(this);
+			return;
+		}
 		loadInformation();
 	}
 

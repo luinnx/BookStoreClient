@@ -50,6 +50,10 @@ public class AgentPendingJobListFragment extends Fragment implements IAsynchrono
 	@Override
 	public void onResume() {
 		super.onResume();
+		if (!CommonTasks.isOnline(getActivity())) {
+			CommonTasks.goSettingPage(getActivity());
+			return;
+		}
 		LoadPendingJob();
 	}
 

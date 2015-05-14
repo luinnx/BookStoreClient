@@ -35,6 +35,10 @@ public class ActivityTADADetails extends BookStoreActionBarBase implements OnCli
 	@Override
 	protected void onResume() {
 		super.onResume();
+		if (!CommonTasks.isOnline(this)) {
+			CommonTasks.goSettingPage(this);
+			return;
+		}
 		LoadInformation();
 	}
 

@@ -19,6 +19,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.provider.Settings.Secure;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -61,6 +62,11 @@ public class CommonTasks {
 		String phoneId = Secure.getString(_context.getContentResolver(),
 				Secure.ANDROID_ID);
 		return phoneId;
+	}
+	
+	public static String getIMEINumber(Context _context){
+		TelephonyManager telephonyManager = (TelephonyManager)_context.getSystemService(Context.TELEPHONY_SERVICE);
+		return ""+telephonyManager.getDeviceId();
 	}
 
 	public static void showLogs(Context context, String message) {

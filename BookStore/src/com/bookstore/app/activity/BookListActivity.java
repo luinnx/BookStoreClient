@@ -1,7 +1,5 @@
 package com.bookstore.app.activity;
 
-import java.util.ArrayList;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,13 +16,14 @@ import com.bookstore.app.entities.BookListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
+import com.bookstore.app.utils.CommonTasks;
 
 public class BookListActivity extends BookStoreActionBarBase implements
 		OnItemClickListener, IAsynchronousTask {
 
 	ListView lvAllAgentList;
 	DownloadableAsyncTask downloadableAsyncTask;
-	ProgressDialog dialog;
+	ProgressDialog progressDialog;
 	BookListAdapter adapter;
 	BookListRoot bookListRoot=null;
 
@@ -33,6 +32,10 @@ public class BookListActivity extends BookStoreActionBarBase implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_all_book_list);
 		initViews();
+		if (!CommonTasks.isOnline(this)) {
+			CommonTasks.goSettingPage(this);
+			return;
+		}
 		loadInforMation();
 
 	}
@@ -65,13 +68,16 @@ public class BookListActivity extends BookStoreActionBarBase implements
 
 	@Override
 	public void showProgressBar() {
-		// TODO Auto-generated method stub
+		progressDialog = new ProgressDialog(this, ProgressDialog.THEME_HOLO_LIGHT);
+		progressDialog.setCancelable(false);
+		progressDialog.setMessage("Please Wait.");
+		progressDialog.show();
 
 	}
 
 	@Override
 	public void hideProgressBar() {
-		// TODO Auto-generated method stub
+		progressDialog.dismiss();
 
 	}
 

@@ -29,7 +29,7 @@ public class DonationListActivity extends BookStoreActionBarBase implements
 	ListView lvAllDonationList;
 
 	DownloadableAsyncTask downloadableAsyncTask;
-	ProgressDialog dialog;
+	ProgressDialog progressDialog;
 	DonationListAdapter adapter;
 	DonationListRoot donationListRoot;
 	Dialog donationDetails;
@@ -44,7 +44,10 @@ public class DonationListActivity extends BookStoreActionBarBase implements
 	private void initViews() {
 		lvAllDonationList = (ListView) findViewById(R.id.lvAllDonationList);
 		lvAllDonationList.setOnItemClickListener(this);
-
+		if (!CommonTasks.isOnline(this)) {
+			CommonTasks.goSettingPage(this);
+			return;
+		}
 		loadInforMation();
 
 	}
@@ -59,14 +62,15 @@ public class DonationListActivity extends BookStoreActionBarBase implements
 
 	@Override
 	public void showProgressBar() {
-		// TODO Auto-generated method stub
-
+		progressDialog = new ProgressDialog(this, ProgressDialog.THEME_HOLO_LIGHT);
+		progressDialog.setMessage("Please Wait...");
+		progressDialog.setCancelable(false);
+		progressDialog.show();
 	}
 
 	@Override
 	public void hideProgressBar() {
-		// TODO Auto-generated method stub
-
+		progressDialog.dismiss();
 	}
 
 	@Override

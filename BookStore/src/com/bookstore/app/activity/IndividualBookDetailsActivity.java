@@ -22,11 +22,11 @@ public class IndividualBookDetailsActivity extends BookStoreActionBarBase
 	ImageView ivBookImage;
 	TextView tvBookName, tvAddress, tvCurrentLocation, tvISBNNumber,
 			tvBookQuantity, tvAvailable, tvPublishDate, tvBookCondition,
-			tvBookPrice,tvPublisherName,tvAuthorName;
+			tvBookPrice, tvPublisherName, tvAuthorName;
 	Button btnOk;
 	DownloadableAsyncTask downloadableAsyncTask;
-	ProgressDialog dialog;
-	int bookID ;
+	ProgressDialog progressDialog;
+	int bookID;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,22 +35,25 @@ public class IndividualBookDetailsActivity extends BookStoreActionBarBase
 		initViews();
 	}
 
-	private void initViews() {		
+	private void initViews() {
 		Bundle bundle = getIntent().getExtras();
 		bookID = bundle.getInt("BOOK_ID");
 
 		tvBookName = (TextView) findViewById(R.id.tvBookName);
 		tvISBNNumber = (TextView) findViewById(R.id.tvISBNNumber);
-		tvPublisherName= (TextView) findViewById(R.id.tvPublisherName);
+		tvPublisherName = (TextView) findViewById(R.id.tvPublisherName);
 		tvBookQuantity = (TextView) findViewById(R.id.tvBookQuantity);
 		tvAvailable = (TextView) findViewById(R.id.tvAvailable);
 		tvPublishDate = (TextView) findViewById(R.id.tvPublishDate);
 		tvBookCondition = (TextView) findViewById(R.id.tvBookCondition);
 		tvBookPrice = (TextView) findViewById(R.id.tvBookPrice);
-		tvAuthorName= (TextView) findViewById(R.id.tvAuthorName);
+		tvAuthorName = (TextView) findViewById(R.id.tvAuthorName);
 		btnOk = (Button) findViewById(R.id.btnOk);
 		btnOk.setOnClickListener(this);
-
+		if (!CommonTasks.isOnline(this)) {
+			CommonTasks.goSettingPage(this);
+			return;
+		}
 		loadInformation();
 	}
 
@@ -69,20 +72,22 @@ public class IndividualBookDetailsActivity extends BookStoreActionBarBase
 
 	@Override
 	public void showProgressBar() {
-		// TODO Auto-generated method stub
-
+		progressDialog = new ProgressDialog(this,
+				ProgressDialog.THEME_HOLO_LIGHT);
+		progressDialog.setMessage("Please Wait...");
+		progressDialog.setCancelable(false);
+		progressDialog.show();
 	}
 
 	@Override
 	public void hideProgressBar() {
-		// TODO Auto-generated method stub
-
+		progressDialog.dismiss();
 	}
 
 	@Override
 	public Object doInBackground() {
 		IAdminManager adminManager = new AdminManager();
-		return adminManager.getIndividualBookDetails(""+bookID);
+		return adminManager.getIndividualBookDetails("" + bookID);
 	}
 
 	@Override
@@ -93,8 +98,8 @@ public class IndividualBookDetailsActivity extends BookStoreActionBarBase
 			tvBookName.setText(bookEntity.full_name);
 			tvISBNNumber.setText(bookEntity.isbn_no);
 			tvPublisherName.setText(bookEntity.publisher_name);
-			tvBookQuantity.setText(""+bookEntity.quantity);
-			tvAvailable.setText(""+bookEntity.avaible);
+			tvBookQuantity.setText("" + bookEntity.quantity);
+			tvAvailable.setText("" + bookEntity.avaible);
 			tvPublishDate.setText(bookEntity.publish_date);
 			tvBookCondition.setText(bookEntity.condition);
 			tvAuthorName.setText(bookEntity.auther_name);

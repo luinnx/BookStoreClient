@@ -304,6 +304,11 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 			isbnNumber = etISBNNumber.getText().toString().trim();
 			publishDate = etPublishDate.getText().toString().trim();
 			bookPrice = etBookPrice.getText().toString().trim();
+			
+			if (!CommonTasks.isOnline(this)) {
+				CommonTasks.goSettingPage(this);
+				return;
+			}
 			loadInformation();
 
 		} else if (view.getId() == R.id.ivCaptureImage) {

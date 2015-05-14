@@ -107,11 +107,11 @@ public class LoginActivity extends Activity implements OnClickListener, IAsynchr
 		IAdminManager adminManager = new AdminManager();
 		if (box.isChecked()) {
 			return adminManager.getAuthentication(username, password,
-					CommonTasks.getPhoneId(getApplicationContext()),
+					CommonTasks.getIMEINumber(getApplicationContext()),
 					CommonConstraints.ADMIN_TYPE);
 		} else {
 			return adminManager.getAuthentication(username, password,
-					CommonTasks.getPhoneId(getApplicationContext()),
+					CommonTasks.getIMEINumber(getApplicationContext()),
 					CommonConstraints.AGENT_TYPE);
 		}
 	}

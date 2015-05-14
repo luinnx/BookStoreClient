@@ -116,9 +116,17 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 
 		} else if (view.getId() == R.id.ivAddTeacher) {
 			MODE = "TEACHER_MODE";
+			if (!CommonTasks.isOnline(this)) {
+				CommonTasks.goSettingPage(this);
+				return;
+			}
 			loadInformation();
 		} else if (view.getId() == R.id.ivAddAgent) {
 			MODE = "AGENT_MODE";
+			if (!CommonTasks.isOnline(this)) {
+				CommonTasks.goSettingPage(this);
+				return;
+			}
 			loadInformation();
 		} else if (view.getId() == R.id.btnSubmit) {
 			MODE = "JOB_SUBMIT";
@@ -141,7 +149,10 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 						"Please Enter Amount of Books");
 				return;
 			}
-
+			if (!CommonTasks.isOnline(this)) {
+				CommonTasks.goSettingPage(this);
+				return;
+			}
 			loadInformation();
 		}
 
@@ -166,6 +177,10 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 			@Override
 			public void onClick(View arg0) {
 				selectSpeceficBooksDialog.dismiss();
+				if (!CommonTasks.isOnline(getApplicationContext())) {
+					CommonTasks.goSettingPage(getApplicationContext());
+					return;
+				}
 				loadInformation();
 
 			}
