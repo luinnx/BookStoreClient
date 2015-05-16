@@ -2,6 +2,8 @@ package com.bookstore.app.managers;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.util.Base64;
 import android.util.Log;
@@ -275,10 +277,30 @@ public class AdminManager implements IAdminManager {
 	}
 
 	@Override
-	public AgentLocationMapRoot getAgentsLocation() {
+	public List<Object> getAgentsLocation(int pageIndex ) {
+		
+		List<Object> complexList=new ArrayList<Object>();
+		
 		AgentLocationMapRoot agentLocationMapRoot=null;
 		agentLocationMapRoot=(AgentLocationMapRoot) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().getAgentsLocationList), AgentLocationMapRoot.class);
-		return agentLocationMapRoot;
+		
+		complexList.add(agentLocationMapRoot);
+		
+		AgentListRoot agentListRoot = null;
+		try {
+			agentListRoot = (AgentListRoot) JSONfunctions
+					.retrieveDataFromStream(String.format(
+							CommonUrls.getInstance().getAllAgent, pageIndex),
+							AgentListRoot.class);
+			complexList.add(agentListRoot);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		
+		
+		
+		return complexList;
 	}
 
 	@Override

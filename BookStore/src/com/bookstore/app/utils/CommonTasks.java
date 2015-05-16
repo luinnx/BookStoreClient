@@ -65,8 +65,14 @@ public class CommonTasks {
 	}
 	
 	public static String getIMEINumber(Context _context){
-		TelephonyManager telephonyManager = (TelephonyManager)_context.getSystemService(Context.TELEPHONY_SERVICE);
-		return ""+telephonyManager.getDeviceId();
+		String imei="";
+		try{
+			TelephonyManager telephonyManager = (TelephonyManager)_context.getSystemService(Context.TELEPHONY_SERVICE);
+			imei=""+telephonyManager.getDeviceId();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return imei.trim();
 	}
 
 	public static void showLogs(Context context, String message) {

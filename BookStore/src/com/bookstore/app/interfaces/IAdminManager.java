@@ -1,5 +1,7 @@
 package com.bookstore.app.interfaces;
 
+import java.util.List;
+
 import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
 import com.bookstore.app.entities.AgentLocationMapRoot;
@@ -50,7 +52,7 @@ public interface IAdminManager {
             String agentID, String agentGCMID, String adminId);
 	
 	public DonationListRoot getAllDonationList(int index);
-	public AgentLocationMapRoot getAgentsLocation();
+	public List<Object> getAgentsLocation(int pageIndex);
 	
 	public IndividualTADA getTada(int id);
 	public TaDaListRoot getAllTaDaList(int pageIndex);

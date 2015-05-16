@@ -91,7 +91,7 @@ public class AdminMapActivity extends BookStoreActionBarBase implements IAsynchr
 	@Override
 	public Object doInBackground() {
 		IAdminManager adminManager=new AdminManager();
-		return adminManager.getAgentsLocation();
+		return adminManager.getAgentsLocation(0);
 	}
 
 	@Override
