@@ -2,6 +2,7 @@ package com.bookstore.app.fragments;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -11,10 +12,13 @@ import org.json.JSONObject;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.ImageOptions;
+import com.bookstore.app.activity.IndividualAgentDetailsActivity;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.adapters.AgentListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
+import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
+import com.bookstore.app.entities.AgentLocationEntity;
 import com.bookstore.app.entities.AgentLocationMapRoot;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
@@ -42,7 +46,9 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.location.Address;
 import android.location.Geocoder;
@@ -53,18 +59,21 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class AgentsListLocationActivity extends Fragment implements
-		LocationListener, IAsynchronousTask {
+		LocationListener, IAsynchronousTask, OnItemClickListener {
 
 	ListView lvAgentList;
 	AgentListAdapter adapter;
@@ -88,6 +97,8 @@ public class AgentsListLocationActivity extends Fragment implements
 	AgentLocationMapRoot agentLocationMapRoot = null;
 	private static View view;
 	ViewGroup parent;
+	String whichService = "Agent List";
+	ArrayList<Bitmap> mapPhotoList;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -120,6 +131,8 @@ public class AgentsListLocationActivity extends Fragment implements
 
 	private void initalization(View root) {
 		lvAgentList = (ListView) root.findViewById(R.id.lvAgentList);
+
+		lvAgentList.setOnItemClickListener(this);
 		SupportMapFragment fragment = ((SupportMapFragment) getChildFragmentManager()
 				.findFragmentById(R.id.fragAgentLocationMap));
 		frAgentLocationMap = fragment.getMap();
@@ -157,26 +170,60 @@ public class AgentsListLocationActivity extends Fragment implements
 	@Override
 	public Object doInBackground() {
 		IAdminManager adminManager = new AdminManager();
-		return adminManager.getAgentsLocation(0);
+		if (whichService.equals("Agent List")) {
+			return adminManager.getAgentList(0);
+		} else {
+			AgentLocationMapRoot agentLocationMapRoot = null;
+			try {
+				agentLocationMapRoot = new AgentLocationMapRoot();
+				agentLocationMapRoot = adminManager.getAgentsLocation();
+				mapPhotoList = new ArrayList<Bitmap>();
+				for (AgentLocationEntity iterable_element : agentLocationMapRoot.agentLocationList) {
+					if (!iterable_element.agentpicurl.equals("")) {
+						URL url = new URL(
+								CommonUrls.getInstance().IMAGE_BASE_URL
+										+ iterable_element.agentpicurl);
+						HttpURLConnection connection = (HttpURLConnection) url
+								.openConnection();
+						connection.setDoInput(true);
+						connection.connect();
+						InputStream input = connection.getInputStream();
+						Bitmap myBitmap = BitmapFactory.decodeStream(input);
+						mapPhotoList.add(myBitmap);
+					} else {
+						mapPhotoList.add(BitmapFactory.decodeResource(
+								getActivity().getResources(),
+								R.drawable.ic_person_24));
+					}
+
+				}
+			} catch (Exception ex) {
+				Log.e("BSA", ex.getMessage());
+			}
+
+			return agentLocationMapRoot;
+		}
+
 	}
 
 	@Override
 	public void processDataAfterDownload(Object data) {
 		if (data != null) {
-			@SuppressWarnings("unchecked")
-			List<Object> complexList = (List<Object>) data;
 
-			agentListRoot = new AgentListRoot();
-			agentListRoot = (AgentListRoot) complexList.get(1);
-			adapter = new AgentListAdapter(getActivity(),
-					R.layout.agent_list_item, agentListRoot.agentList);
-			lvAgentList.setAdapter(adapter);
+			if (whichService.equals("Agent List")) {
+				agentListRoot = (AgentListRoot) data;
+				adapter = new AgentListAdapter(getActivity(),
+						R.layout.agent_list_item, agentListRoot.agentList);
+				whichService = "Load Map";
 
-			agentLocationMapRoot = new AgentLocationMapRoot();
-			agentLocationMapRoot = (AgentLocationMapRoot) complexList.get(0);
-			if (agentLocationMapRoot != null
-					&& agentLocationMapRoot.agentLocationList.size() > 0) {
-				LoadMap(agentLocationMapRoot);
+				lvAgentList.setAdapter(adapter);
+				LoginRequest();
+			} else {
+				agentLocationMapRoot = (AgentLocationMapRoot) data;
+				if (agentLocationMapRoot != null
+						&& agentLocationMapRoot.agentLocationList.size() > 0) {
+					LoadMap(agentLocationMapRoot);
+				}
 			}
 
 		} else {
@@ -192,104 +239,71 @@ public class AgentsListLocationActivity extends Fragment implements
 		String addressText = "";
 		markers = new ArrayList<Marker>();
 		try {
-			// clear the map before add the marker
 			frAgentLocationMap.clear();
-			LocationManager locationManager = (LocationManager) getActivity()
-					.getSystemService(getActivity().LOCATION_SERVICE);
-			locationManager.requestLocationUpdates(
-					LocationManager.NETWORK_PROVIDER, 0, 0, this);
-			android.location.Location loc = locationManager
-					.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-			if (loc != null) {
-				for (int rowIndex = 0; rowIndex < locationMapRoot.agentLocationList
-						.size(); rowIndex++) {
-					// Getting a place from the places list
-					// HashMap<String, String> hmPlace = list.get(rowIndex);
-					// Getting latitude of the place
-					double lat = locationMapRoot.agentLocationList
-							.get(rowIndex).latitude;
-					// Getting longitude of the place
-					double lng = locationMapRoot.agentLocationList
-							.get(rowIndex).longitude;
-					// create instance of latlng class.
-					LatLng Location = new LatLng(lat, lng);
-					// Create instance of geocoder that is used for geting
-					// address if marker pointer in pressed.
-					Geocoder geocoder = new Geocoder(getActivity(),
-							Locale.getDefault());
-					// get list of address where lat and lang r putted
-					List<Address> addresses = geocoder.getFromLocation(
-							Location.latitude, Location.longitude, 1);
-					// check address are available and get it using for loop and
-					// store in address
-					if (addresses != null && addresses.size() > 0) {
-						Address address = addresses.get(0);
-						for (int lineIndex = 0; lineIndex < address
-								.getMaxAddressLineIndex(); lineIndex++) {
-							addressText = addressText
-									+ address.getAddressLine(lineIndex) + ", ";
-						}
-						addressText = addressText + address.getLocality()
-								+ ", " + address.getCountryName();
-
-						View marker = ((LayoutInflater) getActivity()
-								.getSystemService(
-										Context.LAYOUT_INFLATER_SERVICE))
-								.inflate(R.layout.custom_marker_layout, null);
-						TextView numTxt = (TextView) marker
-								.findViewById(R.id.tvInfoText);
-						ImageView ivAgentImage = (ImageView) marker
-								.findViewById(R.id.ivMapAgentImage);
-
-						ProgressBar pbImagePreLoad = (ProgressBar) marker
-								.findViewById(R.id.pbImagePreLoad);
-						numTxt.setText(locationMapRoot.agentLocationList
-								.get(rowIndex).agentname);
-
-						aq = new AQuery(getActivity());
-						imageLoader = new ImageLoader(getActivity());
-						imgOptions = CommonValues.getInstance().defaultImageOptions;
-						imgOptions.targetWidth = 100;
-						imgOptions.ratio = 0;
-						imgOptions.round = 8;
-						String imageUrl=locationMapRoot.agentLocationList.get(rowIndex).agentpicurl;
-
-						if (
-								imageUrl.equals("")) {
-							aq.id(ivAgentImage)
-									.progress(pbImagePreLoad)
-									.image(getActivity().getResources().getDrawable(
-											R.drawable.ic_person_24));
-							
-						} else {
-							aq.id(ivAgentImage).progress(pbImagePreLoad)
-									.image((CommonUrls.getInstance().IMAGE_BASE_URL + imageUrl
-											.toString()), imgOptions);
-						}
-
-						markers.add(frAgentLocationMap.addMarker(new MarkerOptions()
-								.position(Location)
-								.title(addressText)
-								.snippet("Address")
-								.icon(BitmapDescriptorFactory
-										.fromBitmap(createDrawableFromView(
-												getActivity(), marker)))));
-
+			for (int rowIndex = 0; rowIndex < locationMapRoot.agentLocationList
+					.size(); rowIndex++) {
+				double lat = locationMapRoot.agentLocationList.get(rowIndex).latitude;
+				double lng = locationMapRoot.agentLocationList.get(rowIndex).longitude;
+				// create instance of latlng class.
+				LatLng Location = new LatLng(lat, lng);
+				// Create instance of geocoder that is used for geting
+				// address if marker pointer in pressed.
+				Geocoder geocoder = new Geocoder(getActivity(),
+						Locale.getDefault());
+				// get list of address where lat and lang r putted
+				List<Address> addresses = geocoder.getFromLocation(
+						Location.latitude, Location.longitude, 1);
+				// check address are available and get it using for loop and
+				// store in address
+				if (addresses != null && addresses.size() > 0) {
+					Address address = addresses.get(0);
+					for (int lineIndex = 0; lineIndex < address
+							.getMaxAddressLineIndex(); lineIndex++) {
+						addressText = addressText
+								+ address.getAddressLine(lineIndex) + ", ";
 					}
-					addressText = "";
-				}
+					addressText = addressText + address.getLocality() + ", "
+							+ address.getCountryName();
 
-				frAgentLocationMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-				LatLngBounds.Builder b = new LatLngBounds.Builder();
-				if (markers.size() > 0) {
-					for (Marker m : markers) {
-						b.include(m.getPosition());
-					}
-					LatLngBounds bounds = b.build();
-					CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(
-							bounds, 35, 35, 5);
-					frAgentLocationMap.animateCamera(cu);
+					View marker = ((LayoutInflater) getActivity()
+							.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+							.inflate(R.layout.custom_marker_layout, null);
+					TextView numTxt = (TextView) marker
+							.findViewById(R.id.tvInfoText);
+					ImageView ivAgentImage = (ImageView) marker
+							.findViewById(R.id.ivMapAgentImage);
+					numTxt.setText(locationMapRoot.agentLocationList
+							.get(rowIndex).agentname);
+
+					ivAgentImage.setImageBitmap(mapPhotoList.get(rowIndex));
+
+					markers.add(frAgentLocationMap
+							.addMarker(new MarkerOptions()
+									.position(Location)
+									.title("Name :"
+											+ locationMapRoot.agentLocationList
+													.get(rowIndex).agentname
+											+ "\n Current Address :"
+											+ addressText)
+									.snippet("Address")
+									.icon(BitmapDescriptorFactory
+											.fromBitmap(createDrawableFromView(
+													getActivity(), marker)))));
+
 				}
+				addressText = "";
+			}
+
+			frAgentLocationMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+			LatLngBounds.Builder b = new LatLngBounds.Builder();
+			if (markers.size() > 0) {
+				for (Marker m : markers) {
+					b.include(m.getPosition());
+				}
+				LatLngBounds bounds = b.build();
+				CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds,
+						35, 35, 5);
+				frAgentLocationMap.animateCamera(cu);
 			}
 
 		} catch (Exception ex) {
@@ -340,12 +354,22 @@ public class AgentsListLocationActivity extends Fragment implements
 		// TODO Auto-generated method stub
 
 	}
-	
-
 
 	@Override
 	public void onPause() {
 		super.onPause();
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+			long arg3) {
+		AgentEntity agentEntity = agentListRoot.agentList.get(position);
+		Intent intent = new Intent(getActivity(),
+				IndividualAgentDetailsActivity.class);
+		intent.putExtra("AGENT_ID", "" + agentEntity._id);
+		intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+		startActivity(intent);
+
 	}
 
 }

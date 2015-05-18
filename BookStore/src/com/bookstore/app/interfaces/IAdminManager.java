@@ -52,7 +52,7 @@ public interface IAdminManager {
             String agentID, String agentGCMID, String adminId);
 	
 	public DonationListRoot getAllDonationList(int index);
-	public List<Object> getAgentsLocation(int pageIndex);
+	public AgentLocationMapRoot getAgentsLocation();
 	
 	public IndividualTADA getTada(int id);
 	public TaDaListRoot getAllTaDaList(int pageIndex);

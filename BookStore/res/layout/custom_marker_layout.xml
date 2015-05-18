@@ -7,16 +7,17 @@
         android:id="@+id/tvInfoText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ivAgentImage"
+        android:layout_below="@+id/ivMapAgentImage"
         android:layout_centerHorizontal="true"
         android:textColor="#000"
+        android:visibility="gone"
         android:textSize="12sp"
         android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/ivMapAgentImage"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/ic_person_24" />

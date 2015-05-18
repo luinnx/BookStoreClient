@@ -277,14 +277,14 @@ public class AdminManager implements IAdminManager {
 	}
 
 	@Override
-	public List<Object> getAgentsLocation(int pageIndex ) {
+	public AgentLocationMapRoot getAgentsLocation( ) {
 		
 		List<Object> complexList=new ArrayList<Object>();
 		
 		AgentLocationMapRoot agentLocationMapRoot=null;
 		agentLocationMapRoot=(AgentLocationMapRoot) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().getAgentsLocationList), AgentLocationMapRoot.class);
 		
-		complexList.add(agentLocationMapRoot);
+		/*complexList.add(agentLocationMapRoot);
 		
 		AgentListRoot agentListRoot = null;
 		try {
@@ -298,9 +298,9 @@ public class AdminManager implements IAdminManager {
 		}
 		
 		
+		*/
 		
-		
-		return complexList;
+		return agentLocationMapRoot;
 	}
 
 	@Override
