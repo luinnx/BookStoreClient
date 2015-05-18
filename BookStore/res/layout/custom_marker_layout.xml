@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    
     android:layout_height="wrap_content" >
- 
+
     <TextView
         android:id="@+id/tvInfoText"
         android:layout_width="wrap_content"
@@ -15,11 +14,19 @@
         android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/ivAgentImage"
+        android:id="@+id/ivMapAgentImage"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/ic_person_24" />
- 
+
+    <ProgressBar
+        android:id="@+id/pbImagePreLoad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:visibility="gone" />
+
 </RelativeLayout>

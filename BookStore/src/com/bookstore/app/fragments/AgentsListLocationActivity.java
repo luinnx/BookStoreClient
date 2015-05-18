@@ -3,11 +3,14 @@ package com.bookstore.app.fragments;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Locale;
 
 import org.json.JSONObject;
 
+import com.androidquery.AQuery;
+import com.androidquery.callback.ImageOptions;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.adapters.AgentListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
@@ -17,17 +20,26 @@ import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
 import com.bookstore.app.utils.CommonTasks;
+import com.bookstore.app.utils.CommonUrls;
+import com.bookstore.app.utils.CommonValues;
+import com.bookstore.app.utils.ImageLoader;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.FIFOLimitedMemoryCache;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -37,6 +49,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -45,7 +58,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class AgentsListLocationActivity extends Fragment implements
@@ -57,6 +72,10 @@ public class AgentsListLocationActivity extends Fragment implements
 	GoogleMap frAgentLocationMap;
 	DownloadableAsyncTask downloadAsyncTask;
 	ProgressDialog progressDialog;
+
+	ImageOptions imgOptions;
+	ImageLoader imageLoader;
+	private AQuery aq;
 	double mLatitude = 0;
 	double mLongitude = 0;
 	String data = "";
@@ -64,6 +83,8 @@ public class AgentsListLocationActivity extends Fragment implements
 	HttpURLConnection urlConnection = null;
 	JSONObject jObject;
 	ArrayList<Marker> markers;
+	Hashtable<String, String> uriMarkers;
+	Marker mainMarker;
 	AgentLocationMapRoot agentLocationMapRoot = null;
 	private static View view;
 	ViewGroup parent;
@@ -168,14 +189,8 @@ public class AgentsListLocationActivity extends Fragment implements
 	}
 
 	private void LoadMap(AgentLocationMapRoot locationMapRoot) {
-		/*
-		 * This is map function where is shown all ATM Booth location in your
-		 * redious. Initialy we use 5000 rediues in your location.
-		 */
-		// initialize variable of this method.
 		String addressText = "";
 		markers = new ArrayList<Marker>();
-		double defaultLatitude, defaultLongitude;
 		try {
 			// clear the map before add the marker
 			frAgentLocationMap.clear();
@@ -223,7 +238,34 @@ public class AgentsListLocationActivity extends Fragment implements
 								.inflate(R.layout.custom_marker_layout, null);
 						TextView numTxt = (TextView) marker
 								.findViewById(R.id.tvInfoText);
-						numTxt.setText("Sajedul Karim");
+						ImageView ivAgentImage = (ImageView) marker
+								.findViewById(R.id.ivMapAgentImage);
+
+						ProgressBar pbImagePreLoad = (ProgressBar) marker
+								.findViewById(R.id.pbImagePreLoad);
+						numTxt.setText(locationMapRoot.agentLocationList
+								.get(rowIndex).agentname);
+
+						aq = new AQuery(getActivity());
+						imageLoader = new ImageLoader(getActivity());
+						imgOptions = CommonValues.getInstance().defaultImageOptions;
+						imgOptions.targetWidth = 100;
+						imgOptions.ratio = 0;
+						imgOptions.round = 8;
+						String imageUrl=locationMapRoot.agentLocationList.get(rowIndex).agentpicurl;
+
+						if (
+								imageUrl.equals("")) {
+							aq.id(ivAgentImage)
+									.progress(pbImagePreLoad)
+									.image(getActivity().getResources().getDrawable(
+											R.drawable.ic_person_24));
+							
+						} else {
+							aq.id(ivAgentImage).progress(pbImagePreLoad)
+									.image((CommonUrls.getInstance().IMAGE_BASE_URL + imageUrl
+											.toString()), imgOptions);
+						}
 
 						markers.add(frAgentLocationMap.addMarker(new MarkerOptions()
 								.position(Location)
@@ -298,6 +340,8 @@ public class AgentsListLocationActivity extends Fragment implements
 		// TODO Auto-generated method stub
 
 	}
+	
+
 
 	@Override
 	public void onPause() {
