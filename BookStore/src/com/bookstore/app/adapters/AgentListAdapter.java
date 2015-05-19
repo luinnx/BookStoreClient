@@ -11,6 +11,7 @@ import com.bookstore.app.utils.CommonTasks;
 import com.bookstore.app.utils.CommonUrls;
 import com.bookstore.app.utils.CommonValues;
 import com.bookstore.app.utils.ImageLoader;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -67,7 +68,7 @@ public class AgentListAdapter extends ArrayAdapter<AgentEntity> {
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				jobView = inflater.inflate(R.layout.agent_list_item, null);
 				
-				holder.ivAgentImage = (ImageView) jobView.findViewById(R.id.ivBookImage);
+				holder.ivAgentImage = (CircularImageView) jobView.findViewById(R.id.ivBookImage);
 				holder.tvAgentName = (TextView) jobView.findViewById(R.id.tvAgentName);
 				holder.tvAgentAddress = (TextView) jobView.findViewById(R.id.tvAgentAddress);
 				aq = new AQuery(context);
@@ -100,6 +101,6 @@ public class AgentListAdapter extends ArrayAdapter<AgentEntity> {
 	public class ViewHolder {
 		public TextView tvAgentName;
 		public TextView tvAgentAddress;
-		public ImageView ivAgentImage;
+		public CircularImageView  ivAgentImage;
 	}
 }

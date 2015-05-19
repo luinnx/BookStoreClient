@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:padding="2dp" >
 
-        <ImageView
+        <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/ivBookImage"
             android:layout_width="100dp"
             android:layout_height="100dp"

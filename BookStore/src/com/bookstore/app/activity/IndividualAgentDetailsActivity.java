@@ -148,29 +148,27 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 	@Override
 	public Object doInBackground() {
 		IAdminManager adminManager = new AdminManager();
-		agentEntity=adminManager.getIndividualAgentDetails(agentId);
-				
-				
-				if (agentEntity.pic_url.equals("")) {
-					myBitmap = BitmapFactory.decodeResource(getResources(),
-							R.drawable.ic_person_24);
-				} else {
-					try {
-						URL url = new URL(CommonUrls.getInstance().IMAGE_BASE_URL
-								+ agentEntity.pic_url.toString());
-						HttpURLConnection connection = (HttpURLConnection) url
-								.openConnection();
-						connection.setDoInput(true);
-						connection.connect();
-						InputStream input = connection.getInputStream();
-						myBitmap = BitmapFactory.decodeStream(input);
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
+		agentEntity = adminManager.getIndividualAgentDetails(agentId);
 
-				}
-				
-				
+		if (agentEntity.pic_url.equals("")) {
+			myBitmap = BitmapFactory.decodeResource(getResources(),
+					R.drawable.ic_person_24);
+		} else {
+			try {
+				URL url = new URL(CommonUrls.getInstance().IMAGE_BASE_URL
+						+ agentEntity.pic_url.toString());
+				HttpURLConnection connection = (HttpURLConnection) url
+						.openConnection();
+				connection.setDoInput(true);
+				connection.connect();
+				InputStream input = connection.getInputStream();
+				myBitmap = BitmapFactory.decodeStream(input);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+
+		}
+
 		return agentEntity;
 	}
 
@@ -187,8 +185,6 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 			tvAgentCurrentLocation.setText("Not Found");
 			tvCreateDate.setText(CommonTasks
 					.getLongToDate(agentEntity.create_date));
-
-			
 
 			loadMap(agentEntity);
 
@@ -331,7 +327,7 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 		tvLocationName.setText("Current Location :" + agentEntity.address);
 		tvLastUpdateTime.setText("Last Update :"
 				+ CommonTasks.getLongToDate(agentEntity.create_date));
-		ivAgentImage.setImageBitmap(myBitmap);
+		ivAgentImage.setImageBitmap(CommonTasks.createCircularShape(myBitmap));
 
 		// Returning the view containing InfoWindow contents
 		return v;

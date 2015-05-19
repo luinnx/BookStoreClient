@@ -38,6 +38,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.FIFOLimitedMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -50,7 +51,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Shader.TileMode;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -274,12 +278,16 @@ public class AgentsListLocationActivity extends Fragment implements
 							.inflate(R.layout.custom_marker_layout, null);
 					TextView numTxt = (TextView) marker
 							.findViewById(R.id.tvInfoText);
-					ImageView ivAgentImage = (ImageView) marker
+					CircularImageView ivAgentImage = (CircularImageView) marker
 							.findViewById(R.id.ivMapAgentImage);
 					numTxt.setText(locationMapRoot.agentLocationList
 							.get(rowIndex).agentname);
 
-					ivAgentImage.setImageBitmap(mapPhotoList.get(rowIndex));
+					
+					
+					
+					
+					ivAgentImage.setImageBitmap(CommonTasks.createCircularShape(mapPhotoList.get(rowIndex)));
 
 					markers.add(frAgentLocationMap
 							.addMarker(new MarkerOptions().position(Location)
@@ -307,6 +315,8 @@ public class AgentsListLocationActivity extends Fragment implements
 			ex.printStackTrace();
 		}
 	}
+
+	
 
 	// Convert a view to bitmap
 	public static Bitmap createDrawableFromView(Context context, View view) {
@@ -415,9 +425,8 @@ public class AgentsListLocationActivity extends Fragment implements
 		tvAgentName.setText("Name :" + entity.agentname);
 		tvLocationName.setText("Current Location :" + entity.locationname);
 		tvLastUpdateTime.setText("Last Update :" + CommonTasks.getRelativeTime(entity.updatetime));
-		ivAgentImage.setImageBitmap(mapPhotoList.get(bitMapCount));
+		ivAgentImage.setImageBitmap(CommonTasks.createCircularShape(mapPhotoList.get(bitMapCount)));
 
-		// Returning the view containing InfoWindow contents
 		return v;
 	}
 
