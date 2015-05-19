@@ -52,7 +52,8 @@
             android:checked="false"
             android:text="Login as Admin"
             android:textColor="@color/text_color"
-            android:textStyle="italic" />
+            android:textStyle="italic"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/b_Login"
@@ -61,7 +62,7 @@
             android:layout_height="40dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="10dp"
             android:text="SIGN IN" />
 
         <Button

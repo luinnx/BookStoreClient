@@ -8,6 +8,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
@@ -23,17 +24,22 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.AgentActionbarBase;
 import com.bookstore.app.entities.TaDaEntityNew;
+import com.bookstore.app.interfaces.IAgent;
+import com.bookstore.app.interfaces.IAsynchronousTask;
+import com.bookstore.app.managers.AgentManager;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
 import com.bookstore.app.utils.CommonValues;
 
 public class AgentTA_DA_Activity extends AgentActionbarBase implements
-		OnClickListener {
+		OnClickListener, IAsynchronousTask {
 
 	LinearLayout llParentContainer;
 	ImageView ivAddCost;
@@ -56,6 +62,9 @@ public class AgentTA_DA_Activity extends AgentActionbarBase implements
 
 	private int hour;
 	private int minute;
+	JSONObject object;
+	DownloadableAsyncTask asyncTask;
+	ProgressDialog progressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -255,10 +264,10 @@ public class AgentTA_DA_Activity extends AgentActionbarBase implements
 			}
 			
 			
-			JSONObject object=new JSONObject();
+			object=new JSONObject();
 			object.put("tada", jsonArr);
 			Log.d("BSS", object.toJSONString());
-
+			LoadInforamtion();
 
 		}
 
@@ -311,5 +320,42 @@ public class AgentTA_DA_Activity extends AgentActionbarBase implements
 
 		}
 	};
+	
+	private void LoadInforamtion(){
+		if(asyncTask != null)
+			asyncTask.cancel(true);
+		asyncTask = new DownloadableAsyncTask(this);
+		asyncTask.execute();
+	}
+
+	@Override
+	public void showProgressBar() {
+		progressDialog = new ProgressDialog(this);
+		progressDialog.setMessage("Please Wait...");
+		progressDialog.setCancelable(false);
+		progressDialog.show();
+	}
+
+	@Override
+	public void hideProgressBar() {
+		progressDialog.dismiss();
+	}
+
+	@Override
+	public Object doInBackground() {
+		IAgent agent = new AgentManager();
+		return agent.addTada(object);
+	}
+
+	@Override
+	public void processDataAfterDownload(Object data) {
+		if(data != null){
+			boolean result = (boolean) data;
+			if(result){
+				CommonTasks.showToast(this, "T.A.D.A Successfully Submit.");
+				onBackPressed();
+			}
+		}
+	}
 
 }

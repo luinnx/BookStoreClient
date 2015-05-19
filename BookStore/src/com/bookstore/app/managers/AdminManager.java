@@ -81,11 +81,11 @@ public class AdminManager implements IAdminManager {
 
 	@Override
 	public LoginEntity getAuthentication(String email, String password,
-			String imei, int userType) {
+			String imei) {
 		LoginEntity entity = null;
 		entity = (LoginEntity) JSONfunctions.retrieveDataFromStream(String
 				.format(CommonUrls.getInstance().getAuthentication, email,
-						password, imei, userType), LoginEntity.class);
+						password, imei), LoginEntity.class);
 		return entity;
 	}
 

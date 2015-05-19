@@ -2,6 +2,8 @@ package com.bookstore.app.managers;
 
 import java.net.URLEncoder;
 
+import org.json.simple.JSONObject;
+
 import android.util.Log;
 
 import com.bookstore.app.entities.AgentInfo;
@@ -131,6 +133,17 @@ public class AgentManager implements IAgent {
 		}
 		
 		return listRoot;
+	}
+
+	@Override
+	public boolean addTada(JSONObject jsonObject) {
+		boolean result = false;
+		try{
+			result = (boolean) JSONfunctions.retrieveDataFromJsonPostURL(CommonUrls.getInstance().addTada, jsonObject, Boolean.class);
+		}catch(Exception ex){
+			Log.e("BSA", ex.getMessage());
+		}
+		return result;
 	}
 
 }

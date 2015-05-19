@@ -18,7 +18,7 @@ import com.bookstore.app.entities.TeacherListRoot;
 
 public interface IAdminManager {
 	public LoginEntity getAuthentication(String email, String password,
-			String imei, int userType);
+			String imei);
 
 	public JobListRoot getJobList(int jobStatus);
 

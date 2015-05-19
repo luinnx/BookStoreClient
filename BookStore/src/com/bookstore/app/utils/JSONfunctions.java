@@ -364,6 +364,72 @@ public class JSONfunctions {
 		}
 		return null;
 	}
+	
+	public static Object retrieveDataFromJsonPostURL(String url,
+			org.json.simple.JSONObject jsonObject, Class<?> dataClass) {
+		CommonValues.getInstance().ExceptionCode = CommonConstraints.NO_EXCEPTION;
+		InputStream inputStream = null;
+		try {
+			HttpParams httpParameters = new BasicHttpParams();
+			HttpConnectionParams.setConnectionTimeout(httpParameters,
+					TIMEOUT_MILLISEC);
+			HttpConnectionParams.setSoTimeout(httpParameters, TIMEOUT_MILLISEC);
+			HttpPost httpPost = new HttpPost(url);
+			HttpClient httpclient = new DefaultHttpClient(httpParameters);
+
+			httpPost.setHeader("Content-type", "application/json");
+			httpPost.setHeader("Accept", "application/json");
+
+			httpPost.setEntity(new StringEntity(jsonObject.toString(),
+					CommonConstraints.EncodingCode));
+
+			HttpResponse response = httpclient.execute(httpPost);
+
+			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+				if (dataClass != null) {
+					HttpEntity entity = response.getEntity();
+					if (entity != null) {
+						inputStream = entity.getContent();
+						if (inputStream != null) {
+							BufferedReader reader = new BufferedReader(
+									new InputStreamReader(inputStream,
+											CommonConstraints.EncodingCode), 8);
+							Gson gson = new Gson();
+							return gson.fromJson(reader, dataClass);
+						}
+					}
+				}
+			}
+
+		} catch (ClientProtocolException e) {
+			Log.e("log_tag", "Error in " + e.toString());
+			CommonValues.getInstance().ExceptionCode = CommonConstraints.CLIENT_PROTOCOL_EXCEPTION;
+		} catch (IllegalStateException e) {
+			Log.e("log_tag", "Error in " + e.toString());
+			CommonValues.getInstance().ExceptionCode = CommonConstraints.ILLEGAL_STATE_EXCEPTION;
+		} catch (UnsupportedEncodingException e) {
+			Log.e("log_tag", "Error in " + e.toString());
+			CommonValues.getInstance().ExceptionCode = CommonConstraints.UNSUPPORTED_ENCODING_EXCEPTION;
+		} catch (IOException e) {
+			Log.e("log_tag", "Error in " + e.toString());
+			CommonValues.getInstance().ExceptionCode = CommonConstraints.IO_EXCEPTION;
+		} catch (Exception e) {
+			Log.e("log_tag", "Error in " + e.toString());
+			CommonValues.getInstance().ExceptionCode = CommonConstraints.GENERAL_EXCEPTION;
+		} finally {
+			try {
+				if (inputStream != null) {
+					inputStream.close();
+				}
+			} catch (IOException e) {
+				Log.e("log_tag", "Error in " + e.toString());
+				CommonValues.getInstance().ExceptionCode = CommonConstraints.IO_EXCEPTION;
+			}
+		}
+		return null;
+	}
+	
+	
 
 	public static Bitmap LoadChart(String urlRqs) {
 		Bitmap bm = null;

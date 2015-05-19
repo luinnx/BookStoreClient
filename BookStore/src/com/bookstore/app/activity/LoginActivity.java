@@ -105,15 +105,8 @@ public class LoginActivity extends Activity implements OnClickListener, IAsynchr
 	@Override
 	public Object doInBackground() {
 		IAdminManager adminManager = new AdminManager();
-		if (box.isChecked()) {
-			return adminManager.getAuthentication(username, password,
-					CommonTasks.getIMEINumber(getApplicationContext()),
-					CommonConstraints.ADMIN_TYPE);
-		} else {
-			return adminManager.getAuthentication(username, password,
-					CommonTasks.getIMEINumber(getApplicationContext()),
-					CommonConstraints.AGENT_TYPE);
-		}
+		return adminManager.getAuthentication(username, password,
+				CommonTasks.getIMEINumber(getApplicationContext()));
 	}
 
 	@Override
