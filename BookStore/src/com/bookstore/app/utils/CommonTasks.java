@@ -1,8 +1,10 @@
 package com.bookstore.app.utils;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -25,6 +27,16 @@ import android.widget.Toast;
 
 public class CommonTasks {
 	private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+	public final static long ONE_SECOND = 1000;
+	public final static long SECONDS = 60;
+
+	public final static long ONE_MINUTE = ONE_SECOND * 60;
+	public final static long MINUTES = 60;
+
+	public final static long ONE_HOUR = ONE_MINUTE * 60;
+	public final static long HOURS = 24;
+
+	public final static long ONE_DAY = ONE_HOUR * 24;
 
 	public static void savePreferencesForReasonCode(Context context,
 			String key, String value) {
@@ -46,6 +58,28 @@ public class CommonTasks {
 		return df.format(date);
 	}
 
+	public static String getRelativeTime(long duration) {
+
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		Date past;
+		String result = "";
+		try {
+			past = format.parse(getLongToDate("" + duration));
+			Date now = new Date();
+
+			if (TimeUnit.MILLISECONDS.toMinutes(now.getTime() - past.getTime()) > 0) {
+				result += ""
+						+ TimeUnit.MILLISECONDS.toMinutes(now.getTime()
+								- past.getTime()) + " minutes";
+			}
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return result;
+
+	}
+
 	@SuppressLint("SimpleDateFormat")
 	public static String getLongToDate(String time) {
 		long foo = Long.parseLong(time);
@@ -63,13 +97,14 @@ public class CommonTasks {
 				Secure.ANDROID_ID);
 		return phoneId;
 	}
-	
-	public static String getIMEINumber(Context _context){
-		String imei="";
-		try{
-			TelephonyManager telephonyManager = (TelephonyManager)_context.getSystemService(Context.TELEPHONY_SERVICE);
-			imei=""+telephonyManager.getDeviceId();
-		}catch(Exception e){
+
+	public static String getIMEINumber(Context _context) {
+		String imei = "";
+		try {
+			TelephonyManager telephonyManager = (TelephonyManager) _context
+					.getSystemService(Context.TELEPHONY_SERVICE);
+			imei = "" + telephonyManager.getDeviceId();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return imei.trim();

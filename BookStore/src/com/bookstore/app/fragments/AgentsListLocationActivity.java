@@ -31,6 +31,7 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -73,7 +74,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class AgentsListLocationActivity extends Fragment implements
-		LocationListener, IAsynchronousTask, OnItemClickListener {
+		LocationListener, IAsynchronousTask, OnItemClickListener,
+		OnMarkerClickListener, InfoWindowAdapter {
 
 	ListView lvAgentList;
 	AgentListAdapter adapter;
@@ -136,6 +138,8 @@ public class AgentsListLocationActivity extends Fragment implements
 		SupportMapFragment fragment = ((SupportMapFragment) getChildFragmentManager()
 				.findFragmentById(R.id.fragAgentLocationMap));
 		frAgentLocationMap = fragment.getMap();
+		frAgentLocationMap.setOnMarkerClickListener(this);
+		frAgentLocationMap.setInfoWindowAdapter(this);
 		if (!CommonTasks.isOnline(getActivity())) {
 			CommonTasks.goSettingPage(getActivity());
 			return;
@@ -278,14 +282,7 @@ public class AgentsListLocationActivity extends Fragment implements
 					ivAgentImage.setImageBitmap(mapPhotoList.get(rowIndex));
 
 					markers.add(frAgentLocationMap
-							.addMarker(new MarkerOptions()
-									.position(Location)
-									.title("Name :"
-											+ locationMapRoot.agentLocationList
-													.get(rowIndex).agentname
-											+ "\n Current Address :"
-											+ addressText)
-									.snippet("Address")
+							.addMarker(new MarkerOptions().position(Location)
 									.icon(BitmapDescriptorFactory
 											.fromBitmap(createDrawableFromView(
 													getActivity(), marker)))));
@@ -370,6 +367,58 @@ public class AgentsListLocationActivity extends Fragment implements
 		intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		startActivity(intent);
 
+	}
+
+	@Override
+	public boolean onMarkerClick(Marker marker) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public View getInfoContents(Marker marker) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public View getInfoWindow(Marker marker) {
+		
+		// Getting view from the layout file info_window_layout
+		View v = getActivity().getLayoutInflater().inflate(
+				R.layout.maps_info_window_show, null);
+
+		// Getting the position from the marker
+		LatLng latLng = marker.getPosition();
+		AgentLocationEntity entity = null;
+		int bitMapCount = 0;
+
+		for (int i = 0; i < agentLocationMapRoot.agentLocationList.size(); i++) {
+			if (latLng.latitude == agentLocationMapRoot.agentLocationList
+					.get(i).latitude
+					&& latLng.longitude == agentLocationMapRoot.agentLocationList
+							.get(i).longitude) {
+				entity = agentLocationMapRoot.agentLocationList.get(i);
+				bitMapCount = i;
+				break;
+			}
+		}
+
+		TextView tvLastUpdateTime = (TextView) v
+				.findViewById(R.id.tvLastUpdateTime);
+
+		TextView tvLocationName = (TextView) v
+				.findViewById(R.id.tvLocationName);
+		TextView tvAgentName = (TextView) v.findViewById(R.id.tvAgentName);
+		ImageView ivAgentImage = (ImageView) v.findViewById(R.id.ivAgentImage);
+
+		tvAgentName.setText("Name :" + entity.agentname);
+		tvLocationName.setText("Current Location :" + entity.locationname);
+		tvLastUpdateTime.setText("Last Update :" + CommonTasks.getRelativeTime(entity.updatetime));
+		ivAgentImage.setImageBitmap(mapPhotoList.get(bitMapCount));
+
+		// Returning the view containing InfoWindow contents
+		return v;
 	}
 
 }
