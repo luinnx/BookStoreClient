@@ -51,7 +51,7 @@ public class CommonUrls {
 	public String getTadaList = BASE_URL+"admin/tadaList?pageIndex=%s";	
 	public String getTadaDetails = BASE_URL+"admin/individula_tada?tadaid=%s";
 	public String getIndividialDonation = BASE_URL+"admin/individula_donation?donationid=%s";
-	public String setDonationACK = BASE_URL+"admin/donation_ack?donationID=%s&agentGcmID=%s&donationStatus=%s";
+	public String setDonationACK = BASE_URL+"admin/donation_ack?donationID=%s&agentGcmID=%s&donationStatus=%s&adminID=%s&amount=%s";
 	public String setTadaACK = BASE_URL+"admin/tada_ack?tadaID=%s&agentGcmID=%s&tadastatus=%s";
 	public String setJobSubmitACK = BASE_URL+"admin/job_ack?jobID=%s&adminID=%s&agentGcmID=%s&bookid=%s&no_of_book=%s&jobStatus=%s&remarks=%s";
 	
