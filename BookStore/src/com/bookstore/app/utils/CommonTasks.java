@@ -1,10 +1,15 @@
 package com.bookstore.app.utils;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -128,6 +133,27 @@ public class CommonTasks {
 		}
 		return false;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static JSONObject convertResultsetToJson(ResultSet resultSet, String tag){
+        JSONArray array = new JSONArray();
+        JSONObject object = new JSONObject();
+        try {
+            JSONObject jSONObject;
+            while(resultSet.next()){
+                jSONObject = new JSONObject();
+                int rowCount = resultSet.getMetaData().getColumnCount();
+                for(int rowIndex=0;rowIndex<rowCount;rowIndex++){
+                    jSONObject.put(resultSet.getMetaData().getColumnLabel(rowIndex+1).toLowerCase(), resultSet.getObject(rowIndex+1));
+                }
+                array.add(jSONObject);
+            }    
+            object.put(tag, array);
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return object;
+    }
 
 	public static void goSettingPage(final Context context) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context,

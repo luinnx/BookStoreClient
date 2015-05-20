@@ -1,13 +1,17 @@
 package com.bookstore.app.activity;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +21,16 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.TimePicker;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import com.bookstore.app.base.AgentActionbarBase;
+import com.bookstore.app.entities.TaDaEntityNew;
+import com.bookstore.app.utils.CommonConstraints;
+import com.bookstore.app.utils.CommonTasks;
+import com.bookstore.app.utils.CommonValues;
 
 public class AgentTA_DA_Activity extends AgentActionbarBase implements
 		OnClickListener {
@@ -28,11 +39,16 @@ public class AgentTA_DA_Activity extends AgentActionbarBase implements
 	ImageView ivAddCost;
 	View child;
 	ArrayList<LinearLayout> mViews = new ArrayList<LinearLayout>();
+	// List<View> viewList = new ArrayList<View>();
 	int viewChildCount = 0;
 	Button btnOk;
-	EditText etPublishDate;
+	EditText etTourCost, etPublishDate, etFrom, etTo, etDistance, etCarName,
+			etOtherCost, etTourPurpose;
 
 	TimePicker ivStartTime, ivEndTime;
+	TextView tvTotalCost;
+	EditText etOthersCost;
+	int totalCost = 0;
 
 	private int year;
 	private int month;
@@ -51,16 +67,32 @@ public class AgentTA_DA_Activity extends AgentActionbarBase implements
 	private void initViews() {
 		llParentContainer = (LinearLayout) findViewById(R.id.rlTransportationCostContainer);
 		ivAddCost = (ImageView) findViewById(R.id.ivAddCost);
+		tvTotalCost = (TextView) findViewById(R.id.tvTotalCost);
+		etOthersCost = (EditText) findViewById(R.id.etOthersCost);
+		etTourPurpose= (EditText) findViewById(R.id.etTourPurpose);
+
 		btnOk = (Button) findViewById(R.id.btnOk);
 
 		ivAddCost.setOnClickListener(this);
 		btnOk.setOnClickListener(this);
+		ivAddCost.performClick();
 	}
 
+	@SuppressWarnings("unchecked")
 	@SuppressLint("InflateParams")
 	@Override
 	public void onClick(View view) {
 		if (view.getId() == R.id.ivAddCost) {
+
+			if (mViews.size() > 0
+					&& (etPublishDate.getText().toString().trim().equals("")
+							|| etTo.getText().toString().trim().equals("")
+							|| etFrom.getText().toString().trim().equals("") || etCarName
+							.getText().toString().trim().equals(""))) {
+				return;
+
+			}
+
 			child = LayoutInflater.from(this).inflate(R.layout.ta_da_items,
 					null);
 
@@ -69,6 +101,50 @@ public class AgentTA_DA_Activity extends AgentActionbarBase implements
 			ivStartTime = (TimePicker) (child.findViewById(R.id.ivStartTime));
 			ivEndTime = (TimePicker) (child.findViewById(R.id.ivEndTime));
 			etPublishDate = (EditText) (child.findViewById(R.id.etPublishDate));
+
+			etTourCost = (EditText) (child.findViewById(R.id.etTourCost));
+			etOtherCost = (EditText) (child.findViewById(R.id.etOtherCost));
+			etTourPurpose = (EditText) (child.findViewById(R.id.etTourPurpose));
+			etTourCost.addTextChangedListener(new TextWatcher() {
+
+				@Override
+				public void onTextChanged(CharSequence s, int start,
+						int before, int count) {
+
+					/*
+					 * //if (mViews.size() > 0) { for (int i = 1; i <
+					 * mViews.size(); i++) { LinearLayout layout =
+					 * mViews.get(i); for (int c = 0; c <
+					 * layout.getChildCount(); c++) { View childView =
+					 * layout.getChildAt(c); EditText etTourCost = (EditText)
+					 * (childView .findViewById(R.id.etTourCost)); totalCost +=
+					 * Integer.parseInt(etTourCost
+					 * .getText().toString().trim()); } } totalCost+=
+					 * Integer.parseInt(s.toString()); totalCost +=
+					 * Integer.parseInt(etOthersCost.getText()
+					 * .toString().trim()); tvTotalCost.setText("Total Cost : "
+					 * + totalCost); }
+					 */
+
+				}
+
+				@Override
+				public void beforeTextChanged(CharSequence s, int start,
+						int count, int after) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void afterTextChanged(Editable s) {
+
+				}
+			});
+
+			etFrom = (EditText) (child.findViewById(R.id.etFrom));
+			etTo = (EditText) (child.findViewById(R.id.etTo));
+			etDistance = (EditText) (child.findViewById(R.id.etDistance));
+			etCarName = (EditText) (child.findViewById(R.id.etCarName));
 
 			ivPublishDate.setOnClickListener(new View.OnClickListener() {
 
@@ -98,12 +174,28 @@ public class AgentTA_DA_Activity extends AgentActionbarBase implements
 				}
 			});
 			llParentContainer.addView(child);
+			// viewList.add(child);
 			mViews.add((LinearLayout) child);
 		} else if (view.getId() == R.id.btnOk) {
+			
+			if((etPublishDate.getText().toString().trim().equals("")
+							|| etTo.getText().toString().trim().equals("")
+							|| etFrom.getText().toString().trim().equals("") || etCarName
+							.getText().toString().trim().equals(""))
+					|| etTourPurpose.getText().toString().trim().equals("")){
+				return;
+						
+					}
 
+			JSONArray jsonArr = new JSONArray();
 			for (LinearLayout layout : mViews) {
 				for (int c = 0; c < layout.getChildCount(); c++) {
+					JSONObject jsonObj = new JSONObject();
+
 					View childView = layout.getChildAt(c);
+
+					String TourCost, PublishDate, From, To, Distance, CarName, othersAmount, tourPurpose;
+
 					EditText etTourCost = (EditText) (childView
 							.findViewById(R.id.etTourCost));
 
@@ -117,13 +209,56 @@ public class AgentTA_DA_Activity extends AgentActionbarBase implements
 							.findViewById(R.id.etDistance));
 					EditText etCarName = (EditText) (childView
 							.findViewById(R.id.etCarName));
+					EditText etOtherCost = (EditText) (child
+							.findViewById(R.id.etOtherCost));
+					EditText etTourPurpose = (EditText) (child
+							.findViewById(R.id.etTourPurpose));
 
-					String date = etPublishDate.getText().toString();
+					TourCost = etTourCost.getText().toString();
+					PublishDate = etPublishDate.getText().toString();
+					From = etFrom.getText().toString();
+					To = etTo.getText().toString();
+					Distance = etDistance.getText().toString();
+					CarName = etCarName.getText().toString();
+					othersAmount = etOtherCost.getText().toString().trim();
+					tourPurpose = etTourPurpose.getText().toString().trim();
 
-					String cost = etTourCost.getText().toString();
-					Log.d("m2m", cost + " " + date);
+					/*
+					 * {"tada":[{"agentID":1,"date":"2015-01-01","startPlace":"abc"
+					 * ,"startTime":"10.00am","endPlace":"xyz",
+					 * "endTime":"12.00pm"
+					 * ,"description":"dddd","vehicelName":"cng"
+					 * ,"distance":4.0,"amount":220.0,"otherAmount":30.0,
+					 * 
+					 * "totalAmount":250.0,"status":1}]}
+					 */
+
+					jsonObj.put("agentID", CommonTasks.getPreferences(
+							getApplicationContext(), CommonConstraints.USER_ID));
+					jsonObj.put("date", PublishDate);
+					jsonObj.put("startPlace", From);
+					jsonObj.put("startTime", "10.00am");
+					jsonObj.put("endPlace", To);
+					jsonObj.put("endTime", "12.00am");
+					jsonObj.put("description", tourPurpose);
+					jsonObj.put("vehicelName", CarName);
+					jsonObj.put("distance", Distance);
+
+					jsonObj.put("amount", TourCost);
+					jsonObj.put("otherAmount", othersAmount);
+					jsonObj.put("totalAmount", Double.parseDouble(othersAmount)
+							+ Double.parseDouble(TourCost));
+					jsonObj.put("status", 1);
+					jsonArr.add(jsonObj);
+
 				}
 			}
+			
+			
+			JSONObject object=new JSONObject();
+			object.put("tada", jsonArr);
+			Log.d("BSS", object.toJSONString());
+
 
 		}
 

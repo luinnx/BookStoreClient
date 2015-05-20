@@ -2,6 +2,7 @@ package com.bookstore.app.base;
 
 import com.bookstore.app.activity.AgentMyProfileActivity;
 import com.bookstore.app.activity.AgentTADAListActivity;
+import com.bookstore.app.activity.AgentTA_DA_Activity;
 import com.bookstore.app.activity.AgentTA_DA_Activity_New;
 import com.bookstore.app.activity.LoginActivity;
 import com.bookstore.app.activity.R;
@@ -61,7 +62,7 @@ public abstract class AgentActionbarBase extends FragmentActivity {
 			break;
 		case R.id.action_tada_list:
 			Intent int1 = new Intent(getApplicationContext(),
-					AgentTA_DA_Activity_New.class);
+					AgentTA_DA_Activity.class);
 			int1.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			startActivity(int1);
 			break;
