@@ -113,7 +113,7 @@ public class AgentManager implements IAgent {
 		boolean result = false;
 
 		result = (Boolean) JSONfunctions.retrieveDataFromStream(String.format(
-				CommonUrls.getInstance().submit_tada, agentID, date,
+				CommonUrls.getInstance().addTada, agentID, date,
 				startPlace, startTime, endPlace, endTime, description,
 				vehicelName, distance, amount,otherAmount, totalAmount, status),
 				Boolean.class);

@@ -75,7 +75,7 @@ public class BookStoreService extends Service implements IAsynchronousTask, Loca
 			}
 			IUser user = new UserManager();
 			return user.addGCMID(Integer.parseInt(CommonTasks.getPreferences(this, CommonConstraints.USER_ID)),
-					Integer.parseInt(CommonTasks.getPreferences(this, CommonConstraints.USER_TYPE)), regid);
+					regid);
 		}catch(Exception ex){
 			Log.e("SB", ex.getMessage());
 		}
