@@ -6,6 +6,7 @@ import com.bookstore.app.entities.AgentInfo;
 import com.bookstore.app.entities.AgentJobListRoot;
 import com.bookstore.app.entities.JobDetails;
 import com.bookstore.app.entities.TaDaListRoot;
+import org.json.simple.JSONObject;
 
 public interface IAgent {
 	public AgentJobListRoot getJobList(int agentId, int job_status,
@@ -13,8 +14,7 @@ public interface IAgent {
 
 	public JobDetails getJobDetails(String jobID);
 
-	public boolean jobSubmit(String teacherUserName, String teacherPassword,
-			int bookID, int no_of_book, int jobid, int job_status);
+	public boolean jobSubmit(JSONObject jsonObject);
 
 	public boolean addLocation(int agentid, double latitude, double longitude,
 			String locationName);

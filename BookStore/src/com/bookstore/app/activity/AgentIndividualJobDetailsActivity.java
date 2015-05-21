@@ -1,11 +1,32 @@
 package com.bookstore.app.activity;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,13 +52,22 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 	TextView tvNameBook, tvJobStatus, tvAuthor, tvPublisherName, tvISBN,
 		tvQuantity, tvPublishDate, tvPrice, tvTeacherName, tvInstitution,
 		tvTeacherMobileNumber, tvAgentName, tvAgentsAddress,
-		tvAgentsCurrentLocation, tvAgentsMobileNumber, tvDialogCancel, tvDialogOK;
+		tvAgentsCurrentLocation, tvAgentsMobileNumber, tvDialogCancel, tvDialogOK,tvTakePhoto;
 	EditText etTeacherPassword;
 	Button btnOk;
 	String jobID = "", mode = "";
 	AlertDialog alertDialog;
 	boolean isJobSubmit = false;
 	JobDetails jobDetails= null;
+	File file;
+	public byte[] selectedFile;
+	public String filename = "";
+	Uri uriSavedImage;
+	JSONObject outerObject;
+	JSONArray jsonArr = new JSONArray();
+	JSONObject innterObject = new JSONObject();
+	int count =0;
+	ArrayList<String> rowPic = new ArrayList<String>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +109,9 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 			mode = bundle.getString("MODE");
 		}
 		
-		if(mode.equals("0")){
+		if(mode.equals("2") || mode.equals("3") || mode.equals("4")){
+			btnOk.setText("OK");
+		}else{
 			btnOk.setText("Submit");
 		}
 		
@@ -125,9 +157,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 	public Object doInBackground() {
 		IAgent agent = new AgentManager();
 		if(isJobSubmit)
-			return agent.jobSubmit(jobDetails.TeacherUserName, etTeacherPassword.getText().toString(),
-					jobDetails.BookID, jobDetails.No_Of_Book, 
-					Integer.parseInt(jobID), 1);
+			return agent.jobSubmit(outerObject);
 		else
 			return agent.getJobDetails(jobID);
 	}
@@ -157,10 +187,14 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 
 	private void setValue(JobDetails jobDetails) {
 		tvNameBook.setText(jobDetails.BookName);
-		if(jobDetails.JobStatus)
+		if(jobDetails.JobStatus == 3)
 			tvJobStatus.setText("Job Status : Complete");
-		else
+		else if(jobDetails.JobStatus == 1)
 			tvJobStatus.setText("Job Status : Pending");
+		else if(jobDetails.JobStatus == 2)
+			tvJobStatus.setText("Job Status : Submitted");
+		else if(jobDetails.JobStatus == 4)
+			tvJobStatus.setText("Job Status : Rejected");
 		
 		tvAuthor.setText(jobDetails.BookAutherName);
 		tvPublisherName.setText(jobDetails.BookPublisherName);
@@ -190,6 +224,19 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 		etTeacherPassword = (EditText) josSubmitView.findViewById(R.id.etTeacherPassword);
 		tvDialogCancel = (TextView) josSubmitView.findViewById(R.id.tvDialogCancel);
 		tvDialogOK = (TextView) josSubmitView.findViewById(R.id.tvDialogOK);
+		tvTakePhoto = (TextView) josSubmitView.findViewById(R.id.tvTakePhoto);
+		
+		
+		 
+		tvTakePhoto.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				TakePhoto();
+				
+			}
+			
+		});
 		
 		tvDialogCancel.setOnClickListener(new OnClickListener() {
 			
@@ -201,24 +248,183 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 		
 		tvDialogOK.setOnClickListener(new OnClickListener() {
 			
+			@SuppressWarnings("unchecked")
 			@Override
 			public void onClick(View v) {
 				isJobSubmit = true;
-				if(etTeacherPassword.getText().toString().equals("")){
+				/*if(etTeacherPassword.getText().toString().equals("")){
 					CommonTasks.showToast(AgentIndividualJobDetailsActivity.this, "Please enter password");
 					isJobSubmit = false;
 					return;
-				}
+				}*/
 				if (!CommonTasks.isOnline(getApplicationContext())) {
 					CommonTasks.goSettingPage(getApplicationContext());
 					return;
 				}
+				int sl = CommonTasks.getPicSlNo();
+				for (String string : rowPic) {
+					innterObject.put("pic_sl_no", sl);
+					innterObject.put("no_of_pic", count);
+					innterObject.put("job_status", 2);
+					innterObject.put("jobID", Integer.parseInt(jobID));
+					innterObject.put("rowImgaeByte", string);
+					jsonArr.add(innterObject);
+				}
+				outerObject = new JSONObject();
+				outerObject.put("Job_Submit", jsonArr);
 				LoadInformation();
+				
 			}
 		});
 		
 		alertDialog = builder.create();
 		alertDialog.show();
+	}
+	
+	private void TakePhoto() {
+		File image = new File(appFolderCheckandCreate(), "img" + getTimeStamp() + ".jpg");
+        uriSavedImage = Uri.fromFile(image);
+		
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
+		intent.putExtra("return-data", true);
+		startActivityForResult(intent, 100);
+	}
+	
+	private String appFolderCheckandCreate(){
+
+	    String appFolderPath="";
+	    File externalStorage = Environment.getExternalStorageDirectory();
+
+	    if (externalStorage.canWrite()) 
+	    {
+	        appFolderPath = externalStorage.getAbsolutePath() + "/BookStore";
+	        File dir = new File(appFolderPath);
+
+	        if (!dir.exists()) 
+	        {
+	              dir.mkdirs();
+	        }
+
+	    }
+	    else
+	    {
+	      CommonTasks.showToast(getApplicationContext(),"  Storage media not found or is full ! ");
+	    }
+
+	    return appFolderPath;
+	}
+	
+	private String getTimeStamp() {
+
+	    final long timestamp = new Date().getTime();
+
+	    final Calendar cal = Calendar.getInstance();
+	                   cal.setTimeInMillis(timestamp);
+
+	    final String timeString = new SimpleDateFormat("HH_mm_ss_SSS").format(cal.getTime());
+
+
+	    return timeString;
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int responseCode,
+			Intent data) {
+		super.onActivityResult(requestCode, responseCode, data);
+		if (requestCode == 100) {
+			if (responseCode == RESULT_OK) {
+				Uri currImageURI = uriSavedImage;
+				file = new File(currImageURI.getPath());
+				//file = new File(getRealPathFromURI(currImageURI));
+				filename = file.getName().replaceAll("[-+^:,]", "")
+						.replace(" ", "");
+				Bitmap b = decodeImage(file);
+				ByteArrayOutputStream stream = new ByteArrayOutputStream();
+				if (b.getByteCount() > (1024 * 1024)) {
+					b.compress(Bitmap.CompressFormat.JPEG, 20, stream);
+				}
+				if (b.getByteCount() > (1024 * 512)) {
+					b.compress(Bitmap.CompressFormat.JPEG, 40, stream);
+				}
+				if (b.getByteCount() > (1024 * 256)) {
+					b.compress(Bitmap.CompressFormat.JPEG, 60, stream);
+				} else {
+					b.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+				}
+				selectedFile = stream.toByteArray();
+				count+=1;
+				rowPic.add(Base64.encodeToString(selectedFile,Base64.NO_WRAP));
+				try{
+					if (file.exists()) {
+					    if (file.delete()) {
+					        System.out.println("file Deleted :" + file);
+					    } else {
+					        System.out.println("file not Deleted :" + file);
+					    }
+					    sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
+					    		 Uri.parse("file://" +  Environment.getExternalStorageDirectory())));
+					}
+				}catch(Exception ex){
+					ex.printStackTrace();
+				}
+				
+			}
+		}
+	}
+
+	public static byte[] convertInputStreamToByteArray(InputStream input)
+			throws IOException {
+		byte[] buffer = new byte[8192];
+		int bytesRead;
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+		while ((bytesRead = input.read(buffer)) != -1) {
+			output.write(buffer, 0, bytesRead);
+		}
+		return output.toByteArray();
+	}
+
+	public String getRealPathFromURI(Uri contentUri) {
+
+		Cursor cursor = getContentResolver()
+				.query(contentUri,
+						new String[] { android.provider.MediaStore.Images.ImageColumns.DATA },
+						null, null, null);
+
+		int column_index = cursor
+				.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+		cursor.moveToFirst();
+		return cursor.getString(column_index);
+	}
+
+	public static Bitmap decodeImage(File f) {
+		try {
+			// decode image size
+			BitmapFactory.Options o = new BitmapFactory.Options();
+			o.inJustDecodeBounds = true;
+			BitmapFactory.decodeStream(new FileInputStream(f), null, o);
+
+			// Find the correct scale value. It should be the power of 2.
+			final int REQUIRED_SIZE = 70;
+			int width_tmp = o.outWidth, height_tmp = o.outHeight;
+			int scale = 1;
+			while (true) {
+				if (width_tmp / 2 < REQUIRED_SIZE
+						|| height_tmp / 2 < REQUIRED_SIZE)
+					break;
+				width_tmp /= 2;
+				height_tmp /= 2;
+				scale++;
+			}
+
+			// decode with inSampleSize
+			BitmapFactory.Options o2 = new BitmapFactory.Options();
+			o2.inSampleSize = scale;
+			return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

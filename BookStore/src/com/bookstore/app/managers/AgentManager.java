@@ -46,14 +46,10 @@ public class AgentManager implements IAgent {
 	}
 
 	@Override
-	public boolean jobSubmit(String teacherUserName, String teacherPassword,
-			int bookID, int no_of_book, int jobid, int job_status) {
+	public boolean jobSubmit(JSONObject jsonObject) {
 		Boolean result = false;
 		try {
-			result = (Boolean) JSONfunctions.retrieveDataFromStream(String
-					.format(CommonUrls.getInstance().jobSubimt,
-							teacherUserName, teacherPassword, bookID,
-							no_of_book, jobid, job_status), Boolean.class);
+			result = (Boolean) JSONfunctions.retrieveDataFromJsonPostURL(CommonUrls.getInstance().jobSubimt, jsonObject, Boolean.class);
 		} catch (Exception ex) {
 			Log.e("BS", ex.getMessage());
 		}

@@ -20,7 +20,7 @@ public class JobDetails {
 	@SerializedName("authername")
 	public String BookAutherName;
 	@SerializedName("jobstatus")
-	public boolean JobStatus;
+	public int JobStatus;
 	@SerializedName("bookname")
 	public String BookName;
 	@SerializedName("adminname")

@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.json.simple.JSONArray;
@@ -209,5 +210,12 @@ public class CommonTasks {
 		c.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2,
 				bitmap.getWidth() / 2, paint);
 		return circleBitmap;
+	}
+	
+	public static int getPicSlNo(){
+		int number = -9999;
+		Random random = new Random();
+		number = random.nextInt(9999);
+		return number;
 	}
 }

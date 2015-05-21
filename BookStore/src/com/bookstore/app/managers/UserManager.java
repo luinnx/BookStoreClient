@@ -30,7 +30,7 @@ public class UserManager implements IUser{
 			String newPassword, int type) {
 		boolean result = false;
 		try{
-			result = (Boolean) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().changePassword, userID, type, oldPassword,newPassword), Boolean.class);
+			result = (Boolean) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().changePassword, userID, oldPassword,newPassword), Boolean.class);
 		}catch(Exception ex){
 			Log.e("BS", ex.getMessage());
 		}

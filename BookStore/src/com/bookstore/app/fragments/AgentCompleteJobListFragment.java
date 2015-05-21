@@ -78,7 +78,7 @@ public class AgentCompleteJobListFragment extends Fragment implements IAsynchron
 	@Override
 	public Object doInBackground() {
 		IAgent agent = new AgentManager();
-		return agent.getJobList(Integer.parseInt(CommonTasks.getPreferences(getActivity(), CommonConstraints.USER_ID)), 1, 0);
+		return agent.getJobList(Integer.parseInt(CommonTasks.getPreferences(getActivity(), CommonConstraints.USER_ID)), 3, 0);
 	}
 
 	@Override
@@ -103,7 +103,7 @@ public class AgentCompleteJobListFragment extends Fragment implements IAsynchron
 			if(agentJobList != null){
 				Intent intent = new Intent(getActivity(), AgentIndividualJobDetailsActivity.class);
 				intent.putExtra("JOB_ID", ""+agentJobList.JobID);
-				intent.putExtra("MODE", "1");
+				intent.putExtra("MODE", "3");
 				intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(intent);
 			}
