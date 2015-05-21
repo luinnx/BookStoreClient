@@ -30,6 +30,7 @@ public class CommonConstraints {
 	//job status
 	public final static int COMPLETED_JOB=1;
 	public final static int PENDING_JOB=0;
+	public final static int REJECTED_JOB=3;
 	
 	//GCM ID
 	public final static String GCMID = "gcm_id";
