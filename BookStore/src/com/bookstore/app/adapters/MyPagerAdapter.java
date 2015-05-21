@@ -1,7 +1,5 @@
 package com.bookstore.app.adapters;
 
-import com.bookstore.app.fragments.AgentCompleteJobListFragment;
-import com.bookstore.app.fragments.AgentPendingJobListFragment;
 import com.bookstore.app.fragments.AgentsListLocationActivity;
 import com.bookstore.app.fragments.CompletedJobsFragment;
 import com.bookstore.app.fragments.PendingJobsFragment;

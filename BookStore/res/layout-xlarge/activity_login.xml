@@ -50,6 +50,7 @@
             android:layout_marginRight="1dp"
             android:layout_marginTop="5dp"
             android:checked="false"
+            android:visibility="gone"
             android:text="Login as Admin"
             android:textColor="@color/text_color"
             android:textStyle="italic" />

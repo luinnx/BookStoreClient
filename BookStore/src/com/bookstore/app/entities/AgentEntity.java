@@ -15,7 +15,7 @@ public class AgentEntity {
 	public String address;
 	@SerializedName("pic_url")
 	public String pic_url;
-	@SerializedName("gcm_id")
+	@SerializedName(" gcm_id")
 	public String gcm_id;
 	@SerializedName("mpo_no")
 	public String mpo_no;
@@ -23,5 +23,9 @@ public class AgentEntity {
 	public int isActive;
 	@SerializedName("create_date")
 	public String create_date;
+	@SerializedName("latitude")
+	public double latitude;
+	@SerializedName("longitude")
+	public double longitude;
 
 }

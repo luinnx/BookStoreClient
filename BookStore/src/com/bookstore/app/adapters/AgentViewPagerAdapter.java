@@ -19,11 +19,11 @@ public class AgentViewPagerAdapter extends FragmentPagerAdapter{
 	@Override
 	public Fragment getItem(int position) {
 		switch (position) {
-		case 0:
-			return new AgentsListLocationActivity();
-		case 1:			
+		/*case 0:
+			return new AgentsListLocationActivity();*/
+		case 0:			
 			return new AgentCompleteJobListFragment();
-		case 2:			
+		case 1:			
 			return new AgentPendingJobListFragment();
 		default:
 			return null;
@@ -32,7 +32,7 @@ public class AgentViewPagerAdapter extends FragmentPagerAdapter{
 
 	@Override
 	public int getCount() {
-		return 3;
+		return 2;
 	}
 
 }

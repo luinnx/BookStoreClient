@@ -374,6 +374,7 @@ public class AgentsListLocationActivity extends Fragment implements
 		Intent intent = new Intent(getActivity(),
 				IndividualAgentDetailsActivity.class);
 		intent.putExtra("AGENT_ID", "" + agentEntity._id);
+		
 		intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		startActivity(intent);
 

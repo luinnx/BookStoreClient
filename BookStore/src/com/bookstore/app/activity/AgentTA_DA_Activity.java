@@ -350,7 +350,7 @@ public class AgentTA_DA_Activity extends AgentActionbarBase implements
 	@Override
 	public void processDataAfterDownload(Object data) {
 		if(data != null){
-			boolean result = (boolean) data;
+			boolean result = (Boolean) data;
 			if(result){
 				CommonTasks.showToast(this, "T.A.D.A Successfully Submit.");
 				onBackPressed();

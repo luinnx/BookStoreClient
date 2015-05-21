@@ -53,6 +53,7 @@
             android:text="Login as Admin"
             android:textColor="@color/text_view_color"
             android:textSize="30sp"
+            android:visibility="gone"
             android:textStyle="italic" />
 
         <Button

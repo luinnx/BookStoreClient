@@ -139,7 +139,7 @@ public class AgentManager implements IAgent {
 	public boolean addTada(JSONObject jsonObject) {
 		boolean result = false;
 		try{
-			result = (boolean) JSONfunctions.retrieveDataFromJsonPostURL(CommonUrls.getInstance().addTada, jsonObject, Boolean.class);
+			result = (Boolean) JSONfunctions.retrieveDataFromJsonPostURL(CommonUrls.getInstance().addTada, jsonObject, Boolean.class);
 		}catch(Exception ex){
 			Log.e("BSA", ex.getMessage());
 		}

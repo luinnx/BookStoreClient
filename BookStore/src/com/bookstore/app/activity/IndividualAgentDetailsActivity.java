@@ -182,11 +182,15 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 			tvAddress.setText(agentEntity.address);
 			tvMpoNumber.setText(agentEntity.mpo_no);
 			tvMobileNumber.setText(agentEntity.mobile_no);
-			tvAgentCurrentLocation.setText("Not Found");
-			tvCreateDate.setText(CommonTasks
-					.getLongToDate(agentEntity.create_date));
+			tvAgentCurrentLocation.setText(agentEntity.address);
+			
+			/*if(!agentEntity.create_date.equals("")){
+				tvCreateDate.setText(CommonTasks
+						.getLongToDate(agentEntity.create_date));
+			}*/
+			
 
-			loadMap(agentEntity);
+			loadMap(agentEntity.latitude,agentEntity.longitude);
 
 		} else {
 			CommonTasks.showToast(getApplicationContext(),
@@ -195,13 +199,11 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 
 	}
 
-	private void loadMap(AgentEntity agentEntity) {
+	private void loadMap(double lat,double lng) {
 		String addressText = "";
 		markers = new ArrayList<Marker>();
 		try {
 			frAgentLocationMap.clear();
-			double lat = 23.728148000000000000;
-			double lng = 90.413401700000010000;
 
 			// create instance of latlng class.
 			LatLng Location = new LatLng(lat, lng);
@@ -251,7 +253,7 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 				}
 				LatLngBounds bounds = b.build();
 				CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds,
-						35, 35, 5);
+						70, 70, 5);
 				frAgentLocationMap.animateCamera(cu);
 			}
 
@@ -312,9 +314,6 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 				R.layout.maps_info_window_show, null);
 
 		// Getting the position from the marker
-		LatLng latLng = marker.getPosition();
-		AgentLocationEntity entity = null;
-		int bitMapCount = 0;
 		TextView tvLastUpdateTime = (TextView) v
 				.findViewById(R.id.tvLastUpdateTime);
 
@@ -325,8 +324,8 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 
 		tvAgentName.setText("Name :" + agentEntity.full_name);
 		tvLocationName.setText("Current Location :" + agentEntity.address);
-		tvLastUpdateTime.setText("Last Update :"
-				+ CommonTasks.getLongToDate(agentEntity.create_date));
+		/*tvLastUpdateTime.setText("Last Update :"
+				+ CommonTasks.getLongToDate(agentEntity.create_date));*/
 		ivAgentImage.setImageBitmap(CommonTasks.createCircularShape(myBitmap));
 
 		// Returning the view containing InfoWindow contents

@@ -46,7 +46,7 @@ public class JSONfunctions {
 
 	public static Object retrieveDataFromStream(String _url, Class<?> dataClass) {
 		InputStream inputStream = null;
-		Log.d("m2m", "URL :"+_url);
+		Log.d("BSS", "URL :"+_url);
 		URI url = null;
 		try {
 			url = new URI("" + _url);

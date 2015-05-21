@@ -459,7 +459,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 			}
 		} else {
 			CommonTasks.showToast(getApplicationContext(),
-					"Internal Server Error!!!");
+					"Internal Server Error. Please try again later");
 		}
 
 	}

@@ -249,18 +249,22 @@ public class AdminManager implements IAdminManager {
 	public JobCreateEntity createJob(String bookName, String bookID,
 			String no_of_book, String teacherID, String teacher_institute,
 			String jobStatus, String agentID, String agentGCMID, String adminId) {
+		
+		
+		//admin/job_create?bookID=%s&no_of_book=%s&teacherID=%s&jobStatus=%s&agentID=%s&agentGCMID=%s&adminId=%s"
 
 		JobCreateEntity result = null;
 		try {
-			bookName = URLEncoder.encode(bookName,
-					CommonConstraints.EncodingCode);
-			teacher_institute = URLEncoder.encode(teacher_institute,
-					CommonConstraints.EncodingCode);
 			result = (JobCreateEntity) JSONfunctions.retrieveDataFromStream(
-					String.format(CommonUrls.getInstance().createJob, bookName,
-							bookID, no_of_book, teacherID, teacher_institute,
-							jobStatus, agentID, URLEncoder.encode(agentGCMID,
-									CommonConstraints.EncodingCode), adminId),
+					String.format(CommonUrls.getInstance().createJob, 
+							bookID,
+							no_of_book,
+							teacherID,
+							jobStatus,
+							agentID,
+							URLEncoder.encode(agentGCMID,
+									CommonConstraints.EncodingCode),
+							adminId),
 					JobCreateEntity.class);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
