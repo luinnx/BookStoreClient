@@ -1,6 +1,7 @@
 package com.bookstore.app.adapters;
 
-import com.bookstore.app.fragments.AgentRejectedJobListFragment;
+import com.bookstore.app.fragments.AdminRejectedJobListFragment;
+import com.bookstore.app.fragments.AdminSubmittedJobFragment;
 import com.bookstore.app.fragments.AgentsListLocationActivity;
 import com.bookstore.app.fragments.CompletedJobsFragment;
 import com.bookstore.app.fragments.PendingJobsFragment;
@@ -28,7 +29,9 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
 			return PendingJobsFragment
 					.newInstance("PendingJobsFragment, Instance 3");
 		case 3:
-			return new AgentRejectedJobListFragment();
+			return  AdminRejectedJobListFragment.newInstance("AgentRejectedJobListFragment, Instance 4");
+		case 4:
+		return AdminSubmittedJobFragment.newInstance("Submitted Job, Instance 5");
 
 		default:
 			return null;
@@ -44,6 +47,6 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
 
 	@Override
 	public int getCount() {
-		return 4;
+		return 5;
 	}
 }

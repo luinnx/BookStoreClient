@@ -95,7 +95,7 @@ public class PendingJobsFragment extends Fragment implements IAsynchronousTask,
 	public Object doInBackground() {
 		IAdminManager manager = new AdminManager();
 
-		return manager.getJobList(CommonConstraints.PENDING_JOB);
+		return manager.getJobList(CommonConstraints.PENDING_JOB,0);
 	}
 
 	@Override

@@ -20,7 +20,7 @@ public interface IAdminManager {
 	public LoginEntity getAuthentication(String email, String password,
 			String imei);
 
-	public JobListRoot getJobList(int jobStatus);
+	public JobListRoot getJobList(int jobStatus,int pageIndex);
 
 	public JobEntity getJobDetails(String jobId);
 
@@ -56,5 +56,8 @@ public interface IAdminManager {
 	
 	public IndividualTADA getTada(int id);
 	public TaDaListRoot getAllTaDaList(int pageIndex);
+	
+	
+	public boolean donationAck(String donationID,String agentGcmID,int donationStatus, String adminID,String amount);
 
 }

@@ -1,20 +1,5 @@
 package com.bookstore.app.fragments;
 
-import java.util.ArrayList;
-
-import com.bookstore.app.activity.AgentIndividualJobDetailsActivity;
-import com.bookstore.app.activity.IndividualJobDetailsActivity;
-import com.bookstore.app.activity.R;
-import com.bookstore.app.adapters.JobListAdapter;
-import com.bookstore.app.asynctasks.DownloadableAsyncTask;
-import com.bookstore.app.entities.JobEntity;
-import com.bookstore.app.entities.JobListRoot;
-import com.bookstore.app.interfaces.IAdminManager;
-import com.bookstore.app.interfaces.IAsynchronousTask;
-import com.bookstore.app.managers.AdminManager;
-import com.bookstore.app.utils.CommonConstraints;
-import com.bookstore.app.utils.CommonTasks;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,9 +11,23 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class CompletedJobsFragment extends Fragment implements
-		IAsynchronousTask, OnItemClickListener {
+import com.bookstore.app.activity.AgentIndividualJobDetailsActivity;
+import com.bookstore.app.activity.IndividualJobDetailsActivity;
+import com.bookstore.app.activity.R;
+import com.bookstore.app.adapters.JobListAdapter;
+import com.bookstore.app.asynctasks.DownloadableAsyncTask;
+import com.bookstore.app.entities.JobEntity;
+import com.bookstore.app.entities.JobListRoot;
+import com.bookstore.app.interfaces.IAdminManager;
+import com.bookstore.app.interfaces.IAgent;
+import com.bookstore.app.interfaces.IAsynchronousTask;
+import com.bookstore.app.managers.AdminManager;
+import com.bookstore.app.managers.AgentManager;
+import com.bookstore.app.utils.CommonConstraints;
+import com.bookstore.app.utils.CommonTasks;
 
+public class AdminRejectedJobListFragment extends Fragment implements
+		OnItemClickListener, IAsynchronousTask {
 	DownloadableAsyncTask downloadableAsyncTask;
 	ProgressDialog progressDialog;
 	JobListAdapter adapter;
@@ -38,8 +37,8 @@ public class CompletedJobsFragment extends Fragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_completed_jobs, container,
-				false);
+		View v = inflater.inflate(R.layout.fragment_agent_rejected_jobs,
+				container, false);
 
 		listView = (ListView) v.findViewById(R.id.lvJobList);
 		listView.setOnItemClickListener(this);
@@ -47,9 +46,9 @@ public class CompletedJobsFragment extends Fragment implements
 		return v;
 	}
 
-	public static CompletedJobsFragment newInstance(String text) {
+	public static AdminRejectedJobListFragment newInstance(String text) {
 
-		CompletedJobsFragment f = new CompletedJobsFragment();
+		AdminRejectedJobListFragment f = new AdminRejectedJobListFragment();
 		Bundle b = new Bundle();
 		b.putString("msg", text);
 
@@ -61,7 +60,7 @@ public class CompletedJobsFragment extends Fragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		
+
 		if (!CommonTasks.isOnline(getActivity())) {
 			CommonTasks.goSettingPage(getActivity());
 			return;
@@ -77,8 +76,21 @@ public class CompletedJobsFragment extends Fragment implements
 	}
 
 	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+			long arg3) {
+		JobEntity jobEntity = jobListRoot.jobList.get(position);
+		Intent intent = new Intent(getActivity(),
+				IndividualJobDetailsActivity.class);
+		intent.putExtra("JOB_ID", "" + jobEntity.jobid);
+		intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+		startActivity(intent);
+
+	}
+
+	@Override
 	public void showProgressBar() {
-		progressDialog = new ProgressDialog(getActivity(), ProgressDialog.THEME_HOLO_LIGHT);
+		progressDialog = new ProgressDialog(getActivity(),
+				ProgressDialog.THEME_HOLO_LIGHT);
 		progressDialog.setCancelable(false);
 		progressDialog.setMessage("Please Wait.");
 		progressDialog.show();
@@ -93,47 +105,26 @@ public class CompletedJobsFragment extends Fragment implements
 
 	@Override
 	public Object doInBackground() {
-		IAdminManager manager = new AdminManager();
 
-		return manager.getJobList(CommonConstraints.COMPLETED_JOB,0);
+		IAdminManager manager = new AdminManager();
+		return manager.getJobList(CommonConstraints.REJECTED_JOB,0);
 	}
 
 	@Override
 	public void processDataAfterDownload(Object data) {
-
 		if (data != null) {
 			jobListRoot = new JobListRoot();
 			jobListRoot = (JobListRoot) data;
-			if(jobListRoot != null && jobListRoot.jobList.size()>0){
-				adapter = new JobListAdapter(getActivity(), R.layout.job_list_item,
-						jobListRoot.jobList);
+			if (jobListRoot != null && jobListRoot.jobList.size() > 0) {
+				adapter = new JobListAdapter(getActivity(),
+						R.layout.job_list_item, jobListRoot.jobList);
 				listView.setAdapter(adapter);
-			}else{
-				adapter = new JobListAdapter(getActivity(), R.layout.job_list_item,
-						jobListRoot.jobList);
+			} else {
+				adapter = new JobListAdapter(getActivity(),
+						R.layout.job_list_item, jobListRoot.jobList);
 				listView.setAdapter(adapter);
 			}
-			
-		}
 
-	}
-
-	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-			long arg3) {
-		JobEntity jobEntity = jobListRoot.jobList.get(position);
-		if (CommonTasks.getPreferences(getActivity(),
-				CommonConstraints.USER_TYPE).equals("1")) {
-			Intent intent = new Intent(getActivity(),
-					IndividualJobDetailsActivity.class);
-			intent.putExtra("JOB_ID", "" + jobEntity.jobid);
-			intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-			startActivity(intent);
-		} else {
-			Intent intent = new Intent(getActivity(),
-					AgentIndividualJobDetailsActivity.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-			startActivity(intent);
 		}
 
 	}

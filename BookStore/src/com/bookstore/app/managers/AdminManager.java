@@ -32,12 +32,12 @@ import org.json.JSONObject;
 public class AdminManager implements IAdminManager {
 
 	@Override
-	public JobListRoot getJobList(int jobStatus) {
+	public JobListRoot getJobList(int jobStatus, int pageIndex) {
 		JobListRoot jobListRoot = null;
 		try {
 			jobListRoot = (JobListRoot) JSONfunctions.retrieveDataFromStream(
 					String.format(CommonUrls.getInstance().getCompletedJobList,
-							jobStatus), JobListRoot.class);
+							jobStatus, pageIndex), JobListRoot.class);
 
 			if (jobListRoot.jobList.size() > 0) {
 				return jobListRoot;
@@ -177,11 +177,12 @@ public class AdminManager implements IAdminManager {
 			String password, String mobileNumber, String Institude) {
 		Boolean result = false;
 		try {
-			result = (Boolean) JSONfunctions.retrieveDataFromStream(String.format(
-					CommonUrls.getInstance().addTeacher, URLEncoder.encode(fullName,
-							CommonConstraints.EncodingCode), userName,
-					password, URLEncoder.encode(Institude,
-							CommonConstraints.EncodingCode), mobileNumber), Boolean.class);
+			result = (Boolean) JSONfunctions.retrieveDataFromStream(String
+					.format(CommonUrls.getInstance().addTeacher, URLEncoder
+							.encode(fullName, CommonConstraints.EncodingCode),
+							userName, password, URLEncoder.encode(Institude,
+									CommonConstraints.EncodingCode),
+							mobileNumber), Boolean.class);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -249,22 +250,16 @@ public class AdminManager implements IAdminManager {
 	public JobCreateEntity createJob(String bookName, String bookID,
 			String no_of_book, String teacherID, String teacher_institute,
 			String jobStatus, String agentID, String agentGCMID, String adminId) {
-		
-		
-		//admin/job_create?bookID=%s&no_of_book=%s&teacherID=%s&jobStatus=%s&agentID=%s&agentGCMID=%s&adminId=%s"
+
+		// admin/job_create?bookID=%s&no_of_book=%s&teacherID=%s&jobStatus=%s&agentID=%s&agentGCMID=%s&adminId=%s"
 
 		JobCreateEntity result = null;
 		try {
 			result = (JobCreateEntity) JSONfunctions.retrieveDataFromStream(
-					String.format(CommonUrls.getInstance().createJob, 
-							bookID,
-							no_of_book,
-							teacherID,
-							jobStatus,
-							agentID,
+					String.format(CommonUrls.getInstance().createJob, bookID,
+							no_of_book, teacherID, jobStatus, agentID,
 							URLEncoder.encode(agentGCMID,
-									CommonConstraints.EncodingCode),
-							adminId),
+									CommonConstraints.EncodingCode), adminId),
 					JobCreateEntity.class);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
@@ -275,44 +270,47 @@ public class AdminManager implements IAdminManager {
 
 	@Override
 	public DonationListRoot getAllDonationList(int index) {
-		DonationListRoot donationListRoot=null;
-		donationListRoot=(DonationListRoot) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().getDonationList, index), DonationListRoot.class);
+		DonationListRoot donationListRoot = null;
+		donationListRoot = (DonationListRoot) JSONfunctions
+				.retrieveDataFromStream(String.format(
+						CommonUrls.getInstance().getDonationList, index),
+						DonationListRoot.class);
 		return donationListRoot;
 	}
 
 	@Override
-	public AgentLocationMapRoot getAgentsLocation( ) {
-		
-		List<Object> complexList=new ArrayList<Object>();
-		
-		AgentLocationMapRoot agentLocationMapRoot=null;
-		agentLocationMapRoot=(AgentLocationMapRoot) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().getAgentsLocationList), AgentLocationMapRoot.class);
-		
-		/*complexList.add(agentLocationMapRoot);
-		
-		AgentListRoot agentListRoot = null;
-		try {
-			agentListRoot = (AgentListRoot) JSONfunctions
-					.retrieveDataFromStream(String.format(
-							CommonUrls.getInstance().getAllAgent, pageIndex),
-							AgentListRoot.class);
-			complexList.add(agentListRoot);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		
-		
-		*/
-		
+	public AgentLocationMapRoot getAgentsLocation() {
+
+		List<Object> complexList = new ArrayList<Object>();
+
+		AgentLocationMapRoot agentLocationMapRoot = null;
+		agentLocationMapRoot = (AgentLocationMapRoot) JSONfunctions
+				.retrieveDataFromStream(
+						String.format(CommonUrls.getInstance().getAgentsLocationList),
+						AgentLocationMapRoot.class);
+
+		/*
+		 * complexList.add(agentLocationMapRoot);
+		 * 
+		 * AgentListRoot agentListRoot = null; try { agentListRoot =
+		 * (AgentListRoot) JSONfunctions .retrieveDataFromStream(String.format(
+		 * CommonUrls.getInstance().getAllAgent, pageIndex),
+		 * AgentListRoot.class); complexList.add(agentListRoot); } catch
+		 * (Exception ex) { ex.printStackTrace(); }
+		 */
+
 		return agentLocationMapRoot;
 	}
 
 	@Override
 	public IndividualTADA getTada(int id) {
 		IndividualTADA individualTADA = null;
-		try{
-			individualTADA = (IndividualTADA) JSONfunctions.retrieveDataFromStream(String.format(CommonUrls.getInstance().getTadaDetails, id), IndividualTADA.class);
-		}catch(Exception ex){
+		try {
+			individualTADA = (IndividualTADA) JSONfunctions
+					.retrieveDataFromStream(String.format(
+							CommonUrls.getInstance().getTadaDetails, id),
+							IndividualTADA.class);
+		} catch (Exception ex) {
 			Log.e("BSA", ex.getMessage());
 		}
 		return individualTADA;
@@ -320,15 +318,33 @@ public class AdminManager implements IAdminManager {
 
 	@Override
 	public TaDaListRoot getAllTaDaList(int pageIndex) {
-		TaDaListRoot listRoot=null;
-		try{
-			listRoot=(TaDaListRoot) JSONfunctions.retrieveDataFromStream(String
-					.format(CommonUrls.getInstance().getTadaList,
+		TaDaListRoot listRoot = null;
+		try {
+			listRoot = (TaDaListRoot) JSONfunctions.retrieveDataFromStream(
+					String.format(CommonUrls.getInstance().getTadaList,
 							pageIndex), TaDaListRoot.class);
-		}catch(Exception exception){
+		} catch (Exception exception) {
 			Log.e("BS", exception.getMessage());
 		}
-		
+
 		return listRoot;
+	}
+
+	@Override
+	public boolean donationAck(String donationID, String agentGcmID,
+			int donationStatus, String adminID, String amount) {
+		// admin/donation_ack?donationID=%s&agentGcmID=%s&donationStatus=%s&adminID=%s&amount=%s
+		boolean result = false;
+		try {
+			result = (Boolean) JSONfunctions.retrieveDataFromStream(String
+					.format(CommonUrls.getInstance().setDonationACK,
+							donationID, URLEncoder.encode(agentGcmID,
+									CommonConstraints.EncodingCode),
+							donationStatus, adminID), Boolean.class);
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+
+		return result;
 	}
 }

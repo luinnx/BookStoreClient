@@ -112,7 +112,7 @@ public class AdminRejectedJobsFragment extends Fragment implements
 	public Object doInBackground() {
 		IAdminManager manager = new AdminManager();
 
-		return manager.getJobList(CommonConstraints.REJECTED_JOB);
+		return manager.getJobList(CommonConstraints.REJECTED_JOB,0);
 	}
 
 	@Override

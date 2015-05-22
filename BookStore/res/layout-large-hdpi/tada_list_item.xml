@@ -34,7 +34,7 @@
             android:layout_toRightOf="@id/ivAgentImage"
             android:text="Md. Sajedul karim"
             android:textColor="#000"
-            android:textSize="35sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <TextView

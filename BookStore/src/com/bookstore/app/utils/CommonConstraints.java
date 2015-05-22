@@ -21,20 +21,32 @@ public class CommonConstraints {
 	public final static String USER_USERNAME = "registered_user_name";
 	public final static String USER_PASSWORD = "registered_user_password";
 	public final static String USER_MOBILE_NUMBER = "registered_user_mobilenumber";
-	public final static String USER_TYPE="USER_TYPE";
+	public final static String USER_TYPE = "USER_TYPE";
+
+	// USER INFO
+	public final static int ADMIN_TYPE = 1;
+	public final static int AGENT_TYPE = 2;
+	public final static String USER_ID = "user_id";
+
+	// job status
+	public final static int COMPLETED_JOB = 3;
+	public final static int PENDING_JOB = 1;
+	public final static int REJECTED_JOB = 4;
+	public final static int SENDING_JOB = 2;
 	
-	//USER INFO
-	public final static int ADMIN_TYPE=1;
-	public final static int AGENT_TYPE=2;
-	public final static String USER_ID="user_id";
-	//job status
-	public final static int COMPLETED_JOB=1;
-	public final static int PENDING_JOB=0;
-	public final static int REJECTED_JOB=3;
+	//TADA
+	//1=submit 2=complete
+	public final static int TADA_SUBMIT=1;
+	public final static int TADA_COMPLETED=2;
 	
-	//GCM ID
+	//donation
+	public final static int DONATION_SUBMIT=1;
+	public final static int DONATION_COMPLETED=2;
+	public final static int DONATION_REGECTED=3;
+
+	// GCM ID
 	public final static String GCMID = "gcm_id";
-	/*public final static String APPID = "829405060552";*/
+	/* public final static String APPID = "829405060552"; */
 	public final static String APPID = "440020797574";
 
 }

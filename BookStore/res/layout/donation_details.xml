@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/app_background_color"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:paddingBottom="5dp" >
 
     <ImageView
         android:id="@+id/ivAgentImage"
@@ -58,6 +59,58 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.4"
+                android:text="Date"
+                android:textColor="@color/text_view_color"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvRequestDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:text=""
+                android:textColor="@color/text_color"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:text="Purpose"
+                android:textColor="@color/text_view_color"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvRequestPurpose"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:text=""
+                android:textColor="@color/text_color"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
                 android:text="Amount"
                 android:textColor="@color/text_view_color"
                 android:textSize="15sp"
@@ -84,58 +137,61 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.4"
-                android:text="Date"
+                android:text="Approved Amount"
                 android:textColor="@color/text_view_color"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvRequestDate"
-                android:layout_width="0dp"
+            <EditText
+                android:id="@+id/etApprovedAmount"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
-                android:text=""
-                android:textColor="@color/text_color"
-                android:textSize="15sp"
-                android:textStyle="normal" />
-        </TableRow>
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.4"
-                android:text="Purpose"
+                android:hint="Approve"
+                android:inputType="number"
                 android:textColor="@color/text_view_color"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvRequestPurpose"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.6"
-                android:text=""
-                
-                android:textColor="@color/text_color"
                 android:textSize="15sp"
                 android:textStyle="normal" />
         </TableRow>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnOK"
-        style="@style/Button_Style"
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="2dp"
-        android:gravity="center"
-        android:text="OK" />
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="3" >
+
+        <Button
+            android:id="@+id/btnOK"
+            style="@style/Button_Style"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="OK" />
+
+        <Button
+            android:id="@+id/btnSubmit"
+            style="@style/Button_Style"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Submit" />
+        <Button
+            android:id="@+id/btnReject"
+            style="@style/Button_Style"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Reject" />
+    </LinearLayout>
 
 </LinearLayout>

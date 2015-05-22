@@ -16,7 +16,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 
 public class AdminHomeActivity extends BookStoreActionBarBase implements
 		TabListener {
-	String[] tab = { "Agents Control","Completed Jobs", "Pending Jobs" };
+	String[] tab = { "Agents Control","Completed Jobs", "Pending Jobs","Rejected Jobs" ,"Submitted Job"};
 	ActionBar actionBar;
 	ViewPager pager;
 

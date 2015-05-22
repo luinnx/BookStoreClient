@@ -5,6 +5,7 @@
         android:id="@+id/actionLocation"
         android:icon="@drawable/ic_agent_location"
         android:showAsAction="ifRoom"
+        android:visible="false"
         android:title="Location"/>
     <item
         android:id="@+id/actionAdd"
@@ -39,7 +40,13 @@
                 android:id="@+id/action_Agent_list"
                 android:icon="@drawable/ic_person_24"
                 android:showAsAction="ifRoom"
+                android:visible="false"
                 android:title="Agent List"/>
+            <item
+                android:id="@+id/action_donation"
+                android:icon="@drawable/ic_donation_32"
+                android:showAsAction="ifRoom"
+                android:title="Donation"/>
             <item
                 android:id="@+id/action_book_list"
                 android:icon="@drawable/ic_add_book"
@@ -72,11 +79,7 @@
         android:title="More..">
         <menu>
             
-            <item
-                android:id="@+id/action_donation"
-                android:icon="@drawable/ic_donation_32"
-                android:showAsAction="ifRoom"
-                android:title="Donation"/>
+            
             <item
                 android:id="@+id/action_ContactUs"
                 android:icon="@drawable/ic_contact_us24"

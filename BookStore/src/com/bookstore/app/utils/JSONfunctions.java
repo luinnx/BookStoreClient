@@ -129,7 +129,7 @@ public class JSONfunctions {
 
 	public static String retrieveDataFromStream(String _url) {
 		_url = _url.replace("|", "%7C").trim();
-		Log.d("hwt", "jason function : " + _url);
+		Log.d("BSS",_url);
 
 		int TIMEOUT_MILLISEC = 60000;
 		URI url = null;
