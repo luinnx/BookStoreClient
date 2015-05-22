@@ -110,7 +110,8 @@ public class DonationListActivity extends BookStoreActionBarBase implements
 				if (b) {
 					CommonTasks.showToast(getApplicationContext(),
 							"Donation Approved Succesfully");
-					lvAllDonationList.notify();
+					//lvAllDonationList.notify();
+					onBackPressed();
 				} else {
 					CommonTasks.showToast(getApplicationContext(),
 							"An Unexpected error occured.Please try again");

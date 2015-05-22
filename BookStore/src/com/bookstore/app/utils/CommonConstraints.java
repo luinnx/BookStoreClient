@@ -46,7 +46,6 @@ public class CommonConstraints {
 
 	// GCM ID
 	public final static String GCMID = "gcm_id";
-	/* public final static String APPID = "829405060552"; */
-	public final static String APPID = "440020797574";
+	public final static String APPID = "829405060552";
 
 }

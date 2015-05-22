@@ -7,9 +7,9 @@ public class TadaListEntity {
 	public Double totalamount;
 	@SerializedName("distance")
 	public Double distance;
-	@SerializedName("agnetpic")
+	@SerializedName("agentpic")
 	public String agentpic;
-	@SerializedName("agnetfullname")
+	@SerializedName("agentname")
 	public String agentname;
 	@SerializedName("createdate")
 	public long createdate;
@@ -17,7 +17,5 @@ public class TadaListEntity {
 	public int id;
 	@SerializedName("status")
 	public String status;
-	@SerializedName("agentid")
-	public int agentid;
 
 }
