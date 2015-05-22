@@ -48,6 +48,7 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_job_accept_reject);
+		initViews();
 	}
 
 	public void initViews() {
@@ -144,8 +145,8 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 	private void setValues(JobAcceptRejectDetails jobDetails2) {
 		// ivTeachersSigneture
 		tvAuthor.setText(jobDetails.authername);
-		tvQuantity.setText(jobDetails.no_of_book);
-		tvPrice.setText(jobDetails.quantity);
+		tvQuantity.setText(""+jobDetails.no_of_book);
+		tvPrice.setText(""+jobDetails.quantity);
 		tvTeacherName.setText(jobDetails.teachername);
 		tvInstitudes.setText(jobDetails.institute);
 		tvAgentName.setText(jobDetails.agentname);

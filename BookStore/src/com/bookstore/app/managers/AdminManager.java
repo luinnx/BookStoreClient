@@ -370,7 +370,7 @@ public class AdminManager implements IAdminManager {
 		JobAcceptRejectDetails entity = null;
 		entity = (JobAcceptRejectDetails) JSONfunctions.retrieveDataFromStream(String
 				.format(CommonUrls.getInstance().jobDetailsAcceptReject, jobID),
-				JobEntity.class);
+				JobAcceptRejectDetails.class);
 		return entity;
 	}
 
@@ -378,7 +378,18 @@ public class AdminManager implements IAdminManager {
 	public boolean jobAcceptReject(String jobID, String adminID,
 			String agentGcmID, String bookid, String no_of_book,
 			String jobStatus, String remarks) {
-		
-		return false;
+		boolean result = false;
+		//jobID=%s&adminID=%s&agentGcmID=%s&bookid=%s&no_of_book=%s&jobStatus=%s&remarks=%s
+		try {
+			result = (Boolean) JSONfunctions.retrieveDataFromStream(String
+					.format(CommonUrls.getInstance().setJobSubmitACK,
+							jobID, adminID,URLEncoder.encode(agentGcmID,
+									CommonConstraints.EncodingCode), bookid, no_of_book, jobStatus, URLEncoder.encode(remarks,
+									CommonConstraints.EncodingCode)), Boolean.class);
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+
+		return result;
 	}
 }

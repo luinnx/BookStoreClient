@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.bookstore.app.activity.AdminJobAcceptRejectActivity;
 import com.bookstore.app.activity.IndividualJobDetailsActivity;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.adapters.JobListAdapter;
@@ -77,7 +78,7 @@ public class AdminSubmittedJobFragment extends Fragment implements
 			long arg3) {
 		JobEntity jobEntity = jobListRoot.jobList.get(position);
 		Intent intent = new Intent(getActivity(),
-				IndividualJobDetailsActivity.class);
+				AdminJobAcceptRejectActivity.class);
 		intent.putExtra("JOB_ID", "" + jobEntity.jobid);
 		intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		startActivity(intent);
