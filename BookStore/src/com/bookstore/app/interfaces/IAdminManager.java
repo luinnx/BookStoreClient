@@ -9,6 +9,7 @@ import com.bookstore.app.entities.BookEntity;
 import com.bookstore.app.entities.BookListRoot;
 import com.bookstore.app.entities.DonationListRoot;
 import com.bookstore.app.entities.IndividualTADA;
+import com.bookstore.app.entities.JobAcceptRejectDetails;
 import com.bookstore.app.entities.JobCreateEntity;
 import com.bookstore.app.entities.JobEntity;
 import com.bookstore.app.entities.JobListRoot;
@@ -61,5 +62,12 @@ public interface IAdminManager {
 	public boolean donationAck(String donationID,String agentGcmID,int donationStatus, String adminID,String amount);
 	
 	public boolean tadaAck(String tadaID,String agentGcmID,int tadastatus);
+	
+	public JobAcceptRejectDetails getJobInfoAcceptReject(String jobID);
+	
+	//admin/job_ack?jobID=%s&adminID=%s&agentGcmID=%s&bookid=%s&no_of_book=%s&jobStatus=%s&remarks=%s";
+	public boolean jobAcceptReject(String jobID, String adminID,
+			String agentGcmID, String bookid, String no_of_book,
+			String jobStatus, String remarks);
 
 }

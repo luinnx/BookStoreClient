@@ -15,6 +15,7 @@ import com.bookstore.app.entities.BookEntity;
 import com.bookstore.app.entities.BookListRoot;
 import com.bookstore.app.entities.DonationListRoot;
 import com.bookstore.app.entities.IndividualTADA;
+import com.bookstore.app.entities.JobAcceptRejectDetails;
 import com.bookstore.app.entities.JobCreateEntity;
 import com.bookstore.app.entities.JobEntity;
 import com.bookstore.app.entities.JobListRoot;
@@ -362,5 +363,22 @@ public class AdminManager implements IAdminManager {
 		}
 
 		return result;
+	}
+
+	@Override
+	public JobAcceptRejectDetails getJobInfoAcceptReject(String jobID) {
+		JobAcceptRejectDetails entity = null;
+		entity = (JobAcceptRejectDetails) JSONfunctions.retrieveDataFromStream(String
+				.format(CommonUrls.getInstance().jobDetailsAcceptReject, jobID),
+				JobEntity.class);
+		return entity;
+	}
+
+	@Override
+	public boolean jobAcceptReject(String jobID, String adminID,
+			String agentGcmID, String bookid, String no_of_book,
+			String jobStatus, String remarks) {
+		
+		return false;
 	}
 }

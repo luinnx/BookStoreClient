@@ -54,7 +54,7 @@ public class CommonUrls {
 	public String setDonationACK = BASE_URL+"admin/donation_ack?donationID=%s&agentGcmID=%s&donationStatus=%s&adminID=%s&amount=%s";
 	public String setTadaACK = BASE_URL+"admin/tada_ack?tadaID=%s&agentGcmID=%s&tadastatus=%s";
 	public String setJobSubmitACK = BASE_URL+"admin/job_ack?jobID=%s&adminID=%s&agentGcmID=%s&bookid=%s&no_of_book=%s&jobStatus=%s&remarks=%s";
-	
+	public String jobDetailsAcceptReject=BASE_URL+"admin/job_detais_ack?jobID=%s";
 	
 	public static CommonUrls getInstance() {
 		return commonUrls;
