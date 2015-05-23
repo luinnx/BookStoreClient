@@ -1,19 +1,13 @@
 package com.bookstore.app.activity;
 
-import java.util.Date;
-
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.TextView;
-
 import com.bookstore.app.adapters.DonationListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.BookStoreActionBarBase;
@@ -22,7 +16,6 @@ import com.bookstore.app.entities.DonationListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
-import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
 
 public class DonationListActivity extends BookStoreActionBarBase implements
@@ -82,16 +75,18 @@ public class DonationListActivity extends BookStoreActionBarBase implements
 
 	@Override
 	public Object doInBackground() {
-		if (whichPurpose.equals("FETCH_DONATION")) {
+		IAdminManager manager = new AdminManager();
+		return manager.getAllDonationList(0);
+		/*if (whichPurpose.equals("FETCH_DONATION")) {
 			IAdminManager manager = new AdminManager();
 			return manager.getAllDonationList(0);
-		} else {
+		}*/ /*else {
 			IAdminManager manager = new AdminManager();
 			return manager.donationAck("" + donationEntity.id,
 					donationEntity.gcmid, donationStatus, CommonTasks
 							.getPreferences(getApplicationContext(),
 									CommonConstraints.USER_ID), approvedAmount);
-		}
+		}*/
 
 	}
 
@@ -105,7 +100,7 @@ public class DonationListActivity extends BookStoreActionBarBase implements
 				adapter = new DonationListAdapter(getApplicationContext(),
 						R.layout.book_list_item, donationListRoot.donationList);
 				lvAllDonationList.setAdapter(adapter);
-			} else {
+			} /*else {
 				boolean b = (Boolean) data;
 				if (b) {
 					CommonTasks.showToast(getApplicationContext(),
@@ -117,7 +112,7 @@ public class DonationListActivity extends BookStoreActionBarBase implements
 							"An Unexpected error occured.Please try again");
 				}
 
-			}
+			}*/
 
 		} else {
 			CommonTasks.showToast(getApplicationContext(),
@@ -130,7 +125,13 @@ public class DonationListActivity extends BookStoreActionBarBase implements
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 			long arg3) {
 		donationEntity = donationListRoot.donationList.get(position);
-		donationDetails = new Dialog(this);
+		
+		Intent intent=new Intent(getApplicationContext(), DonationAcceptRejectActivity.class);
+		intent.putExtra("DONATION_ID", donationEntity.id);
+		startActivity(intent);
+		
+		
+		/*donationDetails = new Dialog(this);
 		donationDetails.setContentView(R.layout.donation_details);
 		donationDetails.setCancelable(true);
 		donationDetails.setTitle("Donation Details Dialog");
@@ -200,7 +201,7 @@ public class DonationListActivity extends BookStoreActionBarBase implements
 			}
 		});
 
-		donationDetails.show();
+		donationDetails.show();*/
 	}
 
 }

@@ -154,6 +154,18 @@
             android:name="com.bookstore.app.activity.AdminJobAcceptRejectActivity"
             android:label="JOB" >
         </activity>
+        <activity
+            android:name="com.bookstore.app.activity.DonationAcceptRejectActivity"
+            android:label="Donation" >
+        </activity>
+        <activity
+            android:name="com.bookstore.app.activity.AgentDonationAcceptRejectResultActivity"
+            android:label="Donation" >
+        </activity>
+        <activity
+            android:name="com.bookstore.app.activity.AgentTADAResultActivity"
+            android:label="TADA" >
+        </activity>
 
         <receiver
             android:name="com.bookstore.app.base.GcmBroadcastReceiver"

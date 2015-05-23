@@ -30,6 +30,11 @@ public class CommonUrls {
 	public String agentDonation = BASE_URL + "agent/add_donetion?agent_id=%s&amount=%s&comment=%s";
 	public String addTada = BASE_URL + "agent/addTada";
 	public String agent_tada_list=BASE_URL+"agent/get_tada_list?agent_id=%s&pageindex=%s";
+	public String agentGetIndividualDonationDetails = BASE_URL+"agent/get_individual_doantion_details?doantionID=%s";
+	public String get_individual_tada_details = BASE_URL+"agent/get_individual_tada_details?tadaID=%s";
+	
+	//get_individual_tada_details
+	
 
 	// admin api	
 	public String getCompletedJobList = BASE_URL+ "admin/job_list?job_status=%s&pageIndex=%s";
@@ -52,7 +57,7 @@ public class CommonUrls {
 	public String getTadaDetails = BASE_URL+"admin/individula_tada?tadaid=%s";
 	public String getIndividialDonation = BASE_URL+"admin/individula_donation?donationid=%s";
 	public String setDonationACK = BASE_URL+"admin/donation_ack?donationID=%s&agentGcmID=%s&donationStatus=%s&adminID=%s&amount=%s";
-	public String setTadaACK = BASE_URL+"admin/tada_ack?tadaID=%s&agentGcmID=%s&tadastatus=%s";
+	public String setTadaACK = BASE_URL+"admin/tada_ack?tadaID=%s&agentGcmID=%s&tadastatus=%s&adminID=%s";
 	public String setJobSubmitACK = BASE_URL+"admin/job_ack?jobID=%s&adminID=%s&agentGcmID=%s&bookid=%s&no_of_book=%s&jobStatus=%s&remarks=%s";
 	public String jobDetailsAcceptReject=BASE_URL+"admin/job_detais_ack?jobID=%s";
 	

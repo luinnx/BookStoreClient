@@ -176,7 +176,6 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 
 	@Override
 	public void onClick(View view) {
-		// btnOk, btnReject, btnAccept
 		if (view.getId() == R.id.btnOk) {
 			super.onBackPressed();
 

@@ -8,11 +8,13 @@ import java.util.List;
 import android.util.Base64;
 import android.util.Log;
 
+import com.bookstore.app.entities.AgentDonationResultEntity;
 import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
 import com.bookstore.app.entities.AgentLocationMapRoot;
 import com.bookstore.app.entities.BookEntity;
 import com.bookstore.app.entities.BookListRoot;
+import com.bookstore.app.entities.DonationEntity;
 import com.bookstore.app.entities.DonationListRoot;
 import com.bookstore.app.entities.IndividualTADA;
 import com.bookstore.app.entities.JobAcceptRejectDetails;
@@ -24,6 +26,7 @@ import com.bookstore.app.entities.TaDaListRoot;
 import com.bookstore.app.entities.TeacherListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.utils.CommonConstraints;
+import com.bookstore.app.utils.CommonTasks;
 import com.bookstore.app.utils.CommonUrls;
 import com.bookstore.app.utils.JSONfunctions;
 
@@ -350,7 +353,7 @@ public class AdminManager implements IAdminManager {
 	}
 
 	@Override
-	public boolean tadaAck(String tadaID, String agentGcmID, int tadastatus) {
+	public boolean tadaAck(String tadaID, String agentGcmID, int tadastatus,String adminID) {
 		boolean result = false;
 		try {
 			result = (Boolean) JSONfunctions.retrieveDataFromStream(String
@@ -391,5 +394,24 @@ public class AdminManager implements IAdminManager {
 		}
 
 		return result;
+	}
+
+	@Override
+	public DonationEntity getIndividualDonationDetails(String donationId) {
+		DonationEntity donationEntity=null;
+		donationEntity = (DonationEntity) JSONfunctions.retrieveDataFromStream(String
+				.format(CommonUrls.getInstance().getIndividialDonation, donationId),
+				DonationEntity.class);
+		return donationEntity;
+	}
+
+	@Override
+	public AgentDonationResultEntity agentGetIndividualDonationDetails(
+			String donationId) {
+		AgentDonationResultEntity donationEntity=null;
+		donationEntity = (AgentDonationResultEntity) JSONfunctions.retrieveDataFromStream(String
+				.format(CommonUrls.getInstance().agentGetIndividualDonationDetails, donationId),
+				AgentDonationResultEntity.class);
+		return donationEntity;
 	}
 }

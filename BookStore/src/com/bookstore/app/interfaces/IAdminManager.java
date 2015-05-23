@@ -1,12 +1,12 @@
 package com.bookstore.app.interfaces;
 
-import java.util.List;
-
+import com.bookstore.app.entities.AgentDonationResultEntity;
 import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
 import com.bookstore.app.entities.AgentLocationMapRoot;
 import com.bookstore.app.entities.BookEntity;
 import com.bookstore.app.entities.BookListRoot;
+import com.bookstore.app.entities.DonationEntity;
 import com.bookstore.app.entities.DonationListRoot;
 import com.bookstore.app.entities.IndividualTADA;
 import com.bookstore.app.entities.JobAcceptRejectDetails;
@@ -61,7 +61,7 @@ public interface IAdminManager {
 	
 	public boolean donationAck(String donationID,String agentGcmID,int donationStatus, String adminID,String amount);
 	
-	public boolean tadaAck(String tadaID,String agentGcmID,int tadastatus);
+	public boolean tadaAck(String tadaID,String agentGcmID,int tadastatus,String adminID);
 	
 	public JobAcceptRejectDetails getJobInfoAcceptReject(String jobID);
 	
@@ -69,5 +69,9 @@ public interface IAdminManager {
 	public boolean jobAcceptReject(String jobID, String adminID,
 			String agentGcmID, String bookid, String no_of_book,
 			String jobStatus, String remarks);
+	
+	public DonationEntity getIndividualDonationDetails(String donationId);
+	public AgentDonationResultEntity agentGetIndividualDonationDetails(String donationId);
+	
 
 }
