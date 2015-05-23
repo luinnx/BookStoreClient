@@ -340,7 +340,23 @@ public class AdminManager implements IAdminManager {
 					.format(CommonUrls.getInstance().setDonationACK,
 							donationID, URLEncoder.encode(agentGcmID,
 									CommonConstraints.EncodingCode),
-							donationStatus, adminID), Boolean.class);
+							donationStatus, adminID,amount), Boolean.class);
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+
+		return result;
+	}
+
+	@Override
+	public boolean tadaAck(String tadaID, String agentGcmID, int tadastatus) {
+		boolean result = false;
+		try {
+			result = (Boolean) JSONfunctions.retrieveDataFromStream(String
+					.format(CommonUrls.getInstance().setTadaACK,
+							tadaID, URLEncoder.encode(agentGcmID,
+									CommonConstraints.EncodingCode),
+									tadastatus), Boolean.class);
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}

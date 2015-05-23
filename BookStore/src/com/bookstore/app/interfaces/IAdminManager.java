@@ -59,5 +59,7 @@ public interface IAdminManager {
 	
 	
 	public boolean donationAck(String donationID,String agentGcmID,int donationStatus, String adminID,String amount);
+	
+	public boolean tadaAck(String tadaID,String agentGcmID,int tadastatus);
 
 }
