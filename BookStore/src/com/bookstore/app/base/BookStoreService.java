@@ -18,7 +18,8 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
-public class BookStoreService extends Service implements IAsynchronousTask, LocationListener{
+public class BookStoreService extends Service implements IAsynchronousTask,
+		LocationListener {
 	DownloadableAsyncTask downloadAsyncTask;
 	GoogleCloudMessaging gcm;
 	String regid = "";
@@ -28,16 +29,19 @@ public class BookStoreService extends Service implements IAsynchronousTask, Loca
 	public IBinder onBind(Intent intent) {
 		return null;
 	}
-	
+
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		regid = CommonTasks.getPreferences(this, CommonConstraints.GCMID);
-		if(regid.isEmpty()){
-			LoadInformation();
+		if (regid.isEmpty()) {
+
+			if (CommonTasks.isOnline(getApplicationContext()))
+				LoadInformation();
 		}
-		if(CommonTasks.getPreferences(this, CommonConstraints.USER_TYPE).equals("2")){
+		if (CommonTasks.getPreferences(this, CommonConstraints.USER_TYPE)
+				.equals("2")) {
 			getLocation();
-		}		
+		}
 		return START_STICKY;
 	}
 
@@ -48,7 +52,7 @@ public class BookStoreService extends Service implements IAsynchronousTask, Loca
 	}
 
 	private void LoadInformation() {
-		if(downloadAsyncTask != null)
+		if (downloadAsyncTask != null)
 			downloadAsyncTask.cancel(true);
 		downloadAsyncTask = new DownloadableAsyncTask(this);
 		downloadAsyncTask.execute();
@@ -56,27 +60,27 @@ public class BookStoreService extends Service implements IAsynchronousTask, Loca
 
 	@Override
 	public void showProgressBar() {
-		
+
 	}
 
 	@Override
 	public void hideProgressBar() {
-		
+
 	}
 
 	@Override
 	public Object doInBackground() {
-		try{
-			if(regid.isEmpty()){
+		try {
+			if (regid.isEmpty()) {
 				if (gcm == null) {
-	                gcm = GoogleCloudMessaging.getInstance(this);
-	            }
+					gcm = GoogleCloudMessaging.getInstance(this);
+				}
 				regid = gcm.register(CommonConstraints.APPID);
 			}
 			IUser user = new UserManager();
-			return user.addGCMID(Integer.parseInt(CommonTasks.getPreferences(this, CommonConstraints.USER_ID)),
-					regid);
-		}catch(Exception ex){
+			return user.addGCMID(Integer.parseInt(CommonTasks.getPreferences(
+					this, CommonConstraints.USER_ID)), regid);
+		} catch (Exception ex) {
 			Log.e("SB", ex.getMessage());
 		}
 		return null;
@@ -84,10 +88,11 @@ public class BookStoreService extends Service implements IAsynchronousTask, Loca
 
 	@Override
 	public void processDataAfterDownload(Object data) {
-		if(data != null){
+		if (data != null) {
 			Boolean result = (Boolean) data;
-			if(result){
-				CommonTasks.savePreferencesForReasonCode(this, CommonConstraints.GCMID, regid);
+			if (result) {
+				CommonTasks.savePreferencesForReasonCode(this,
+						CommonConstraints.GCMID, regid);
 			}
 		}
 	}
@@ -99,17 +104,17 @@ public class BookStoreService extends Service implements IAsynchronousTask, Loca
 
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
-		
+
 	}
 
 	@Override
 	public void onProviderEnabled(String provider) {
-		
+
 	}
 
 	@Override
 	public void onProviderDisabled(String provider) {
-		
+
 	}
 
 }

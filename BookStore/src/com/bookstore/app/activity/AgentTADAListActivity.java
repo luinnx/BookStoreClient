@@ -1,6 +1,7 @@
 package com.bookstore.app.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +13,7 @@ import com.bookstore.app.adapters.TaDaListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.AgentActionbarBase;
 import com.bookstore.app.entities.TaDaListRoot;
+import com.bookstore.app.entities.TadaListEntity;
 import com.bookstore.app.interfaces.IAgent;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AgentManager;
@@ -25,6 +27,7 @@ public class AgentTADAListActivity extends AgentActionbarBase implements
 	DownloadableAsyncTask downloadableAsyncTask;
 	ProgressDialog dialog;
 	TaDaListAdapter adapter;
+	TaDaListRoot taDaListRoot;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +57,11 @@ public class AgentTADAListActivity extends AgentActionbarBase implements
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		// TODO Auto-generated method stub
+
+		TadaListEntity tada = taDaListRoot.tadaList.get(arg2);
+		Intent intent = new Intent(this, AgentTADAResultActivity.class);
+		intent.putExtra("TADA_ID", "" + tada.id);
+		startActivity(intent);
 
 	}
 
@@ -83,7 +90,7 @@ public class AgentTADAListActivity extends AgentActionbarBase implements
 	@Override
 	public void processDataAfterDownload(Object data) {
 		if (data != null) {
-			TaDaListRoot taDaListRoot = (TaDaListRoot) data;
+			taDaListRoot = (TaDaListRoot) data;
 
 			adapter = new TaDaListAdapter(getApplicationContext(),
 					R.layout.agent_list_item, taDaListRoot.tadaList);

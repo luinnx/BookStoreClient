@@ -6,8 +6,10 @@ import org.json.simple.JSONObject;
 
 import android.util.Log;
 
+import com.bookstore.app.entities.AgentDonationResultEntity;
 import com.bookstore.app.entities.AgentInfo;
 import com.bookstore.app.entities.AgentJobListRoot;
+import com.bookstore.app.entities.AgentTaDaResultEntity;
 import com.bookstore.app.entities.JobDetails;
 import com.bookstore.app.entities.TaDaListRoot;
 import com.bookstore.app.interfaces.IAgent;
@@ -140,6 +142,15 @@ public class AgentManager implements IAgent {
 			Log.e("BSA", ex.getMessage());
 		}
 		return result;
+	}
+
+	@Override
+	public AgentTaDaResultEntity getIndividualTadaResultDetails(String tadaID) {
+		AgentTaDaResultEntity donationEntity=null;
+		donationEntity = (AgentTaDaResultEntity) JSONfunctions.retrieveDataFromStream(String
+				.format(CommonUrls.getInstance().get_individual_tada_details, tadaID),
+				AgentTaDaResultEntity.class);
+		return donationEntity;
 	}
 
 }

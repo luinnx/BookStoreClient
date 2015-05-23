@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 public class PushNotification {
 	@SerializedName("Message")
 	public String Message;
-	@SerializedName("JobID")
+	@SerializedName("ID")
 	public int id;
+	@SerializedName("Status")
+	public String Status;
 }

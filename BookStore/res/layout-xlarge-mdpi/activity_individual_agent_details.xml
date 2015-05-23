@@ -212,7 +212,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
-                        android:text="Location"
+                        android:text="Current Location"
                         android:textColor="@color/text_view_color"
                         android:textSize="30sp"
                         android:textStyle="bold" />
@@ -229,6 +229,7 @@
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/trCreateDate"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"

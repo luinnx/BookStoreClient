@@ -23,6 +23,7 @@ public class UserManager implements IUser{
 			Log.e("BS", ex.getMessage());
 		}
 		return result;
+		//
 	}
 
 	@Override

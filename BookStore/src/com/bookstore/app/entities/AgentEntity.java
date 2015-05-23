@@ -21,7 +21,7 @@ public class AgentEntity {
 	public String mpo_no;
 	@SerializedName("isActive")
 	public int isActive;
-	@SerializedName("create_date")
+	@SerializedName("createdate")
 	public String create_date;
 	@SerializedName("latitude")
 	public double latitude;

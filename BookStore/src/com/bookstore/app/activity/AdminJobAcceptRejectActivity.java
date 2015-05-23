@@ -146,7 +146,7 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 		// ivTeachersSigneture
 		tvAuthor.setText(jobDetails.authername);
 		tvQuantity.setText(""+jobDetails.no_of_book);
-		tvPrice.setText(""+jobDetails.quantity);
+		tvPrice.setText(""+jobDetails.bookprice);
 		tvTeacherName.setText(jobDetails.teachername);
 		tvInstitudes.setText(jobDetails.institute);
 		tvAgentName.setText(jobDetails.agentname);
@@ -180,11 +180,20 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 			super.onBackPressed();
 
 		} else if (view.getId() == R.id.btnReject) {
+			
+			if(etAdminRemarks.getText().toString().trim().equals("")){
+				CommonTasks.showToast(getApplicationContext(), "Please Enter Why you reject this Job submission");
+				return;
+			}
 			whichPurpose = "JOB_SUBMIT";
 			jobSubmitStatus = CommonConstraints.REJECTED_JOB;
 			loadInformation();
 
 		} else if (view.getId() == R.id.btnAccept) {
+			if(etAdminRemarks.getText().toString().trim().equals("")){
+				CommonTasks.showToast(getApplicationContext(), "Please Enter a Remarks");
+				return;
+			}
 			whichPurpose = "JOB_SUBMIT";
 			jobSubmitStatus = CommonConstraints.COMPLETED_JOB;
 			loadInformation();

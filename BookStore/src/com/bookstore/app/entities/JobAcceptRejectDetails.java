@@ -12,7 +12,7 @@ public class JobAcceptRejectDetails {
 	public int jobid;
 	@SerializedName("bookid")
 	public int bookid;
-	@SerializedName("no_of_book")
+	@SerializedName("asignedbook")
 	public int no_of_book;
 	@SerializedName("bookname")
 	public String bookname;

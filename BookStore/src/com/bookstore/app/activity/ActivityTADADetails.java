@@ -13,25 +13,30 @@ import com.bookstore.app.entities.IndividualTADA;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
+import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
 
-public class ActivityTADADetails extends BookStoreActionBarBase implements OnClickListener, IAsynchronousTask{
-	
+public class ActivityTADADetails extends BookStoreActionBarBase implements
+		OnClickListener, IAsynchronousTask {
+
 	int tadaID;
 	DownloadableAsyncTask asyncTask;
 	ProgressDialog progressDialog;
-	TextView tvAgentName, tvTadaStatus, tvTadaDate, tvStartPlace, tvStartTime, tvEndPlace, tvEndTime,
-			tvComment, tvVehicelName, tvDistance, tvAmount, tvOtherAmount, tvTotalAmount;
+	TextView tvAgentName, tvTadaStatus, tvTadaDate, tvStartPlace, tvStartTime,
+			tvEndPlace, tvEndTime, tvComment, tvVehicelName, tvDistance,
+			tvAmount, tvOtherAmount, tvTotalAmount;
 	Button btnDone;
-	
+	IndividualTADA individualTADA;
+	String whichPurpose = "GetTadaInfo";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_individual_tada);
-		
+
 		initialization();
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -56,26 +61,25 @@ public class ActivityTADADetails extends BookStoreActionBarBase implements OnCli
 		tvAmount = (TextView) findViewById(R.id.tvAmount);
 		tvOtherAmount = (TextView) findViewById(R.id.tvOtherAmount);
 		tvTotalAmount = (TextView) findViewById(R.id.tvTotalAmount);
-		
+
 		btnDone = (Button) findViewById(R.id.btnDone);
-		
+
 		btnDone.setOnClickListener(this);
-		
+
 		Bundle bundle = getIntent().getExtras();
 		tadaID = bundle.getInt("TADA");
 	}
-	
 
 	@Override
 	public void onClick(View v) {
-		if(v.getId() == R.id.btnDone){
+		if (v.getId() == R.id.btnDone) {
 			CommonTasks.showToast(this, "T.A.D.A Submit Done.");
 			onBackPressed();
 		}
 	}
-	
-	private void LoadInformation(){
-		if(asyncTask != null)
+
+	private void LoadInformation() {
+		if (asyncTask != null)
 			asyncTask.cancel(true);
 		asyncTask = new DownloadableAsyncTask(this);
 		asyncTask.execute();
@@ -83,7 +87,8 @@ public class ActivityTADADetails extends BookStoreActionBarBase implements OnCli
 
 	@Override
 	public void showProgressBar() {
-		progressDialog = new ProgressDialog(this, ProgressDialog.THEME_HOLO_LIGHT);
+		progressDialog = new ProgressDialog(this,
+				ProgressDialog.THEME_HOLO_LIGHT);
 		progressDialog.setMessage("Please Wait...");
 		progressDialog.setCancelable(false);
 		progressDialog.show();
@@ -96,15 +101,37 @@ public class ActivityTADADetails extends BookStoreActionBarBase implements OnCli
 
 	@Override
 	public Object doInBackground() {
-		IAdminManager adminManager = new AdminManager();
-		return adminManager.getTada(tadaID);
+
+		if (whichPurpose.equals("GetTadaInfo")) {
+			IAdminManager adminManager = new AdminManager();
+			return adminManager.getTada(tadaID);
+		} else {
+			IAdminManager adminManager = new AdminManager();
+			return adminManager.tadaAck("" + tadaID, "",
+					CommonConstraints.TADA_COMPLETED,CommonTasks.getPreferences(getApplicationContext(), CommonConstraints.USER_ID));
+		}
+
 	}
 
 	@Override
 	public void processDataAfterDownload(Object data) {
-		if(data != null){
-			IndividualTADA individualTADA = (IndividualTADA) data;
-			setDataInfoView(individualTADA);
+		if (data != null) {
+
+			if (whichPurpose.equals("GetTadaInfo")) {
+				individualTADA = (IndividualTADA) data;
+				setDataInfoView(individualTADA);
+			} else {
+				boolean b = (Boolean) data;
+				if (b) {
+					CommonTasks.showToast(getApplicationContext(),
+							"Approved TADA succesfully");
+					super.onBackPressed();
+				} else {
+					CommonTasks.showToast(getApplicationContext(),
+							"Approved TADA failed");
+				}
+			}
+
 		}
 	}
 
@@ -118,9 +145,9 @@ public class ActivityTADADetails extends BookStoreActionBarBase implements OnCli
 		tvEndTime.setText(individualTADA.endtime);
 		tvComment.setText(individualTADA.description);
 		tvVehicelName.setText(individualTADA.vehicelname);
-		tvDistance.setText(""+individualTADA.distance);
-		tvAmount.setText(""+individualTADA.tadaamount);
-		tvOtherAmount.setText(""+individualTADA.otheramount);
-		tvTotalAmount.setText(""+individualTADA.totalamount);
+		tvDistance.setText("" + individualTADA.distance);
+		tvAmount.setText("" + individualTADA.tadaamount);
+		tvOtherAmount.setText("" + individualTADA.otheramount);
+		tvTotalAmount.setText("" + individualTADA.totalamount);
 	}
 }

@@ -414,7 +414,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 			return adminManager.createJob(bookEntity.full_name, ""
 					+ bookEntity._id, ""
 					+ etOrderAmountBooks.getText().toString().trim(), ""
-					+ teacherEntity._id, teacherEntity.institute, "" + 0, ""
+					+ teacherEntity._id, teacherEntity.institute, "" + CommonConstraints.PENDING_JOB, ""
 					+ agentEntity._id, agentEntity.gcm_id, CommonTasks
 					.getPreferences(getApplicationContext(),
 							CommonConstraints.USER_ID));

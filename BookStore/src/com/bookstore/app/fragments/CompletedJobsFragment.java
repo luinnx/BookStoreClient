@@ -57,16 +57,31 @@ public class CompletedJobsFragment extends Fragment implements
 
 		return f;
 	}
+	
+	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		// TODO Auto-generated method stub
+		super.setUserVisibleHint(isVisibleToUser);
+		if (isVisibleToUser) {
+			if (!CommonTasks.isOnline(getActivity())) {
+				CommonTasks.goSettingPage(getActivity());
+				return;
+			}
+			loadInformation();
+		} else {
+			
+		}
+	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
 		
-		if (!CommonTasks.isOnline(getActivity())) {
+		/*if (!CommonTasks.isOnline(getActivity())) {
 			CommonTasks.goSettingPage(getActivity());
 			return;
 		}
-		loadInformation();
+		loadInformation();*/
 	}
 
 	public void loadInformation() {

@@ -2,6 +2,7 @@ package com.bookstore.app.fragments;
 
 import java.util.ArrayList;
 
+import com.bookstore.app.activity.AdminJobAcceptRejectActivity;
 import com.bookstore.app.activity.AgentIndividualJobDetailsActivity;
 import com.bookstore.app.activity.IndividualJobDetailsActivity;
 import com.bookstore.app.activity.R;
@@ -47,6 +48,21 @@ public class PendingJobsFragment extends Fragment implements IAsynchronousTask,
 		return v;
 	}
 
+	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		// TODO Auto-generated method stub
+		super.setUserVisibleHint(isVisibleToUser);
+		if (isVisibleToUser) {
+			if (!CommonTasks.isOnline(getActivity())) {
+				CommonTasks.goSettingPage(getActivity());
+				return;
+			}
+			loadInformation();
+		} else {
+			
+		}
+	}
+
 	public static PendingJobsFragment newInstance(String text) {
 
 		PendingJobsFragment f = new PendingJobsFragment();
@@ -61,12 +77,7 @@ public class PendingJobsFragment extends Fragment implements IAsynchronousTask,
 	@Override
 	public void onResume() {
 		super.onResume();
-		
-		if (!CommonTasks.isOnline(getActivity())) {
-			CommonTasks.goSettingPage(getActivity());
-			return;
-		}
-		loadInformation();
+
 	}
 
 	public void loadInformation() {
@@ -78,7 +89,8 @@ public class PendingJobsFragment extends Fragment implements IAsynchronousTask,
 
 	@Override
 	public void showProgressBar() {
-		progressDialog = new ProgressDialog(getActivity(), ProgressDialog.THEME_HOLO_LIGHT);
+		progressDialog = new ProgressDialog(getActivity(),
+				ProgressDialog.THEME_HOLO_LIGHT);
 		progressDialog.setCancelable(false);
 		progressDialog.setMessage("Please Wait.");
 		progressDialog.show();
@@ -95,7 +107,7 @@ public class PendingJobsFragment extends Fragment implements IAsynchronousTask,
 	public Object doInBackground() {
 		IAdminManager manager = new AdminManager();
 
-		return manager.getJobList(CommonConstraints.PENDING_JOB,0);
+		return manager.getJobList(CommonConstraints.PENDING_JOB, 0);
 	}
 
 	@Override
@@ -104,28 +116,29 @@ public class PendingJobsFragment extends Fragment implements IAsynchronousTask,
 		if (data != null) {
 			jobListRoot = new JobListRoot();
 			jobListRoot = (JobListRoot) data;
-			if(jobListRoot != null && jobListRoot.jobList.size()>0){
-				adapter = new JobListAdapter(getActivity(), R.layout.job_list_item,
-						jobListRoot.jobList);
+			if (jobListRoot != null && jobListRoot.jobList.size() > 0) {
+				adapter = new JobListAdapter(getActivity(),
+						R.layout.job_list_item, jobListRoot.jobList);
 				listView.setAdapter(adapter);
-			}else{
-				adapter = new JobListAdapter(getActivity(), R.layout.job_list_item,
-						jobListRoot.jobList);
+			} else {
+				adapter = new JobListAdapter(getActivity(),
+						R.layout.job_list_item, jobListRoot.jobList);
 				listView.setAdapter(adapter);
 			}
-			
+
 		}
 
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-		JobEntity jobEntity=jobListRoot.jobList.get(position);
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+			long arg3) {
+		JobEntity jobEntity = jobListRoot.jobList.get(position);
 		if (CommonTasks.getPreferences(getActivity(),
 				CommonConstraints.USER_TYPE).equals("1")) {
 			Intent intent = new Intent(getActivity(),
 					IndividualJobDetailsActivity.class);
-			intent.putExtra("JOB_ID", ""+jobEntity.jobid);
+			intent.putExtra("JOB_ID", "" + jobEntity.jobid);
 			intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			startActivity(intent);
 		} else {

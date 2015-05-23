@@ -3,15 +3,12 @@ package com.bookstore.app.base;
 import com.bookstore.app.activity.AgentMyProfileActivity;
 import com.bookstore.app.activity.AgentTADAListActivity;
 import com.bookstore.app.activity.AgentTA_DA_Activity;
-import com.bookstore.app.activity.AgentTA_DA_Activity_New;
 import com.bookstore.app.activity.LoginActivity;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.customview.AddDonation;
 import com.bookstore.app.entities.Donation;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
-import com.google.android.gms.drive.internal.al;
-
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -116,7 +113,12 @@ public abstract class AgentActionbarBase extends FragmentActivity {
 				}
 				Donation donation = new Donation();
 				donation.Amount = Double.parseDouble(etDonationAmount.getText().toString());
-				donation.Comment = etDonationComment.getText().toString();				
+				donation.Comment = etDonationComment.getText().toString();
+				
+				if(!CommonTasks.isOnline(getApplicationContext())){
+					CommonTasks.goSettingPage(getApplicationContext());
+					return;
+				}
 				new AddDonation(AgentActionbarBase.this).execute(donation);
 				alertDialog.dismiss();
 			}

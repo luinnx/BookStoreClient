@@ -27,6 +27,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.androidquery.AQuery;
@@ -81,6 +82,8 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 	Marker mainMarker;
 	Bitmap myBitmap;
 	ArrayList<Marker> markers;
+	String addressText = "";
+	TableRow trCreateDate;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +101,7 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 		tvAgentCurrentLocation = (TextView) findViewById(R.id.tvAgentCurrentLocation);
 		tvCreateDate = (TextView) findViewById(R.id.tvCreateDate);
 		ivAgentImage = (ImageView) findViewById(R.id.ivAgentImage);
+		trCreateDate=(TableRow) findViewById(R.id.trCreateDate);
 
 		SupportMapFragment fragment = (SupportMapFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.actvityAgentLocationMap);
@@ -182,12 +186,16 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 			tvAddress.setText(agentEntity.address);
 			tvMpoNumber.setText(agentEntity.mpo_no);
 			tvMobileNumber.setText(agentEntity.mobile_no);
-			tvAgentCurrentLocation.setText(agentEntity.address);
+			//tvAgentCurrentLocation.setText(agentEntity.address);
 			
-			/*if(!agentEntity.create_date.equals("")){
+			if (agentEntity.create_date != null && !agentEntity.create_date.isEmpty() && !agentEntity.create_date.equals("null")) {
+				trCreateDate.setVisibility(View.VISIBLE);
 				tvCreateDate.setText(CommonTasks
 						.getLongToDate(agentEntity.create_date));
-			}*/
+			}else{
+				trCreateDate.setVisibility(View.GONE);
+			}
+			
 			
 
 			loadMap(agentEntity.latitude,agentEntity.longitude);
@@ -200,7 +208,7 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 	}
 
 	private void loadMap(double lat,double lng) {
-		String addressText = "";
+		
 		markers = new ArrayList<Marker>();
 		try {
 			frAgentLocationMap.clear();
@@ -243,7 +251,9 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 												this, marker)))));
 
 			}
-			addressText = "";
+			//addressText = "";
+			tvAgentCurrentLocation.setText(addressText);
+			
 
 			frAgentLocationMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 			LatLngBounds.Builder b = new LatLngBounds.Builder();
@@ -323,7 +333,7 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 		ImageView ivAgentImage = (ImageView) v.findViewById(R.id.ivAgentImage);
 
 		tvAgentName.setText("Name :" + agentEntity.full_name);
-		tvLocationName.setText("Current Location :" + agentEntity.address);
+		tvLocationName.setText("Current Location :" + addressText);
 		/*tvLastUpdateTime.setText("Last Update :"
 				+ CommonTasks.getLongToDate(agentEntity.create_date));*/
 		ivAgentImage.setImageBitmap(CommonTasks.createCircularShape(myBitmap));

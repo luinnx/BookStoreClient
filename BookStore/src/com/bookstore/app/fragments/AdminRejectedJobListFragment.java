@@ -45,6 +45,21 @@ public class AdminRejectedJobListFragment extends Fragment implements
 
 		return v;
 	}
+	
+	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		// TODO Auto-generated method stub
+		super.setUserVisibleHint(isVisibleToUser);
+		if (isVisibleToUser) {
+			if (!CommonTasks.isOnline(getActivity())) {
+				CommonTasks.goSettingPage(getActivity());
+				return;
+			}
+			loadInformation();
+		} else {
+			
+		}
+	}
 
 	public static AdminRejectedJobListFragment newInstance(String text) {
 
@@ -61,11 +76,11 @@ public class AdminRejectedJobListFragment extends Fragment implements
 	public void onResume() {
 		super.onResume();
 
-		if (!CommonTasks.isOnline(getActivity())) {
+		/*if (!CommonTasks.isOnline(getActivity())) {
 			CommonTasks.goSettingPage(getActivity());
 			return;
 		}
-		loadInformation();
+		loadInformation();*/
 	}
 
 	public void loadInformation() {

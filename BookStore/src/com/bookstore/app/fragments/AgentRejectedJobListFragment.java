@@ -42,7 +42,8 @@ public class AgentRejectedJobListFragment extends Fragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_agent_rejected_jobs, container, false);
+		ViewGroup root = (ViewGroup) inflater.inflate(
+				R.layout.fragment_agent_rejected_jobs, container, false);
 		initalization(root);
 		return root;
 	}
@@ -53,14 +54,28 @@ public class AgentRejectedJobListFragment extends Fragment implements
 	}
 
 	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		// TODO Auto-generated method stub
+		super.setUserVisibleHint(isVisibleToUser);
+		if (isVisibleToUser) {
+			if (!CommonTasks.isOnline(getActivity())) {
+				CommonTasks.goSettingPage(getActivity());
+				return;
+			}
+			loadInformation();
+		} else {
+
+		}
+	}
+
+	@Override
 	public void onResume() {
 		super.onResume();
-
-		if (!CommonTasks.isOnline(getActivity())) {
-			CommonTasks.goSettingPage(getActivity());
-			return;
-		}
-		loadInformation();
+		/*
+		 * if (!CommonTasks.isOnline(getActivity())) {
+		 * CommonTasks.goSettingPage(getActivity()); return; }
+		 * loadInformation();
+		 */
 	}
 
 	public void loadInformation() {
@@ -73,16 +88,18 @@ public class AgentRejectedJobListFragment extends Fragment implements
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 			long arg3) {
-		try{
-			AgentJobList agentJobList = (AgentJobList) lvJobList.getItemAtPosition(position);
-			if(agentJobList != null){
-				Intent intent = new Intent(getActivity(), AgentIndividualJobDetailsActivity.class);
-				intent.putExtra("JOB_ID", ""+agentJobList.JobID);
+		try {
+			AgentJobList agentJobList = (AgentJobList) lvJobList
+					.getItemAtPosition(position);
+			if (agentJobList != null) {
+				Intent intent = new Intent(getActivity(),
+						AgentIndividualJobDetailsActivity.class);
+				intent.putExtra("JOB_ID", "" + agentJobList.JobID);
 				intent.putExtra("MODE", "4");
 				intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(intent);
 			}
-		}catch(Exception ex){
+		} catch (Exception ex) {
 			Log.e("BS", ex.getMessage());
 		}
 	}
@@ -106,18 +123,24 @@ public class AgentRejectedJobListFragment extends Fragment implements
 	@Override
 	public Object doInBackground() {
 		IAgent agent = new AgentManager();
-		return agent.getJobList(Integer.parseInt(CommonTasks.getPreferences(getActivity(), CommonConstraints.USER_ID)), 4, 0);
+		return agent.getJobList(Integer.parseInt(CommonTasks.getPreferences(
+				getActivity(), CommonConstraints.USER_ID)), 4, 0);
 	}
 
 	@Override
 	public void processDataAfterDownload(Object data) {
-		if(data != null){
+		if (data != null) {
 			AgentJobListRoot agentJobListRoot = (AgentJobListRoot) data;
-			if(agentJobListRoot.agentJobList!=null&& agentJobListRoot.agentJobList.size()>0){
-				adapter = new AgentRejectedJobListAdapter(getActivity(), R.layout.agent_job_list_item, agentJobListRoot.agentJobList);
+			if (agentJobListRoot.agentJobList != null
+					&& agentJobListRoot.agentJobList.size() > 0) {
+				adapter = new AgentRejectedJobListAdapter(getActivity(),
+						R.layout.agent_job_list_item,
+						agentJobListRoot.agentJobList);
 				lvJobList.setAdapter(adapter);
-			}else{
-				adapter = new AgentRejectedJobListAdapter(getActivity(), R.layout.agent_job_list_item, agentJobListRoot.agentJobList);
+			} else {
+				adapter = new AgentRejectedJobListAdapter(getActivity(),
+						R.layout.agent_job_list_item,
+						agentJobListRoot.agentJobList);
 				lvJobList.setAdapter(adapter);
 			}
 		}
