@@ -1,6 +1,12 @@
 package com.bookstore.app.activity;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import android.app.ProgressDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +23,7 @@ import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
+import com.bookstore.app.utils.CommonUrls;
 
 public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 		implements OnClickListener, IAsynchronousTask {
@@ -114,22 +121,54 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 		if (data != null) {
 			if (whichPurpose.equals("GET_JOB_INFO")) {
 				jobDetails = (JobAcceptRejectDetails) data;
-
-				//ivTeachersSigneture
-				tvAuthor.setText(jobDetails.authername);
-				tvQuantity.setText(jobDetails.no_of_book);
-				tvPrice.setText(jobDetails.quantity);
-				tvTeacherName.setText(jobDetails.teachername);
-				tvInstitudes.setText(jobDetails.institute);
-				tvAgentName.setText(jobDetails.agentname);
-				tvAgentsMobileNumber.setText(jobDetails.agentmobilenumber);
-
+				setValues(jobDetails);
 			} else {
+				Boolean b = (Boolean) data;
+				if (b) {
+					CommonTasks.showToast(getApplicationContext(),
+							"Job Accept/Reject Succesfull");
+					super.onBackPressed();
+				} else {
+					CommonTasks.showToast(getApplicationContext(),
+							"Job Approved failed.Please Try Again");
+				}
 
 			}
 		} else {
 			CommonTasks.showToast(getApplicationContext(),
 					"Internal Server Error.Please Try again later");
+		}
+
+	}
+
+	private void setValues(JobAcceptRejectDetails jobDetails2) {
+		// ivTeachersSigneture
+		tvAuthor.setText(jobDetails.authername);
+		tvQuantity.setText(jobDetails.no_of_book);
+		tvPrice.setText(jobDetails.quantity);
+		tvTeacherName.setText(jobDetails.teachername);
+		tvInstitudes.setText(jobDetails.institute);
+		tvAgentName.setText(jobDetails.agentname);
+		tvAgentsMobileNumber.setText(jobDetails.agentmobilenumber);
+
+		try {
+			if (!jobDetails.teachersignature.equals("")) {
+				URL url = new URL(CommonUrls.getInstance().IMAGE_BASE_URL
+						+ jobDetails.teachersignature);
+				HttpURLConnection connection = (HttpURLConnection) url
+						.openConnection();
+				connection.setDoInput(true);
+				connection.connect();
+				InputStream input = connection.getInputStream();
+				Bitmap myBitmap = BitmapFactory.decodeStream(input);
+				ivTeachersSigneture.setImageBitmap(myBitmap);
+			} else {
+				ivTeachersSigneture
+						.setImageBitmap(BitmapFactory.decodeResource(
+								getResources(), R.drawable.ic_person_24));
+			}
+		} catch (Exception exception) {
+			exception.printStackTrace();
 		}
 
 	}
