@@ -38,12 +38,12 @@
         android:theme="@style/Theme.NoTitleBar" >
         <uses-library android:name="com.google.android.maps" />
         <!-- Debug Key -->
-        <!-- <meta-data
+        <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyAtkiL3WKHTP9EcQtvgvY60F0E6JjNzZ_o" /> -->
-            <meta-data
+            android:value="AIzaSyAtkiL3WKHTP9EcQtvgvY60F0E6JjNzZ_o" />
+            <!-- <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyC4rKY300r_9VlHIv-pgXglCzeXDrks2KU" />
+            android:value="AIzaSyC4rKY300r_9VlHIv-pgXglCzeXDrks2KU" /> -->
         
 
         <!-- Relaease Key -->

@@ -46,19 +46,21 @@ import com.bookstore.app.managers.AgentManager;
 import com.bookstore.app.utils.CommonTasks;
 import com.bookstore.app.utils.CommonUrls;
 
-public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implements OnClickListener, IAsynchronousTask {
+public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
+		implements OnClickListener, IAsynchronousTask {
 	DownloadableAsyncTask downloadableAsyncTask;
-	ProgressDialog  progressDialog;
+	ProgressDialog progressDialog;
 	TextView tvNameBook, tvJobStatus, tvAuthor, tvPublisherName, tvISBN,
-		tvQuantity, tvPublishDate, tvPrice, tvTeacherName, tvInstitution,
-		tvTeacherMobileNumber, tvAgentName, tvAgentsAddress,
-		tvAgentsCurrentLocation, tvAgentsMobileNumber, tvDialogCancel, tvDialogOK,tvTakePhoto;
+			tvQuantity, tvPublishDate, tvPrice, tvTeacherName, tvInstitution,
+			tvTeacherMobileNumber, tvAgentName, tvAgentsAddress,
+			tvAgentsCurrentLocation, tvAgentsMobileNumber, tvDialogCancel,
+			tvDialogOK, tvTakePhoto;
 	EditText etTeacherPassword;
 	Button btnOk;
 	String jobID = "", mode = "";
 	AlertDialog alertDialog;
 	boolean isJobSubmit = false;
-	JobDetails jobDetails= null;
+	JobDetails jobDetails = null;
 	File file;
 	public byte[] selectedFile;
 	public String filename = "";
@@ -66,55 +68,56 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 	JSONObject outerObject;
 	JSONArray jsonArr = new JSONArray();
 	JSONObject innterObject = new JSONObject();
-	int count =0;
+	int count = 0;
 	ArrayList<String> rowPic = new ArrayList<String>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_individual_agent_jod_details);
-		
+
 		NotificationManager notificationManager = (android.app.NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		notificationManager.cancel(1);
-		
+
 		initialization();
 	}
 
 	private void initialization() {
 		tvNameBook = (TextView) findViewById(R.id.tvNameBook);
 		tvJobStatus = (TextView) findViewById(R.id.tvJobStatus);
-		
+
 		tvAuthor = (TextView) findViewById(R.id.tvAuthor);
 		tvPublisherName = (TextView) findViewById(R.id.tvPublisherName);
 		tvISBN = (TextView) findViewById(R.id.tvISBN);
 		tvQuantity = (TextView) findViewById(R.id.tvQuantity);
 		tvPublishDate = (TextView) findViewById(R.id.tvPublishDate);
 		tvPrice = (TextView) findViewById(R.id.tvPrice);
-		
+
 		tvTeacherName = (TextView) findViewById(R.id.tvTeacherName);
 		tvInstitution = (TextView) findViewById(R.id.tvInstitution);
 		tvTeacherMobileNumber = (TextView) findViewById(R.id.tvTeacherMobileNumber);
-		
+
 		tvAgentName = (TextView) findViewById(R.id.tvAgentName);
 		tvAgentsAddress = (TextView) findViewById(R.id.tvAgentsAddress);
 		tvAgentsCurrentLocation = (TextView) findViewById(R.id.tvAgentsCurrentLocation);
 		tvAgentsMobileNumber = (TextView) findViewById(R.id.tvAgentsMobileNumber);
-		
+
 		btnOk = (Button) findViewById(R.id.btnOk);
 		btnOk.setOnClickListener(this);
-		
+
 		Bundle bundle = getIntent().getExtras();
-		if(bundle != null && bundle.containsKey("JOB_ID") && bundle.containsKey("MODE")){
+		if (bundle != null && bundle.containsKey("JOB_ID")
+				&& bundle.containsKey("MODE")) {
 			jobID = bundle.getString("JOB_ID");
 			mode = bundle.getString("MODE");
 		}
-		
-		if(mode.equals("2") || mode.equals("3") || mode.equals("4")){
+
+		if (mode.equals("2") || mode.equals("3") || mode.equals("4")) {
 			btnOk.setText("OK");
-		}else{
+		} else {
 			btnOk.setText("Submit");
 		}
-		
+
 		if (!CommonTasks.isOnline(this)) {
 			CommonTasks.goSettingPage(this);
 			return;
@@ -124,17 +127,17 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 
 	@Override
 	public void onClick(View view) {
-		if(view.getId() == R.id.btnOk){
-			if(btnOk.getText().toString().equals("Submit")){
+		if (view.getId() == R.id.btnOk) {
+			if (btnOk.getText().toString().equals("Submit")) {
 				jobSubmit();
-			}else{
+			} else {
 				onBackPressed();
 			}
 		}
 	}
-	
-	private void LoadInformation(){
-		if(downloadableAsyncTask != null)
+
+	private void LoadInformation() {
+		if (downloadableAsyncTask != null)
 			downloadableAsyncTask.cancel(true);
 		downloadableAsyncTask = new DownloadableAsyncTask(this);
 		downloadableAsyncTask.execute();
@@ -142,7 +145,8 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 
 	@Override
 	public void showProgressBar() {
-		progressDialog = new ProgressDialog(this, ProgressDialog.THEME_HOLO_LIGHT);
+		progressDialog = new ProgressDialog(this,
+				ProgressDialog.THEME_HOLO_LIGHT);
 		progressDialog.setMessage("Please Wait");
 		progressDialog.setCancelable(false);
 		progressDialog.show();
@@ -156,7 +160,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 	@Override
 	public Object doInBackground() {
 		IAgent agent = new AgentManager();
-		if(isJobSubmit)
+		if (isJobSubmit)
 			return agent.jobSubmit(outerObject);
 		else
 			return agent.getJobDetails(jobID);
@@ -164,99 +168,111 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 
 	@Override
 	public void processDataAfterDownload(Object data) {
-		if(data != null){
-			if(isJobSubmit){
+		if (data != null) {
+			if (isJobSubmit) {
 				Boolean result = (Boolean) data;
-				if(result){
+				if (result) {
+					count = 0;
+					innterObject = new JSONObject();
+					jsonArr = new JSONArray();
+					outerObject = new JSONObject();
+					rowPic = new ArrayList<String>();
 					alertDialog.dismiss();
 					CommonTasks.showToast(this, "Job Submit done.");
 					onBackPressed();
-				}else{
-					CommonTasks.showToast(this, "UnExpected error. Please try again!");
+				} else {
+					count = 0;
+					innterObject = new JSONObject();
+					jsonArr = new JSONArray();
+					outerObject = new JSONObject();
+					rowPic = new ArrayList<String>();
+					CommonTasks.showToast(this,
+							"UnExpected error. Please try again!");
 					alertDialog.dismiss();
 				}
-			}else{
+			} else {
 				jobDetails = (JobDetails) data;
-				if(jobDetails != null){
+				if (jobDetails != null) {
 					setValue(jobDetails);
 				}
 			}
-			
+
 		}
 	}
 
 	private void setValue(JobDetails jobDetails) {
 		tvNameBook.setText(jobDetails.BookName);
-		if(jobDetails.JobStatus == 3)
+		if (jobDetails.JobStatus == 3)
 			tvJobStatus.setText("Job Status : Complete");
-		else if(jobDetails.JobStatus == 1)
+		else if (jobDetails.JobStatus == 1)
 			tvJobStatus.setText("Job Status : Pending");
-		else if(jobDetails.JobStatus == 2)
+		else if (jobDetails.JobStatus == 2)
 			tvJobStatus.setText("Job Status : Submitted");
-		else if(jobDetails.JobStatus == 4)
+		else if (jobDetails.JobStatus == 4)
 			tvJobStatus.setText("Job Status : Rejected");
-		
+
 		tvAuthor.setText(jobDetails.BookAutherName);
 		tvPublisherName.setText(jobDetails.BookPublisherName);
 		tvISBN.setText(jobDetails.BookISBNNumber);
-		tvQuantity.setText(""+jobDetails.BookQuantity);
+		tvQuantity.setText("" + jobDetails.BookQuantity);
 		tvPublishDate.setText(jobDetails.BookPublishDate);
-		tvPrice.setText(""+jobDetails.BookPrice);
-		
+		tvPrice.setText("" + jobDetails.BookPrice);
+
 		tvTeacherName.setText(jobDetails.TeacherName);
 		tvInstitution.setText(jobDetails.TeacherInstituteName);
 		tvTeacherMobileNumber.setText(jobDetails.TeacherMobileNumber);
-		
+
 		tvAgentName.setText(jobDetails.AgentFullName);
 		tvAgentsAddress.setText(jobDetails.AgentAddress);
 		tvAgentsCurrentLocation.setText(jobDetails.AgentCurrentLocation);
 		tvAgentsMobileNumber.setText(jobDetails.AgentMobileNumber);
 	}
-	
-	private void jobSubmit(){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT);
+
+	private void jobSubmit() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this,
+				AlertDialog.THEME_HOLO_LIGHT);
 		LayoutInflater inflater = getLayoutInflater();
 		View josSubmitView = inflater.inflate(R.layout.job_submit_dialog, null);
 		builder.setView(josSubmitView);
 		builder.setTitle("Job Submit");
 		builder.setCancelable(false);
-		
-		etTeacherPassword = (EditText) josSubmitView.findViewById(R.id.etTeacherPassword);
-		tvDialogCancel = (TextView) josSubmitView.findViewById(R.id.tvDialogCancel);
+
+		etTeacherPassword = (EditText) josSubmitView
+				.findViewById(R.id.etTeacherPassword);
+		tvDialogCancel = (TextView) josSubmitView
+				.findViewById(R.id.tvDialogCancel);
 		tvDialogOK = (TextView) josSubmitView.findViewById(R.id.tvDialogOK);
 		tvTakePhoto = (TextView) josSubmitView.findViewById(R.id.tvTakePhoto);
-		
-		
-		 
+
 		tvTakePhoto.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				TakePhoto();
-				
+
 			}
-			
+
 		});
-		
+
 		tvDialogCancel.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				alertDialog.dismiss();
 			}
 		});
-		
+
 		tvDialogOK.setOnClickListener(new OnClickListener() {
-			
+
 			@SuppressWarnings("unchecked")
 			@Override
 			public void onClick(View v) {
 				isJobSubmit = true;
-				/*if(etTeacherPassword.getText().toString().equals("")){
-					CommonTasks.showToast(AgentIndividualJobDetailsActivity.this, "Please enter password");
-					isJobSubmit = false;
-					return;
-				}*/
+				/*
+				 * if(etTeacherPassword.getText().toString().equals("")){
+				 * CommonTasks.showToast(AgentIndividualJobDetailsActivity.this,
+				 * "Please enter password"); isJobSubmit = false; return; }
+				 */
 				if (!CommonTasks.isOnline(getApplicationContext())) {
 					CommonTasks.goSettingPage(getApplicationContext());
 					return;
@@ -273,61 +289,59 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 				outerObject = new JSONObject();
 				outerObject.put("Job_Submit", jsonArr);
 				LoadInformation();
-				
+
 			}
 		});
-		
+
 		alertDialog = builder.create();
 		alertDialog.show();
 	}
-	
+
 	private void TakePhoto() {
-		File image = new File(appFolderCheckandCreate(), "img" + getTimeStamp() + ".jpg");
-        uriSavedImage = Uri.fromFile(image);
-		
+		File image = new File(appFolderCheckandCreate(), "img" + getTimeStamp()
+				+ ".jpg");
+		uriSavedImage = Uri.fromFile(image);
+
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, 100);
 	}
-	
-	private String appFolderCheckandCreate(){
 
-	    String appFolderPath="";
-	    File externalStorage = Environment.getExternalStorageDirectory();
+	private String appFolderCheckandCreate() {
 
-	    if (externalStorage.canWrite()) 
-	    {
-	        appFolderPath = externalStorage.getAbsolutePath() + "/BookStore";
-	        File dir = new File(appFolderPath);
+		String appFolderPath = "";
+		File externalStorage = Environment.getExternalStorageDirectory();
 
-	        if (!dir.exists()) 
-	        {
-	              dir.mkdirs();
-	        }
+		if (externalStorage.canWrite()) {
+			appFolderPath = externalStorage.getAbsolutePath() + "/BookStore";
+			File dir = new File(appFolderPath);
 
-	    }
-	    else
-	    {
-	      CommonTasks.showToast(getApplicationContext(),"  Storage media not found or is full ! ");
-	    }
+			if (!dir.exists()) {
+				dir.mkdirs();
+			}
 
-	    return appFolderPath;
+		} else {
+			CommonTasks.showToast(getApplicationContext(),
+					"  Storage media not found or is full ! ");
+		}
+
+		return appFolderPath;
 	}
-	
+
 	private String getTimeStamp() {
 
-	    final long timestamp = new Date().getTime();
+		final long timestamp = new Date().getTime();
 
-	    final Calendar cal = Calendar.getInstance();
-	                   cal.setTimeInMillis(timestamp);
+		final Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(timestamp);
 
-	    final String timeString = new SimpleDateFormat("HH_mm_ss_SSS").format(cal.getTime());
+		final String timeString = new SimpleDateFormat("HH_mm_ss_SSS")
+				.format(cal.getTime());
 
-
-	    return timeString;
+		return timeString;
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int responseCode,
 			Intent data) {
@@ -336,7 +350,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 			if (responseCode == RESULT_OK) {
 				Uri currImageURI = uriSavedImage;
 				file = new File(currImageURI.getPath());
-				//file = new File(getRealPathFromURI(currImageURI));
+				// file = new File(getRealPathFromURI(currImageURI));
 				filename = file.getName().replaceAll("[-+^:,]", "")
 						.replace(" ", "");
 				Bitmap b = decodeImage(file);
@@ -353,22 +367,24 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase implem
 					b.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 				}
 				selectedFile = stream.toByteArray();
-				count+=1;
-				rowPic.add(Base64.encodeToString(selectedFile,Base64.NO_WRAP));
-				try{
+				count += 1;
+				rowPic.add(Base64.encodeToString(selectedFile, Base64.NO_WRAP));
+				try {
 					if (file.exists()) {
-					    if (file.delete()) {
-					        System.out.println("file Deleted :" + file);
-					    } else {
-					        System.out.println("file not Deleted :" + file);
-					    }
-					    sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
-					    		 Uri.parse("file://" +  Environment.getExternalStorageDirectory())));
+						if (file.delete()) {
+							System.out.println("file Deleted :" + file);
+						} else {
+							System.out.println("file not Deleted :" + file);
+						}
+						sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
+								Uri.parse("file://"
+										+ Environment
+												.getExternalStorageDirectory())));
 					}
-				}catch(Exception ex){
+				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-				
+
 			}
 		}
 	}
