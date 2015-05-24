@@ -127,7 +127,7 @@ public class DonationListActivity extends BookStoreActionBarBase implements
 		donationEntity = donationListRoot.donationList.get(position);
 		
 		Intent intent=new Intent(getApplicationContext(), DonationAcceptRejectActivity.class);
-		intent.putExtra("DONATION_ID", donationEntity.id);
+		intent.putExtra("DONATION_ID", ""+donationEntity.id);
 		startActivity(intent);
 		
 		

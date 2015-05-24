@@ -54,14 +54,14 @@ public class DonationAcceptRejectActivity extends BookStoreActionBarBase
 		btnOK.setOnClickListener(this);
 		btnSubmit.setOnClickListener(this);
 		btnReject.setOnClickListener(this);
-		
+
 		Bundle bundle = getIntent().getExtras();
 		donationId = bundle.getString("DONATION_ID");
 		if (!CommonTasks.isOnline(this)) {
 			CommonTasks.goSettingPage(this);
 			return;
 		}
-		
+
 		loadInforMation();
 
 	}
@@ -118,7 +118,7 @@ public class DonationAcceptRejectActivity extends BookStoreActionBarBase
 				boolean b = (Boolean) data;
 				if (b) {
 					CommonTasks.showToast(getApplicationContext(),
-							"Donation Approved Succesfully");
+							"Donation Approved/Reject Succesfully");
 					onBackPressed();
 				} else {
 					CommonTasks.showToast(getApplicationContext(),
@@ -141,20 +141,22 @@ public class DonationAcceptRejectActivity extends BookStoreActionBarBase
 			super.onBackPressed();
 
 		} else if (view.getId() == R.id.btnReject) {
+
+			whichPurpose = "SUBMIT_DONATION";
+			approvedAmount = "0";
+			donationStatus = CommonConstraints.DONATION_REGECTED;
+			approvedAmount = etApprovedAmount.getText().toString().trim();
+			loadInforMation();
+
+		} else if (view.getId() == R.id.btnSubmit) {
 			if (etApprovedAmount.getText().toString().trim().equals("")) {
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Enter Approved Amount");
 				return;
 			}
 			whichPurpose = "SUBMIT_DONATION";
-			donationStatus = CommonConstraints.DONATION_REGECTED;
-			approvedAmount = etApprovedAmount.getText().toString().trim();
-			loadInforMation();
-
-		} else if (view.getId() == R.id.btnSubmit) {
-			whichPurpose = "SUBMIT_DONATION";
 			donationStatus = CommonConstraints.DONATION_COMPLETED;
-			approvedAmount = "0";
+
 			loadInforMation();
 		}
 

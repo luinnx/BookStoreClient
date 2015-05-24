@@ -100,7 +100,7 @@ public class AgentDonationAcceptRejectResultActivity extends
 								new Date().getTime(), DateUtils.DAY_IN_MILLIS));
 
 				tvApprovedAmount.setText("" + donationEntity.approved_amount);
-				tvApprovedAgentId.setText(donationEntity.adminid);
+				tvApprovedAgentId.setText(""+donationEntity.adminid);
 			}
 
 		} else {
