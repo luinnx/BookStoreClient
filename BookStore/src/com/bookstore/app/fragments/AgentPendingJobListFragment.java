@@ -1,7 +1,5 @@
 package com.bookstore.app.fragments;
 
-import java.util.ArrayList;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +14,6 @@ import android.widget.ListView;
 
 import com.bookstore.app.activity.AgentIndividualJobDetailsActivity;
 import com.bookstore.app.activity.R;
-import com.bookstore.app.adapters.AgentJobListAdapter;
 import com.bookstore.app.adapters.AgentPendingJobListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.entities.AgentJobList;
@@ -57,8 +54,10 @@ public class AgentPendingJobListFragment extends Fragment implements
 			if (!CommonTasks.isOnline(getActivity())) {
 				CommonTasks.goSettingPage(getActivity());
 				return;
+			}else{
+				LoadPendingJob();	
 			}
-			LoadPendingJob();
+			
 		} else {
 
 		}

@@ -145,7 +145,7 @@ public class DonationAcceptRejectActivity extends BookStoreActionBarBase
 			whichPurpose = "SUBMIT_DONATION";
 			approvedAmount = "0";
 			donationStatus = CommonConstraints.DONATION_REGECTED;
-			approvedAmount = etApprovedAmount.getText().toString().trim();
+			//approvedAmount = etApprovedAmount.getText().toString().trim();
 			loadInforMation();
 
 		} else if (view.getId() == R.id.btnSubmit) {
@@ -154,6 +154,7 @@ public class DonationAcceptRejectActivity extends BookStoreActionBarBase
 						"Please Enter Approved Amount");
 				return;
 			}
+			approvedAmount = etApprovedAmount.getText().toString().trim();
 			whichPurpose = "SUBMIT_DONATION";
 			donationStatus = CommonConstraints.DONATION_COMPLETED;
 

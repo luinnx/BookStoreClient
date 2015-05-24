@@ -1,7 +1,13 @@
 package com.bookstore.app.activity;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,6 +22,7 @@ import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
 import com.bookstore.app.utils.CommonTasks;
+import com.bookstore.app.utils.CommonUrls;
 
 public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 		implements OnClickListener, IAsynchronousTask {
@@ -61,6 +68,7 @@ public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 		tvAgentsAddress = (TextView) findViewById(R.id.tvAgentsAddress);
 		tvAgentsCurrentLocation = (TextView) findViewById(R.id.tvAgentsCurrentLocation);
 		tvAgentsMobileNumber = (TextView) findViewById(R.id.tvAgentsMobileNumber);
+		ivJobBookImage = (ImageView) findViewById(R.id.ivJobBookImage);
 
 		Bundle bundle = getIntent().getExtras();
 		jobID = bundle.getString("JOB_ID");
@@ -105,7 +113,28 @@ public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 	@Override
 	public Object doInBackground() {
 		IAdminManager adminManager = new AdminManager();
-		return adminManager.getJobDetails(jobID);
+		JobEntity jobEntity = new JobEntity();
+		jobEntity = adminManager.getJobDetails(jobID);
+
+		if (jobEntity.bookImage != null && !jobEntity.bookImage.isEmpty()
+				&& !jobEntity.bookImage.equals("null")) {
+			try {
+				URL url = new URL(CommonUrls.getInstance().IMAGE_BASE_URL
+						+ jobEntity.bookImage);
+				HttpURLConnection connection = (HttpURLConnection) url
+						.openConnection();
+				connection.setDoInput(true);
+				connection.connect();
+				InputStream input = connection.getInputStream();
+				Bitmap myBitmap = BitmapFactory.decodeStream(input);
+				ivJobBookImage.setImageBitmap(CommonTasks
+						.createCircularShape(myBitmap));
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
+		}
+
+		return jobEntity;
 	}
 
 	@Override
@@ -115,20 +144,20 @@ public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 			jobEntity = (JobEntity) data;
 
 			tvNameBook.setText(jobEntity.bookname);
-			
-			if(jobEntity.jobstatus){
-				tvJobStatus.setText("Status : Completed" );
-			}else{
-				tvJobStatus.setText("Status : Pending" );
+
+			if (jobEntity.jobstatus) {
+				tvJobStatus.setText("Status : Completed");
+			} else {
+				tvJobStatus.setText("Status : Pending");
 			}
-			
+
 			tvAuthor.setText(jobEntity.authername);
 			tvAgentsCurrentLocation.setText(jobEntity.agentcurrentlocation);
 			tvISBN.setText(jobEntity.isbn);
 			tvQuantity.setText("" + jobEntity.quantity);
 			tvPublishDate.setText(jobEntity.publishdate);
 			tvPrice.setText("" + jobEntity.bookprice);
-			
+
 			tvTeacherName.setText(jobEntity.teachername);
 			tvInstitude.setText(jobEntity.institute);
 			tvTeacherMobileNumber.setText(jobEntity.teachermobilenumber);

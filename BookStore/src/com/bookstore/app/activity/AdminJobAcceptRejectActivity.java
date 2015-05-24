@@ -105,7 +105,27 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 	public Object doInBackground() {
 		if (whichPurpose.equals("GET_JOB_INFO")) {
 			IAdminManager adminManager = new AdminManager();
-			return adminManager.getJobInfoAcceptReject(jobID);
+			jobDetails = adminManager.getJobInfoAcceptReject(jobID);
+			try {
+				if (!jobDetails.teachersignature.equals("")) {
+					URL url = new URL(CommonUrls.getInstance().IMAGE_BASE_URL
+							+ jobDetails.teachersignature);
+					HttpURLConnection connection = (HttpURLConnection) url
+							.openConnection();
+					connection.setDoInput(true);
+					connection.connect();
+					InputStream input = connection.getInputStream();
+					Bitmap myBitmap = BitmapFactory.decodeStream(input);
+					ivTeachersSigneture.setImageBitmap(myBitmap);
+				} else {
+					ivTeachersSigneture.setImageBitmap(BitmapFactory
+							.decodeResource(getResources(),
+									R.drawable.ic_person_24));
+				}
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
+			return jobDetails;
 		} else {
 			IAdminManager adminManager = new AdminManager();
 			return adminManager.jobAcceptReject(jobID, CommonTasks
@@ -145,32 +165,12 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 	private void setValues(JobAcceptRejectDetails jobDetails2) {
 		// ivTeachersSigneture
 		tvAuthor.setText(jobDetails.authername);
-		tvQuantity.setText(""+jobDetails.no_of_book);
-		tvPrice.setText(""+jobDetails.bookprice);
+		tvQuantity.setText("" + jobDetails.no_of_book);
+		tvPrice.setText("" + jobDetails.bookprice);
 		tvTeacherName.setText(jobDetails.teachername);
 		tvInstitudes.setText(jobDetails.institute);
 		tvAgentName.setText(jobDetails.agentname);
 		tvAgentsMobileNumber.setText(jobDetails.agentmobilenumber);
-
-		try {
-			if (!jobDetails.teachersignature.equals("")) {
-				URL url = new URL(CommonUrls.getInstance().IMAGE_BASE_URL
-						+ jobDetails.teachersignature);
-				HttpURLConnection connection = (HttpURLConnection) url
-						.openConnection();
-				connection.setDoInput(true);
-				connection.connect();
-				InputStream input = connection.getInputStream();
-				Bitmap myBitmap = BitmapFactory.decodeStream(input);
-				ivTeachersSigneture.setImageBitmap(myBitmap);
-			} else {
-				ivTeachersSigneture
-						.setImageBitmap(BitmapFactory.decodeResource(
-								getResources(), R.drawable.ic_person_24));
-			}
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		}
 
 	}
 
@@ -180,9 +180,10 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 			super.onBackPressed();
 
 		} else if (view.getId() == R.id.btnReject) {
-			
-			if(etAdminRemarks.getText().toString().trim().equals("")){
-				CommonTasks.showToast(getApplicationContext(), "Please Enter Why you reject this Job submission");
+
+			if (etAdminRemarks.getText().toString().trim().equals("")) {
+				CommonTasks.showToast(getApplicationContext(),
+						"Please Enter Why you reject this Job submission");
 				return;
 			}
 			whichPurpose = "JOB_SUBMIT";
@@ -190,8 +191,9 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 			loadInformation();
 
 		} else if (view.getId() == R.id.btnAccept) {
-			if(etAdminRemarks.getText().toString().trim().equals("")){
-				CommonTasks.showToast(getApplicationContext(), "Please Enter a Remarks");
+			if (etAdminRemarks.getText().toString().trim().equals("")) {
+				CommonTasks.showToast(getApplicationContext(),
+						"Please Enter a Remarks");
 				return;
 			}
 			whichPurpose = "JOB_SUBMIT";

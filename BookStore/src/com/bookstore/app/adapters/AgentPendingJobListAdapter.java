@@ -65,7 +65,7 @@ public class AgentPendingJobListAdapter extends ArrayAdapter<AgentJobList>{
 			}
 			holder.bookName.setText(agentJobListObject.BookName);
 			holder.bookQuantity.setText("Quantity :"+agentJobListObject.Quantity);
-			holder.status.setText("Pending");
+			holder.status.setText("Teacher Institude :"+agentJobListObject.TeacherInstituteName);
 		}catch(Exception ex){
 			Log.e("BS", ex.getMessage());
 		}

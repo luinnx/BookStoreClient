@@ -65,7 +65,7 @@ public class AgentSubmittedJobListAdapter extends ArrayAdapter<AgentJobList>{
 			}
 			holder.bookName.setText(agentJobListObject.BookName);
 			holder.bookQuantity.setText("Quantity :"+agentJobListObject.Quantity);
-			holder.status.setText("Submitted");
+			holder.status.setText("Teacher Institude :"+agentJobListObject.TeacherInstituteName);
 		}catch(Exception ex){
 			Log.e("BS", ex.getMessage());
 		}

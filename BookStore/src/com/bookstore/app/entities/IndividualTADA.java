@@ -29,4 +29,6 @@ public class IndividualTADA {
 	public String pic_url;
 	@SerializedName("otheramount")
 	public double otheramount;
+	@SerializedName("gcmid")
+	public String gcmid;
 }

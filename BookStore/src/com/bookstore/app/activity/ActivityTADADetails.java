@@ -73,8 +73,8 @@ public class ActivityTADADetails extends BookStoreActionBarBase implements
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == R.id.btnDone) {
-			CommonTasks.showToast(this, "T.A.D.A Submit Done.");
-			onBackPressed();
+			whichPurpose = "TADA_SUBMIT";
+			LoadInformation();
 		}
 	}
 
@@ -107,8 +107,11 @@ public class ActivityTADADetails extends BookStoreActionBarBase implements
 			return adminManager.getTada(tadaID);
 		} else {
 			IAdminManager adminManager = new AdminManager();
-			return adminManager.tadaAck("" + tadaID, "",
-					CommonConstraints.TADA_COMPLETED,CommonTasks.getPreferences(getApplicationContext(), CommonConstraints.USER_ID));
+			String gcm=individualTADA.gcmid;
+			return adminManager.tadaAck("" + tadaID, gcm,
+					CommonConstraints.TADA_COMPLETED, CommonTasks
+							.getPreferences(getApplicationContext(),
+									CommonConstraints.USER_ID));
 		}
 
 	}
