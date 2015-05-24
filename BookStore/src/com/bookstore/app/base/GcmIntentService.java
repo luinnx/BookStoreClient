@@ -30,16 +30,14 @@ public class GcmIntentService extends IntentService {
 	public static final String DONATION_ACCEPT = "DONATION_COMPLETE";
 	public static final String DONATION_REJECT = "DONATION_REJECTED";
 	public static final String DONATION_SEND = "DONATION_SEND";
+
 	public static final String TADA_ACCEPT = "TADA_ACCEPT";
 	public static final String TADA_SEND = "TADA_SEND";
+
 	public static final String JOB_COMPLETE = "JOB_COMPLETE";
 	public static final String JOB_SUBMIT = "JOB_SUBMIT";
 	public static final String JOB_CREATE = "JOB_CREATE";
-
-	/*
-	 * DONATION_ACCEPT DONATION_REJECT DONATION_SEND TADA_ACCEPT TADA_SEND
-	 * JOB_COMPLETE JOB_SUBMIT JOB_CREATE
-	 */
+	public static final String JOB_REJECTED = "JOB_REJECTED";
 
 	public GcmIntentService() {
 		super("GcmIntentService");
@@ -81,17 +79,17 @@ public class GcmIntentService extends IntentService {
 			if (pushNotification.Status.equals(DONATION_ACCEPT)) {
 				intent = new Intent(this,
 						AgentDonationAcceptRejectResultActivity.class);
-				intent.putExtra("DONATION_ID", ""+pushNotification.id);
+				intent.putExtra("DONATION_ID", "" + pushNotification.id);
 
 			} else if (pushNotification.Status.equals(DONATION_REJECT)) {
 				intent = new Intent(this,
 						AgentDonationAcceptRejectResultActivity.class);
-				intent.putExtra("DONATION_ID", ""+pushNotification.id);
+				intent.putExtra("DONATION_ID", "" + pushNotification.id);
 
 			} else if (pushNotification.Status.equals(DONATION_SEND)) {
 				intent = new Intent(getApplicationContext(),
 						DonationAcceptRejectActivity.class);
-				intent.putExtra("DONATION_ID", ""+pushNotification.id);
+				intent.putExtra("DONATION_ID", "" + pushNotification.id);
 
 			} else if (pushNotification.Status.equals(JOB_COMPLETE)) {
 				intent = new Intent(this, AdminJobAcceptRejectActivity.class);
@@ -107,6 +105,11 @@ public class GcmIntentService extends IntentService {
 						AdminJobAcceptRejectActivity.class);
 				intent.putExtra("JOB_ID", "" + pushNotification.id);
 
+			}else if (pushNotification.Status.equals(JOB_REJECTED)) {
+				intent = new Intent(getApplicationContext(),
+						AgentIndividualJobDetailsActivity.class);
+				intent.putExtra("JOB_ID", "" + pushNotification.id);
+
 			} else if (pushNotification.Status.equals(TADA_ACCEPT)) {
 				intent = new Intent(this, AgentTADAResultActivity.class);
 				intent.putExtra("TADA_ID", "" + pushNotification.id);
@@ -115,9 +118,9 @@ public class GcmIntentService extends IntentService {
 				intent = new Intent(getApplicationContext(),
 						ActivityTADADetails.class);
 
-				intent.putExtra("TADA", ""+pushNotification.id);
+				intent.putExtra("TADA", "" + pushNotification.id);
 
-			}else{
+			} else {
 				return;
 			}
 

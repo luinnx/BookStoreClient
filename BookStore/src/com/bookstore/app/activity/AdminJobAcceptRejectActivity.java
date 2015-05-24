@@ -69,6 +69,7 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 		tvAgentsAddress = (TextView) findViewById(R.id.tvAgentsAddress);
 		tvAgentsMobileNumber = (TextView) findViewById(R.id.tvAgentsMobileNumber);
 		etAdminRemarks = (EditText) findViewById(R.id.etAdminRemarks);
+		ivTeachersSigneture=(ImageView) findViewById(R.id.ivTeachersSigneture);
 
 		Bundle bundle = getIntent().getExtras();
 		jobID = bundle.getString("JOB_ID");
