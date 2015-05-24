@@ -22,7 +22,7 @@ import android.util.Log;
 
 public class GcmIntentService extends IntentService {
 	public final static String TAG = "GCM";
-	public static final int NOTIFICATION_ID = 8;
+	public static int NOTIFICATION_ID = 8;
 	private NotificationManager mNotificationManager;
 	NotificationCompat.Builder builder;
 
@@ -80,45 +80,54 @@ public class GcmIntentService extends IntentService {
 				intent = new Intent(this,
 						AgentDonationAcceptRejectResultActivity.class);
 				intent.putExtra("DONATION_ID", "" + pushNotification.id);
+				NOTIFICATION_ID = 0;
 
 			} else if (pushNotification.Status.equals(DONATION_REJECT)) {
 				intent = new Intent(this,
 						AgentDonationAcceptRejectResultActivity.class);
 				intent.putExtra("DONATION_ID", "" + pushNotification.id);
+				NOTIFICATION_ID = 0;
 
 			} else if (pushNotification.Status.equals(DONATION_SEND)) {
 				intent = new Intent(getApplicationContext(),
 						DonationAcceptRejectActivity.class);
 				intent.putExtra("DONATION_ID", "" + pushNotification.id);
+				NOTIFICATION_ID = 1;
 
 			} else if (pushNotification.Status.equals(JOB_COMPLETE)) {
 				intent = new Intent(this, AdminJobAcceptRejectActivity.class);
 				intent.putExtra("JOB_ID", "" + pushNotification.id);
+				NOTIFICATION_ID = 2;
 
 			} else if (pushNotification.Status.equals(JOB_CREATE)) {
 				intent = new Intent(this,
 						AgentIndividualJobDetailsActivity.class);
 				intent.putExtra("JOB_ID", "" + pushNotification.id);
+				NOTIFICATION_ID = 3;
 
 			} else if (pushNotification.Status.equals(JOB_SUBMIT)) {
 				intent = new Intent(getApplicationContext(),
 						AdminJobAcceptRejectActivity.class);
 				intent.putExtra("JOB_ID", "" + pushNotification.id);
+				NOTIFICATION_ID = 2;
 
-			}else if (pushNotification.Status.equals(JOB_REJECTED)) {
+			} else if (pushNotification.Status.equals(JOB_REJECTED)) {
 				intent = new Intent(getApplicationContext(),
 						AgentIndividualJobDetailsActivity.class);
 				intent.putExtra("JOB_ID", "" + pushNotification.id);
+				NOTIFICATION_ID = 3;
 
 			} else if (pushNotification.Status.equals(TADA_ACCEPT)) {
 				intent = new Intent(this, AgentTADAResultActivity.class);
 				intent.putExtra("TADA_ID", "" + pushNotification.id);
+				NOTIFICATION_ID = 4;
 
 			} else if (pushNotification.Status.equals(TADA_SEND)) {
 				intent = new Intent(getApplicationContext(),
 						ActivityTADADetails.class);
 
 				intent.putExtra("TADA", "" + pushNotification.id);
+				NOTIFICATION_ID = 5;
 
 			} else {
 				return;

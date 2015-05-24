@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,6 +57,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 			tvTeacherMobileNumber, tvAgentName, tvAgentsAddress,
 			tvAgentsCurrentLocation, tvAgentsMobileNumber, tvDialogCancel,
 			tvDialogOK, tvTakePhoto;
+	ImageView ivJobImage;
 	EditText etTeacherPassword;
 	Button btnOk;
 	String jobID = "", mode = "";
@@ -77,7 +80,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 		setContentView(R.layout.activity_individual_agent_jod_details);
 
 		NotificationManager notificationManager = (android.app.NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-		notificationManager.cancel(1);
+		notificationManager.cancel(3);
 
 		initialization();
 	}
@@ -101,6 +104,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 		tvAgentsAddress = (TextView) findViewById(R.id.tvAgentsAddress);
 		tvAgentsCurrentLocation = (TextView) findViewById(R.id.tvAgentsCurrentLocation);
 		tvAgentsMobileNumber = (TextView) findViewById(R.id.tvAgentsMobileNumber);
+		ivJobImage=(ImageView) findViewById(R.id.ivJobImage);
 
 		btnOk = (Button) findViewById(R.id.btnOk);
 		btnOk.setOnClickListener(this);
@@ -162,8 +166,29 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 		IAgent agent = new AgentManager();
 		if (isJobSubmit)
 			return agent.jobSubmit(outerObject);
-		else
+		else{
 			return agent.getJobDetails(jobID);
+			/*try {
+				if (details.BookPicUrl != null && !details.BookPicUrl.isEmpty()
+						&& !details.BookPicUrl.equals("null")) {
+					
+				}
+				URL url = new URL(CommonUrls.getInstance().IMAGE_BASE_URL
+						+ details.BookPicUrl);
+				HttpURLConnection connection = (HttpURLConnection) url
+						.openConnection();
+				connection.setDoInput(true);
+				connection.connect();
+				InputStream input = connection.getInputStream();
+				Bitmap myBitmap = BitmapFactory.decodeStream(input);
+				ivJobImage.setImageBitmap(CommonTasks
+						.createCircularShape(myBitmap));
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
+			return jobDetails;*/
+		}
+			 
 	}
 
 	@Override

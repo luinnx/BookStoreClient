@@ -1,5 +1,6 @@
 package com.bookstore.app.activity;
 
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +34,9 @@ public class ActivityTADADetails extends BookStoreActionBarBase implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_individual_tada);
+		
+		NotificationManager notificationManager = (android.app.NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		notificationManager.cancel(5);
 
 		initialization();
 	}

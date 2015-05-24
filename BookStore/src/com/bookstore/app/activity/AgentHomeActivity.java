@@ -28,7 +28,6 @@ public class AgentHomeActivity extends AgentActionbarBase implements TabListener
 		
 	}
 
-	@SuppressWarnings("deprecation")
 	private void initialization() {
 		pager = (ViewPager) findViewById(R.id.agentMasterPage);
 		adapter = new AgentViewPagerAdapter(getSupportFragmentManager());

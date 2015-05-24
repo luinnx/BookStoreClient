@@ -148,12 +148,22 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Enter Amount of Books");
 				return;
-			}
-			if (!CommonTasks.isOnline(this)) {
-				CommonTasks.goSettingPage(this);
+			} else if (agentEntity.gcm_id != null
+					&& !agentEntity.gcm_id.isEmpty()
+					&& !agentEntity.gcm_id.equals("null")) {
+				if (!CommonTasks.isOnline(this)) {
+					CommonTasks.goSettingPage(this);
+					return;
+				}
+				loadInformation();
+				
+			}else{
+				
+				CommonTasks.showToast(getApplicationContext(),
+						"Agent is not Activated Yet.");
 				return;
 			}
-			loadInformation();
+			
 		}
 
 	}
@@ -411,13 +421,14 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 			 * agentID, String agentGCMID, String adminId)
 			 */
 
-			return adminManager.createJob(bookEntity.full_name, ""
-					+ bookEntity._id, ""
-					+ etOrderAmountBooks.getText().toString().trim(), ""
-					+ teacherEntity._id, teacherEntity.institute, "" + CommonConstraints.PENDING_JOB, ""
-					+ agentEntity._id, agentEntity.gcm_id, CommonTasks
-					.getPreferences(getApplicationContext(),
-							CommonConstraints.USER_ID));
+			return adminManager
+					.createJob(bookEntity.full_name, "" + bookEntity._id, ""
+							+ etOrderAmountBooks.getText().toString().trim(),
+							"" + teacherEntity._id, teacherEntity.institute, ""
+									+ CommonConstraints.PENDING_JOB, ""
+									+ agentEntity._id, agentEntity.gcm_id,
+							CommonTasks.getPreferences(getApplicationContext(),
+									CommonConstraints.USER_ID));
 		}
 		return null;
 	}

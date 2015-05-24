@@ -14,6 +14,15 @@
         android:src="@drawable/ic_launcher" />
 
     <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_app_name" />
+    
+    <ImageView
         android:id="@+id/ivTeachersSigneture"
         android:layout_width="fill_parent"
         android:layout_height="100dp"
@@ -22,6 +31,8 @@
         android:layout_marginRight="5dp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_app_name" />
+    
+    
 
     <ScrollView
         android:id="@+id/scrollView1"

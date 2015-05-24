@@ -2,6 +2,7 @@ package com.bookstore.app.activity;
 
 import java.util.Date;
 
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -35,6 +36,8 @@ public class AgentDonationAcceptRejectResultActivity extends
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.agent_donation_details);
+		NotificationManager notificationManager = (android.app.NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		notificationManager.cancel(0);
 		initViews();
 	}
 
