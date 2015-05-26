@@ -135,7 +135,7 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 			return adminManager.jobAcceptReject(jobID, CommonTasks
 					.getPreferences(getApplicationContext(),
 							CommonConstraints.USER_ID), jobDetails.agentgcmid,
-					"" + jobDetails.bookid, "" + jobDetails.quantity, ""
+					"" + jobDetails.bookid, "" + jobDetails.no_of_book, ""
 							+ jobSubmitStatus, etAdminRemarks.getText()
 							.toString().trim());
 		}

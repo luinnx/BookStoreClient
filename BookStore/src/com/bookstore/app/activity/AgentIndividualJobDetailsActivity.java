@@ -38,6 +38,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.AgentActionbarBase;
@@ -56,11 +57,11 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 			tvQuantity, tvPublishDate, tvPrice, tvTeacherName, tvInstitution,
 			tvTeacherMobileNumber, tvAgentName, tvAgentsAddress,
 			tvAgentsCurrentLocation, tvAgentsMobileNumber, tvDialogCancel,
-			tvDialogOK, tvTakePhoto;
+			tvDialogOK, tvTakePhoto, tvFromGallery;
 	ImageView ivJobImage;
 	EditText etTeacherPassword;
 	Button btnOk;
-	String jobID = "", mode = "";
+	String jobID = "", mode = "",imageFilePath="";
 	AlertDialog alertDialog;
 	boolean isJobSubmit = false;
 	JobDetails jobDetails = null;
@@ -262,18 +263,27 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 		builder.setTitle("Job Submit");
 		builder.setCancelable(false);
 
-		etTeacherPassword = (EditText) josSubmitView
-				.findViewById(R.id.etTeacherPassword);
 		tvDialogCancel = (TextView) josSubmitView
 				.findViewById(R.id.tvDialogCancel);
 		tvDialogOK = (TextView) josSubmitView.findViewById(R.id.tvDialogOK);
 		tvTakePhoto = (TextView) josSubmitView.findViewById(R.id.tvTakePhoto);
+		tvFromGallery = (TextView) josSubmitView.findViewById(R.id.tvFromGallery);
 
 		tvTakePhoto.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				TakePhoto();
+
+			}
+
+		});
+		
+		tvFromGallery.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				FromGallery();
 
 			}
 
@@ -293,13 +303,12 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 			@Override
 			public void onClick(View v) {
 				isJobSubmit = true;
-				/*
-				 * if(etTeacherPassword.getText().toString().equals("")){
-				 * CommonTasks.showToast(AgentIndividualJobDetailsActivity.this,
-				 * "Please enter password"); isJobSubmit = false; return; }
-				 */
 				if (!CommonTasks.isOnline(getApplicationContext())) {
 					CommonTasks.goSettingPage(getApplicationContext());
+					return;
+				}
+				if(count<=0){
+					CommonTasks.showToast(getApplicationContext(), "No picture selected yet!");
 					return;
 				}
 				int sl = CommonTasks.getPicSlNo();
@@ -331,6 +340,14 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, 100);
+	}
+	
+	private void FromGallery(){
+		Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
+	    intent.setType("image/*");
+	    intent.putExtra("return-data", true);
+	    imageFilePath = "";
+	    startActivityForResult(intent, 200);
 	}
 
 	private String appFolderCheckandCreate() {
@@ -410,6 +427,30 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 					ex.printStackTrace();
 				}
 
+			}
+		}else if(requestCode == 200){
+			Uri _uri = data.getData();
+			if (_uri != null) {
+				Cursor cursor = getContentResolver().query(_uri, new String[] {android.provider.MediaStore.Images.ImageColumns.DATA}, null, null, null);
+                cursor.moveToFirst();
+                int column_index = cursor
+                        .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                if(cursor.getString(column_index)!=null)
+                	imageFilePath = String.valueOf(cursor.getString(column_index));
+                if(!imageFilePath.isEmpty()){
+                	File photos= new File(imageFilePath);
+                	filename = photos.getName();
+                	
+                    Bitmap b = CommonTasks.decodeImage(photos);
+                    b = Bitmap.createScaledBitmap(b,100, 100, true);
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    b.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        			//MyNetFacebookActivity.picByteValue = stream.toByteArray();
+                    selectedFile = stream.toByteArray();
+                    count += 1;
+    				rowPic.add(Base64.encodeToString(selectedFile, Base64.NO_WRAP));
+                }                   
+                cursor.close();
 			}
 		}
 	}

@@ -16,17 +16,26 @@
         android:textStyle="bold" 
         android:layout_margin="5dp"/>
 
-    <EditText
-        android:id="@+id/etTeacherPassword"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword" 
-        android:singleLine="true"
-        android:hint="Enter Password"
-        android:layout_margin="5dp">
-        <requestFocus />
-    </EditText>
+        android:gravity="center"
+        android:text="or"
+        android:textColor="@color/text_view_color"
+        android:textSize="15sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tvFromGallery"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="From Gallery"
+        android:textColor="@color/text_view_color"
+        android:background="#DADADA"
+        android:textSize="15sp"
+        android:textStyle="bold" 
+        android:layout_margin="5dp"/>
     <View 
         android:layout_width="fill_parent"
         android:layout_height="1dp"
