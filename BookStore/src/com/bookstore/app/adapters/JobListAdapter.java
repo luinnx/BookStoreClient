@@ -11,6 +11,7 @@ import com.bookstore.app.utils.CommonTasks;
 import com.bookstore.app.utils.CommonUrls;
 import com.bookstore.app.utils.CommonValues;
 import com.bookstore.app.utils.ImageLoader;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -68,7 +69,7 @@ public class JobListAdapter extends ArrayAdapter<JobEntity> {
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				jobView = inflater.inflate(R.layout.job_list_item, null);
 				
-				holder.ivBookImage = (ImageView) jobView.findViewById(R.id.ivBookImage);
+				holder.ivBookImage = (CircularImageView) jobView.findViewById(R.id.ivBookImage);
 				holder.pbImagePreLoad = (ProgressBar) jobView.findViewById(R.id.pbImagePreLoad);
 				holder.tvAgentName = (TextView) jobView.findViewById(R.id.tvAgentName);
 				holder.tvBookName = (TextView) jobView.findViewById(R.id.tvBookName);
@@ -104,7 +105,7 @@ public class JobListAdapter extends ArrayAdapter<JobEntity> {
 		public TextView tvAgentName;
 		public TextView tvBookName;
 		public TextView tvNumberOfBook;
-		public ImageView ivBookImage;
+		public CircularImageView ivBookImage;
 		public ProgressBar pbImagePreLoad;
 	}
 }

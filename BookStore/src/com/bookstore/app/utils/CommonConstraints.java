@@ -47,5 +47,9 @@ public class CommonConstraints {
 	// GCM ID
 	public final static String GCMID = "gcm_id";
 	public final static String APPID = "829405060552";
+	
+	//Installation Related
+	public final static String FIRST_INSTALL="FirstInstall";
+	public final static String NO_OF_AGENT="NoOfAgent";
 
 }

@@ -23,17 +23,19 @@ import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
 import com.bookstore.app.utils.CommonTasks;
 import com.bookstore.app.utils.CommonUrls;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 		implements OnClickListener, IAsynchronousTask {
 
-	ImageView ivJobBookImage;
+	CircularImageView ivJobBookImage;
 	TextView tvNameBook, tvJobStatus, tvAuthor, tvCurrentLocation, tvISBN,
 			tvQuantity, tvPublishDate, tvPrice, tvMpoNumber, tvMobileNumber,
 			tvTeacherMobileNumber, tvAgentName, tvAgentsAddress,
 			tvAgentsCurrentLocation, tvAgentsMobileNumber, tvInstitude,
-			tvTeacherName;
+			tvTeacherName,tvJobAssignedBy;
 	Button btnOk;
+	 
 
 	DownloadableAsyncTask downloadableAsyncTask;
 	ProgressDialog dialog;
@@ -68,7 +70,8 @@ public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 		tvAgentsAddress = (TextView) findViewById(R.id.tvAgentsAddress);
 		tvAgentsCurrentLocation = (TextView) findViewById(R.id.tvAgentsCurrentLocation);
 		tvAgentsMobileNumber = (TextView) findViewById(R.id.tvAgentsMobileNumber);
-		ivJobBookImage = (ImageView) findViewById(R.id.ivJobBookImage);
+		ivJobBookImage = (CircularImageView) findViewById(R.id.ivJobBookImage);
+		tvJobAssignedBy=(TextView) findViewById(R.id.tvJobAssignedBy);
 
 		Bundle bundle = getIntent().getExtras();
 		jobID = bundle.getString("JOB_ID");
@@ -164,6 +167,7 @@ public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 			tvAgentName.setText(jobEntity.agentname);
 			tvAgentsAddress.setText(jobEntity.agentaddress);
 			tvAgentsMobileNumber.setText(jobEntity.agentmobilenumber);
+			tvJobAssignedBy.setText(jobEntity.adminname);
 
 		}
 

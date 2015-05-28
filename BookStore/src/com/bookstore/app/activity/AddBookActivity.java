@@ -362,7 +362,7 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 	@Override
 	public void showProgressBar() {
 		dialog = new ProgressDialog(this, ProgressDialog.THEME_HOLO_LIGHT);
-		dialog.setMessage("Adding Agent , Plaese wait...");
+		dialog.setMessage("Adding Book , Plaese wait...");
 		dialog.setCancelable(false);
 		dialog.show();
 
@@ -397,6 +397,7 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 			if (result) {
 				CommonTasks.showToast(getApplicationContext(),
 						"Add Book Succesfull");
+				super.onBackPressed();
 			} else {
 				CommonTasks.showToast(getApplicationContext(),
 						"Book Addition failed, Try again later");

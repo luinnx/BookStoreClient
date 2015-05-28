@@ -32,6 +32,8 @@ public class CommonValues {
 	public ImageOptions defaultImageOptions;
 	public DisplayImageOptions imageOptions =null;
 	
+	
+	
 	public static CommonValues getInstance(){
 		return commonValuesInstance;
 	}

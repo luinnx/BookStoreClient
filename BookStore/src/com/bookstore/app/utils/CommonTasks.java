@@ -3,6 +3,12 @@ package com.bookstore.app.utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -34,6 +40,7 @@ import android.graphics.Paint;
 import android.graphics.Shader.TileMode;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
@@ -138,27 +145,31 @@ public class CommonTasks {
 		}
 		return false;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public static JSONObject convertResultsetToJson(ResultSet resultSet, String tag){
-        JSONArray array = new JSONArray();
-        JSONObject object = new JSONObject();
-        try {
-            JSONObject jSONObject;
-            while(resultSet.next()){
-                jSONObject = new JSONObject();
-                int rowCount = resultSet.getMetaData().getColumnCount();
-                for(int rowIndex=0;rowIndex<rowCount;rowIndex++){
-                    jSONObject.put(resultSet.getMetaData().getColumnLabel(rowIndex+1).toLowerCase(), resultSet.getObject(rowIndex+1));
-                }
-                array.add(jSONObject);
-            }    
-            object.put(tag, array);
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-        }
-        return object;
-    }
+	public static JSONObject convertResultsetToJson(ResultSet resultSet,
+			String tag) {
+		JSONArray array = new JSONArray();
+		JSONObject object = new JSONObject();
+		try {
+			JSONObject jSONObject;
+			while (resultSet.next()) {
+				jSONObject = new JSONObject();
+				int rowCount = resultSet.getMetaData().getColumnCount();
+				for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
+					jSONObject
+							.put(resultSet.getMetaData()
+									.getColumnLabel(rowIndex + 1).toLowerCase(),
+									resultSet.getObject(rowIndex + 1));
+				}
+				array.add(jSONObject);
+			}
+			object.put(tag, array);
+		} catch (SQLException ex) {
+			System.err.println(ex.getMessage());
+		}
+		return object;
+	}
 
 	public static void goSettingPage(final Context context) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context,
@@ -215,40 +226,111 @@ public class CommonTasks {
 				bitmap.getWidth() / 2, paint);
 		return circleBitmap;
 	}
-	
-	public static int getPicSlNo(){
+
+	public static int getPicSlNo() {
 		int number = -9999;
 		Random random = new Random();
 		number = random.nextInt(9999);
 		return number;
 	}
-	
-	public static Bitmap decodeImage(File f){
+
+	public static Bitmap decodeImage(File f) {
 		try {
-            //decode image size
-            BitmapFactory.Options o = new BitmapFactory.Options();
-            o.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream(new FileInputStream(f),null,o);
+			// decode image size
+			BitmapFactory.Options o = new BitmapFactory.Options();
+			o.inJustDecodeBounds = true;
+			BitmapFactory.decodeStream(new FileInputStream(f), null, o);
 
-            //Find the correct scale value. It should be the power of 2.
-            final int REQUIRED_SIZE=70;
-            int width_tmp=o.outWidth, height_tmp=o.outHeight;
-            int scale=1;
-            while(true){
-                if(width_tmp/2<REQUIRED_SIZE || height_tmp/2<REQUIRED_SIZE)
-                    break;
-                width_tmp/=2;
-                height_tmp/=2;
-                scale++;
-            }
+			// Find the correct scale value. It should be the power of 2.
+			final int REQUIRED_SIZE = 70;
+			int width_tmp = o.outWidth, height_tmp = o.outHeight;
+			int scale = 1;
+			while (true) {
+				if (width_tmp / 2 < REQUIRED_SIZE
+						|| height_tmp / 2 < REQUIRED_SIZE)
+					break;
+				width_tmp /= 2;
+				height_tmp /= 2;
+				scale++;
+			}
 
-            //decode with inSampleSize
-            BitmapFactory.Options o2 = new BitmapFactory.Options();
-            o2.inSampleSize=scale;
-            return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
-        } catch (FileNotFoundException e) {
-        	e.printStackTrace();
-        }
-        return null;
+			// decode with inSampleSize
+			BitmapFactory.Options o2 = new BitmapFactory.Options();
+			o2.inSampleSize = scale;
+			return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static void saveImageToDirectory(Bitmap imageToSave, String fileName) {
+
+		Log.d("BSS", "Saving Started :"+fileName);
+		File direct = new File(Environment.getExternalStorageDirectory()
+				+ "/BookStore");
+
+		if (!direct.exists()) {
+			File wallpaperDirectory = new File("/sdcard/BookStore/");
+			wallpaperDirectory.mkdirs();
+		}
+
+		File file = new File(new File("/sdcard/BookStore/"), fileName+".png");
+		if (file.exists()) {
+			file.delete();
+		}
+		try {
+			FileOutputStream out = new FileOutputStream(file);
+			imageToSave.compress(Bitmap.CompressFormat.PNG, 100, out);
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			Log.d("BSS", e.getMessage());
+		}
+	}
+
+	public static Bitmap getBitMapFromUrl(String _url) {
+		URL url;
+
+		try {
+			url = new URL(_url);
+			HttpURLConnection connection = (HttpURLConnection) url
+					.openConnection();
+			connection.setDoInput(true);
+			connection.connect();
+			InputStream input = connection.getInputStream();
+			Bitmap myBitmap = BitmapFactory.decodeStream(input);
+			return myBitmap;
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			Log.d("BSS", e.getMessage());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			Log.d("BSS", e.getMessage());
+		}
+
+		/*
+		 * URL url = new URL( CommonUrls.getInstance().IMAGE_BASE_URL +
+		 * iterable_element.agentpicurl);
+		 */
+
+		return null;
+	}
+
+	public static Bitmap getBitmapFromSdCard(String imagePath) {
+
+		Log.d("BSS", "Getting Image :"+imagePath);
+		Bitmap bitmap = null;
+		File f = new File(imagePath);
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+		try {
+			bitmap = BitmapFactory.decodeStream(new FileInputStream(f), null,
+					options);
+		} catch (FileNotFoundException e) {
+			Log.d("BSS", e.getMessage());
+		}
+
+		return bitmap;
 	}
 }

@@ -8,18 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.ImageOptions;
 import com.bookstore.app.activity.R;
-import com.bookstore.app.entities.TaDaEntity;
 import com.bookstore.app.entities.TadaListEntity;
 import com.bookstore.app.utils.CommonTasks;
 import com.bookstore.app.utils.CommonUrls;
 import com.bookstore.app.utils.CommonValues;
 import com.bookstore.app.utils.ImageLoader;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 public class TaDaListAdapter extends ArrayAdapter<TadaListEntity> {
 
@@ -67,7 +66,7 @@ public class TaDaListAdapter extends ArrayAdapter<TadaListEntity> {
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				jobView = inflater.inflate(R.layout.tada_list_item, null);
 				
-				holder.ivAgentImage = (ImageView) jobView.findViewById(R.id.ivAgentImage);
+				holder.ivAgentImage = (CircularImageView) jobView.findViewById(R.id.ivAgentImage);
 				holder.tvAgentName = (TextView) jobView.findViewById(R.id.tvAgentName);
 				holder.tvAgentAddress = (TextView) jobView.findViewById(R.id.tvAgentAddress);
 				holder.tvTotalAmount = (TextView) jobView.findViewById(R.id.tvTotalAmount);
@@ -107,7 +106,7 @@ public class TaDaListAdapter extends ArrayAdapter<TadaListEntity> {
 	public class ViewHolder {
 		public TextView tvAgentName;
 		public TextView tvAgentAddress;
-		public ImageView ivAgentImage;
+		public CircularImageView ivAgentImage;
 		public TextView tvTotalAmount;
 		public TextView tvDistance;
 	}

@@ -11,6 +11,7 @@ import com.bookstore.app.utils.CommonTasks;
 import com.bookstore.app.utils.CommonUrls;
 import com.bookstore.app.utils.CommonValues;
 import com.bookstore.app.utils.ImageLoader;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -68,7 +69,7 @@ public class BookListAdapter extends ArrayAdapter<BookEntity> {
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				jobView = inflater.inflate(R.layout.book_list_item, null);
 				
-				holder.ivBookImage = (ImageView) jobView.findViewById(R.id.ivBookImage);
+				holder.ivBookImage = (CircularImageView) jobView.findViewById(R.id.ivBookImage);
 				holder.pbImagePreLoad = (ProgressBar) jobView.findViewById(R.id.pbImagePreLoad);
 				holder.tvBookName = (TextView) jobView.findViewById(R.id.tvBookName);
 				holder.tvWritterName = (TextView) jobView.findViewById(R.id.tvWriterName);
@@ -85,7 +86,7 @@ public class BookListAdapter extends ArrayAdapter<BookEntity> {
 			}
 			
 			holder.tvBookName.setText(bookEntity.full_name);
-			holder.tvWritterName.setText("Publisher Name: " + bookEntity.publisher_name);
+			holder.tvWritterName.setText("Author Name: " + bookEntity.auther_name);
 			holder.tvNumberOfBook.setText("Available :"+bookEntity.avaible);
 			
 			aq.id(holder.ivBookImage).image(context.getResources().getDrawable(R.drawable.ic_add_book));
@@ -106,7 +107,7 @@ public class BookListAdapter extends ArrayAdapter<BookEntity> {
 		public TextView tvBookName;
 		public TextView tvWritterName;
 		public TextView tvNumberOfBook;
-		public ImageView ivBookImage;
+		public CircularImageView ivBookImage;
 		public ProgressBar pbImagePreLoad;
 	}
 }

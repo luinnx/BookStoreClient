@@ -7,7 +7,7 @@ public class JobEntity {
 	public int jobid;
 	@SerializedName("bookname")
 	public String bookname;
-	@SerializedName("quantity")
+	@SerializedName("noofbook")
 	public int quantity;
 	@SerializedName("teacherinstitute")
 	public String teacherinstitute;
@@ -26,6 +26,8 @@ public class JobEntity {
 	public float bookprice;
 	@SerializedName("teachermobilenumber")
 	public String teachermobilenumber;
+	@SerializedName("adminname")
+	public String adminname;
 
 	@SerializedName("institute")
 	public String institute;

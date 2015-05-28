@@ -1,6 +1,7 @@
 package com.bookstore.app.activity;
 
 import android.app.ProgressDialog;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,15 +16,18 @@ import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
 import com.bookstore.app.utils.CommonTasks;
+import com.bookstore.app.utils.CommonUrls;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 public class IndividualBookDetailsActivity extends BookStoreActionBarBase
 		implements OnClickListener, IAsynchronousTask {
 
-	ImageView ivBookImage;
+	CircularImageView ivBookImage;
 	TextView tvBookName, tvAddress, tvCurrentLocation, tvISBNNumber,
 			tvBookQuantity, tvAvailable, tvPublishDate, tvBookCondition,
 			tvBookPrice, tvPublisherName, tvAuthorName;
 	Button btnOk;
+	Bitmap bitmap;
 	DownloadableAsyncTask downloadableAsyncTask;
 	ProgressDialog progressDialog;
 	int bookID;
@@ -48,6 +52,7 @@ public class IndividualBookDetailsActivity extends BookStoreActionBarBase
 		tvBookCondition = (TextView) findViewById(R.id.tvBookCondition);
 		tvBookPrice = (TextView) findViewById(R.id.tvBookPrice);
 		tvAuthorName = (TextView) findViewById(R.id.tvAuthorName);
+		ivBookImage=(CircularImageView) findViewById(R.id.ivBookImage);
 		btnOk = (Button) findViewById(R.id.btnOk);
 		btnOk.setOnClickListener(this);
 		if (!CommonTasks.isOnline(this)) {
@@ -87,7 +92,14 @@ public class IndividualBookDetailsActivity extends BookStoreActionBarBase
 	@Override
 	public Object doInBackground() {
 		IAdminManager adminManager = new AdminManager();
-		return adminManager.getIndividualBookDetails("" + bookID);
+		BookEntity bookEntity=new BookEntity();
+		bookEntity=adminManager.getIndividualBookDetails("" + bookID);
+		bitmap = CommonTasks.getBitMapFromUrl(CommonUrls
+				.getInstance().IMAGE_BASE_URL
+				+ bookEntity.pic_url);
+		return bookEntity;
+		
+		
 	}
 
 	@Override
@@ -104,6 +116,8 @@ public class IndividualBookDetailsActivity extends BookStoreActionBarBase
 			tvBookCondition.setText(bookEntity.condition);
 			tvAuthorName.setText(bookEntity.auther_name);
 			tvBookPrice.setText("" + bookEntity.price);
+			ivBookImage.setImageBitmap(bitmap);
+			
 		} else {
 			CommonTasks.showToast(getApplicationContext(),
 					"Internal Server Error. Please try again later");

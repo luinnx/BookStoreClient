@@ -158,7 +158,9 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 			myBitmap = BitmapFactory.decodeResource(getResources(),
 					R.drawable.ic_person_24);
 		} else {
-			try {
+			
+			
+			/*try {
 				URL url = new URL(CommonUrls.getInstance().IMAGE_BASE_URL
 						+ agentEntity.pic_url.toString());
 				HttpURLConnection connection = (HttpURLConnection) url
@@ -169,7 +171,7 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 				myBitmap = BitmapFactory.decodeStream(input);
 			} catch (Exception ex) {
 				ex.printStackTrace();
-			}
+			}*/
 
 		}
 
@@ -241,7 +243,9 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 				ImageView ivAgentImage = (ImageView) marker
 						.findViewById(R.id.ivMapAgentImage);
 				numTxt.setText(agentEntity.full_name);
-
+				
+				myBitmap=(CommonTasks
+						.createCircularShape(CommonTasks.getBitmapFromSdCard("/sdcard/BookStore/"+""+agentEntity._id+".png")));
 				ivAgentImage.setImageBitmap(myBitmap);
 
 				markers.add(frAgentLocationMap.addMarker(new MarkerOptions()
@@ -252,7 +256,11 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 
 			}
 			//addressText = "";
+			if(addressText.equals("")){
+				addressText="Agent Not Activated Yet.";
+			}
 			tvAgentCurrentLocation.setText(addressText);
+			
 			
 
 			frAgentLocationMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
