@@ -196,8 +196,17 @@ public class AgentsListLocationActivity extends Fragment implements
 						Bitmap bitmap = CommonTasks.getBitMapFromUrl(CommonUrls
 								.getInstance().IMAGE_BASE_URL
 								+ iterable_element.agentpicurl);
-						CommonTasks.saveImageToDirectory(bitmap, ""
-								+ iterable_element.agentid);
+
+						if (bitmap == null) {
+							CommonTasks.saveImageToDirectory(BitmapFactory
+									.decodeResource(getActivity()
+											.getResources(),
+											R.drawable.ic_person_24), ""
+									+ iterable_element.agentid);
+						} else {
+							CommonTasks.saveImageToDirectory(bitmap, ""
+									+ iterable_element.agentid);
+						}
 
 					} else {
 						CommonTasks.saveImageToDirectory(BitmapFactory
@@ -267,11 +276,12 @@ public class AgentsListLocationActivity extends Fragment implements
 				LoginRequest();
 			} else {
 				agentLocationMapRoot = (AgentLocationMapRoot) data;
-				
-				  if (agentLocationMapRoot != null &&
-				  agentLocationMapRoot.agentLocationList.size() > 0) {
-				  LoadMap(agentLocationMapRoot); }
-				 
+
+				if (agentLocationMapRoot != null
+						&& agentLocationMapRoot.agentLocationList.size() > 0) {
+					LoadMap(agentLocationMapRoot);
+				}
+
 			}
 
 		} else {
@@ -322,12 +332,19 @@ public class AgentsListLocationActivity extends Fragment implements
 							.findViewById(R.id.ivMapAgentImage);
 					numTxt.setText(locationMapRoot.agentLocationList
 							.get(rowIndex).agentname);
-					
-					/*CommonTasks
-					.createCircularShape(mapPhotoList.get(rowIndex))*/
+
+					/*
+					 * CommonTasks
+					 * .createCircularShape(mapPhotoList.get(rowIndex))
+					 */
 
 					ivAgentImage.setImageBitmap(CommonTasks
-							.createCircularShape(CommonTasks.getBitmapFromSdCard("/sdcard/BookStore/"+""+locationMapRoot.agentLocationList.get(rowIndex).agentid+".png")));
+							.createCircularShape(CommonTasks
+									.getBitmapFromSdCard("/sdcard/BookStore/"
+											+ ""
+											+ locationMapRoot.agentLocationList
+													.get(rowIndex).agentid
+											+ ".png")));
 
 					markers.add(frAgentLocationMap
 							.addMarker(new MarkerOptions().position(Location)
@@ -465,8 +482,9 @@ public class AgentsListLocationActivity extends Fragment implements
 		tvLocationName.setText("Current Location :" + entity.locationname);
 		tvLastUpdateTime.setText("Last Update :"
 				+ CommonTasks.getRelativeTime(entity.updatetime));
-		ivAgentImage.setImageBitmap(CommonTasks
-				.createCircularShape(CommonTasks.getBitmapFromSdCard("/sdcard/BookStore/"+""+entity.agentid+".png")));
+		ivAgentImage.setImageBitmap(CommonTasks.createCircularShape(CommonTasks
+				.getBitmapFromSdCard("/sdcard/BookStore/" + "" + entity.agentid
+						+ ".png")));
 
 		return v;
 	}

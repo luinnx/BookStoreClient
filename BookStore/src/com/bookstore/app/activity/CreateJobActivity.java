@@ -18,7 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bookstore.app.adapters.AgentListAdapter;
-import com.bookstore.app.adapters.BookListAdapter;
+import com.bookstore.app.adapters.BookListAdapterForJob;
 import com.bookstore.app.adapters.TeacherListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.BookStoreActionBarBase;
@@ -42,7 +42,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 	Dialog allBookDialog, allTeacherDialog, allAgentDialog,
 			selectSpeceficBooksDialog;
 	ListView lvAllBookList, lvAllTeacherList, lvAllAgentList;
-	BookListAdapter bookListAdapter;
+	BookListAdapterForJob bookListAdapter;
 	DownloadableAsyncTask asyncTask;
 	ProgressDialog dialog;
 	public String MODE = "";
@@ -366,7 +366,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 		allBookDialog.setTitle("All Books Dialog");
 		lvAllBookList = (ListView) allBookDialog
 				.findViewById(R.id.lvAllBookList);
-		bookListAdapter = new BookListAdapter(getApplicationContext(),
+		bookListAdapter = new BookListAdapterForJob(getApplicationContext(),
 				R.layout.book_list_item, entities.bookList);
 		lvAllBookList.setAdapter(bookListAdapter);
 		lvAllBookList.setOnItemClickListener(new OnItemClickListener() {

@@ -47,7 +47,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp" >
 
-                <ImageView
+                <com.mikhaellopez.circularimageview.CircularImageView
                     android:id="@+id/ivJobBookImage"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
