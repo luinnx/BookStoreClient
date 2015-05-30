@@ -8,5 +8,14 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="donation_amount">Amount</string>
     <string name="donation_comment">Comment</string>
+    
+    <string name="publisher_prompt">Choose a Publisher</string>
+    <string-array name="publisher_array">
+        <item>Srijan Prokash</item>
+        <item>Grantha kutir</item>
+        <item>Golden Future Publications</item>
+        <item>Gan Prokash</item>
+        <item>Dikdarshan Prokashoni Ltd.</item>
+    </string-array>
 
 </resources>

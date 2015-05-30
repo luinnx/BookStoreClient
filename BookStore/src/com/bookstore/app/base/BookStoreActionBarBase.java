@@ -1,6 +1,5 @@
 package com.bookstore.app.base;
 
-import com.bookstore.app.activity.ActivityTADADetails;
 import com.bookstore.app.activity.AddAgentActivity;
 import com.bookstore.app.activity.AddBookActivity;
 import com.bookstore.app.activity.AddIMEIActivity;
@@ -13,13 +12,13 @@ import com.bookstore.app.activity.CreateJobActivity;
 import com.bookstore.app.activity.DonationListActivity;
 import com.bookstore.app.activity.LoginActivity;
 import com.bookstore.app.activity.R;
-import com.bookstore.app.activity.SplashScreenActivity;
 import com.bookstore.app.activity.TeacherListActivity;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
@@ -154,7 +153,10 @@ public class BookStoreActionBarBase extends FragmentActivity {
 			startActivity(int7);
 			break;
 		case R.id.action_ContactUs:
-			CommonTasks.showLogs(getApplicationContext(), "Contact US");
+			String url = "http://www.dik-grantha.com/contact.php";
+			Intent i = new Intent(Intent.ACTION_VIEW);
+			i.setData(Uri.parse(url));
+			startActivity(i);
 			
 			break;
 		case R.id.action_logout:

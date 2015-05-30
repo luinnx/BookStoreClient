@@ -127,8 +127,20 @@
                 android:gravity="left"
                 android:hint="Enter Publisher Name"
                 android:inputType="text"
-                android:textColor="@color/text_color" >
+                android:textColor="@color/text_color"
+                android:visibility="gone" >
             </EditText>
+            
+            <Spinner
+                android:id="@+id/spPublisher"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:entries="@array/publisher_array"
+                android:gravity="left"
+                android:prompt="@string/publisher_prompt" />
 
             <TextView
                 android:layout_width="wrap_content"

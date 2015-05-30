@@ -7,20 +7,29 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.MediaStore.Images.ImageColumns;
+import android.provider.MediaStore.Images.Media;
+import android.util.Base64;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -31,6 +40,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.BookStoreActionBarBase;
@@ -42,7 +53,8 @@ import com.bookstore.app.utils.CommonTasks;
 public class AddBookActivity extends BookStoreActionBarBase implements
 		OnClickListener, IAsynchronousTask {
 
-	Spinner spCategory, spSubCatagory, spTextBooksElements, spSubSubCatagory;
+	Spinner spCategory, spSubCatagory, spTextBooksElements, spSubSubCatagory,
+			spPublisher;
 	String[] bookTypes, guideSubElements, textBookSubElements,
 			thirdDergeeSubElements;
 	String bookType, secondDegreeSubElement;
@@ -52,7 +64,7 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 			etBookQuantity, etISBNNumber, etPublishDate, etBookPrice;
 	Button btnOk;
 	String bookName, writterName, publisherName, bookCondition, bookQuantity,
-			isbnNumber, publishDate, bookPrice;
+			isbnNumber, publishDate, bookPrice, imageFilePath = "";
 	int category, subCatagory, subSubCatagory;
 
 	DownloadableAsyncTask downloadAsyncTask;
@@ -65,7 +77,23 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 	private int month;
 	private int day;
 
+	AlertDialog alertDialog;
+	AlertDialog.Builder myAlertDialog;
+
+	public String[] publications = new String[] { "Srijan Prokash",
+			"Grantha kutir", "Golden Future Publications", "Gan Prokash",
+			"Dikdarshan Prokashoni Ltd." };
+
 	Uri uriSavedImage;
+	int count = 0;
+	ArrayList<String> rowPic = new ArrayList<String>();
+
+	protected static final int CAMERA_REQUEST = 0;
+	protected static final int GALLERY_PICTURE = 1;
+	private Intent pictureActionIntent = null;
+	Bitmap bitmap;
+
+	String selectedImagePath;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +119,10 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 		ivCaptureImage.setOnClickListener(this);
 		btnOk = (Button) findViewById(R.id.btnOk);
 		btnOk.setOnClickListener(this);
+
+		spPublisher = (Spinner) findViewById(R.id.spPublisher);
+		spPublisher.setAdapter(new ArrayAdapter<String>(this,
+				android.R.layout.simple_dropdown_item_1line, publications));
 
 		spCategory = (Spinner) findViewById(R.id.spCategory);
 		spSubCatagory = (Spinner) findViewById(R.id.spSubCatagory);
@@ -247,16 +279,27 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 			}
 		});
 
+		spPublisher.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View arg1,
+					int pos, long arg3) {
+				publisherName = parent.getItemAtPosition(pos).toString();
+
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				publisherName = parent.getItemAtPosition(0).toString();
+
+			}
+		});
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onClick(View view) {
 		if (view.getId() == R.id.btnOk) {
-
-			/*
-			 * etBookName, etWritterName, etPublisherName, etBookCondition,
-			 * etBookQuantity, etISBNNumber, etPublishDate, etBookPrice
-			 */
 
 			if (etBookName.getText().toString().trim().equals("")) {
 				CommonTasks.showToast(getApplicationContext(),
@@ -266,11 +309,11 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Writter name");
 				return;
-			} else if (etPublisherName.getText().toString().trim().equals("")) {
-				CommonTasks.showToast(getApplicationContext(),
-						"Please Enter book name");
-				return;
-			} else if (etBookCondition.getText().toString().trim().equals("")) {
+			} /*
+			 * else if (etPublisherName.getText().toString().trim().equals(""))
+			 * { CommonTasks.showToast(getApplicationContext(),
+			 * "Please Enter book name"); return; }
+			 */else if (etBookCondition.getText().toString().trim().equals("")) {
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Enter book Condition");
 				return;
@@ -298,13 +341,13 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 
 			bookName = etBookName.getText().toString().trim();
 			writterName = etWritterName.getText().toString().trim();
-			publisherName = etPublisherName.getText().toString().trim();
+			// publisherName = etPublisherName.getText().toString().trim();
 			bookCondition = etBookCondition.getText().toString().trim();
 			bookQuantity = etBookQuantity.getText().toString().trim();
 			isbnNumber = etISBNNumber.getText().toString().trim();
 			publishDate = etPublishDate.getText().toString().trim();
 			bookPrice = etBookPrice.getText().toString().trim();
-			
+
 			if (!CommonTasks.isOnline(this)) {
 				CommonTasks.goSettingPage(this);
 				return;
@@ -312,7 +355,9 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 			loadInformation();
 
 		} else if (view.getId() == R.id.ivCaptureImage) {
-			getImageFromCamera();
+			// getImageFromCamera();
+			// getImageOptionDialog();
+			startDialog();
 		} else if (view.getId() == R.id.ivPublishDate) {
 			final Calendar c = Calendar.getInstance();
 			year = c.get(Calendar.YEAR);
@@ -344,9 +389,8 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 			month = selectedMonth;
 			day = selectedDay;
 
-			etPublishDate.setText(new StringBuilder().append(year)
-					.append("-").append(month+1).append("-").append(day)
-					.append(" "));
+			etPublishDate.setText(new StringBuilder().append(year).append("-")
+					.append(month + 1).append("-").append(day).append(" "));
 
 		}
 	};
@@ -402,7 +446,89 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 
 	}
 
-	private void getImageFromCamera() {
+	private void startDialog() {
+
+		myAlertDialog = new AlertDialog.Builder(this,
+				AlertDialog.THEME_HOLO_LIGHT);
+		//AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(this);
+		LayoutInflater inflater = getLayoutInflater();
+		View josSubmitView = inflater.inflate(R.layout.image_choser_dialog,
+				null);
+		myAlertDialog.setView(josSubmitView);
+
+		myAlertDialog.setTitle("Chose Image");
+		myAlertDialog.setCancelable(true);
+		ImageView ivCameraChooser = (ImageView) josSubmitView
+				.findViewById(R.id.ivCameraChooser);
+		ImageView ivGalleryChooser = (ImageView) josSubmitView
+				.findViewById(R.id.ivGalleryChooser);
+
+		ivGalleryChooser.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				pictureActionIntent = new Intent(Intent.ACTION_GET_CONTENT,
+						null);
+				pictureActionIntent.setType("image/*");
+				pictureActionIntent.putExtra("return-data", true);
+				startActivityForResult(pictureActionIntent, GALLERY_PICTURE);
+				alertDialog.cancel();
+
+			}
+		});
+
+		ivCameraChooser.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				pictureActionIntent = new Intent(
+						android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+				startActivityForResult(pictureActionIntent, CAMERA_REQUEST);
+				alertDialog.cancel();
+			}
+		});
+
+		alertDialog = myAlertDialog.create();
+		alertDialog.show();
+	}
+
+	public void getImageOptionDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this,
+				AlertDialog.THEME_HOLO_LIGHT);
+		LayoutInflater inflater = getLayoutInflater();
+		View josSubmitView = inflater.inflate(R.layout.image_choser_dialog,
+				null);
+		builder.setView(josSubmitView);
+		builder.setTitle("Job Submit");
+		builder.setCancelable(false);
+		ImageView ivCameraChooser = (ImageView) josSubmitView
+				.findViewById(R.id.ivCameraChooser);
+		ImageView ivGalleryChooser = (ImageView) josSubmitView
+				.findViewById(R.id.ivGalleryChooser);
+
+		ivGalleryChooser.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				FromGallery();
+
+			}
+		});
+
+		ivCameraChooser.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				TakePhoto();
+
+			}
+		});
+
+		alertDialog = builder.create();
+		alertDialog.show();
+	}
+
+	private void TakePhoto() {
 		File image = new File(appFolderCheckandCreate(), "img" + getTimeStamp()
 				+ ".jpg");
 		uriSavedImage = Uri.fromFile(image);
@@ -412,6 +538,16 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, 100);
 	}
+
+	private void FromGallery() {
+		Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
+		intent.setType("image/*");
+		intent.putExtra("return-data", true);
+		imageFilePath = "";
+		startActivityForResult(intent, 200);
+	}
+
+	
 
 	private String appFolderCheckandCreate() {
 
@@ -447,50 +583,164 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 		return timeString;
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int responseCode,
-			Intent data) {
-		super.onActivityResult(requestCode, responseCode, data);
-		if (requestCode == 100) {
-			if (responseCode == RESULT_OK) {
-				Uri currImageURI = uriSavedImage;
-				file = new File(currImageURI.getPath());
-				// file = new File(getRealPathFromURI(currImageURI));
-				filename = file.getName().replaceAll("[-+^:,]", "")
-						.replace(" ", "");
-				Bitmap b = decodeImage(file);
-				ByteArrayOutputStream stream = new ByteArrayOutputStream();
-				if (b.getByteCount() > (1024 * 1024)) {
-					b.compress(Bitmap.CompressFormat.JPEG, 20, stream);
-				}
-				if (b.getByteCount() > (1024 * 512)) {
-					b.compress(Bitmap.CompressFormat.JPEG, 40, stream);
-				}
-				if (b.getByteCount() > (1024 * 256)) {
-					b.compress(Bitmap.CompressFormat.JPEG, 60, stream);
-				} else {
-					b.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-				}
-				selectedFile = stream.toByteArray();
-				ivCaptureImage.setImageBitmap(b);
-				try {
-					if (file.exists()) {
-						if (file.delete()) {
-							System.out.println("file Deleted :" + file);
-						} else {
-							System.out.println("file not Deleted :" + file);
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == GALLERY_PICTURE) {
+			if (resultCode == RESULT_OK) {
+				if (data != null) {
+					
+					// our BitmapDrawable for the thumbnail
+					BitmapDrawable bmpDrawable = null;
+					// try to retrieve the image using the data from the intent
+					Cursor cursor = getContentResolver().query(data.getData(),
+							null, null, null, null);
+					if (cursor != null) {
+
+						cursor.moveToFirst();
+
+						int idx = cursor.getColumnIndex(ImageColumns.DATA);
+						String fileSrc = cursor.getString(idx);
+						bitmap = BitmapFactory.decodeFile(fileSrc); // load
+																	// preview
+																	// image
+						bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100,
+								false);
+						// bmpDrawable = new BitmapDrawable(bitmapPreview);
+						ivCaptureImage.setImageBitmap(bitmap);
+
+						ByteArrayOutputStream stream = new ByteArrayOutputStream();
+						if (bitmap.getByteCount() > (1024 * 1024)) {
+							bitmap.compress(Bitmap.CompressFormat.JPEG, 20,
+									stream);
 						}
-						sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
-								Uri.parse("file://"
-										+ Environment
-												.getExternalStorageDirectory())));
+						if (bitmap.getByteCount() > (1024 * 512)) {
+							bitmap.compress(Bitmap.CompressFormat.JPEG, 40,
+									stream);
+						}
+						if (bitmap.getByteCount() > (1024 * 256)) {
+							bitmap.compress(Bitmap.CompressFormat.JPEG, 60,
+									stream);
+						} else {
+							bitmap.compress(Bitmap.CompressFormat.JPEG, 100,
+									stream);
+						}
+						selectedFile = stream.toByteArray();
+
+					} else {
+
+						bmpDrawable = new BitmapDrawable(getResources(), data
+								.getData().getPath());
+						ivCaptureImage.setImageDrawable(bmpDrawable);
+
+						bitmap = bmpDrawable.getBitmap();
+
+						ByteArrayOutputStream stream = new ByteArrayOutputStream();
+						if (bitmap.getByteCount() > (1024 * 1024)) {
+							bitmap.compress(Bitmap.CompressFormat.JPEG, 20,
+									stream);
+						}
+						if (bitmap.getByteCount() > (1024 * 512)) {
+							bitmap.compress(Bitmap.CompressFormat.JPEG, 40,
+									stream);
+						}
+						if (bitmap.getByteCount() > (1024 * 256)) {
+							bitmap.compress(Bitmap.CompressFormat.JPEG, 60,
+									stream);
+						} else {
+							bitmap.compress(Bitmap.CompressFormat.JPEG, 100,
+									stream);
+						}
+						selectedFile = stream.toByteArray();
 					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
+
+				} else {
+					Toast.makeText(getApplicationContext(), "Cancelled",
+							Toast.LENGTH_SHORT).show();
+				}
+			} else if (resultCode == RESULT_CANCELED) {
+				Toast.makeText(getApplicationContext(), "Cancelled",
+						Toast.LENGTH_SHORT).show();
+			}
+		} else if (requestCode == CAMERA_REQUEST) {
+			if (resultCode == RESULT_OK) {
+				if (data.hasExtra("data")) {
+
+					// retrieve the bitmap from the intent
+					bitmap = (Bitmap) data.getExtras().get("data");
+
+					Cursor cursor = getContentResolver()
+							.query(Media.EXTERNAL_CONTENT_URI,
+									new String[] {
+											Media.DATA,
+											Media.DATE_ADDED,
+											MediaStore.Images.ImageColumns.ORIENTATION },
+									Media.DATE_ADDED, null, "date_added ASC");
+					if (cursor != null && cursor.moveToFirst()) {
+						do {
+							Uri uri = Uri.parse(cursor.getString(cursor
+									.getColumnIndex(Media.DATA)));
+							selectedImagePath = uri.toString();
+						} while (cursor.moveToNext());
+						cursor.close();
+					}
+
+					Log.e("path of the image from camera ====> ",
+							selectedImagePath);
+
+					bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, false);
+					// update the image view with the bitmap
+					ivCaptureImage.setImageBitmap(bitmap);
+
+					ByteArrayOutputStream stream = new ByteArrayOutputStream();
+					if (bitmap.getByteCount() > (1024 * 1024)) {
+						bitmap.compress(Bitmap.CompressFormat.JPEG, 20, stream);
+					}
+					if (bitmap.getByteCount() > (1024 * 512)) {
+						bitmap.compress(Bitmap.CompressFormat.JPEG, 40, stream);
+					}
+					if (bitmap.getByteCount() > (1024 * 256)) {
+						bitmap.compress(Bitmap.CompressFormat.JPEG, 60, stream);
+					} else {
+						bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+					}
+					selectedFile = stream.toByteArray();
+				} else if (data.getExtras() == null) {
+
+					Toast.makeText(getApplicationContext(),
+							"No extras to retrieve!", Toast.LENGTH_SHORT)
+							.show();
+
+					BitmapDrawable thumbnail = new BitmapDrawable(
+							getResources(), data.getData().getPath());
+
+					// update the image view with the newly created drawable
+					ivCaptureImage.setImageDrawable(thumbnail);
+
+					bitmap = thumbnail.getBitmap();
+
+					ByteArrayOutputStream stream = new ByteArrayOutputStream();
+					if (bitmap.getByteCount() > (1024 * 1024)) {
+						bitmap.compress(Bitmap.CompressFormat.JPEG, 20, stream);
+					}
+					if (bitmap.getByteCount() > (1024 * 512)) {
+						bitmap.compress(Bitmap.CompressFormat.JPEG, 40, stream);
+					}
+					if (bitmap.getByteCount() > (1024 * 256)) {
+						bitmap.compress(Bitmap.CompressFormat.JPEG, 60, stream);
+					} else {
+						bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+					}
+					selectedFile = stream.toByteArray();
+
 				}
 
+			} else if (resultCode == RESULT_CANCELED) {
+				Toast.makeText(getApplicationContext(), "Cancelled",
+						Toast.LENGTH_SHORT).show();
 			}
 		}
+
 	}
 
 	public static byte[] convertInputStreamToByteArray(InputStream input)

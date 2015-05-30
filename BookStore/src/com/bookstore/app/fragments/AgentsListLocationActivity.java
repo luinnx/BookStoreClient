@@ -4,9 +4,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
-import java.util.Locale;
-
 import org.json.JSONObject;
 
 import com.androidquery.callback.ImageOptions;
@@ -16,8 +13,6 @@ import com.bookstore.app.adapters.AgentListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
-import com.bookstore.app.entities.AgentLocationEntity;
-import com.bookstore.app.entities.AgentLocationMapRoot;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
@@ -44,8 +39,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -219,7 +212,7 @@ public class AgentsListLocationActivity extends Fragment implements
 									.getBitMapFromUrl(CommonUrls.getInstance().IMAGE_BASE_URL
 											+ iterable_element.pic_url);
 							CommonTasks.saveImageToDirectory(bitmap, ""
-									+ iterable_element.pic_url);
+									+ iterable_element._id);
 
 						} else {
 							CommonTasks.saveImageToDirectory(BitmapFactory
@@ -241,87 +234,7 @@ public class AgentsListLocationActivity extends Fragment implements
 			
 			
 			return agentListRoot;
-		} /*else {
-			AgentLocationMapRoot agentLocationMapRoot = null;
-
-			agentLocationMapRoot = new AgentLocationMapRoot();
-			agentLocationMapRoot = adminManager.getAgentsLocation();
-			mapPhotoList = new ArrayList<Bitmap>();
-
-			if (CommonTasks.getPreferences(getActivity(),
-					CommonConstraints.NO_OF_AGENT).equals("")) {
-
-				for (AgentLocationEntity iterable_element : agentLocationMapRoot.agentLocationList) {
-					if (!iterable_element.agentpicurl.equals("")) {
-						Bitmap bitmap = CommonTasks.getBitMapFromUrl(CommonUrls
-								.getInstance().IMAGE_BASE_URL
-								+ iterable_element.agentpicurl);
-
-						if (bitmap == null) {
-							CommonTasks.saveImageToDirectory(BitmapFactory
-									.decodeResource(getActivity()
-											.getResources(),
-											R.drawable.ic_person_24), ""
-									+ iterable_element.agentid);
-						} else {
-							CommonTasks.saveImageToDirectory(bitmap, ""
-									+ iterable_element.agentid);
-						}
-
-					} else {
-						CommonTasks.saveImageToDirectory(BitmapFactory
-								.decodeResource(getActivity().getResources(),
-										R.drawable.ic_person_24), ""
-								+ iterable_element.agentid);
-					}
-				}
-
-				CommonTasks
-						.savePreferencesForReasonCode(
-								getActivity(),
-								CommonConstraints.NO_OF_AGENT,
-								""
-										+ agentLocationMapRoot.agentLocationList
-												.size());
-			} else {
-				int noOfAgent = Integer.parseInt(CommonTasks.getPreferences(
-						getActivity(), CommonConstraints.NO_OF_AGENT));
-				if (agentLocationMapRoot.agentLocationList.size() > noOfAgent) {
-
-					for (int x = noOfAgent; x < agentLocationMapRoot.agentLocationList
-							.size(); x++) {
-						AgentLocationEntity iterable_element = agentLocationMapRoot.agentLocationList
-								.get(x);
-						if (!iterable_element.agentpicurl.equals("")) {
-
-							Bitmap bitmap = CommonTasks
-									.getBitMapFromUrl(CommonUrls.getInstance().IMAGE_BASE_URL
-											+ iterable_element.agentpicurl);
-							CommonTasks.saveImageToDirectory(bitmap, ""
-									+ iterable_element.agentid);
-
-						} else {
-							CommonTasks.saveImageToDirectory(BitmapFactory
-									.decodeResource(getActivity()
-											.getResources(),
-											R.drawable.ic_person_24), ""
-									+ iterable_element.agentid);
-						}
-					}
-
-					CommonTasks.savePreferencesForReasonCode(getActivity(),
-							CommonConstraints.NO_OF_AGENT,
-							"" + agentLocationMapRoot.agentLocationList.size());
-
-				}
-
-			}
-
-			return agentLocationMapRoot;
-		}*/
-
-	//}
-
+		} 
 	@Override
 	public void processDataAfterDownload(Object data) {
 		if (data != null) {
@@ -398,7 +311,7 @@ public class AgentsListLocationActivity extends Fragment implements
 					
 					ivAgentImage.setImageBitmap(CommonTasks
 							.createCircularShape(CommonTasks
-									.getBitmapFromSdCard("/sdcard/BookStore/"
+									.getBitmapFromSdCard(getActivity(),"/sdcard/BookStore/"
 											+ ""
 											+ agentListRoot2.agentList
 													.get(rowIndex)._id
@@ -536,7 +449,7 @@ public class AgentsListLocationActivity extends Fragment implements
 		/*tvLastUpdateTime.setText("Last Update :"
 				+ CommonTasks.getRelativeTime(Long.parseLong(entity.create_date)));*/
 		ivAgentImage.setImageBitmap(CommonTasks.createCircularShape(CommonTasks
-				.getBitmapFromSdCard("/sdcard/BookStore/" + "" + entity._id
+				.getBitmapFromSdCard(getActivity(),"/sdcard/BookStore/" + "" + entity._id
 						+ ".png")));
 
 		return v;

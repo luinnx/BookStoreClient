@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.bookstore.app.activity.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
@@ -146,6 +147,8 @@ public class CommonTasks {
 		return false;
 	}
 
+	
+
 	@SuppressWarnings("unchecked")
 	public static JSONObject convertResultsetToJson(ResultSet resultSet,
 			String tag) {
@@ -266,7 +269,7 @@ public class CommonTasks {
 
 	public static void saveImageToDirectory(Bitmap imageToSave, String fileName) {
 
-		Log.d("BSS", "Saving Started :"+fileName);
+		Log.d("BSS", "Saving Started :" + fileName);
 		File direct = new File(Environment.getExternalStorageDirectory()
 				+ "/BookStore");
 
@@ -275,7 +278,7 @@ public class CommonTasks {
 			wallpaperDirectory.mkdirs();
 		}
 
-		File file = new File(new File("/sdcard/BookStore/"), fileName+".png");
+		File file = new File(new File("/sdcard/BookStore/"), fileName + ".png");
 		if (file.exists()) {
 			file.delete();
 		}
@@ -317,16 +320,44 @@ public class CommonTasks {
 		return null;
 	}
 
-	public static Bitmap getBitmapFromSdCard(String imagePath) {
+	public static Bitmap getBitmapFromSdCard(Context  context,String imagePath) {
 
-		Log.d("BSS", "Getting Image :"+imagePath);
+		Log.d("BSS", "Getting Image :" + imagePath);
 		Bitmap bitmap = null;
 		File f = new File(imagePath);
+		
+		
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
 		try {
-			bitmap = BitmapFactory.decodeStream(new FileInputStream(f), null,
-					options);
+			if(f.exists()){
+				bitmap = BitmapFactory.decodeStream(new FileInputStream(f), null,
+						options);
+			}else{
+				bitmap=BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_person);
+			}
+			
+		} catch (FileNotFoundException e) {
+			Log.d("BSS", e.getMessage());
+		}
+
+		return bitmap;
+	}
+	
+	public static Bitmap getBitmapFromSdCard(String imagePath) {
+
+		Log.d("BSS", "Getting Image :" + imagePath);
+		Bitmap bitmap = null;
+		File f = new File(imagePath);
+		
+		
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+		try {
+			if(f.exists()){
+				bitmap = BitmapFactory.decodeStream(new FileInputStream(f), null,
+						options);
+			}
 		} catch (FileNotFoundException e) {
 			Log.d("BSS", e.getMessage());
 		}
