@@ -101,6 +101,7 @@ public class AgentTADAResultActivity extends AgentActionbarBase implements
 			tvEndPlace.setText(agent.EndPlace);
 			tvDistance.setText(""+agent.distance);
 			tvAdminName.setText(agent.adminname);
+			tvTourDate.setText(CommonTasks.getLongToDate(""+agent.createdate));
 			
 			if(agent.status==CommonConstraints.TADA_COMPLETED){
 				tvTADAStatus.setText("Approved");

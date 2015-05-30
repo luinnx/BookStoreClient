@@ -3,6 +3,7 @@ package com.bookstore.app.base;
 import com.bookstore.app.activity.ActivityTADADetails;
 import com.bookstore.app.activity.AddAgentActivity;
 import com.bookstore.app.activity.AddBookActivity;
+import com.bookstore.app.activity.AddIMEIActivity;
 import com.bookstore.app.activity.AddTeacherActivity;
 import com.bookstore.app.activity.AdminMapActivity;
 import com.bookstore.app.activity.AdminTADAListActivity;
@@ -80,6 +81,16 @@ public class BookStoreActionBarBase extends FragmentActivity {
 			overridePendingTransition(android.R.anim.slide_in_left,
 					android.R.anim.slide_out_right);
 			startActivity(intt);
+			break;
+			
+		case R.id.action_add_imei:
+			CommonTasks.showLogs(getApplicationContext(), "add teacher");
+			Intent intt2 = new Intent(getApplicationContext(),
+					AddIMEIActivity.class);
+			intt2.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			overridePendingTransition(android.R.anim.slide_in_left,
+					android.R.anim.slide_out_right);
+			startActivity(intt2);
 			break;
 		case R.id.action_Agent_list:
 			CommonTasks.showLogs(getApplicationContext(), "Agent List");

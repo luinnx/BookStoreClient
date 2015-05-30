@@ -36,6 +36,7 @@ import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.BookStoreActionBarBase;
 import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentLocationEntity;
+import com.bookstore.app.entities.AgentLocationRelated;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
@@ -70,7 +71,7 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 
 	DownloadableAsyncTask downloadableAsyncTask;
 	ProgressDialog dialog;
-	AgentEntity agentEntity = null;
+	AgentLocationRelated agentEntity = null;
 
 	GoogleMap frAgentLocationMap;
 	double mLatitude = 0;
@@ -159,19 +160,6 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 					R.drawable.ic_person_24);
 		} else {
 			
-			
-			/*try {
-				URL url = new URL(CommonUrls.getInstance().IMAGE_BASE_URL
-						+ agentEntity.pic_url.toString());
-				HttpURLConnection connection = (HttpURLConnection) url
-						.openConnection();
-				connection.setDoInput(true);
-				connection.connect();
-				InputStream input = connection.getInputStream();
-				myBitmap = BitmapFactory.decodeStream(input);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}*/
 
 		}
 
@@ -181,8 +169,8 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 	@Override
 	public void processDataAfterDownload(Object data) {
 		if (data != null) {
-			agentEntity = new AgentEntity();
-			agentEntity = (AgentEntity) data;
+			agentEntity = new AgentLocationRelated();
+			agentEntity = (AgentLocationRelated) data;
 
 			tvAgentName.setText(agentEntity.full_name);
 			tvAddress.setText(agentEntity.address);
@@ -245,7 +233,7 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 				numTxt.setText(agentEntity.full_name);
 				
 				myBitmap=(CommonTasks
-						.createCircularShape(CommonTasks.getBitmapFromSdCard("/sdcard/BookStore/"+""+agentEntity._id+".png")));
+						.createCircularShape(CommonTasks.getBitmapFromSdCard("/sdcard/BookStore/"+""+agentId+".png")));
 				ivAgentImage.setImageBitmap(myBitmap);
 
 				markers.add(frAgentLocationMap.addMarker(new MarkerOptions()

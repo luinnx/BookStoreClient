@@ -28,6 +28,11 @@
                 android:icon="@drawable/ic_teacher_24"
                 android:showAsAction="ifRoom"
                 android:title="Add Teacher"/>
+            <item 
+                android:id="@+id/action_add_imei"
+                android:icon="@drawable/ic_tablet"
+                android:showAsAction="ifRoom"
+                android:title="Add IMEI"/>
         </menu>
     </item>
     <item

@@ -10,11 +10,10 @@
         android:layout_height="wrap_content"
         android:padding="3dp" >
 
-        <ImageView
+        <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/ivAgentImage"
             android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:src="@drawable/ic_person" />
+            android:layout_height="75dp" />
 
         <ProgressBar
             android:id="@+id/pbImagePreLoad"

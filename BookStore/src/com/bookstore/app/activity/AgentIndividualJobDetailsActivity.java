@@ -240,7 +240,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 		tvAuthor.setText(jobDetails.BookAutherName);
 		tvPublisherName.setText(jobDetails.BookPublisherName);
 		tvISBN.setText(jobDetails.BookISBNNumber);
-		tvQuantity.setText("" + jobDetails.BookQuantity);
+		tvQuantity.setText("" + jobDetails.No_Of_Book);
 		tvPublishDate.setText(jobDetails.BookPublishDate);
 		tvPrice.setText("" + jobDetails.BookPrice);
 

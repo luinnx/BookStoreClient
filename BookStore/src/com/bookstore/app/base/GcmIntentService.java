@@ -4,6 +4,7 @@ import com.bookstore.app.activity.ActivityTADADetails;
 import com.bookstore.app.activity.AdminJobAcceptRejectActivity;
 import com.bookstore.app.activity.AgentDonationAcceptRejectResultActivity;
 import com.bookstore.app.activity.AgentIndividualJobDetailsActivity;
+import com.bookstore.app.activity.AgentJobAcceptRejectResultActivity;
 import com.bookstore.app.activity.AgentTADAResultActivity;
 import com.bookstore.app.activity.DonationAcceptRejectActivity;
 import com.bookstore.app.activity.R;
@@ -67,6 +68,8 @@ public class GcmIntentService extends IntentService {
 	}
 
 	private void sendNotification(String msg) {
+		
+		Log.d("BSS", "GCM : "+msg);
 		Gson gson = new Gson();
 		PushNotification pushNotification = gson.fromJson(msg,
 				PushNotification.class);
@@ -94,12 +97,12 @@ public class GcmIntentService extends IntentService {
 				intent.putExtra("DONATION_ID", "" + pushNotification.id);
 				NOTIFICATION_ID = 1;
 
-			} else if (pushNotification.Status.equals(JOB_COMPLETE)) {
+			}/* else if (pushNotification.Status.equals(JOB_COMPLETE)) {
 				intent = new Intent(this, AdminJobAcceptRejectActivity.class);
 				intent.putExtra("JOB_ID", "" + pushNotification.id);
 				NOTIFICATION_ID = 2;
 
-			} else if (pushNotification.Status.equals(JOB_CREATE)) {
+			}*/ else if (pushNotification.Status.equals(JOB_CREATE)) {
 				intent = new Intent(this,
 						AgentIndividualJobDetailsActivity.class);
 				intent.putExtra("JOB_ID", "" + pushNotification.id);
@@ -111,9 +114,9 @@ public class GcmIntentService extends IntentService {
 				intent.putExtra("JOB_ID", "" + pushNotification.id);
 				NOTIFICATION_ID = 2;
 
-			} else if (pushNotification.Status.equals(JOB_REJECTED)) {
+			} else if (pushNotification.Status.equals(JOB_REJECTED)||pushNotification.Status.equals(JOB_COMPLETE)) {
 				intent = new Intent(getApplicationContext(),
-						AgentIndividualJobDetailsActivity.class);
+						AgentJobAcceptRejectResultActivity.class);
 				intent.putExtra("JOB_ID", "" + pushNotification.id);
 				NOTIFICATION_ID = 3;
 

@@ -61,6 +61,8 @@ public class CommonUrls {
 	public String setJobSubmitACK = BASE_URL+"admin/job_ack?jobID=%s&adminID=%s&agentGcmID=%s&bookid=%s&no_of_book=%s&jobStatus=%s&remarks=%s";
 	public String jobDetailsAcceptReject=BASE_URL+"admin/job_detais_ack?jobID=%s";
 	
+	public String addImei=BASE_URL+"admin/add_imei?imei=%s";
+	
 	public static CommonUrls getInstance() {
 		return commonUrls;
 	}

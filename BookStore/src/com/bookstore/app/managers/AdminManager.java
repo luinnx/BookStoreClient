@@ -12,6 +12,7 @@ import com.bookstore.app.entities.AgentDonationResultEntity;
 import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
 import com.bookstore.app.entities.AgentLocationMapRoot;
+import com.bookstore.app.entities.AgentLocationRelated;
 import com.bookstore.app.entities.BookEntity;
 import com.bookstore.app.entities.BookListRoot;
 import com.bookstore.app.entities.DonationEntity;
@@ -144,13 +145,13 @@ public class AdminManager implements IAdminManager {
 	}
 
 	@Override
-	public AgentEntity getIndividualAgentDetails(String agentID) {
-		AgentEntity agentEntity = null;
+	public AgentLocationRelated getIndividualAgentDetails(String agentID) {
+		AgentLocationRelated agentEntity = null;
 		try {
-			agentEntity = (AgentEntity) JSONfunctions.retrieveDataFromStream(
+			agentEntity = (AgentLocationRelated) JSONfunctions.retrieveDataFromStream(
 					String.format(
 							CommonUrls.getInstance().getIndividualAgentDetails,
-							agentID), AgentEntity.class);
+							agentID), AgentLocationRelated.class);
 			if (agentEntity != null)
 				return agentEntity;
 		} catch (Exception exception) {
@@ -414,5 +415,15 @@ public class AdminManager implements IAdminManager {
 				.format(CommonUrls.getInstance().agentGetIndividualDonationDetails, donationId),
 				AgentDonationResultEntity.class);
 		return donationEntity;
+	}
+
+	@Override
+	public Boolean addIMEI(String IMEI) {
+		Boolean result = false;
+		result = (Boolean) JSONfunctions.retrieveDataFromStream(String
+				.format(CommonUrls.getInstance().addImei,
+						IMEI), Boolean.class);
+
+		return result;
 	}
 }

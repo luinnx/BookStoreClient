@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
 import com.bookstore.app.adapters.BookListAdapter;
@@ -19,7 +20,7 @@ import com.bookstore.app.managers.AdminManager;
 import com.bookstore.app.utils.CommonTasks;
 
 public class BookListActivity extends BookStoreActionBarBase implements
-		OnItemClickListener, IAsynchronousTask {
+		OnItemClickListener, IAsynchronousTask, OnItemLongClickListener {
 
 	ListView lvAllAgentList;
 	DownloadableAsyncTask downloadableAsyncTask;
@@ -43,6 +44,7 @@ public class BookListActivity extends BookStoreActionBarBase implements
 	private void initViews() {
 		lvAllAgentList = (ListView) findViewById(R.id.lvAllBookList);
 		lvAllAgentList.setOnItemClickListener(this);
+		lvAllAgentList.setOnItemLongClickListener(this);
 
 	}
 
@@ -97,6 +99,13 @@ public class BookListActivity extends BookStoreActionBarBase implements
 					R.layout.book_list_item, bookListRoot.bookList);
 			lvAllAgentList.setAdapter(adapter);
 		}
+	}
+
+	@Override
+	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2,
+			long arg3) {
+		
+		return false;
 	}
 
 }

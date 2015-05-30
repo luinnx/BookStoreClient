@@ -374,13 +374,6 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 
 	}
 
-	/*
-	 * String bookName, String writterName, String publisherName, String
-	 * bookCondition, String bookPrice, String isbnNumber, String publishDate,
-	 * byte[] pic_url, String bookQuantity, String catagoryId, String
-	 * subCatagoryID, String subSubCatagoryID)
-	 */
-
 	@Override
 	public Object doInBackground() {
 		IAdminManager adminManager = new AdminManager();

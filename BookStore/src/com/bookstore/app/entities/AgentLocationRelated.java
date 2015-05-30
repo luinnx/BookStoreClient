@@ -2,10 +2,10 @@ package com.bookstore.app.entities;
 
 import com.google.gson.annotations.SerializedName;
 
-public class AgentEntity {
+public class AgentLocationRelated {
 	@SerializedName("id")
 	public int _id;
-	@SerializedName("fullname")
+	@SerializedName("full_name")
 	public String full_name;
 	@SerializedName("email")
 	public String email;
@@ -23,9 +23,9 @@ public class AgentEntity {
 	public int isActive;
 	@SerializedName("createdate")
 	public String create_date;
-	@SerializedName("lat")
+	@SerializedName("latitude")
 	public double latitude;
-	@SerializedName("lang")
+	@SerializedName("longitude")
 	public double longitude;
 
 }

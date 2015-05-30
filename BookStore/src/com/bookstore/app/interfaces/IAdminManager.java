@@ -4,6 +4,7 @@ import com.bookstore.app.entities.AgentDonationResultEntity;
 import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
 import com.bookstore.app.entities.AgentLocationMapRoot;
+import com.bookstore.app.entities.AgentLocationRelated;
 import com.bookstore.app.entities.BookEntity;
 import com.bookstore.app.entities.BookListRoot;
 import com.bookstore.app.entities.DonationEntity;
@@ -31,7 +32,7 @@ public interface IAdminManager {
 
 	public AgentListRoot getAgentList(int pageIndex);
 
-	public AgentEntity getIndividualAgentDetails(String agentID);
+	public AgentLocationRelated getIndividualAgentDetails(String agentID);
 
 	public BookListRoot getBookList(int pageIndex);
 
@@ -72,6 +73,7 @@ public interface IAdminManager {
 	
 	public DonationEntity getIndividualDonationDetails(String donationId);
 	public AgentDonationResultEntity agentGetIndividualDonationDetails(String donationId);
+	public Boolean addIMEI(String IMEI);
 	
 
 }
