@@ -5,13 +5,12 @@
     android:background="@color/app_background_color"
     android:orientation="vertical" >
 
-    <ImageView
+    <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/ivAgentImage"
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/ic_person" />
+        android:src="@drawable/ic_done_work" />
 
     <ScrollView
         android:id="@+id/scrollView1"

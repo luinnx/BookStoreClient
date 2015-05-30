@@ -49,7 +49,7 @@ public class AgentJobAcceptRejectResultActivity extends AgentActionbarBase
 		setContentView(R.layout.activity_individual_agent_jod_details);
 
 		NotificationManager notificationManager = (android.app.NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-		notificationManager.cancel(3);
+		notificationManager.cancel(6);
 
 		initialization();
 	}

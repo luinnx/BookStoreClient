@@ -17,4 +17,6 @@ public class AgentJobList {
 	public int JobID;
 	@SerializedName("agentaddress")
 	public String AgentAddress;
+	@SerializedName("noofbook")
+	public int no_of_book;
 }

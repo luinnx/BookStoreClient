@@ -4,13 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     style="@style/Application_Background" >
-    <ImageView 
+    <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/bookPic"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_launcher"
-        android:layout_margin="5dp"/>
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:src="@drawable/ic_done_work" />
     <TextView 
         android:id="@+id/bookName"
         android:layout_width="fill_parent"

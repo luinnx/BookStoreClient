@@ -13,10 +13,12 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.gson.Gson;
 
 import android.app.IntentService;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -68,57 +70,60 @@ public class GcmIntentService extends IntentService {
 	}
 
 	private void sendNotification(String msg) {
-		
-		Log.d("BSS", "GCM : "+msg);
+		Log.d("BSS", "GCM : " + msg);
 		Gson gson = new Gson();
 		PushNotification pushNotification = gson.fromJson(msg,
 				PushNotification.class);
 		if (pushNotification != null) {
-			mNotificationManager = (NotificationManager) this
-					.getSystemService(Context.NOTIFICATION_SERVICE);
+			mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
 			Intent intent = null;
 
-			if (pushNotification.Status.equals(DONATION_ACCEPT)||pushNotification.Status.equals(DONATION_REJECT)) {
+			if (pushNotification.Status.equals(DONATION_ACCEPT)) {
 				intent = new Intent(this,
 						AgentDonationAcceptRejectResultActivity.class);
 				intent.putExtra("DONATION_ID", "" + pushNotification.id);
 				NOTIFICATION_ID = 0;
 
-			} /*else if (pushNotification.Status.equals(DONATION_REJECT)) {
+			} else if (pushNotification.Status.equals(DONATION_REJECT)) {
 				intent = new Intent(this,
 						AgentDonationAcceptRejectResultActivity.class);
 				intent.putExtra("DONATION_ID", "" + pushNotification.id);
 				NOTIFICATION_ID = 0;
 
-			}*/ else if (pushNotification.Status.equals(DONATION_SEND)) {
+			} else if (pushNotification.Status.equals(DONATION_SEND)) {
 				intent = new Intent(getApplicationContext(),
 						DonationAcceptRejectActivity.class);
 				intent.putExtra("DONATION_ID", "" + pushNotification.id);
 				NOTIFICATION_ID = 1;
 
-			}/* else if (pushNotification.Status.equals(JOB_COMPLETE)) {
-				intent = new Intent(this, AdminJobAcceptRejectActivity.class);
-				intent.putExtra("JOB_ID", "" + pushNotification.id);
-				NOTIFICATION_ID = 2;
-
-			}*/ else if (pushNotification.Status.equals(JOB_CREATE)) {
+			} else if (pushNotification.Status.equals(JOB_CREATE)) {
 				intent = new Intent(this,
 						AgentIndividualJobDetailsActivity.class);
 				intent.putExtra("JOB_ID", "" + pushNotification.id);
+				intent.putExtra("MODE", "0");
 				NOTIFICATION_ID = 3;
 
 			} else if (pushNotification.Status.equals(JOB_SUBMIT)) {
 				intent = new Intent(getApplicationContext(),
 						AdminJobAcceptRejectActivity.class);
 				intent.putExtra("JOB_ID", "" + pushNotification.id);
+				intent.putExtra("MODE", "2");
 				NOTIFICATION_ID = 2;
 
-			} else if (pushNotification.Status.equals(JOB_REJECTED)||pushNotification.Status.equals(JOB_COMPLETE)) {
+			} else if (pushNotification.Status.equals(JOB_REJECTED)) {
 				intent = new Intent(getApplicationContext(),
 						AgentJobAcceptRejectResultActivity.class);
 				intent.putExtra("JOB_ID", "" + pushNotification.id);
-				NOTIFICATION_ID = 3;
+				intent.putExtra("MODE", "4");
+				NOTIFICATION_ID = 6;
+
+			} else if (pushNotification.Status.equals(JOB_COMPLETE)) {
+				intent = new Intent(getApplicationContext(),
+						AgentJobAcceptRejectResultActivity.class);
+				intent.putExtra("JOB_ID", "" + pushNotification.id);
+				intent.putExtra("MODE", "3");
+				NOTIFICATION_ID = 6;
 
 			} else if (pushNotification.Status.equals(TADA_ACCEPT)) {
 				intent = new Intent(this, AgentTADAResultActivity.class);
@@ -137,20 +142,26 @@ public class GcmIntentService extends IntentService {
 			}
 
 			//
-			intent.putExtra("MODE", "0");
 
 			PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-					intent, 0);
-			NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-					this)
-					.setSmallIcon(R.drawable.ic_launcher)
+					intent, PendingIntent.FLAG_UPDATE_CURRENT
+							| PendingIntent.FLAG_ONE_SHOT);
+			Notification mNotification = new Notification.Builder(this)
 					.setContentTitle("Book Store")
-					.setStyle(
-							new NotificationCompat.BigTextStyle()
-									.bigText(pushNotification.Message))
-					.setContentText(pushNotification.Message);
-			mBuilder.setContentIntent(contentIntent);
-			mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+					.setContentText(pushNotification.Message)
+					.setSmallIcon(R.drawable.ic_launcher)
+					.setContentIntent(contentIntent).build();
+
+			mNotification.flags |= Notification.FLAG_AUTO_CANCEL;
+			mNotification.defaults = Notification.DEFAULT_SOUND
+					| Notification.DEFAULT_VIBRATE
+					| Notification.DEFAULT_LIGHTS;
+			mNotification.ledARGB = Color.BLUE;
+			mNotification.ledOnMS = 500;
+			mNotification.ledOffMS = 500;
+			mNotification.flags |= Notification.FLAG_SHOW_LIGHTS;
+			android.app.NotificationManager notificationManagerGroup = (android.app.NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+			notificationManagerGroup.notify(NOTIFICATION_ID, mNotification);
 		}
 	}
 

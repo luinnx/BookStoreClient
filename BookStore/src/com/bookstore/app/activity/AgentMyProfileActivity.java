@@ -31,6 +31,7 @@ import com.bookstore.app.utils.CommonTasks;
 import com.bookstore.app.utils.CommonUrls;
 import com.bookstore.app.utils.CommonValues;
 import com.bookstore.app.utils.ImageLoader;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 public class AgentMyProfileActivity extends AgentActionbarBase implements
 		OnClickListener, IAsynchronousTask {
@@ -41,7 +42,7 @@ public class AgentMyProfileActivity extends AgentActionbarBase implements
 	EditText etOldPassword, etNewPassword, etConfirmPassword;
 	
 	Button btnOk,btnForgotPassword;
-	ImageView ivAgentImage;
+	CircularImageView ivAgentImage;
 	AlertDialog alertDialog;
 	boolean isChangePassword;
 	AQuery aq;
@@ -65,7 +66,7 @@ public class AgentMyProfileActivity extends AgentActionbarBase implements
 		tvCreateDate = (TextView) findViewById(R.id.tvCreateDate);
 		btnOk = (Button) findViewById(R.id.btnOk);
 		btnForgotPassword = (Button) findViewById(R.id.btnForgotPassword);
-		ivAgentImage = (ImageView) findViewById(R.id.ivAgentImage);
+		ivAgentImage = (CircularImageView) findViewById(R.id.ivAgentImage);
 		
 		btnOk.setOnClickListener(this);
 		btnForgotPassword.setOnClickListener(this);

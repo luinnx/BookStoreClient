@@ -19,6 +19,7 @@ import com.bookstore.app.entities.AgentJobList;
 import com.bookstore.app.utils.CommonUrls;
 import com.bookstore.app.utils.CommonValues;
 import com.bookstore.app.utils.ImageLoader;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 public class AgentPendingJobListAdapter extends ArrayAdapter<AgentJobList> {
 
@@ -64,7 +65,7 @@ public class AgentPendingJobListAdapter extends ArrayAdapter<AgentJobList> {
 				jobListView = inflater.inflate(R.layout.agent_job_list_item,
 						null);
 				holder = new ViewHolder();
-				holder.bookPic = (ImageView) jobListView
+				holder.bookPic = (CircularImageView) jobListView
 						.findViewById(R.id.bookPic);
 				holder.bookName = (TextView) jobListView
 						.findViewById(R.id.bookName);
@@ -84,7 +85,7 @@ public class AgentPendingJobListAdapter extends ArrayAdapter<AgentJobList> {
 			}
 			holder.bookName.setText(agentJobListObject.BookName);
 			holder.bookQuantity.setText("Quantity :"
-					+ agentJobListObject.Quantity);
+					+ agentJobListObject.no_of_book);
 			holder.status.setText("Teacher Institude :"
 					+ agentJobListObject.TeacherInstituteName);
 			if (agentJobListObject.BookPicUrl.equals("")) {
@@ -103,7 +104,7 @@ public class AgentPendingJobListAdapter extends ArrayAdapter<AgentJobList> {
 	}
 
 	class ViewHolder {
-		public ImageView bookPic;
+		public CircularImageView bookPic;
 		public TextView bookName;
 		public TextView bookQuantity;
 		public TextView status;

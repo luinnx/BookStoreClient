@@ -5,15 +5,12 @@
     android:background="@color/app_background_color"
     android:orientation="vertical" >
 
-    <ImageView
+    <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/ivAgentImage"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:scaleType="fitXY"
-        android:background="@drawable/pic_border"
-        android:src="@drawable/ic_person" />
+        android:src="@drawable/ic_done_work" />
 
     <ScrollView
         android:id="@+id/scrollView1"
@@ -37,7 +34,7 @@
                 android:layout_marginTop="5dp"
                 android:text="Personal Info"
                 android:textColor="@color/text_view_color"
-                android:textSize="25sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <View
@@ -69,7 +66,7 @@
                         android:layout_weight="0.4"
                         android:text="Name"
                         android:textColor="@color/text_view_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -79,7 +76,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -95,7 +92,7 @@
                         android:layout_weight="0.4"
                         android:text="Mobile"
                         android:textColor="@color/text_view_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -105,7 +102,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -121,7 +118,7 @@
                         android:layout_weight="0.4"
                         android:text="Email"
                         android:textColor="@color/text_view_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -131,7 +128,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
             </LinearLayout>
@@ -144,7 +141,7 @@
                 android:gravity="left"
                 android:text="Administrative Info"
                 android:textColor="@color/text_view_color"
-                android:textSize="25sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <View
@@ -176,7 +173,7 @@
                         android:layout_weight="0.4"
                         android:text="MPO Number"
                         android:textColor="@color/text_view_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -186,7 +183,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -202,7 +199,7 @@
                         android:layout_weight="0.4"
                         android:text="Address"
                         android:textColor="@color/text_view_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -212,7 +209,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -228,7 +225,7 @@
                         android:layout_weight="0.4"
                         android:text="Location"
                         android:textColor="@color/text_view_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -238,7 +235,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -254,7 +251,7 @@
                         android:layout_weight="0.4"
                         android:text="Create Date"
                         android:textColor="@color/text_view_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -264,7 +261,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
             </LinearLayout>
@@ -280,10 +277,10 @@
                 android:id="@+id/btnOk"
                 style="@style/Button_Style"
                 android:layout_width="fill_parent"
-                android:layout_height="70dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:text="OK" />
 
@@ -291,11 +288,11 @@
                 android:id="@+id/btnForgotPassword"
                 style="@style/Button_Style"
                 android:layout_width="fill_parent"
-                android:layout_height="70dp"
+                android:layout_height="40dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
                 android:gravity="center"
+                android:layout_marginTop="2dp"
                 android:text="Change Password" />
         </LinearLayout>
     </ScrollView>
