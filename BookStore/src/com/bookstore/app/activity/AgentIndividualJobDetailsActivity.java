@@ -57,7 +57,8 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 			tvQuantity, tvPublishDate, tvPrice, tvTeacherName, tvInstitution,
 			tvTeacherMobileNumber, tvAgentName, tvAgentsAddress,
 			tvAgentsCurrentLocation, tvAgentsMobileNumber, tvDialogCancel,
-			tvDialogOK, tvTakePhoto, tvFromGallery;
+			tvDialogOK;
+	LinearLayout tvTakePhoto, tvFromGallery;
 	ImageView ivJobImage;
 	EditText etTeacherPassword;
 	Button btnOk;
@@ -266,8 +267,8 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 		tvDialogCancel = (TextView) josSubmitView
 				.findViewById(R.id.tvDialogCancel);
 		tvDialogOK = (TextView) josSubmitView.findViewById(R.id.tvDialogOK);
-		tvTakePhoto = (TextView) josSubmitView.findViewById(R.id.tvTakePhoto);
-		tvFromGallery = (TextView) josSubmitView.findViewById(R.id.tvFromGallery);
+		tvTakePhoto = (LinearLayout) josSubmitView.findViewById(R.id.tvTakePhoto);
+		tvFromGallery = (LinearLayout) josSubmitView.findViewById(R.id.tvFromGallery);
 
 		tvTakePhoto.setOnClickListener(new OnClickListener() {
 
