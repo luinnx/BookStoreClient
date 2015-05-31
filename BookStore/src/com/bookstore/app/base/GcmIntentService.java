@@ -79,19 +79,19 @@ public class GcmIntentService extends IntentService {
 
 			Intent intent = null;
 
-			if (pushNotification.Status.equals(DONATION_ACCEPT)) {
+			if (pushNotification.Status.equals(DONATION_ACCEPT)||pushNotification.Status.equals(DONATION_REJECT)) {
 				intent = new Intent(this,
 						AgentDonationAcceptRejectResultActivity.class);
 				intent.putExtra("DONATION_ID", "" + pushNotification.id);
 				NOTIFICATION_ID = 0;
 
-			} else if (pushNotification.Status.equals(DONATION_REJECT)) {
+			} /*else if (pushNotification.Status.equals(DONATION_REJECT)) {
 				intent = new Intent(this,
 						AgentDonationAcceptRejectResultActivity.class);
 				intent.putExtra("DONATION_ID", "" + pushNotification.id);
 				NOTIFICATION_ID = 0;
 
-			} else if (pushNotification.Status.equals(DONATION_SEND)) {
+			}*/ else if (pushNotification.Status.equals(DONATION_SEND)) {
 				intent = new Intent(getApplicationContext(),
 						DonationAcceptRejectActivity.class);
 				intent.putExtra("DONATION_ID", "" + pushNotification.id);
