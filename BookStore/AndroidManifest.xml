@@ -38,9 +38,11 @@
         android:theme="@style/Theme.NoTitleBar" >
         <uses-library android:name="com.google.android.maps" />
         <!-- Debug Key -->
-        <meta-data
+        <!--
+             <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyC4rKY300r_9VlHIv-pgXglCzeXDrks2KU" />
+        -->
         <!--
             <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
@@ -49,12 +51,10 @@
 
 
         <!-- Relaease Key -->
-        <!--
-             <meta-data
+
+        <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDNu1ZZszZinQNFkfiBUtAd7fE3Zt7R29U" />
-        -->
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -176,13 +176,13 @@
             android:name="com.bookstore.app.activity.AgentJobAcceptRejectResultActivity"
             android:label="Job Details" >
         </activity>
-        <activity 
+        <activity
             android:name="com.bookstore.app.activity.AddIMEIActivity"
-            android:label="Add IMEI">
+            android:label="Add IMEI" >
         </activity>
-        <activity 
+        <activity
             android:name="com.bookstore.app.activity.IndividualBookEditActivity"
-            android:label="Book Update">
+            android:label="Book Update" >
         </activity>
 
         <receiver

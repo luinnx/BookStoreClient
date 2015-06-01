@@ -24,11 +24,16 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.provider.MediaStore.Images.Media;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -62,7 +67,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 	ImageView ivJobImage;
 	EditText etTeacherPassword;
 	Button btnOk;
-	String jobID = "", mode = "",imageFilePath="";
+	String jobID = "", mode = "", imageFilePath = "";
 	AlertDialog alertDialog;
 	boolean isJobSubmit = false;
 	JobDetails jobDetails = null;
@@ -106,7 +111,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 		tvAgentsAddress = (TextView) findViewById(R.id.tvAgentsAddress);
 		tvAgentsCurrentLocation = (TextView) findViewById(R.id.tvAgentsCurrentLocation);
 		tvAgentsMobileNumber = (TextView) findViewById(R.id.tvAgentsMobileNumber);
-		ivJobImage=(ImageView) findViewById(R.id.ivJobImage);
+		ivJobImage = (ImageView) findViewById(R.id.ivJobImage);
 
 		btnOk = (Button) findViewById(R.id.btnOk);
 		btnOk.setOnClickListener(this);
@@ -168,29 +173,10 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 		IAgent agent = new AgentManager();
 		if (isJobSubmit)
 			return agent.jobSubmit(outerObject);
-		else{
+		else {
 			return agent.getJobDetails(jobID);
-			/*try {
-				if (details.BookPicUrl != null && !details.BookPicUrl.isEmpty()
-						&& !details.BookPicUrl.equals("null")) {
-					
-				}
-				URL url = new URL(CommonUrls.getInstance().IMAGE_BASE_URL
-						+ details.BookPicUrl);
-				HttpURLConnection connection = (HttpURLConnection) url
-						.openConnection();
-				connection.setDoInput(true);
-				connection.connect();
-				InputStream input = connection.getInputStream();
-				Bitmap myBitmap = BitmapFactory.decodeStream(input);
-				ivJobImage.setImageBitmap(CommonTasks
-						.createCircularShape(myBitmap));
-			} catch (Exception exception) {
-				exception.printStackTrace();
-			}
-			return jobDetails;*/
 		}
-			 
+
 	}
 
 	@Override
@@ -267,8 +253,10 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 		tvDialogCancel = (TextView) josSubmitView
 				.findViewById(R.id.tvDialogCancel);
 		tvDialogOK = (TextView) josSubmitView.findViewById(R.id.tvDialogOK);
-		tvTakePhoto = (LinearLayout) josSubmitView.findViewById(R.id.tvTakePhoto);
-		tvFromGallery = (LinearLayout) josSubmitView.findViewById(R.id.tvFromGallery);
+		tvTakePhoto = (LinearLayout) josSubmitView
+				.findViewById(R.id.tvTakePhoto);
+		tvFromGallery = (LinearLayout) josSubmitView
+				.findViewById(R.id.tvFromGallery);
 
 		tvTakePhoto.setOnClickListener(new OnClickListener() {
 
@@ -279,7 +267,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 			}
 
 		});
-		
+
 		tvFromGallery.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -308,8 +296,9 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 					CommonTasks.goSettingPage(getApplicationContext());
 					return;
 				}
-				if(count<=0){
-					CommonTasks.showToast(getApplicationContext(), "No picture selected yet!");
+				if (count <= 0) {
+					CommonTasks.showToast(getApplicationContext(),
+							"No picture selected yet!");
 					return;
 				}
 				int sl = CommonTasks.getPicSlNo();
@@ -342,13 +331,13 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, 100);
 	}
-	
-	private void FromGallery(){
+
+	private void FromGallery() {
 		Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
-	    intent.setType("image/*");
-	    intent.putExtra("return-data", true);
-	    imageFilePath = "";
-	    startActivityForResult(intent, 200);
+		intent.setType("image/*");
+		intent.putExtra("return-data", true);
+		imageFilePath = "";
+		startActivityForResult(intent, 200);
 	}
 
 	private String appFolderCheckandCreate() {
@@ -391,67 +380,139 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 		super.onActivityResult(requestCode, responseCode, data);
 		if (requestCode == 100) {
 			if (responseCode == RESULT_OK) {
-				Uri currImageURI = uriSavedImage;
-				file = new File(currImageURI.getPath());
-				// file = new File(getRealPathFromURI(currImageURI));
-				filename = file.getName().replaceAll("[-+^:,]", "")
-						.replace(" ", "");
-				Bitmap b = decodeImage(file);
-				ByteArrayOutputStream stream = new ByteArrayOutputStream();
-				if (b.getByteCount() > (1024 * 1024)) {
-					b.compress(Bitmap.CompressFormat.JPEG, 20, stream);
-				}
-				if (b.getByteCount() > (1024 * 512)) {
-					b.compress(Bitmap.CompressFormat.JPEG, 40, stream);
-				}
-				if (b.getByteCount() > (1024 * 256)) {
-					b.compress(Bitmap.CompressFormat.JPEG, 60, stream);
-				} else {
-					b.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-				}
-				selectedFile = stream.toByteArray();
-				count += 1;
-				rowPic.add(Base64.encodeToString(selectedFile, Base64.NO_WRAP));
-				try {
-					if (file.exists()) {
-						if (file.delete()) {
-							System.out.println("file Deleted :" + file);
-						} else {
-							System.out.println("file not Deleted :" + file);
-						}
-						sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
-								Uri.parse("file://"
-										+ Environment
-												.getExternalStorageDirectory())));
+				if (data.hasExtra("data")) {
+
+					// retrieve the bitmap from the intent
+					Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+
+					bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, false);
+					// update the image view with the bitmap
+
+					ByteArrayOutputStream stream = new ByteArrayOutputStream();
+					if (bitmap.getByteCount() > (1024 * 1024)) {
+						bitmap.compress(Bitmap.CompressFormat.JPEG, 20, stream);
 					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
+					if (bitmap.getByteCount() > (1024 * 512)) {
+						bitmap.compress(Bitmap.CompressFormat.JPEG, 40, stream);
+					}
+					if (bitmap.getByteCount() > (1024 * 256)) {
+						bitmap.compress(Bitmap.CompressFormat.JPEG, 60, stream);
+					} else {
+						bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+					}
+					selectedFile = stream.toByteArray();
+					count += 1;
+					rowPic.add(Base64.encodeToString(selectedFile,
+							Base64.NO_WRAP));
+				} else if (data.getExtras() == null) {
+
+					Toast.makeText(getApplicationContext(),
+							"No extras to retrieve!", Toast.LENGTH_SHORT)
+							.show();
+
+					BitmapDrawable thumbnail = new BitmapDrawable(
+							getResources(), data.getData().getPath());
+
+					Bitmap bitmap = thumbnail.getBitmap();
+
+					ByteArrayOutputStream stream = new ByteArrayOutputStream();
+					if (bitmap.getByteCount() > (1024 * 1024)) {
+						bitmap.compress(Bitmap.CompressFormat.JPEG, 20, stream);
+					}
+					if (bitmap.getByteCount() > (1024 * 512)) {
+						bitmap.compress(Bitmap.CompressFormat.JPEG, 40, stream);
+					}
+					if (bitmap.getByteCount() > (1024 * 256)) {
+						bitmap.compress(Bitmap.CompressFormat.JPEG, 60, stream);
+					} else {
+						bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+					}
+					selectedFile = stream.toByteArray();
+					count += 1;
+					rowPic.add(Base64.encodeToString(selectedFile,
+							Base64.NO_WRAP));
+
 				}
 
 			}
-		}else if(requestCode == 200){
-			Uri _uri = data.getData();
-			if (_uri != null) {
-				Cursor cursor = getContentResolver().query(_uri, new String[] {android.provider.MediaStore.Images.ImageColumns.DATA}, null, null, null);
-                cursor.moveToFirst();
-                int column_index = cursor
-                        .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                if(cursor.getString(column_index)!=null)
-                	imageFilePath = String.valueOf(cursor.getString(column_index));
-                if(!imageFilePath.isEmpty()){
-                	File photos= new File(imageFilePath);
-                	filename = photos.getName();
-                	
-                    Bitmap b = CommonTasks.decodeImage(photos);
-                    b = Bitmap.createScaledBitmap(b,100, 100, true);
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    b.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        			//MyNetFacebookActivity.picByteValue = stream.toByteArray();
-                    selectedFile = stream.toByteArray();
-                    count += 1;
-    				rowPic.add(Base64.encodeToString(selectedFile, Base64.NO_WRAP));
-                }                   
-                cursor.close();
+		} else if (requestCode == 200) {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+				Uri selectedImage = data.getData();
+				String wholeID = DocumentsContract.getDocumentId(selectedImage);
+
+				// Split at colon, use second item in the array
+				String id = wholeID.split(":")[1];
+
+				String[] column = { MediaStore.Images.Media.DATA };
+
+				// where id is equal to
+				String sel = MediaStore.Images.Media._ID + "=?";
+
+				Cursor cursor = getContentResolver().query(
+						MediaStore.Images.Media.EXTERNAL_CONTENT_URI, column,
+						sel, new String[] { id }, null);
+
+				String filePath = "";
+
+				int columnIndex = cursor.getColumnIndex(column[0]);
+
+				if (cursor.moveToFirst()) {
+					filePath = cursor.getString(columnIndex);
+				}
+
+				Bitmap bitmap = BitmapFactory.decodeFile(filePath); // load
+				// preview
+				// image
+				bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, false);
+
+				ByteArrayOutputStream stream = new ByteArrayOutputStream();
+				if (bitmap.getByteCount() > (1024 * 1024)) {
+					bitmap.compress(Bitmap.CompressFormat.JPEG, 20, stream);
+				}
+				if (bitmap.getByteCount() > (1024 * 512)) {
+					bitmap.compress(Bitmap.CompressFormat.JPEG, 40, stream);
+				}
+				if (bitmap.getByteCount() > (1024 * 256)) {
+					bitmap.compress(Bitmap.CompressFormat.JPEG, 60, stream);
+				} else {
+					bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+				}
+				selectedFile = stream.toByteArray();
+				count += 1;
+				rowPic.add(Base64.encodeToString(selectedFile,
+						Base64.NO_WRAP));
+
+				cursor.close();
+			} else {
+				Uri _uri = data.getData();
+				if (_uri != null) {
+					Cursor cursor = getContentResolver()
+							.query(_uri,
+									new String[] { android.provider.MediaStore.Images.ImageColumns.DATA },
+									null, null, null);
+					cursor.moveToFirst();
+					int column_index = cursor
+							.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+					if (cursor.getString(column_index) != null)
+						imageFilePath = String.valueOf(cursor
+								.getString(column_index));
+					if (!imageFilePath.isEmpty()) {
+						File photos = new File(imageFilePath);
+						filename = photos.getName();
+
+						Bitmap b = CommonTasks.decodeImage(photos);
+						b = Bitmap.createScaledBitmap(b, 100, 100, true);
+						ByteArrayOutputStream stream = new ByteArrayOutputStream();
+						b.compress(Bitmap.CompressFormat.PNG, 100, stream);
+						// MyNetFacebookActivity.picByteValue =
+						// stream.toByteArray();
+						selectedFile = stream.toByteArray();
+						count += 1;
+						rowPic.add(Base64.encodeToString(selectedFile,
+								Base64.NO_WRAP));
+					}
+					cursor.close();
+				}
 			}
 		}
 	}

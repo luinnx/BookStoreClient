@@ -162,6 +162,10 @@ public class BookStoreActionBarBase extends FragmentActivity {
 		case R.id.action_logout:
 			CommonTasks.savePreferencesForReasonCode(this,
 					CommonConstraints.USER_ID, "" + "");
+			CommonTasks.savePreferencesForReasonCode(this,
+					CommonConstraints.USER_TYPE, "" + "");
+			CommonTasks.savePreferencesForReasonCode(this,
+					CommonConstraints.GCMID, "" + "");
 			Intent intent2=new Intent(getApplicationContext(),LoginActivity.class);
 			intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			overridePendingTransition(android.R.anim.slide_in_left,
