@@ -426,4 +426,15 @@ public class AdminManager implements IAdminManager {
 
 		return result;
 	}
+
+	@Override
+	public boolean bookEdit(int quantity, int available, double price,
+			int bookid) {
+		Boolean result = false;
+		result = (Boolean) JSONfunctions.retrieveDataFromStream(String
+				.format(CommonUrls.getInstance().bookEdit,
+						quantity,available,price,bookid), Boolean.class);
+
+		return result;
+	}
 }

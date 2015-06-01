@@ -102,10 +102,16 @@ public class BookListActivity extends BookStoreActionBarBase implements
 	}
 
 	@Override
-	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2,
+	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position,
 			long arg3) {
-		
-		return false;
+		BookEntity bookEntity=new BookEntity();
+		bookEntity=bookListRoot.bookList.get(position);
+		Intent intent = new Intent(getApplicationContext(),
+				IndividualBookEditActivity.class);
+		intent.putExtra("BOOK_ID", bookEntity._id);
+		intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+		startActivity(intent);
+		return true;
 	}
 
 }
