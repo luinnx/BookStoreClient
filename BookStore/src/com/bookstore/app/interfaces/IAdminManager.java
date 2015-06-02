@@ -74,6 +74,7 @@ public interface IAdminManager {
 	public DonationEntity getIndividualDonationDetails(String donationId);
 	public AgentDonationResultEntity agentGetIndividualDonationDetails(String donationId);
 	public Boolean addIMEI(String IMEI);
+	public boolean bookEdit(int quantity, int available, double price, int bookid);
 	
 
 }

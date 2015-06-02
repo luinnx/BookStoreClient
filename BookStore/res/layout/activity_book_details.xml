@@ -46,7 +46,7 @@
                 android:layout_marginRight="5dp"
                 android:orientation="horizontal" >
 
-                <ImageView
+                <com.mikhaellopez.circularimageview.CircularImageView
                     android:id="@+id/ivBookImage"
                     android:layout_width="50dp"
                     android:layout_height="50dp"

@@ -178,7 +178,12 @@
         </activity>
         <activity 
             android:name="com.bookstore.app.activity.AddIMEIActivity"
-            android:label="Add IMEI"></activity>
+            android:label="Add IMEI">
+        </activity>
+        <activity 
+            android:name="com.bookstore.app.activity.IndividualBookEditActivity"
+            android:label="Book Update">
+        </activity>
 
         <receiver
             android:name="com.bookstore.app.base.GcmBroadcastReceiver"
