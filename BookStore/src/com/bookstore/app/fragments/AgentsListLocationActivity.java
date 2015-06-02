@@ -48,6 +48,7 @@ import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
@@ -58,7 +59,7 @@ import android.widget.TextView;
 
 public class AgentsListLocationActivity extends Fragment implements
 		LocationListener, IAsynchronousTask, OnItemClickListener,
-		OnMarkerClickListener, InfoWindowAdapter {
+		OnMarkerClickListener, InfoWindowAdapter, OnClickListener {
 
 	ListView lvAgentList;
 	AgentListAdapter adapter;
@@ -83,6 +84,8 @@ public class AgentsListLocationActivity extends Fragment implements
 	ViewGroup parent;
 	String whichService = "Agent List";
 	ArrayList<Bitmap> mapPhotoList;
+	
+	ImageView ivRefresh;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -117,6 +120,10 @@ public class AgentsListLocationActivity extends Fragment implements
 		lvAgentList = (ListView) root.findViewById(R.id.lvAgentList);
 
 		lvAgentList.setOnItemClickListener(this);
+		
+		ivRefresh=(ImageView) root.findViewById(R.id.ivRefresh);
+		ivRefresh.setOnClickListener(this);
+		
 		SupportMapFragment fragment = ((SupportMapFragment) getChildFragmentManager()
 				.findFragmentById(R.id.fragAgentLocationMap));
 		frAgentLocationMap = fragment.getMap();
@@ -243,7 +250,7 @@ public class AgentsListLocationActivity extends Fragment implements
 				agentListRoot = (AgentListRoot) data;
 				adapter = new AgentListAdapter(getActivity(),
 						R.layout.agent_list_item, agentListRoot.agentList);
-				whichService = "Load Map";
+				//whichService = "Load Map";
 
 				lvAgentList.setAdapter(adapter);
 				LoadMap(agentListRoot);
@@ -453,6 +460,16 @@ public class AgentsListLocationActivity extends Fragment implements
 						+ ".png")));
 
 		return v;
+	}
+
+	@Override
+	public void onClick(View arg0) {
+		if (!CommonTasks.isOnline(getActivity())) {
+			CommonTasks.goSettingPage(getActivity());
+			return;
+		}
+		LoginRequest();
+		
 	}
 
 }
