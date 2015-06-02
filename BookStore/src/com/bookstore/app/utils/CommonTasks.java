@@ -142,7 +142,18 @@ public class CommonTasks {
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo netInfo = cm.getActiveNetworkInfo();
 		if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-			return true;
+			try {
+				Process p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.com");
+		        int returnVal = p1.waitFor();
+		        if(returnVal == 0)
+		        	return true;
+	        } catch (MalformedURLException e1) {
+	            Log.e("BSA", e1.getMessage());
+	        } catch (IOException e) {
+	        	Log.e("BSA", e.getMessage());
+	        } catch (InterruptedException e) {
+	        	Log.e("BSA", e.getMessage());
+			}
 		}
 		return false;
 	}

@@ -31,6 +31,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.provider.MediaStore.Images.ImageColumns;
 import android.provider.MediaStore.Images.Media;
 import android.util.Base64;
 import android.util.Log;
@@ -378,7 +379,142 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 	protected void onActivityResult(int requestCode, int responseCode,
 			Intent data) {
 		super.onActivityResult(requestCode, responseCode, data);
-		if (requestCode == 100) {
+		if (requestCode == 200) {
+			if (responseCode == RESULT_OK) {
+				if (data != null) {
+
+					if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+						Uri selectedImage = data.getData();
+						String wholeID = DocumentsContract
+								.getDocumentId(selectedImage);
+
+						// Split at colon, use second item in the array
+						String id = wholeID.split(":")[1];
+
+						String[] column = { MediaStore.Images.Media.DATA };
+
+						// where id is equal to
+						String sel = MediaStore.Images.Media._ID + "=?";
+
+						Cursor cursor = getContentResolver().query(
+								MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+								column, sel, new String[] { id }, null);
+
+						String filePath = "";
+
+						int columnIndex = cursor.getColumnIndex(column[0]);
+
+						if (cursor.moveToFirst()) {
+							filePath = cursor.getString(columnIndex);
+						}
+
+						Bitmap bitmap = BitmapFactory.decodeFile(filePath); // load
+						// preview
+						// image
+						bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100,
+								false);
+
+						ByteArrayOutputStream stream = new ByteArrayOutputStream();
+						if (bitmap.getByteCount() > (1024 * 1024)) {
+							bitmap.compress(Bitmap.CompressFormat.JPEG, 20,
+									stream);
+						}
+						if (bitmap.getByteCount() > (1024 * 512)) {
+							bitmap.compress(Bitmap.CompressFormat.JPEG, 40,
+									stream);
+						}
+						if (bitmap.getByteCount() > (1024 * 256)) {
+							bitmap.compress(Bitmap.CompressFormat.JPEG, 60,
+									stream);
+						} else {
+							bitmap.compress(Bitmap.CompressFormat.JPEG, 100,
+									stream);
+						}
+						selectedFile = stream.toByteArray();
+						count += 1;
+						rowPic.add(Base64.encodeToString(selectedFile,
+								Base64.NO_WRAP));
+
+						cursor.close();
+					} else {
+						// our BitmapDrawable for the thumbnail
+						BitmapDrawable bmpDrawable = null;
+						// try to retrieve the image using the data from the
+						// intent
+						Cursor cursor = getContentResolver().query(
+								data.getData(), null, null, null, null);
+						if (cursor != null) {
+
+							cursor.moveToFirst();
+
+							int idx = cursor.getColumnIndex(ImageColumns.DATA);
+							String fileSrc = cursor.getString(idx);
+							Bitmap bitmap = BitmapFactory.decodeFile(fileSrc); // load
+																		// preview
+																		// image
+							bitmap = Bitmap.createScaledBitmap(bitmap, 100,
+									100, false);
+
+							ByteArrayOutputStream stream = new ByteArrayOutputStream();
+							if (bitmap.getByteCount() > (1024 * 1024)) {
+								bitmap.compress(Bitmap.CompressFormat.JPEG, 20,
+										stream);
+							}
+							if (bitmap.getByteCount() > (1024 * 512)) {
+								bitmap.compress(Bitmap.CompressFormat.JPEG, 40,
+										stream);
+							}
+							if (bitmap.getByteCount() > (1024 * 256)) {
+								bitmap.compress(Bitmap.CompressFormat.JPEG, 60,
+										stream);
+							} else {
+								bitmap.compress(Bitmap.CompressFormat.JPEG,
+										100, stream);
+							}
+							selectedFile = stream.toByteArray();
+							count += 1;
+							rowPic.add(Base64.encodeToString(selectedFile,
+									Base64.NO_WRAP));
+
+						} else {
+
+							bmpDrawable = new BitmapDrawable(getResources(),
+									data.getData().getPath());
+
+							Bitmap bitmap = bmpDrawable.getBitmap();
+
+							ByteArrayOutputStream stream = new ByteArrayOutputStream();
+							if (bitmap.getByteCount() > (1024 * 1024)) {
+								bitmap.compress(Bitmap.CompressFormat.JPEG, 20,
+										stream);
+							}
+							if (bitmap.getByteCount() > (1024 * 512)) {
+								bitmap.compress(Bitmap.CompressFormat.JPEG, 40,
+										stream);
+							}
+							if (bitmap.getByteCount() > (1024 * 256)) {
+								bitmap.compress(Bitmap.CompressFormat.JPEG, 60,
+										stream);
+							} else {
+								bitmap.compress(Bitmap.CompressFormat.JPEG,
+										100, stream);
+							}
+							selectedFile = stream.toByteArray();
+							count += 1;
+							rowPic.add(Base64.encodeToString(selectedFile,
+									Base64.NO_WRAP));
+						}
+					}
+
+				} else {
+					Toast.makeText(getApplicationContext(), "Cancelled",
+							Toast.LENGTH_SHORT).show();
+				}
+			} else if (responseCode == RESULT_CANCELED) {
+				Toast.makeText(getApplicationContext(), "Cancelled",
+						Toast.LENGTH_SHORT).show();
+			}
+		} else if (requestCode == 100) {
 			if (responseCode == RESULT_OK) {
 				if (data.hasExtra("data")) {
 
@@ -431,88 +567,11 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 					count += 1;
 					rowPic.add(Base64.encodeToString(selectedFile,
 							Base64.NO_WRAP));
-
 				}
 
-			}
-		} else if (requestCode == 200) {
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-				Uri selectedImage = data.getData();
-				String wholeID = DocumentsContract.getDocumentId(selectedImage);
-
-				// Split at colon, use second item in the array
-				String id = wholeID.split(":")[1];
-
-				String[] column = { MediaStore.Images.Media.DATA };
-
-				// where id is equal to
-				String sel = MediaStore.Images.Media._ID + "=?";
-
-				Cursor cursor = getContentResolver().query(
-						MediaStore.Images.Media.EXTERNAL_CONTENT_URI, column,
-						sel, new String[] { id }, null);
-
-				String filePath = "";
-
-				int columnIndex = cursor.getColumnIndex(column[0]);
-
-				if (cursor.moveToFirst()) {
-					filePath = cursor.getString(columnIndex);
-				}
-
-				Bitmap bitmap = BitmapFactory.decodeFile(filePath); // load
-				// preview
-				// image
-				bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, false);
-
-				ByteArrayOutputStream stream = new ByteArrayOutputStream();
-				if (bitmap.getByteCount() > (1024 * 1024)) {
-					bitmap.compress(Bitmap.CompressFormat.JPEG, 20, stream);
-				}
-				if (bitmap.getByteCount() > (1024 * 512)) {
-					bitmap.compress(Bitmap.CompressFormat.JPEG, 40, stream);
-				}
-				if (bitmap.getByteCount() > (1024 * 256)) {
-					bitmap.compress(Bitmap.CompressFormat.JPEG, 60, stream);
-				} else {
-					bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-				}
-				selectedFile = stream.toByteArray();
-				count += 1;
-				rowPic.add(Base64.encodeToString(selectedFile,
-						Base64.NO_WRAP));
-
-				cursor.close();
-			} else {
-				Uri _uri = data.getData();
-				if (_uri != null) {
-					Cursor cursor = getContentResolver()
-							.query(_uri,
-									new String[] { android.provider.MediaStore.Images.ImageColumns.DATA },
-									null, null, null);
-					cursor.moveToFirst();
-					int column_index = cursor
-							.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-					if (cursor.getString(column_index) != null)
-						imageFilePath = String.valueOf(cursor
-								.getString(column_index));
-					if (!imageFilePath.isEmpty()) {
-						File photos = new File(imageFilePath);
-						filename = photos.getName();
-
-						Bitmap b = CommonTasks.decodeImage(photos);
-						b = Bitmap.createScaledBitmap(b, 100, 100, true);
-						ByteArrayOutputStream stream = new ByteArrayOutputStream();
-						b.compress(Bitmap.CompressFormat.PNG, 100, stream);
-						// MyNetFacebookActivity.picByteValue =
-						// stream.toByteArray();
-						selectedFile = stream.toByteArray();
-						count += 1;
-						rowPic.add(Base64.encodeToString(selectedFile,
-								Base64.NO_WRAP));
-					}
-					cursor.close();
-				}
+			} else if (responseCode == RESULT_CANCELED) {
+				Toast.makeText(getApplicationContext(), "Cancelled",
+						Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
