@@ -16,6 +16,7 @@ import com.bookstore.app.activity.AgentIndividualJobDetailsActivity;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.adapters.AgentPendingJobListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
+import com.bookstore.app.customview.EndlessScrollListener;
 import com.bookstore.app.entities.AgentJobList;
 import com.bookstore.app.entities.AgentJobListRoot;
 import com.bookstore.app.interfaces.IAgent;
@@ -30,6 +31,9 @@ public class AgentPendingJobListFragment extends Fragment implements
 	DownloadableAsyncTask downloadableAsyncTask;
 	ProgressDialog progressDialog;
 	AgentPendingJobListAdapter adapter;
+	EndlessScrollListener scrollListener;
+	int pageIndex = 0;
+	String whichMode = "";
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +47,17 @@ public class AgentPendingJobListFragment extends Fragment implements
 	private void initalization(ViewGroup root) {
 		pending_job_list = (ListView) root.findViewById(R.id.pending_job_list);
 		pending_job_list.setOnItemClickListener(this);
+		
+		scrollListener = new EndlessScrollListener() {
+
+			@Override
+			public void onLoadMore(int page, int totalItemsCount) {
+				whichMode = "download_next_job";
+				pageIndex++;
+				LoadPendingJob();
+			}
+		};
+		pending_job_list.setOnScrollListener(scrollListener);
 
 	}
 
@@ -55,21 +70,14 @@ public class AgentPendingJobListFragment extends Fragment implements
 				CommonTasks.goSettingPage(getActivity());
 				return;
 			}else{
+				whichMode = "download_all_job";
+				pageIndex=0;
 				LoadPendingJob();	
 			}
 			
 		} else {
 
 		}
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-		/*
-		 * if (!CommonTasks.isOnline(getActivity())) {
-		 * CommonTasks.goSettingPage(getActivity()); return; } LoadPendingJob();
-		 */
 	}
 
 	private void LoadPendingJob() {
@@ -97,25 +105,30 @@ public class AgentPendingJobListFragment extends Fragment implements
 	public Object doInBackground() {
 		IAgent agent = new AgentManager();
 		return agent.getJobList(Integer.parseInt(CommonTasks.getPreferences(
-				getActivity(), CommonConstraints.USER_ID)), 1, 0);
+				getActivity(), CommonConstraints.USER_ID)), 1, pageIndex);
 	}
 
 	@Override
 	public void processDataAfterDownload(Object data) {
 		if (data != null) {
 			AgentJobListRoot agentJobListRoot = (AgentJobListRoot) data;
-			if (agentJobListRoot.agentJobList != null
-					&& agentJobListRoot.agentJobList.size() > 0) {
-				adapter = new AgentPendingJobListAdapter(getActivity(),
-						R.layout.agent_job_list_item,
-						agentJobListRoot.agentJobList);
-				pending_job_list.setAdapter(adapter);
-			} else {
-				adapter = new AgentPendingJobListAdapter(getActivity(),
-						R.layout.agent_job_list_item,
-						agentJobListRoot.agentJobList);
-				pending_job_list.setAdapter(adapter);
+			if(whichMode.equals("download_all_job")){
+				if (agentJobListRoot.agentJobList != null && agentJobListRoot.agentJobList.size() > 0) {
+					adapter = new AgentPendingJobListAdapter(getActivity(),	R.layout.agent_job_list_item,agentJobListRoot.agentJobList);
+					pending_job_list.setAdapter(adapter);
+				} else {
+					adapter = new AgentPendingJobListAdapter(getActivity(),	R.layout.agent_job_list_item, agentJobListRoot.agentJobList);
+					pending_job_list.setAdapter(adapter);
+				}
+			}else if(whichMode.equals("download_next_job")){
+				if (agentJobListRoot.agentJobList != null && agentJobListRoot.agentJobList.size() > 0) {
+					for (AgentJobList jobList : agentJobListRoot.agentJobList) {
+						adapter.add(jobList);
+					}
+					adapter.notifyDataSetChanged();
+				}
 			}
+			
 		}
 	}
 

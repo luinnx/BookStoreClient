@@ -12,6 +12,8 @@ import com.bookstore.app.adapters.AgentListAdapter;
 import com.bookstore.app.adapters.TaDaListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.AgentActionbarBase;
+import com.bookstore.app.customview.EndlessScrollListener;
+import com.bookstore.app.entities.AgentJobList;
 import com.bookstore.app.entities.TaDaListRoot;
 import com.bookstore.app.entities.TadaListEntity;
 import com.bookstore.app.interfaces.IAgent;
@@ -28,6 +30,9 @@ public class AgentTADAListActivity extends AgentActionbarBase implements
 	ProgressDialog dialog;
 	TaDaListAdapter adapter;
 	TaDaListRoot taDaListRoot;
+	EndlessScrollListener scrollListener;
+	int pageIndex = 0;
+	String whichMode = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,8 @@ public class AgentTADAListActivity extends AgentActionbarBase implements
 			CommonTasks.goSettingPage(this);
 			return;
 		}
+		whichMode = "download_all_tada";
+		pageIndex=0;
 		loadInformation();
 	}
 
@@ -52,6 +59,17 @@ public class AgentTADAListActivity extends AgentActionbarBase implements
 	private void initViews() {
 		lvAllTaDaList = (ListView) findViewById(R.id.lvAllTaDaList);
 		lvAllTaDaList.setOnItemClickListener(this);
+		
+		scrollListener = new EndlessScrollListener() {
+
+			@Override
+			public void onLoadMore(int page, int totalItemsCount) {
+				whichMode = "download_next_tada";
+				pageIndex++;
+				loadInformation();
+			}
+		};
+		lvAllTaDaList.setOnScrollListener(scrollListener);
 
 	}
 
@@ -84,17 +102,27 @@ public class AgentTADAListActivity extends AgentActionbarBase implements
 	public Object doInBackground() {
 		IAgent agent = new AgentManager();
 		return agent.getAllTaDaList(CommonTasks.getPreferences(
-				getApplicationContext(), CommonConstraints.USER_ID), 0);
+				getApplicationContext(), CommonConstraints.USER_ID), pageIndex);
 	}
 
 	@Override
 	public void processDataAfterDownload(Object data) {
 		if (data != null) {
 			taDaListRoot = (TaDaListRoot) data;
-
-			adapter = new TaDaListAdapter(getApplicationContext(),
-					R.layout.agent_list_item, taDaListRoot.tadaList);
-			lvAllTaDaList.setAdapter(adapter);
+			if(whichMode.equals("download_all_tada")){
+				if(taDaListRoot != null && taDaListRoot.tadaList.size()>0){
+					adapter = new TaDaListAdapter(getApplicationContext(),
+							R.layout.agent_list_item, taDaListRoot.tadaList);
+					lvAllTaDaList.setAdapter(adapter);
+				}				
+			}else if(whichMode.equals("download_next_tada")){
+				if(taDaListRoot != null && taDaListRoot.tadaList.size()>0){
+					for (TadaListEntity tadaList : taDaListRoot.tadaList) {
+						adapter.add(tadaList);
+					}
+					adapter.notifyDataSetChanged();
+				}
+			}
 
 		} else {
 			CommonTasks.showToast(getApplicationContext(),
