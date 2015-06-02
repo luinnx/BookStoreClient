@@ -18,8 +18,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images.ImageColumns;
 import android.provider.MediaStore.Images.Media;
@@ -53,8 +55,7 @@ public class AddAgentActivity extends BookStoreActionBarBase implements
 	public byte[] selectedFile;
 	public String filename = "";
 	Uri uriSavedImage;
-	
-	
+
 	protected static final int CAMERA_REQUEST = 0;
 	protected static final int GALLERY_PICTURE = 1;
 	private Intent pictureActionIntent = null;
@@ -87,7 +88,7 @@ public class AddAgentActivity extends BookStoreActionBarBase implements
 	@Override
 	public void onClick(View view) {
 		if (view.getId() == R.id.ivCaptureImage) {
-			//getImageFromCamera();
+			// getImageFromCamera();
 			startDialog();
 		} else {
 			if (etAgentname.getText().toString().trim().equals("")) {
@@ -162,23 +163,26 @@ public class AddAgentActivity extends BookStoreActionBarBase implements
 	public void processDataAfterDownload(Object data) {
 		if (data != null) {
 			Boolean boolean1 = (Boolean) data;
-			if(boolean1){
-				CommonTasks.showToast(getApplicationContext(), "Agent Creation Succesfull.");
+			if (boolean1) {
+				CommonTasks.showToast(getApplicationContext(),
+						"Agent Creation Succesfull.");
 				super.onBackPressed();
-			}else{
-				CommonTasks.showToast(getApplicationContext(), "Agent Creation failed. Please try again later.");
+			} else {
+				CommonTasks.showToast(getApplicationContext(),
+						"Agent Creation failed. Please try again later.");
 			}
-		}else{
-			CommonTasks.showToast(getApplicationContext(), "Internal Server Error. Please try again later.");
+		} else {
+			CommonTasks.showToast(getApplicationContext(),
+					"Internal Server Error. Please try again later.");
 		}
 
 	}
-	
+
 	private void startDialog() {
 
 		myAlertDialog = new AlertDialog.Builder(this,
 				AlertDialog.THEME_HOLO_LIGHT);
-		//AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(this);
+		// AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(this);
 		LayoutInflater inflater = getLayoutInflater();
 		View josSubmitView = inflater.inflate(R.layout.image_choser_dialog,
 				null);
@@ -219,121 +223,42 @@ public class AddAgentActivity extends BookStoreActionBarBase implements
 		alertDialog = myAlertDialog.create();
 		alertDialog.show();
 	}
-	
 
-	private void getImageFromCamera() {
-		
-		File image = new File(appFolderCheckandCreate(), "img" + getTimeStamp() + ".jpg");
-        uriSavedImage = Uri.fromFile(image);
-		
-		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
-		intent.putExtra("return-data", true);
-		startActivityForResult(intent, 100);
-	}
-
-	private String appFolderCheckandCreate(){
-
-	    String appFolderPath="";
-	    File externalStorage = Environment.getExternalStorageDirectory();
-
-	    if (externalStorage.canWrite()) 
-	    {
-	        appFolderPath = externalStorage.getAbsolutePath() + "/BookStore";
-	        File dir = new File(appFolderPath);
-
-	        if (!dir.exists()) 
-	        {
-	              dir.mkdirs();
-	        }
-
-	    }
-	    else
-	    {
-	      CommonTasks.showToast(getApplicationContext(),"  Storage media not found or is full ! ");
-	    }
-
-	    return appFolderPath;
-	}
-	
-	private String getTimeStamp() {
-
-	    final long timestamp = new Date().getTime();
-
-	    final Calendar cal = Calendar.getInstance();
-	                   cal.setTimeInMillis(timestamp);
-
-	    final String timeString = new SimpleDateFormat("HH_mm_ss_SSS").format(cal.getTime());
-
-
-	    return timeString;
-	}
-	
-	/*@Override
-	protected void onActivityResult(int requestCode, int responseCode,
-			Intent data) {
-		super.onActivityResult(requestCode, responseCode, data);
-		if (requestCode == 100) {
-			if (responseCode == RESULT_OK) {
-				Uri currImageURI = uriSavedImage;
-				file = new File(currImageURI.getPath());
-				//file = new File(getRealPathFromURI(currImageURI));
-				filename = file.getName().replaceAll("[-+^:,]", "")
-						.replace(" ", "");
-				Bitmap b = decodeImage(file);
-				ByteArrayOutputStream stream = new ByteArrayOutputStream();
-				if (b.getByteCount() > (1024 * 1024)) {
-					b.compress(Bitmap.CompressFormat.JPEG, 20, stream);
-				}
-				if (b.getByteCount() > (1024 * 512)) {
-					b.compress(Bitmap.CompressFormat.JPEG, 40, stream);
-				}
-				if (b.getByteCount() > (1024 * 256)) {
-					b.compress(Bitmap.CompressFormat.JPEG, 60, stream);
-				} else {
-					b.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-				}
-				selectedFile = stream.toByteArray();
-				ivCaptureImage.setImageBitmap(b);
-				try{
-					if (file.exists()) {
-					    if (file.delete()) {
-					        System.out.println("file Deleted :" + file);
-					    } else {
-					        System.out.println("file not Deleted :" + file);
-					    }
-					    sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
-					    		 Uri.parse("file://" +  Environment.getExternalStorageDirectory())));
-					}
-				}catch(Exception ex){
-					ex.printStackTrace();
-				}
-				
-			}
-		}
-	}*/
-	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 		super.onActivityResult(requestCode, resultCode, data);
 		if (requestCode == GALLERY_PICTURE) {
 			if (resultCode == RESULT_OK) {
 				if (data != null) {
-					
-					// our BitmapDrawable for the thumbnail
-					BitmapDrawable bmpDrawable = null;
-					// try to retrieve the image using the data from the intent
-					Cursor cursor = getContentResolver().query(data.getData(),
-							null, null, null, null);
-					if (cursor != null) {
 
-						cursor.moveToFirst();
+					if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+						Uri selectedImage = data.getData();
+						String wholeID = DocumentsContract
+								.getDocumentId(selectedImage);
 
-						int idx = cursor.getColumnIndex(ImageColumns.DATA);
-						String fileSrc = cursor.getString(idx);
-						bitmap = BitmapFactory.decodeFile(fileSrc); // load
-																	// preview
-																	// image
+						// Split at colon, use second item in the array
+						String id = wholeID.split(":")[1];
+
+						String[] column = { MediaStore.Images.Media.DATA };
+
+						// where id is equal to
+						String sel = MediaStore.Images.Media._ID + "=?";
+
+						Cursor cursor = getContentResolver().query(
+								MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+								column, sel, new String[] { id }, null);
+
+						String filePath = "";
+
+						int columnIndex = cursor.getColumnIndex(column[0]);
+
+						if (cursor.moveToFirst()) {
+							filePath = cursor.getString(columnIndex);
+						}
+
+						bitmap = BitmapFactory.decodeFile(filePath); // load
+						// preview
+						// image
 						bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100,
 								false);
 						// bmpDrawable = new BitmapDrawable(bitmapPreview);
@@ -357,31 +282,72 @@ public class AddAgentActivity extends BookStoreActionBarBase implements
 						}
 						selectedFile = stream.toByteArray();
 
+						cursor.close();
 					} else {
+						// our BitmapDrawable for the thumbnail
+						BitmapDrawable bmpDrawable = null;
+						// try to retrieve the image using the data from the
+						// intent
+						Cursor cursor = getContentResolver().query(
+								data.getData(), null, null, null, null);
+						if (cursor != null) {
 
-						bmpDrawable = new BitmapDrawable(getResources(), data
-								.getData().getPath());
-						ivCaptureImage.setImageDrawable(bmpDrawable);
+							cursor.moveToFirst();
 
-						bitmap = bmpDrawable.getBitmap();
+							int idx = cursor.getColumnIndex(ImageColumns.DATA);
+							String fileSrc = cursor.getString(idx);
+							bitmap = BitmapFactory.decodeFile(fileSrc); // load
+																		// preview
+																		// image
+							bitmap = Bitmap.createScaledBitmap(bitmap, 100,
+									100, false);
+							// bmpDrawable = new BitmapDrawable(bitmapPreview);
+							ivCaptureImage.setImageBitmap(bitmap);
 
-						ByteArrayOutputStream stream = new ByteArrayOutputStream();
-						if (bitmap.getByteCount() > (1024 * 1024)) {
-							bitmap.compress(Bitmap.CompressFormat.JPEG, 20,
-									stream);
-						}
-						if (bitmap.getByteCount() > (1024 * 512)) {
-							bitmap.compress(Bitmap.CompressFormat.JPEG, 40,
-									stream);
-						}
-						if (bitmap.getByteCount() > (1024 * 256)) {
-							bitmap.compress(Bitmap.CompressFormat.JPEG, 60,
-									stream);
+							ByteArrayOutputStream stream = new ByteArrayOutputStream();
+							if (bitmap.getByteCount() > (1024 * 1024)) {
+								bitmap.compress(Bitmap.CompressFormat.JPEG, 20,
+										stream);
+							}
+							if (bitmap.getByteCount() > (1024 * 512)) {
+								bitmap.compress(Bitmap.CompressFormat.JPEG, 40,
+										stream);
+							}
+							if (bitmap.getByteCount() > (1024 * 256)) {
+								bitmap.compress(Bitmap.CompressFormat.JPEG, 60,
+										stream);
+							} else {
+								bitmap.compress(Bitmap.CompressFormat.JPEG,
+										100, stream);
+							}
+							selectedFile = stream.toByteArray();
+
 						} else {
-							bitmap.compress(Bitmap.CompressFormat.JPEG, 100,
-									stream);
+
+							bmpDrawable = new BitmapDrawable(getResources(),
+									data.getData().getPath());
+							ivCaptureImage.setImageDrawable(bmpDrawable);
+
+							bitmap = bmpDrawable.getBitmap();
+
+							ByteArrayOutputStream stream = new ByteArrayOutputStream();
+							if (bitmap.getByteCount() > (1024 * 1024)) {
+								bitmap.compress(Bitmap.CompressFormat.JPEG, 20,
+										stream);
+							}
+							if (bitmap.getByteCount() > (1024 * 512)) {
+								bitmap.compress(Bitmap.CompressFormat.JPEG, 40,
+										stream);
+							}
+							if (bitmap.getByteCount() > (1024 * 256)) {
+								bitmap.compress(Bitmap.CompressFormat.JPEG, 60,
+										stream);
+							} else {
+								bitmap.compress(Bitmap.CompressFormat.JPEG,
+										100, stream);
+							}
+							selectedFile = stream.toByteArray();
 						}
-						selectedFile = stream.toByteArray();
 					}
 
 				} else {
@@ -473,6 +439,11 @@ public class AddAgentActivity extends BookStoreActionBarBase implements
 
 	}
 
+	public static boolean isMediaDocument(Uri uri) {
+		return "com.android.providers.media.documents".equals(uri
+				.getAuthority());
+	}
+
 	public static byte[] convertInputStreamToByteArray(InputStream input)
 			throws IOException {
 		byte[] buffer = new byte[8192];
@@ -526,7 +497,7 @@ public class AddAgentActivity extends BookStoreActionBarBase implements
 		}
 		return null;
 	}
-	
-	//this is for test
+
+	// this is for test
 
 }

@@ -22,8 +22,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images.ImageColumns;
 import android.provider.MediaStore.Images.Media;
@@ -589,6 +591,59 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 		if (requestCode == GALLERY_PICTURE) {
 			if (resultCode == RESULT_OK) {
 				if (data != null) {
+					if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+						Uri selectedImage = data.getData();
+						String wholeID = DocumentsContract
+								.getDocumentId(selectedImage);
+
+						// Split at colon, use second item in the array
+						String id = wholeID.split(":")[1];
+
+						String[] column = { MediaStore.Images.Media.DATA };
+
+						// where id is equal to
+						String sel = MediaStore.Images.Media._ID + "=?";
+
+						Cursor cursor = getContentResolver().query(
+								MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+								column, sel, new String[] { id }, null);
+
+						String filePath = "";
+
+						int columnIndex = cursor.getColumnIndex(column[0]);
+
+						if (cursor.moveToFirst()) {
+							filePath = cursor.getString(columnIndex);
+						}
+
+						bitmap = BitmapFactory.decodeFile(filePath); // load
+						// preview
+						// image
+						bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100,
+								false);
+						// bmpDrawable = new BitmapDrawable(bitmapPreview);
+						ivCaptureImage.setImageBitmap(bitmap);
+
+						ByteArrayOutputStream stream = new ByteArrayOutputStream();
+						if (bitmap.getByteCount() > (1024 * 1024)) {
+							bitmap.compress(Bitmap.CompressFormat.JPEG, 20,
+									stream);
+						}
+						if (bitmap.getByteCount() > (1024 * 512)) {
+							bitmap.compress(Bitmap.CompressFormat.JPEG, 40,
+									stream);
+						}
+						if (bitmap.getByteCount() > (1024 * 256)) {
+							bitmap.compress(Bitmap.CompressFormat.JPEG, 60,
+									stream);
+						} else {
+							bitmap.compress(Bitmap.CompressFormat.JPEG, 100,
+									stream);
+						}
+						selectedFile = stream.toByteArray();
+
+						cursor.close();
+					} else {
 					
 					// our BitmapDrawable for the thumbnail
 					BitmapDrawable bmpDrawable = null;
@@ -654,7 +709,8 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 						selectedFile = stream.toByteArray();
 					}
 
-				} else {
+				} 
+				}else {
 					Toast.makeText(getApplicationContext(), "Cancelled",
 							Toast.LENGTH_SHORT).show();
 				}
