@@ -13,6 +13,7 @@ import com.bookstore.app.activity.DonationListActivity;
 import com.bookstore.app.activity.LoginActivity;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.activity.TeacherListActivity;
+import com.bookstore.app.customview.UserLogout;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
 
@@ -160,17 +161,7 @@ public class BookStoreActionBarBase extends FragmentActivity {
 			
 			break;
 		case R.id.action_logout:
-			CommonTasks.savePreferencesForReasonCode(this,
-					CommonConstraints.USER_ID, "" + "");
-			CommonTasks.savePreferencesForReasonCode(this,
-					CommonConstraints.USER_TYPE, "" + "");
-			CommonTasks.savePreferencesForReasonCode(this,
-					CommonConstraints.GCMID, "" + "");
-			Intent intent2=new Intent(getApplicationContext(),LoginActivity.class);
-			intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			overridePendingTransition(android.R.anim.slide_in_left,
-					android.R.anim.slide_out_right);
-			startActivity(intent2);
+			new UserLogout(this).execute(Integer.parseInt(CommonTasks.getPreferences(this, CommonConstraints.USER_ID)));
 			break;
 		default:
 			break;
