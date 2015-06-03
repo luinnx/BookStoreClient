@@ -375,4 +375,6 @@ public class CommonTasks {
 
 		return bitmap;
 	}
+	
+	
 }

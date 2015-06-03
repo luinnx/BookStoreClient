@@ -176,7 +176,12 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 			tvAddress.setText(agentEntity.address);
 			tvMpoNumber.setText(agentEntity.mpo_no);
 			tvMobileNumber.setText(agentEntity.mobile_no);
-			//tvAgentCurrentLocation.setText(agentEntity.address);
+			if(agentEntity.location_name!=null){
+				tvAgentCurrentLocation.setText(agentEntity.location_name);
+			}else{
+				tvAgentCurrentLocation.setText("Agent Not Activated Yet.");
+			}
+			
 			
 			if (agentEntity.create_date != null && !agentEntity.create_date.isEmpty() && !agentEntity.create_date.equals("null")) {
 				trCreateDate.setVisibility(View.VISIBLE);
@@ -233,7 +238,7 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 				numTxt.setText(agentEntity.full_name);
 				
 				myBitmap=(CommonTasks
-						.createCircularShape(CommonTasks.getBitmapFromSdCard("/sdcard/BookStore/"+""+agentId+".png")));
+						.createCircularShape(CommonTasks.getBitmapFromSdCard(getApplicationContext(),"/sdcard/BookStore/"+""+agentId+".png")));
 				ivAgentImage.setImageBitmap(myBitmap);
 
 				markers.add(frAgentLocationMap.addMarker(new MarkerOptions()

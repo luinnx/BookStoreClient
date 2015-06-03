@@ -32,7 +32,7 @@ public class JobEntity {
 	@SerializedName("institute")
 	public String institute;
 	@SerializedName("jobstatus")
-	public boolean jobstatus;
+	public String jobstatus;
 	@SerializedName("isbn")
 	public String isbn;
 	@SerializedName("agentmobilenumber")

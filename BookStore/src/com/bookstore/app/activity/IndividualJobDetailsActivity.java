@@ -33,7 +33,7 @@ public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 			tvQuantity, tvPublishDate, tvPrice, tvMpoNumber, tvMobileNumber,
 			tvTeacherMobileNumber, tvAgentName, tvAgentsAddress,
 			tvAgentsCurrentLocation, tvAgentsMobileNumber, tvInstitude,
-			tvTeacherName,tvJobAssignedBy;
+			tvTeacherName,tvJobAssignedBy,tvHeaderAssignedBy;
 	Button btnOk;
 	 
 
@@ -72,6 +72,7 @@ public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 		tvAgentsMobileNumber = (TextView) findViewById(R.id.tvAgentsMobileNumber);
 		ivJobBookImage = (CircularImageView) findViewById(R.id.ivJobBookImage);
 		tvJobAssignedBy=(TextView) findViewById(R.id.tvJobAssignedBy);
+		tvHeaderAssignedBy=(TextView) findViewById(R.id.tvHeaderAssignedBy);
 
 		Bundle bundle = getIntent().getExtras();
 		jobID = bundle.getString("JOB_ID");
@@ -148,10 +149,18 @@ public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 
 			tvNameBook.setText(jobEntity.bookname);
 
-			if (jobEntity.jobstatus) {
+			if (jobEntity.jobstatus.equals("3")) {
 				tvJobStatus.setText("Status : Completed");
-			} else {
+				tvHeaderAssignedBy.setText("Accepted By");
+			}else if (jobEntity.jobstatus.equals("1")) {
 				tvJobStatus.setText("Status : Pending");
+				tvHeaderAssignedBy.setText("Assigned By");
+			}else if (jobEntity.jobstatus.equals("4")) {
+				tvJobStatus.setText("Status : Rejected");
+				tvHeaderAssignedBy.setText("Rejected By");
+			}else if (jobEntity.jobstatus.equals("2")) {
+				tvJobStatus.setText("Status : Submitted");
+				tvHeaderAssignedBy.setText("Assigned By");
 			}
 
 			tvAuthor.setText(jobEntity.authername);

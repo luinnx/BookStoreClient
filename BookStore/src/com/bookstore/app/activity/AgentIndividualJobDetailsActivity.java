@@ -327,7 +327,12 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 				+ ".jpg");
 		uriSavedImage = Uri.fromFile(image);
 
-		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		/*Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
+		intent.putExtra("return-data", true);
+		startActivityForResult(intent, 100);*/
+		
+		Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, 100);

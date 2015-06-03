@@ -12,6 +12,8 @@ public class AgentEntity {
 	@SerializedName("monile_no")
 	public String mobile_no;
 	@SerializedName("location_name")
+	public String location_name;
+	@SerializedName("address")
 	public String address;
 	@SerializedName("pic_url")
 	public String pic_url;

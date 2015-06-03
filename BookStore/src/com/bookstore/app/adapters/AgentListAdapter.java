@@ -84,7 +84,14 @@ public class AgentListAdapter extends ArrayAdapter<AgentEntity> {
 			}
 
 			holder.tvAgentName.setText(agentEntity.full_name);
-			holder.tvAgentAddress.setText(agentEntity.address);
+			
+			if(agentEntity.location_name!=null){
+				holder.tvAgentAddress.setText(agentEntity.location_name);
+			}else{
+				holder.tvAgentAddress.setText(agentEntity.address);
+			}
+			
+			
 
 			// aq.id(holder.ivAgentImage).image(context.getResources().getDrawable(R.drawable.ic_person_24));
 			if (agentEntity.pic_url.equals("")) {

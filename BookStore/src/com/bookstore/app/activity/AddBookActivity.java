@@ -94,6 +94,8 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 	Bitmap bitmap;
 
 	String selectedImagePath;
+	
+	DatePickerDialog datePickerDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -393,9 +395,10 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 	protected Dialog onCreateDialog(int id) {
 		switch (id) {
 		case 1:
-			// set date picker as current date
-			return new DatePickerDialog(this, datePickerListener, year, month,
+			datePickerDialog=new DatePickerDialog(this, datePickerListener, year, month,
 					day);
+			datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
+			return datePickerDialog;
 		}
 		return null;
 	}

@@ -9,9 +9,11 @@ public class AgentLocationRelated {
 	public String full_name;
 	@SerializedName("email")
 	public String email;
-	@SerializedName("monile_no")
+	@SerializedName("mobile_no")
 	public String mobile_no;
 	@SerializedName("location_name")
+	public String location_name;
+	@SerializedName("address")
 	public String address;
 	@SerializedName("pic_url")
 	public String pic_url;
