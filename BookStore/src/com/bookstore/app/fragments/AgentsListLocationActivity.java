@@ -88,9 +88,6 @@ public class AgentsListLocationActivity extends Fragment implements
 	ViewGroup parent;
 	String whichService = "Agent List";
 	ArrayList<Bitmap> mapPhotoList;
-	EndlessScrollListener scrollListener;
-	int pageIndex = 0;
-	String whichMode = "";
 	
 	ImageView ivRefresh;
 
@@ -131,17 +128,6 @@ public class AgentsListLocationActivity extends Fragment implements
 		ivRefresh=(ImageView) root.findViewById(R.id.ivRefresh);
 		ivRefresh.setOnClickListener(this);
 		
-		scrollListener = new EndlessScrollListener() {
-
-			@Override
-			public void onLoadMore(int page, int totalItemsCount) {
-				whichMode = "download_next_job";
-				pageIndex++;
-				LoginRequest();
-			}
-		};
-		lvAgentList.setOnScrollListener(scrollListener);
-		
 		SupportMapFragment fragment = ((SupportMapFragment) getChildFragmentManager()
 				.findFragmentById(R.id.fragAgentLocationMap));
 		frAgentLocationMap = fragment.getMap();
@@ -151,9 +137,6 @@ public class AgentsListLocationActivity extends Fragment implements
 			CommonTasks.goSettingPage(getActivity());
 			return;
 		}
-		
-		whichMode = "download_all_job";
-		pageIndex=0;
 		LoginRequest();
 	}
 
@@ -185,7 +168,7 @@ public class AgentsListLocationActivity extends Fragment implements
 	public Object doInBackground() {
 		IAdminManager adminManager = new AdminManager();
 		//if (whichService.equals("Agent List")) {
-			agentListRoot = adminManager.getAgentList(pageIndex);
+			agentListRoot = adminManager.getAgentList(0);
 			
 			Log.d("BSS", "Previous Agent:"+CommonTasks.getPreferences(getActivity(),
 					CommonConstraints.NO_OF_AGENT));
@@ -267,19 +250,10 @@ public class AgentsListLocationActivity extends Fragment implements
 	public void processDataAfterDownload(Object data) {
 		if (data != null) {
 			agentListRoot = (AgentListRoot) data;
-			if(whichMode.equals("download_all_job")){
-				if(agentListRoot != null && agentListRoot.agentList.size()>0){
-					adapter = new AgentListAdapter(getActivity(), R.layout.agent_list_item, agentListRoot.agentList);
-					lvAgentList.setAdapter(adapter);
-					LoadMap(agentListRoot);
-				}
-			}else if(whichMode.equals("download_next_job")){
-				if(agentListRoot != null && agentListRoot.agentList.size()>0){
-					for (AgentEntity agentEntity : agentListRoot.agentList) {
-						adapter.add(agentEntity);
-					}
-					adapter.notifyDataSetChanged();
-				}
+			if(agentListRoot != null && agentListRoot.agentList.size()>0){
+				adapter = new AgentListAdapter(getActivity(), R.layout.agent_list_item, agentListRoot.agentList);
+				lvAgentList.setAdapter(adapter);
+				LoadMap(agentListRoot);
 			}
 
 		} else {
@@ -493,8 +467,6 @@ public class AgentsListLocationActivity extends Fragment implements
 			CommonTasks.goSettingPage(getActivity());
 			return;
 		}
-		whichMode = "download_all_job";
-		pageIndex=0;
 		LoginRequest();
 		
 	}
