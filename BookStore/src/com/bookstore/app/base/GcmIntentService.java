@@ -134,7 +134,7 @@ public class GcmIntentService extends IntentService {
 				intent = new Intent(getApplicationContext(),
 						ActivityTADADetails.class);
 
-				intent.putExtra("TADA", "" + pushNotification.id);
+				intent.putExtra("TADA", pushNotification.id);
 				NOTIFICATION_ID = 5;
 
 			} else {

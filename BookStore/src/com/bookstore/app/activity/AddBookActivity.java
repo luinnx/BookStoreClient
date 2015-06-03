@@ -331,15 +331,7 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Writter name");
 				return;
-			} /*
-			 * else if (etPublisherName.getText().toString().trim().equals(""))
-			 * { CommonTasks.showToast(getApplicationContext(),
-			 * "Please Enter book name"); return; }
-			 *//*else if (etBookCondition.getText().toString().trim().equals("")) {
-				CommonTasks.showToast(getApplicationContext(),
-						"Please Enter book Condition");
-				return;
-			}*/ else if (etBookQuantity.getText().toString().trim().equals("")) {
+			}  else if (etBookQuantity.getText().toString().trim().equals("")) {
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Enter book Quantity");
 				return;

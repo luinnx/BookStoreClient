@@ -38,10 +38,11 @@ public class BookStoreService extends Service implements IAsynchronousTask,
 			if (CommonTasks.isOnline(getApplicationContext()))
 				LoadInformation();
 		}
-		if (CommonTasks.getPreferences(this, CommonConstraints.USER_TYPE)
+		/*if (CommonTasks.getPreferences(this, CommonConstraints.USER_TYPE)
 				.equals("2")) {
 			getLocation();
-		}
+		}*/
+		getLocation();
 		return START_STICKY;
 	}
 

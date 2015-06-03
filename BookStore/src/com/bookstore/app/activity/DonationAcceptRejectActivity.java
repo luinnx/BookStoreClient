@@ -126,6 +126,7 @@ public class DonationAcceptRejectActivity extends BookStoreActionBarBase
 				} else {
 					CommonTasks.showToast(getApplicationContext(),
 							"An Unexpected error occured.Please try again");
+					onBackPressed();
 				}
 
 			}

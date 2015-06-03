@@ -3,6 +3,7 @@ package com.bookstore.app.activity;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -65,6 +66,7 @@ public class AgentTA_DA_Activity extends AgentActionbarBase implements
 	JSONObject object;
 	DownloadableAsyncTask asyncTask;
 	ProgressDialog progressDialog;
+	DatePickerDialog datePickerDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -278,8 +280,10 @@ public class AgentTA_DA_Activity extends AgentActionbarBase implements
 		switch (id) {
 		case 1:
 			// set date picker as current date
-			return new DatePickerDialog(this, datePickerListener, year, month,
+			datePickerDialog=new DatePickerDialog(this, datePickerListener, year, month,
 					day);
+			datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
+			return datePickerDialog;
 		case 2:
 			return new TimePickerDialog(this, timePickerListener, hour, minute,
 					false);

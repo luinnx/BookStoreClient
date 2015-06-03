@@ -62,7 +62,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 	TextView tvNameBook, tvJobStatus, tvAuthor, tvPublisherName, tvISBN,
 			tvQuantity, tvPublishDate, tvPrice, tvTeacherName, tvInstitution,
 			tvTeacherMobileNumber, tvAgentName, tvAgentsAddress,
-			tvAgentsCurrentLocation, tvAgentsMobileNumber, tvDialogCancel,
+			tvAgentsCurrentLocation, tvAgentsMobileNumber, tvDialogCancel,tvAdminName,
 			tvDialogOK;
 	LinearLayout tvTakePhoto, tvFromGallery;
 	ImageView ivJobImage;
@@ -113,6 +113,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 		tvAgentsCurrentLocation = (TextView) findViewById(R.id.tvAgentsCurrentLocation);
 		tvAgentsMobileNumber = (TextView) findViewById(R.id.tvAgentsMobileNumber);
 		ivJobImage = (ImageView) findViewById(R.id.ivJobImage);
+		tvAdminName=(TextView) findViewById(R.id.tvAdminName);
 
 		btnOk = (Button) findViewById(R.id.btnOk);
 		btnOk.setOnClickListener(this);
@@ -216,14 +217,22 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 
 	private void setValue(JobDetails jobDetails) {
 		tvNameBook.setText(jobDetails.BookName);
-		if (jobDetails.JobStatus == 3)
+		if (jobDetails.JobStatus == 3){
 			tvJobStatus.setText("Job Status : Complete");
-		else if (jobDetails.JobStatus == 1)
+			tvAdminName.setText("Accepted By: "+jobDetails.AdminFullName);
+		}
+		else if (jobDetails.JobStatus == 1){
 			tvJobStatus.setText("Job Status : Pending");
-		else if (jobDetails.JobStatus == 2)
+			tvAdminName.setText("Assigned By: "+jobDetails.AdminFullName);
+		}
+		else if (jobDetails.JobStatus == 2){
 			tvJobStatus.setText("Job Status : Submitted");
-		else if (jobDetails.JobStatus == 4)
+			tvAdminName.setText("Assigned By: "+jobDetails.AdminFullName);
+		}
+		else if (jobDetails.JobStatus == 4){
 			tvJobStatus.setText("Job Status : Rejected");
+			tvAdminName.setText("Rejected By: "+jobDetails.AdminFullName);
+		}
 
 		tvAuthor.setText(jobDetails.BookAutherName);
 		tvPublisherName.setText(jobDetails.BookPublisherName);
@@ -332,9 +341,13 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, 100);*/
 		
+		/*pictureActionIntent = new Intent(
+				android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+		startActivityForResult(pictureActionIntent, CAMERA_REQUEST);*/
+		
 		Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
-		intent.putExtra("return-data", true);
+		//intent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
+		//intent.putExtra("return-data", true);
 		startActivityForResult(intent, 100);
 	}
 

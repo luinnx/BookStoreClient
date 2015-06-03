@@ -156,6 +156,7 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 				} else {
 					CommonTasks.showToast(getApplicationContext(),
 							"Job Approved failed.Please Try Again");
+					super.onBackPressed();
 				}
 
 			}
