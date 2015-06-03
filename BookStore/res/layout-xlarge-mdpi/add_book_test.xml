@@ -63,19 +63,19 @@
             <Spinner
                 android:id="@+id/spCategory"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                 />
+                android:layout_height="wrap_content" />
+
             <Spinner
                 android:id="@+id/spSubCatagory"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone" />
+
             <Spinner
                 android:id="@+id/spSubSubCatagory"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" 
-                android:visibility="gone"/>
-                       
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -156,8 +156,18 @@
                 android:gravity="left"
                 android:hint="Enter Book Condition"
                 android:inputType="text"
-                android:textColor="@color/text_color" >
+                android:textColor="@color/text_color"
+                android:visibility="gone" >
             </EditText>
+
+            <Spinner
+                android:id="@+id/spBookCondition"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="left" />
 
             <EditText
                 android:id="@+id/etBookQuantity"
@@ -193,9 +203,9 @@
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:layout_alignParentRight="true"
+                    android:layout_marginLeft="3dp"
                     android:layout_marginRight="1dp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginLeft="3dp"
                     android:gravity="right"
                     android:src="@drawable/ic_date_picker" />
 
@@ -204,11 +214,11 @@
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
                     android:layout_alignParentLeft="true"
-                    android:layout_toLeftOf="@+id/ivPublishDate"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
-                    android:inputType="date"
+                    android:layout_toLeftOf="@+id/ivPublishDate"
                     android:focusable="false"
+                    android:inputType="date"
                     android:textColor="@color/text_color" >
                 </EditText>
             </RelativeLayout>

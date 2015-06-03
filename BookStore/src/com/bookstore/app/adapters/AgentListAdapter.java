@@ -8,7 +8,6 @@ import com.androidquery.callback.ImageOptions;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.utils.CommonTasks;
-import com.bookstore.app.utils.CommonUrls;
 import com.bookstore.app.utils.CommonValues;
 import com.bookstore.app.utils.ImageLoader;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -25,7 +24,7 @@ public class AgentListAdapter extends ArrayAdapter<AgentEntity> {
 	AgentEntity agentEntity;
 	ArrayList<AgentEntity> list;
 	Context context;
-	
+
 	ImageOptions imgOptions;
 	ImageLoader imageLoader;
 	private AQuery aq;
@@ -33,7 +32,7 @@ public class AgentListAdapter extends ArrayAdapter<AgentEntity> {
 	public AgentListAdapter(Context _context, int textViewResourceId,
 			List<AgentEntity> objects) {
 		super(_context, textViewResourceId, objects);
-		context=_context;
+		context = _context;
 		list = (ArrayList<AgentEntity>) objects;
 
 	}
@@ -55,42 +54,52 @@ public class AgentListAdapter extends ArrayAdapter<AgentEntity> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View jobView=convertView;
+		View jobView = convertView;
 		ViewHolder holder = null;
-		agentEntity=list.get(position);
-		holder=new ViewHolder();
-		
-		try{
-			if( convertView==null){
+		agentEntity = list.get(position);
+		holder = new ViewHolder();
+
+		try {
+			if (convertView == null) {
+
 				LayoutInflater inflater = (LayoutInflater) context
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				jobView = inflater.inflate(R.layout.agent_list_item, null);
-				
-				holder.ivAgentImage = (CircularImageView) jobView.findViewById(R.id.ivBookImage);
-				holder.tvAgentName = (TextView) jobView.findViewById(R.id.tvAgentName);
-				holder.tvAgentAddress = (TextView) jobView.findViewById(R.id.tvAgentAddress);
+
+				holder.ivAgentImage = (CircularImageView) jobView
+						.findViewById(R.id.ivBookImage);
+				holder.tvAgentName = (TextView) jobView
+						.findViewById(R.id.tvAgentName);
+				holder.tvAgentAddress = (TextView) jobView
+						.findViewById(R.id.tvAgentAddress);
 				aq = new AQuery(context);
 				imageLoader = new ImageLoader(context);
-				imgOptions = CommonValues.getInstance().defaultImageOptions; 		
-				imgOptions.targetWidth=100;
-				imgOptions.ratio=0;
+				imgOptions = CommonValues.getInstance().defaultImageOptions;
+				imgOptions.targetWidth = 100;
+				imgOptions.ratio = 0;
 				imgOptions.round = 8;
 				jobView.setTag(holder);
-			}else{
+			} else {
 				holder = (ViewHolder) jobView.getTag();
 			}
-			
+
 			holder.tvAgentName.setText(agentEntity.full_name);
 			holder.tvAgentAddress.setText(agentEntity.address);
-			
-			//aq.id(holder.ivAgentImage).image(context.getResources().getDrawable(R.drawable.ic_person_24));
-			if(agentEntity.pic_url .equals("")){
-				aq.id(holder.ivAgentImage).image(context.getResources().getDrawable(R.drawable.ic_person_24));
-			}else{
-				aq.id(holder.ivAgentImage).image((CommonUrls.getInstance().IMAGE_BASE_URL+agentEntity.pic_url.toString()),imgOptions);
+
+			// aq.id(holder.ivAgentImage).image(context.getResources().getDrawable(R.drawable.ic_person_24));
+			if (agentEntity.pic_url.equals("")) {
+				aq.id(holder.ivAgentImage).image(
+						context.getResources().getDrawable(
+								R.drawable.ic_person_24));
+			} else {
+
+				holder.ivAgentImage.setImageBitmap(CommonTasks
+						.createCircularShape(CommonTasks.getBitmapFromSdCard(
+								context, "/sdcard/BookStore/" + ""
+										+ agentEntity._id + ".png")));
 			}
-			
-		}catch(Exception ex){
+
+		} catch (Exception ex) {
 			CommonTasks.showLogs(context, ex.getMessage());
 		}
 		return jobView;
@@ -99,6 +108,6 @@ public class AgentListAdapter extends ArrayAdapter<AgentEntity> {
 	public class ViewHolder {
 		public TextView tvAgentName;
 		public TextView tvAgentAddress;
-		public CircularImageView  ivAgentImage;
+		public CircularImageView ivAgentImage;
 	}
 }

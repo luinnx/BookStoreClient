@@ -273,6 +273,8 @@ public class AgentsListLocationActivity extends Fragment implements
 					.size(); rowIndex++) {
 				double lat = agentListRoot2.agentList.get(rowIndex).latitude;
 				double lng = agentListRoot2.agentList.get(rowIndex).longitude;
+				if(lat<=0.0&&lng<=0.0)
+					break;
 				// create instance of latlng class.
 				LatLng Location = new LatLng(lat, lng);
 			/*	// Create instance of geocoder that is used for geting

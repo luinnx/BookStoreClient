@@ -15,7 +15,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -29,7 +28,6 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images.ImageColumns;
 import android.provider.MediaStore.Images.Media;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +40,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
@@ -56,7 +53,7 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 		OnClickListener, IAsynchronousTask {
 
 	Spinner spCategory, spSubCatagory, spTextBooksElements, spSubSubCatagory,
-			spPublisher;
+			spPublisher,spBookCondition;
 	String[] bookTypes, guideSubElements, textBookSubElements,
 			thirdDergeeSubElements;
 	String bookType, secondDegreeSubElement;
@@ -85,6 +82,7 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 	public String[] publications = new String[] { "Srijan Prokash",
 			"Grantha kutir", "Golden Future Publications", "Gan Prokash",
 			"Dikdarshan Prokashoni Ltd." };
+	private String[] bookConditions=new String[]{"New","Used"};
 
 	Uri uriSavedImage;
 	int count = 0;
@@ -109,7 +107,7 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 		etBookName = (EditText) findViewById(R.id.etBookName);
 		etWritterName = (EditText) findViewById(R.id.etWritterName);
 		etPublisherName = (EditText) findViewById(R.id.etPublisherName);
-		etBookCondition = (EditText) findViewById(R.id.etBookCondition);
+		//etBookCondition = (EditText) findViewById(R.id.etBookCondition);
 		etBookQuantity = (EditText) findViewById(R.id.etBookQuantity);
 		etISBNNumber = (EditText) findViewById(R.id.etISBNNumber);
 		etPublishDate = (EditText) findViewById(R.id.etPublishDate);
@@ -125,6 +123,10 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 		spPublisher = (Spinner) findViewById(R.id.spPublisher);
 		spPublisher.setAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_dropdown_item_1line, publications));
+		
+		spBookCondition=(Spinner) findViewById(R.id.spBookCondition);
+		
+		spBookCondition.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,bookConditions));
 
 		spCategory = (Spinner) findViewById(R.id.spCategory);
 		spSubCatagory = (Spinner) findViewById(R.id.spSubCatagory);
@@ -296,6 +298,22 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 
 			}
 		});
+		
+		spBookCondition.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View arg1,
+					int pos, long arg3) {
+				bookCondition=parent.getItemAtPosition(pos).toString();
+				
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				bookCondition=parent.getItemAtPosition(0).toString();
+				
+			}
+		});
 	}
 
 	@SuppressWarnings("deprecation")
@@ -315,11 +333,11 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 			 * else if (etPublisherName.getText().toString().trim().equals(""))
 			 * { CommonTasks.showToast(getApplicationContext(),
 			 * "Please Enter book name"); return; }
-			 */else if (etBookCondition.getText().toString().trim().equals("")) {
+			 *//*else if (etBookCondition.getText().toString().trim().equals("")) {
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Enter book Condition");
 				return;
-			} else if (etBookQuantity.getText().toString().trim().equals("")) {
+			}*/ else if (etBookQuantity.getText().toString().trim().equals("")) {
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Enter book Quantity");
 				return;
@@ -344,7 +362,7 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 			bookName = etBookName.getText().toString().trim();
 			writterName = etWritterName.getText().toString().trim();
 			// publisherName = etPublisherName.getText().toString().trim();
-			bookCondition = etBookCondition.getText().toString().trim();
+			//bookCondition = etBookCondition.getText().toString().trim();
 			bookQuantity = etBookQuantity.getText().toString().trim();
 			isbnNumber = etISBNNumber.getText().toString().trim();
 			publishDate = etPublishDate.getText().toString().trim();

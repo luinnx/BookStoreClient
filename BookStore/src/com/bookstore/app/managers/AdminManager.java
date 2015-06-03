@@ -218,7 +218,8 @@ public class AdminManager implements IAdminManager {
 			jsonObject.put("auther_name", writterName);
 			jsonObject.put("publisher_name", publisherName);
 			jsonObject.put("puslish_date", publishDate);
-			jsonObject.put("condition", bookCondition);
+			jsonObject.put("condition", URLEncoder.encode(bookCondition,
+					CommonConstraints.EncodingCode));
 			jsonObject.put("isbn", isbnNumber);
 			jsonObject.put("quantity", bookQuantity);
 			jsonObject.put("price", bookPrice);
