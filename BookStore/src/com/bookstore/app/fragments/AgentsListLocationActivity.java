@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Hashtable;
+
 import org.json.JSONObject;
 
 import com.androidquery.callback.ImageOptions;
@@ -11,6 +12,7 @@ import com.bookstore.app.activity.IndividualAgentDetailsActivity;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.adapters.AgentListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
+import com.bookstore.app.customview.EndlessScrollListener;
 import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
@@ -20,6 +22,7 @@ import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
 import com.bookstore.app.utils.CommonUrls;
 import com.bookstore.app.utils.ImageLoader;
+import com.google.android.gms.drive.internal.ad;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -32,6 +35,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mikhaellopez.circularimageview.CircularImageView;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -84,6 +88,9 @@ public class AgentsListLocationActivity extends Fragment implements
 	ViewGroup parent;
 	String whichService = "Agent List";
 	ArrayList<Bitmap> mapPhotoList;
+	EndlessScrollListener scrollListener;
+	int pageIndex = 0;
+	String whichMode = "";
 	
 	ImageView ivRefresh;
 
@@ -124,6 +131,17 @@ public class AgentsListLocationActivity extends Fragment implements
 		ivRefresh=(ImageView) root.findViewById(R.id.ivRefresh);
 		ivRefresh.setOnClickListener(this);
 		
+		scrollListener = new EndlessScrollListener() {
+
+			@Override
+			public void onLoadMore(int page, int totalItemsCount) {
+				whichMode = "download_next_job";
+				pageIndex++;
+				LoginRequest();
+			}
+		};
+		lvAgentList.setOnScrollListener(scrollListener);
+		
 		SupportMapFragment fragment = ((SupportMapFragment) getChildFragmentManager()
 				.findFragmentById(R.id.fragAgentLocationMap));
 		frAgentLocationMap = fragment.getMap();
@@ -133,6 +151,9 @@ public class AgentsListLocationActivity extends Fragment implements
 			CommonTasks.goSettingPage(getActivity());
 			return;
 		}
+		
+		whichMode = "download_all_job";
+		pageIndex=0;
 		LoginRequest();
 	}
 
@@ -164,7 +185,7 @@ public class AgentsListLocationActivity extends Fragment implements
 	public Object doInBackground() {
 		IAdminManager adminManager = new AdminManager();
 		//if (whichService.equals("Agent List")) {
-			agentListRoot = adminManager.getAgentList(0);
+			agentListRoot = adminManager.getAgentList(pageIndex);
 			
 			Log.d("BSS", "Previous Agent:"+CommonTasks.getPreferences(getActivity(),
 					CommonConstraints.NO_OF_AGENT));
@@ -245,22 +266,24 @@ public class AgentsListLocationActivity extends Fragment implements
 	@Override
 	public void processDataAfterDownload(Object data) {
 		if (data != null) {
-
-			if (whichService.equals("Agent List")) {
-				agentListRoot = (AgentListRoot) data;
-				adapter = new AgentListAdapter(getActivity(),
-						R.layout.agent_list_item, agentListRoot.agentList);
-				//whichService = "Load Map";
-
-				lvAgentList.setAdapter(adapter);
-				LoadMap(agentListRoot);
+			agentListRoot = (AgentListRoot) data;
+			if(whichMode.equals("download_all_job")){
+				if(agentListRoot != null && agentListRoot.agentList.size()>0){
+					adapter = new AgentListAdapter(getActivity(), R.layout.agent_list_item, agentListRoot.agentList);
+					lvAgentList.setAdapter(adapter);
+					LoadMap(agentListRoot);
+				}
+			}else if(whichMode.equals("download_next_job")){
+				if(agentListRoot != null && agentListRoot.agentList.size()>0){
+					for (AgentEntity agentEntity : agentListRoot.agentList) {
+						adapter.add(agentEntity);
+					}
+					adapter.notifyDataSetChanged();
+				}
 			}
 
 		} else {
-
-			CommonTasks.showToast(getActivity(),
-					"Can not loading data. Internal server error");
-
+			CommonTasks.showToast(getActivity(), "Can not loading data. Internal server error");
 		}
 
 	}
@@ -470,6 +493,8 @@ public class AgentsListLocationActivity extends Fragment implements
 			CommonTasks.goSettingPage(getActivity());
 			return;
 		}
+		whichMode = "download_all_job";
+		pageIndex=0;
 		LoginRequest();
 		
 	}

@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.bookstore.app.adapters.BookListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.BookStoreActionBarBase;
+import com.bookstore.app.customview.EndlessScrollListener;
 import com.bookstore.app.entities.BookEntity;
 import com.bookstore.app.entities.BookListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
@@ -27,6 +28,9 @@ public class BookListActivity extends BookStoreActionBarBase implements
 	ProgressDialog progressDialog;
 	BookListAdapter adapter;
 	BookListRoot bookListRoot=null;
+	EndlessScrollListener scrollListener;
+	int pageIndex = 0;
+	String whichMode = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,8 @@ public class BookListActivity extends BookStoreActionBarBase implements
 			CommonTasks.goSettingPage(this);
 			return;
 		}
+		whichMode = "download_all_book";
+		pageIndex=0;
 		loadInforMation();
 
 	}
@@ -45,6 +51,17 @@ public class BookListActivity extends BookStoreActionBarBase implements
 		lvAllAgentList = (ListView) findViewById(R.id.lvAllBookList);
 		lvAllAgentList.setOnItemClickListener(this);
 		lvAllAgentList.setOnItemLongClickListener(this);
+		
+		scrollListener = new EndlessScrollListener() {
+
+			@Override
+			public void onLoadMore(int page, int totalItemsCount) {
+				whichMode = "download_next_book";
+				pageIndex++;
+				loadInforMation();
+			}
+		};
+		lvAllAgentList.setOnScrollListener(scrollListener);
 
 	}
 
@@ -94,10 +111,21 @@ public class BookListActivity extends BookStoreActionBarBase implements
 
 		if (data != null) {
 			bookListRoot = new BookListRoot();
-			bookListRoot = (BookListRoot) data;
-			adapter = new BookListAdapter(getApplicationContext(),
-					R.layout.book_list_item, bookListRoot.bookList);
-			lvAllAgentList.setAdapter(adapter);
+			if(whichMode.equals("download_all_book")){
+				if(bookListRoot != null && bookListRoot.bookList.size()>0){
+					adapter = new BookListAdapter(getApplicationContext(),
+							R.layout.book_list_item, bookListRoot.bookList);
+					lvAllAgentList.setAdapter(adapter);
+				}				
+			}else if(whichMode.equals("download_next_book")){
+				if(bookListRoot != null && bookListRoot.bookList.size()>0){
+					for (BookEntity bookEntity : bookListRoot.bookList) {
+						adapter.add(bookEntity);
+					}
+					adapter.notifyDataSetChanged();
+				}
+			}
+			
 		}
 	}
 
