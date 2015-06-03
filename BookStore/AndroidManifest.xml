@@ -189,6 +189,11 @@
             android:name="com.bookstore.app.activity.IndividualBookEditActivity"
             android:label="Book Update" >
         </activity>
+        
+        <activity
+            android:name="com.bookstore.app.activity.AgentDonationListActivity"
+            android:label="Donation List" >
+        </activity>
 
         <receiver
             android:name="com.bookstore.app.base.GcmBroadcastReceiver"

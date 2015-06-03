@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/actionList"
-        android:icon="@drawable/ic_all_list_24"
+        android:id="@+id/actionAdd"
+        android:icon="@android:drawable/ic_menu_add"
         android:showAsAction="ifRoom"
         android:title="All Expense">
         <menu>
@@ -11,20 +11,33 @@
                 android:id="@+id/action_donation"
                 android:icon="@drawable/ic_donation_32"
                 android:showAsAction="ifRoom"
-                android:title="Donation"/>
+                android:title="Donation Add"/>
             <item
                 android:id="@+id/action_tada_list"
                 android:icon="@drawable/ic_tada_32"
                 android:showAsAction="ifRoom"
-                android:title="TA/DA"/>
+                android:title="TA/DA Add"/>
         </menu>
     </item>
     
     <item
-        android:id="@+id/actionTadaList"
-        android:icon="@drawable/ic_tada_list_32"
+        android:id="@+id/actionList"
+        android:icon="@drawable/ic_all_list_24"
         android:showAsAction="ifRoom"
-        android:title="TaDa List"/>
+        android:title="All Expense">
+        <menu>
+            <item
+                android:id="@+id/action_donation_list"
+                android:icon="@drawable/ic_donation_32"
+                android:showAsAction="ifRoom"
+                android:title="Donation List"/>
+            <item
+                android:id="@+id/actionTadaList"
+                android:icon="@drawable/ic_tada_32"
+                android:showAsAction="ifRoom"
+                android:title="TA/DA List"/>
+        </menu>
+    </item>
     
     <item
         android:id="@+id/action_profile"

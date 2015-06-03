@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    style="@style/Application_Background" >
+    <TextView 
+        android:id="@+id/donationID"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_margin="3dp"
+        android:text=""/>
+    <TextView 
+        android:id="@+id/donationAmount"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        android:layout_marginLeft="3dp"
+        android:text=""/>
+    <TextView 
+        android:id="@+id/donationDate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="13sp"
+        android:textStyle="normal"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="3dp"
+        android:text=""/>
+    <TextView 
+        android:id="@+id/donationStatus"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="13sp"
+        android:textStyle="normal"
+        android:layout_margin="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="3dp"
+        android:text=""/>
+
+</LinearLayout>

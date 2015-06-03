@@ -6,6 +6,7 @@ import org.json.simple.JSONObject;
 
 import android.util.Log;
 
+import com.bookstore.app.entities.AgentDonationEntityRoot;
 import com.bookstore.app.entities.AgentDonationResultEntity;
 import com.bookstore.app.entities.AgentInfo;
 import com.bookstore.app.entities.AgentJobListRoot;
@@ -151,6 +152,19 @@ public class AgentManager implements IAgent {
 				.format(CommonUrls.getInstance().get_individual_tada_details, tadaID),
 				AgentTaDaResultEntity.class);
 		return donationEntity;
+	}
+
+	@Override
+	public AgentDonationEntityRoot getAllDonation(int agentId, int pageIndex) {
+		AgentDonationEntityRoot listRoot=null;
+		try{
+			listRoot=(AgentDonationEntityRoot) JSONfunctions.retrieveDataFromStream(String
+					.format(CommonUrls.getInstance().agent_donation_list,agentId,
+							pageIndex), AgentDonationEntityRoot.class);
+		}catch(Exception exception){
+			Log.e("BS", exception.getMessage());
+		}		
+		return listRoot;
 	}
 
 }

@@ -29,6 +29,7 @@ public class CommonUrls {
 	public String getAgentInformation = BASE_URL + "agent/agent_info?agent_id=%s";
 	public String agentDonation = BASE_URL + "agent/add_donetion?agent_id=%s&amount=%s&comment=%s";
 	public String addTada = BASE_URL + "agent/addTada";
+	public String agent_donation_list = BASE_URL + "agent/get_donation_list?agent_id=%s&pageindex=%s";
 	public String agent_tada_list=BASE_URL+"agent/get_tada_list?agent_id=%s&pageindex=%s";
 	public String agentGetIndividualDonationDetails = BASE_URL+"agent/get_individual_doantion_details?doantionID=%s";
 	public String get_individual_tada_details = BASE_URL+"agent/get_individual_tada_details?tadaID=%s";

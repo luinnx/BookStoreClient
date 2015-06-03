@@ -2,11 +2,13 @@ package com.bookstore.app.interfaces;
 
 import org.json.simple.JSONObject;
 
+import com.bookstore.app.entities.AgentDonationEntityRoot;
 import com.bookstore.app.entities.AgentInfo;
 import com.bookstore.app.entities.AgentJobListRoot;
 import com.bookstore.app.entities.AgentTaDaResultEntity;
 import com.bookstore.app.entities.JobDetails;
 import com.bookstore.app.entities.TaDaListRoot;
+
 import org.json.simple.JSONObject;
 
 public interface IAgent {
@@ -30,6 +32,7 @@ public interface IAgent {
 			String description, String vehicelName, String distance,
 			String amount, String otherAmount,String totalAmount, String status);
 	public TaDaListRoot getAllTaDaList(String agentId,int pageIndex);
+	public AgentDonationEntityRoot getAllDonation(int agentId, int pageIndex);
 	
 	public boolean addTada(JSONObject jsonObject);
 	public AgentTaDaResultEntity getIndividualTadaResultDetails(String tadaID);

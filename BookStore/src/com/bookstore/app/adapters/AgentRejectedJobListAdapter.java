@@ -57,6 +57,7 @@ public class AgentRejectedJobListAdapter extends ArrayAdapter<AgentJobList>{
 						.inflate(R.layout.agent_job_list_item, null);
 				holder = new ViewHolder();
 				holder.bookPic = (CircularImageView) jobListView.findViewById(R.id.bookPic);
+				holder.bookID = (TextView) jobListView.findViewById(R.id.bookID);
 				holder.bookName = (TextView) jobListView.findViewById(R.id.bookName);
 				holder.bookQuantity = (TextView) jobListView.findViewById(R.id.bookQuantity);
 				holder.status = (TextView) jobListView.findViewById(R.id.status);
@@ -64,9 +65,10 @@ public class AgentRejectedJobListAdapter extends ArrayAdapter<AgentJobList>{
 			}else{
 				holder = (ViewHolder) jobListView.getTag();
 			}
-			holder.bookName.setText(agentJobListObject.BookName);
-			holder.bookQuantity.setText("Quantity :"+agentJobListObject.no_of_book);
-			holder.status.setText("Teacher Institude :"+agentJobListObject.TeacherInstituteName);
+			holder.bookID.setText("WR-JOB-ID: " + agentJobListObject.JobID);
+			holder.bookName.setText("Book Name: "+agentJobListObject.BookName);
+			holder.bookQuantity.setText("Quantity: "+agentJobListObject.no_of_book);
+			holder.status.setText("Teacher Institude: "+agentJobListObject.TeacherInstituteName);
 		}catch(Exception ex){
 			Log.e("BS", ex.getMessage());
 		}
@@ -75,6 +77,7 @@ public class AgentRejectedJobListAdapter extends ArrayAdapter<AgentJobList>{
 	
 	class ViewHolder{
 		public CircularImageView bookPic;
+		public TextView bookID;
 		public TextView bookName;
 		public TextView bookQuantity;
 		public TextView status;

@@ -1,45 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Application_Background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    style="@style/Application_Background" >
+    android:orientation="vertical" >
+
     <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/bookPic"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:src="@drawable/ic_done_work" />
-    <TextView 
+    
+    <TextView
+        android:id="@+id/bookID"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_toRightOf="@id/bookPic"
+        android:text=""
+        android:textColor="@color/text_view_color"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/bookName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:textColor="@color/text_view_color"
-        android:text=""
+        android:layout_marginTop="7dp"
         android:layout_toRightOf="@id/bookPic"
-        android:layout_marginTop="7dp"/>
-    <TextView 
+        android:text=""
+        android:textColor="@color/text_view_color"
+        android:layout_below="@id/bookID"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/bookQuantity"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:textStyle="normal"
-        android:textColor="@color/text_view_color"
-        android:text=""
-        android:layout_toRightOf="@id/bookPic"
         android:layout_below="@id/bookName"
-        android:layout_marginTop="5dp"/>
-    <TextView 
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/bookPic"
+        android:text=""
+        android:textColor="@color/text_view_color"
+        android:textSize="12sp"
+        android:textStyle="normal" />
+
+    <TextView
         android:id="@+id/status"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:textStyle="normal"
-        android:textColor="@color/text_view_color"
-        android:text=""
-        android:layout_toRightOf="@id/bookPic"
         android:layout_below="@id/bookQuantity"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/bookPic"
+        android:text=""
+        android:textColor="@color/text_view_color"
+        android:textSize="12sp"
+        android:textStyle="normal" />
 
 </RelativeLayout>

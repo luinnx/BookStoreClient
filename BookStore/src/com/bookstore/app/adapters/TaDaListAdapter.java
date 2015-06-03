@@ -58,13 +58,14 @@ public class TaDaListAdapter extends ArrayAdapter<TadaListEntity> {
 		View jobView=convertView;
 		ViewHolder holder = null;
 		taDaEntity=list.get(position);
-		holder=new ViewHolder();
+		
 		
 		try{
 			if( convertView==null){
 				LayoutInflater inflater = (LayoutInflater) context
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				jobView = inflater.inflate(R.layout.tada_list_item, null);
+				holder=new ViewHolder();
 				
 				holder.ivAgentImage = (CircularImageView) jobView.findViewById(R.id.ivAgentImage);
 				holder.tvAgentName = (TextView) jobView.findViewById(R.id.tvAgentName);
@@ -90,7 +91,7 @@ public class TaDaListAdapter extends ArrayAdapter<TadaListEntity> {
 			holder.tvTotalAmount.setText("Total Amount : "+taDaEntity.totalamount +"Tk.");
 			
 			
-			if (taDaEntity.agentpic.equals("")) {
+			if (taDaEntity.agentpic != null) {
 				aq.id(holder.ivAgentImage).image(
 						context.getResources().getDrawable(
 								R.drawable.ic_person_24));
