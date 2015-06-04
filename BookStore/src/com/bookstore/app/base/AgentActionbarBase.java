@@ -11,6 +11,7 @@ import com.bookstore.app.customview.UserLogout;
 import com.bookstore.app.entities.Donation;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
+import com.bookstore.app.utils.CommonValues;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
@@ -85,7 +86,10 @@ public abstract class AgentActionbarBase extends FragmentActivity {
 			startActivity(int2);
 			break;
 		case R.id.action_logout:
-			new UserLogout(this).execute(Integer.parseInt(CommonTasks.getPreferences(this, CommonConstraints.USER_ID)));
+			if(CommonValues.getInstance().isOnline)
+				new UserLogout(this).execute(Integer.parseInt(CommonTasks.getPreferences(this, CommonConstraints.USER_ID)));
+			else
+				CommonTasks.goSettingPage(getApplicationContext());
 			break;
 			
 		}
@@ -118,12 +122,14 @@ public abstract class AgentActionbarBase extends FragmentActivity {
 				donation.Amount = Double.parseDouble(etDonationAmount.getText().toString());
 				donation.Comment = etDonationComment.getText().toString();
 				
-				if(!CommonTasks.isOnline(getApplicationContext())){
+				
+				if(CommonValues.getInstance().isOnline){
+					new AddDonation(AgentActionbarBase.this).execute(donation);
+					alertDialog.dismiss();
+				}else{
 					CommonTasks.goSettingPage(getApplicationContext());
 					return;
 				}
-				new AddDonation(AgentActionbarBase.this).execute(donation);
-				alertDialog.dismiss();
 			}
 		});
 		

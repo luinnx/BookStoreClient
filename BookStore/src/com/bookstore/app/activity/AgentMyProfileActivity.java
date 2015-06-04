@@ -78,7 +78,7 @@ public class AgentMyProfileActivity extends AgentActionbarBase implements
 		imgOptions.ratio=0;//AQuery.RATIO_PRESERVE;
 		imgOptions.round = 8;
 		
-		if (!CommonTasks.isOnline(this)) {
+		if (!CommonValues.getInstance().isOnline) {
 			CommonTasks.goSettingPage(this);
 			return;
 		}
@@ -213,6 +213,10 @@ public class AgentMyProfileActivity extends AgentActionbarBase implements
 					return;
 				}
 				isChangePassword = true;
+				if (!CommonValues.getInstance().isOnline) {
+					CommonTasks.goSettingPage(AgentMyProfileActivity.this);
+					return;
+				}
 				LoadInformation();
 			}
 		});

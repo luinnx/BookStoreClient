@@ -1,10 +1,14 @@
 package com.bookstore.app.base;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.BitmapAjaxCallback;
 import com.androidquery.callback.ImageOptions;
 import com.bookstore.app.activity.R;
+import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonUrls;
 import com.bookstore.app.utils.CommonValues;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -18,8 +22,15 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Handler;
+import android.util.Log;
 
 public class BookStoreApplication extends Application{
+	
+	Runnable runnable;
+	Handler handler;
 	
 	@Override
 	public void onCreate() {
@@ -38,6 +49,9 @@ public class BookStoreApplication extends Application{
 		.considerExifParams(true)
 
 		.displayer(new FadeInBitmapDisplayer(300)).build();
+		
+		handler = new Handler();
+		getOnlineStatus();
 	}
 	
 	private void initImageLoader(Context context) {
@@ -91,6 +105,38 @@ public class BookStoreApplication extends Application{
 		CommonUrls.initialization();
 		CommonValues.initialization();
 
+	}
+	
+	public void getOnlineStatus(){
+		runnable = new Runnable() {
+			
+			@Override
+			public void run() {
+				ConnectivityManager cm = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
+				NetworkInfo netInfo = cm.getActiveNetworkInfo();
+				if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+					try {
+						Process p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.com");
+				        int returnVal = p1.waitFor();
+				        if(returnVal == 0)
+				        	CommonValues.getInstance().isOnline = true;
+				        else
+				        	CommonValues.getInstance().isOnline = false;
+			        } catch (MalformedURLException e1) {
+			            Log.e("BSA", e1.getMessage());
+			        } catch (IOException e) {
+			        	Log.e("BSA", e.getMessage());
+			        } catch (InterruptedException e) {
+			        	Log.e("BSA", e.getMessage());
+					}
+				}
+				
+				handler.postDelayed(runnable,
+						1 * 1000);
+			}
+		};
+		handler.postDelayed(runnable,
+				1 * 1000);
 	}
 
 }

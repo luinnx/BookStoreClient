@@ -21,6 +21,7 @@ import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AgentManager;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
+import com.bookstore.app.utils.CommonValues;
 
 public class AgentTADAListActivity extends AgentActionbarBase implements
 		OnItemClickListener, IAsynchronousTask {
@@ -39,7 +40,7 @@ public class AgentTADAListActivity extends AgentActionbarBase implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_agent_tada_list);
 		initViews();
-		if (!CommonTasks.isOnline(this)) {
+		if (!CommonValues.getInstance().isOnline) {
 			CommonTasks.goSettingPage(this);
 			return;
 		}
@@ -64,6 +65,10 @@ public class AgentTADAListActivity extends AgentActionbarBase implements
 
 			@Override
 			public void onLoadMore(int page, int totalItemsCount) {
+				if (!CommonValues.getInstance().isOnline) {
+					CommonTasks.goSettingPage(AgentTADAListActivity.this);
+					return;
+				}
 				whichMode = "download_next_tada";
 				pageIndex++;
 				loadInformation();

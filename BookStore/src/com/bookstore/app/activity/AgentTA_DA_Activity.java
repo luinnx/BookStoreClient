@@ -269,6 +269,10 @@ public class AgentTA_DA_Activity extends AgentActionbarBase implements
 			object=new JSONObject();
 			object.put("tada", jsonArr);
 			Log.d("BSS", object.toJSONString());
+			if (!CommonValues.getInstance().isOnline) {
+				CommonTasks.goSettingPage(this);
+				return;
+			}
 			LoadInforamtion();
 
 		}

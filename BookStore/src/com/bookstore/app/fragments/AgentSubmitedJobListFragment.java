@@ -31,6 +31,7 @@ import com.bookstore.app.managers.AdminManager;
 import com.bookstore.app.managers.AgentManager;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
+import com.bookstore.app.utils.CommonValues;
 
 public class AgentSubmitedJobListFragment extends Fragment implements
 		OnItemClickListener, IAsynchronousTask {
@@ -59,6 +60,10 @@ public class AgentSubmitedJobListFragment extends Fragment implements
 
 			@Override
 			public void onLoadMore(int page, int totalItemsCount) {
+				if (!CommonValues.getInstance().isOnline) {
+					CommonTasks.goSettingPage(getActivity());
+					return;
+				}
 				whichMode = "download_next_job";
 				pageIndex++;
 				loadInformation();
@@ -72,7 +77,7 @@ public class AgentSubmitedJobListFragment extends Fragment implements
 		// TODO Auto-generated method stub
 		super.setUserVisibleHint(isVisibleToUser);
 		if (isVisibleToUser) {
-			if (!CommonTasks.isOnline(getActivity())) {
+			if (!CommonValues.getInstance().isOnline) {
 				CommonTasks.goSettingPage(getActivity());
 				return;
 			}

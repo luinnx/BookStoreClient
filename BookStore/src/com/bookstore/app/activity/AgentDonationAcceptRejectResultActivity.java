@@ -19,6 +19,7 @@ import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
 import com.bookstore.app.utils.CommonTasks;
+import com.bookstore.app.utils.CommonValues;
 
 public class AgentDonationAcceptRejectResultActivity extends
 		AgentActionbarBase implements IAsynchronousTask, OnClickListener {
@@ -55,7 +56,7 @@ public class AgentDonationAcceptRejectResultActivity extends
 
 		Bundle bundle = getIntent().getExtras();
 		donationId = bundle.getString("DONATION_ID");
-		if (!CommonTasks.isOnline(this)) {
+		if (!CommonValues.getInstance().isOnline) {
 			CommonTasks.goSettingPage(this);
 			return;
 		}

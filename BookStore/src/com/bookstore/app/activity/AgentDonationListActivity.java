@@ -20,6 +20,7 @@ import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AgentManager;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
+import com.bookstore.app.utils.CommonValues;
 
 public class AgentDonationListActivity extends AgentActionbarBase implements OnItemClickListener, IAsynchronousTask{
 	
@@ -38,8 +39,12 @@ public class AgentDonationListActivity extends AgentActionbarBase implements OnI
 		
 		initialization();
 		
+		if (!CommonValues.getInstance().isOnline) {
+			CommonTasks.goSettingPage(this);
+			return;
+		}		
 		whichMode = "download_all_donation";
-		//pageIndex++;
+		pageIndex = 0;
 		LoadInformation();
 	}
 
@@ -51,6 +56,10 @@ public class AgentDonationListActivity extends AgentActionbarBase implements OnI
 
 			@Override
 			public void onLoadMore(int page, int totalItemsCount) {
+				if (!CommonValues.getInstance().isOnline) {
+					CommonTasks.goSettingPage(getApplicationContext());
+					return;
+				}
 				whichMode = "download_next_donation";
 				pageIndex++;
 				LoadInformation();

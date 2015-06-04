@@ -31,6 +31,7 @@ public class CommonValues {
 	
 	public ImageOptions defaultImageOptions;
 	public DisplayImageOptions imageOptions =null;
+	public boolean isOnline = false;
 	
 	
 	

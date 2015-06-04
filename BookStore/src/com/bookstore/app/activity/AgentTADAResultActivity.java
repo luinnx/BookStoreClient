@@ -16,6 +16,7 @@ import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AgentManager;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
+import com.bookstore.app.utils.CommonValues;
 
 public class AgentTADAResultActivity extends AgentActionbarBase implements
 		IAsynchronousTask, OnClickListener {
@@ -53,7 +54,7 @@ public class AgentTADAResultActivity extends AgentActionbarBase implements
 		
 		Bundle bundle = getIntent().getExtras();
 		tadaID = bundle.getString("TADA_ID");
-		if (!CommonTasks.isOnline(this)) {
+		if (!CommonValues.getInstance().isOnline) {
 			CommonTasks.goSettingPage(this);
 			return;
 		}

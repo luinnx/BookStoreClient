@@ -14,6 +14,7 @@ import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AgentManager;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
+import com.bookstore.app.utils.CommonValues;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -54,6 +55,10 @@ public class AgentCompleteJobListFragment extends Fragment implements
 
 			@Override
 			public void onLoadMore(int page, int totalItemsCount) {
+				if (!CommonValues.getInstance().isOnline) {
+					CommonTasks.goSettingPage(getActivity());
+					return;
+				}
 				whichMode = "download_next_job";
 				pageIndex++;
 				LoadCompletedJob();
@@ -67,7 +72,7 @@ public class AgentCompleteJobListFragment extends Fragment implements
 		// TODO Auto-generated method stub
 		super.setUserVisibleHint(isVisibleToUser);
 		if (isVisibleToUser) {
-			if (!CommonTasks.isOnline(getActivity())) {
+			if (!CommonValues.getInstance().isOnline) {
 				CommonTasks.goSettingPage(getActivity());
 				return;
 			}

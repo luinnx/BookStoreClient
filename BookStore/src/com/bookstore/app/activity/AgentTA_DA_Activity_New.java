@@ -28,6 +28,7 @@ import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AgentManager;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
+import com.bookstore.app.utils.CommonValues;
 
 public class AgentTA_DA_Activity_New extends AgentActionbarBase implements
 		OnClickListener, IAsynchronousTask {
@@ -187,7 +188,7 @@ public class AgentTA_DA_Activity_New extends AgentActionbarBase implements
 						"Enter Tour Cost");
 				return;
 			}
-			if (!CommonTasks.isOnline(this)) {
+			if (!CommonValues.getInstance().isOnline) {
 				CommonTasks.goSettingPage(this);
 				return;
 			}

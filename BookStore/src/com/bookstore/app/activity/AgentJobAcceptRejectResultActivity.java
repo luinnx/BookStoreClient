@@ -1,6 +1,7 @@
 package com.bookstore.app.activity;
 
 import java.io.File;
+
 import org.json.simple.JSONObject;
 
 import android.app.AlertDialog;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.AgentActionbarBase;
 import com.bookstore.app.entities.JobDetails;
@@ -20,6 +22,7 @@ import com.bookstore.app.interfaces.IAgent;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AgentManager;
 import com.bookstore.app.utils.CommonTasks;
+import com.bookstore.app.utils.CommonValues;
 
 public class AgentJobAcceptRejectResultActivity extends AgentActionbarBase
 		implements OnClickListener, IAsynchronousTask {
@@ -92,7 +95,7 @@ public class AgentJobAcceptRejectResultActivity extends AgentActionbarBase
 			btnOk.setText("Submit");
 		}
 
-		if (!CommonTasks.isOnline(this)) {
+		if (!CommonValues.getInstance().isOnline) {
 			CommonTasks.goSettingPage(this);
 			return;
 		}

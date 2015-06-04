@@ -54,6 +54,7 @@ import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AgentManager;
 import com.bookstore.app.utils.CommonTasks;
 import com.bookstore.app.utils.CommonUrls;
+import com.bookstore.app.utils.CommonValues;
 
 public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 		implements OnClickListener, IAsynchronousTask {
@@ -131,7 +132,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 			btnOk.setText("Submit");
 		}
 
-		if (!CommonTasks.isOnline(this)) {
+		if (!CommonValues.getInstance().isOnline) {
 			CommonTasks.goSettingPage(this);
 			return;
 		}
@@ -322,6 +323,10 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 				}
 				outerObject = new JSONObject();
 				outerObject.put("Job_Submit", jsonArr);
+				if (!CommonValues.getInstance().isOnline) {
+					CommonTasks.goSettingPage(AgentIndividualJobDetailsActivity.this);
+					return;
+				}
 				LoadInformation();
 
 			}

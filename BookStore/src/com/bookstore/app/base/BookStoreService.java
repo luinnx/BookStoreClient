@@ -7,6 +7,7 @@ import com.bookstore.app.interfaces.IUser;
 import com.bookstore.app.managers.UserManager;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
+import com.bookstore.app.utils.CommonValues;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import android.app.Service;
@@ -35,13 +36,10 @@ public class BookStoreService extends Service implements IAsynchronousTask,
 		regid = CommonTasks.getPreferences(this, CommonConstraints.GCMID);
 		if (regid.isEmpty()) {
 
-			if (CommonTasks.isOnline(getApplicationContext()))
+			if (!CommonValues.getInstance().isOnline){
 				LoadInformation();
+			}
 		}
-		/*if (CommonTasks.getPreferences(this, CommonConstraints.USER_TYPE)
-				.equals("2")) {
-			getLocation();
-		}*/
 		getLocation();
 		return START_STICKY;
 	}
@@ -100,6 +98,10 @@ public class BookStoreService extends Service implements IAsynchronousTask,
 
 	@Override
 	public void onLocationChanged(Location location) {
+		if (!CommonValues.getInstance().isOnline) {
+			CommonTasks.goSettingPage(this);
+			return;
+		}
 		new AddLocation(this).execute(location);
 	}
 
