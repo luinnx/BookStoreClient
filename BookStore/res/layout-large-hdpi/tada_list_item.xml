@@ -14,7 +14,7 @@
             android:id="@+id/ivAgentImage"
             android:layout_width="85dp"
             android:layout_height="85dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:src="@drawable/ic_person" />
 
         <ProgressBar
@@ -26,16 +26,29 @@
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/tvAgentName"
+            android:id="@+id/tvTadaID"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/ivAgentImage"
+            android:text=""
+            android:textColor="#000"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+        
+        <TextView
+            android:id="@+id/tvAgentName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTadaID"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/ivAgentImage"
             android:text="Md. Sajedul karim"
             android:textColor="#000"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textSize="25sp"
+            android:textStyle="normal" />
 
         <TextView
             android:id="@+id/tvAgentAddress"
@@ -47,7 +60,7 @@
             android:layout_toRightOf="@+id/ivAgentImage"
             android:text="Dimla , Nilphamari"
             android:textColor="#000"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:textStyle="normal"
             android:visibility="gone" />
 
@@ -61,7 +74,7 @@
             android:layout_toRightOf="@+id/ivAgentImage"
             android:text="250 taka"
             android:textColor="#000"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:textStyle="italic" />
 
         <TextView
@@ -74,7 +87,7 @@
             android:layout_toRightOf="@+id/ivAgentImage"
             android:text="500 KM"
             android:textColor="#000"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:textStyle="italic" />
     </RelativeLayout>
 

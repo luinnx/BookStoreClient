@@ -74,6 +74,7 @@ public class JobListAdapter extends ArrayAdapter<JobEntity> {
 				holder.tvAgentName = (TextView) jobView.findViewById(R.id.tvAgentName);
 				holder.tvBookName = (TextView) jobView.findViewById(R.id.tvBookName);
 				holder.tvNumberOfBook = (TextView) jobView.findViewById(R.id.tvNumberOfBook);
+				holder.tvJobId=(TextView) jobView.findViewById(R.id.tvJobId);
 				aq = new AQuery(context);
 				imageLoader = new ImageLoader(context);
 				imgOptions = CommonValues.getInstance().defaultImageOptions; 		
@@ -85,9 +86,10 @@ public class JobListAdapter extends ArrayAdapter<JobEntity> {
 				holder = (ViewHolder) jobView.getTag();
 			}
 			
-			holder.tvAgentName.setText("Assigned agnet :"+jobEntity.agentname);
-			holder.tvBookName.setText(jobEntity.bookname);
-			holder.tvNumberOfBook.setText("Items No:"+jobEntity.quantity);
+			holder.tvAgentName.setText("Agent Name : "+jobEntity.agentname);
+			holder.tvBookName.setText("Book Name : "+jobEntity.bookname);
+			holder.tvNumberOfBook.setText("No. Of Items : "+jobEntity.quantity);
+			holder.tvJobId.setText("WR-JOB-ID :"+jobEntity.jobid);
 			
 			if(jobEntity.bookImage != null){
 				aq.id(holder.ivBookImage).image(context.getResources().getDrawable(R.drawable.ic_launcher));
@@ -107,5 +109,6 @@ public class JobListAdapter extends ArrayAdapter<JobEntity> {
 		public TextView tvNumberOfBook;
 		public CircularImageView ivBookImage;
 		public ProgressBar pbImagePreLoad;
+		public TextView tvJobId;
 	}
 }

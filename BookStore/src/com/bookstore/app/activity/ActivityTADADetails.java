@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
@@ -29,6 +30,7 @@ public class ActivityTADADetails extends BookStoreActionBarBase implements
 	Button btnDone;
 	IndividualTADA individualTADA;
 	String whichPurpose = "GetTadaInfo";
+	ImageView ivAgentPic;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,7 @@ public class ActivityTADADetails extends BookStoreActionBarBase implements
 		tvAmount = (TextView) findViewById(R.id.tvAmount);
 		tvOtherAmount = (TextView) findViewById(R.id.tvOtherAmount);
 		tvTotalAmount = (TextView) findViewById(R.id.tvTotalAmount);
+		ivAgentPic=(ImageView) findViewById(R.id.ivAgentPic);
 
 		btnDone = (Button) findViewById(R.id.btnDone);
 
@@ -156,5 +159,13 @@ public class ActivityTADADetails extends BookStoreActionBarBase implements
 		tvAmount.setText("" + individualTADA.tadaamount);
 		tvOtherAmount.setText("" + individualTADA.otheramount);
 		tvTotalAmount.setText("" + individualTADA.totalamount);
+		
+		
+
+		ivAgentPic.setImageBitmap(CommonTasks
+					.createCircularShape(CommonTasks.getBitmapFromSdCard(
+							this, "/sdcard/BookStore/" + ""
+									+ individualTADA.agentid + ".png")));
+		
 	}
 }

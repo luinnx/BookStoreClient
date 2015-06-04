@@ -1,7 +1,5 @@
 package com.bookstore.app.activity;
 
-import java.util.ArrayList;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +11,7 @@ import android.widget.ListView;
 import com.bookstore.app.adapters.AgentListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.BookStoreActionBarBase;
+import com.bookstore.app.customview.EndlessScrollListener;
 import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
@@ -28,6 +27,10 @@ public class AgentListActivity extends BookStoreActionBarBase implements
 	ProgressDialog dialog;
 	AgentListAdapter adapter;
 	AgentListRoot agentListRoot=null;
+	
+	EndlessScrollListener scrollListener;
+	int pageIndex = 0;
+	String whichMode="";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,18 @@ public class AgentListActivity extends BookStoreActionBarBase implements
 	private void initViews() {
 		lvAllAgentList = (ListView) findViewById(R.id.lvAllAgentList);
 		lvAllAgentList.setOnItemClickListener(this);
+		pageIndex=0;
+		
+		scrollListener = new EndlessScrollListener() {
+
+			@Override
+			public void onLoadMore(int page, int totalItemsCount) {
+				whichMode = "download_next_Agent";
+				pageIndex++;
+				loadInforMation();
+			}
+		};
+		lvAllAgentList.setOnScrollListener(scrollListener);
 
 	}
 
@@ -85,19 +100,39 @@ public class AgentListActivity extends BookStoreActionBarBase implements
 
 	@Override
 	public Object doInBackground() {
-		IAdminManager manager = new AdminManager();
-		return manager.getAgentList(0);
+		
+		if(!whichMode.equals("download_next_Agent")){
+			IAdminManager manager = new AdminManager();
+			return manager.getAgentList(0);
+		}else{
+			IAdminManager manager = new AdminManager();
+			return manager.getAgentList(pageIndex);
+		}
+		
 	}
 
 	@Override
 	public void processDataAfterDownload(Object data) {
 
 		if (data != null) {
-			agentListRoot = new AgentListRoot();
-			agentListRoot = (AgentListRoot) data;
-			adapter = new AgentListAdapter(getApplicationContext(),
-					R.layout.agent_list_item, agentListRoot.agentList);
-			lvAllAgentList.setAdapter(adapter);
+			
+			
+			if(!whichMode.equals("download_next_Agent")){
+				agentListRoot = new AgentListRoot();
+				agentListRoot = (AgentListRoot) data;
+				adapter = new AgentListAdapter(getApplicationContext(),
+						R.layout.agent_list_item, agentListRoot.agentList);
+				lvAllAgentList.setAdapter(adapter);
+			}else{
+				agentListRoot = new AgentListRoot();
+				if(agentListRoot != null && agentListRoot.agentList.size()>0){
+					for (AgentEntity agentEntity : agentListRoot.agentList) {
+						adapter.add(agentEntity);
+					}
+					adapter.notifyDataSetChanged();
+				}
+			}
+			
 		} else {
 			CommonTasks.showToast(getApplicationContext(), "Internal Server  Error!!! Please Try again later");
 		}

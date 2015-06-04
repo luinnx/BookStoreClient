@@ -71,6 +71,7 @@ public class TaDaListAdapter extends ArrayAdapter<TadaListEntity> {
 				holder.tvAgentAddress = (TextView) jobView.findViewById(R.id.tvAgentAddress);
 				holder.tvTotalAmount = (TextView) jobView.findViewById(R.id.tvTotalAmount);
 				holder.tvDistance = (TextView) jobView.findViewById(R.id.tvDistance);
+				holder.tvTadaID=(TextView) jobView.findViewById(R.id.tvTadaID);
 				
 				aq = new AQuery(context);
 				imageLoader = new ImageLoader(context);
@@ -83,19 +84,29 @@ public class TaDaListAdapter extends ArrayAdapter<TadaListEntity> {
 				holder = (ViewHolder) jobView.getTag();
 			}
 			
-			holder.tvAgentName.setText(taDaEntity.agentname);
-			holder.tvDistance.setText(""+taDaEntity.distance+" KM");
-			holder.tvTotalAmount.setText(""+taDaEntity.totalamount +"Tk.");
+			holder.tvTadaID.setText("WR-TADA-ID : "+taDaEntity.id);
+			holder.tvAgentName.setText("Agent Name : "+taDaEntity.agentname);
+			holder.tvDistance.setText("Distance : "+taDaEntity.distance+" KM");
+			holder.tvTotalAmount.setText("Total Amount : "+taDaEntity.totalamount +"Tk.");
 			
-			if(taDaEntity.agentpic==null){
-				taDaEntity.agentpic="";
+			
+			if (taDaEntity.agentpic.equals("")) {
+				aq.id(holder.ivAgentImage).image(
+						context.getResources().getDrawable(
+								R.drawable.ic_person_24));
+			} else {
+
+				holder.ivAgentImage.setImageBitmap(CommonTasks
+						.createCircularShape(CommonTasks.getBitmapFromSdCard(
+								context, "/sdcard/BookStore/" + ""
+										+ taDaEntity.agentid + ".png")));
 			}
 			
-			if(!taDaEntity.agentpic .equals("")){
+			/*if(!taDaEntity.agentpic .equals("")){
 				aq.id(holder.ivAgentImage).image((CommonUrls.getInstance().IMAGE_BASE_URL+taDaEntity.agentpic.toString()),imgOptions);
 			}else{
 				aq.id(holder.ivAgentImage).image(context.getResources().getDrawable(R.drawable.ic_person));
-			}
+			}*/
 			
 		}catch(Exception ex){
 			CommonTasks.showLogs(context, ex.getMessage());
@@ -109,6 +120,7 @@ public class TaDaListAdapter extends ArrayAdapter<TadaListEntity> {
 		public CircularImageView ivAgentImage;
 		public TextView tvTotalAmount;
 		public TextView tvDistance;
+		public TextView tvTadaID;
 	}
 
 }

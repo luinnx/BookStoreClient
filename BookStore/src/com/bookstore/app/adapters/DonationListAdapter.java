@@ -74,6 +74,7 @@ public class DonationListAdapter extends ArrayAdapter<DonationEntity> {
 				holder.tvAgentName = (TextView) jobView.findViewById(R.id.tvAgentName);
 				holder.tvDonationAmount = (TextView) jobView.findViewById(R.id.tvDonationAmount);
 				holder.tvDonationDate = (TextView) jobView.findViewById(R.id.tvDonationDate);
+				holder.tvDonationID=(TextView) jobView.findViewById(R.id.tvDonationID);
 				aq = new AQuery(context);
 				imageLoader = new ImageLoader(context);
 				imgOptions = CommonValues.getInstance().defaultImageOptions; 		
@@ -85,9 +86,10 @@ public class DonationListAdapter extends ArrayAdapter<DonationEntity> {
 				holder = (ViewHolder) jobView.getTag();
 			}
 			
-			holder.tvAgentName.setText(donation.agent_name);
-			holder.tvDonationAmount.setText("Amount :"+String.valueOf(donation.Amount));
-			holder.tvDonationDate.setText("Date :"+ (String) DateUtils.getRelativeTimeSpanString(
+			holder.tvDonationID.setText("WR-DONATION-ID : "+donation.id);
+			holder.tvAgentName.setText("Agent Name : "+donation.agent_name);
+			holder.tvDonationAmount.setText("Requested Amount : "+String.valueOf(donation.Amount));
+			holder.tvDonationDate.setText("Date : "+ (String) DateUtils.getRelativeTimeSpanString(
 					donation.date, new Date().getTime(), DateUtils.DAY_IN_MILLIS));
 			
 			if(donation.pic_url != null){
@@ -109,6 +111,7 @@ public class DonationListAdapter extends ArrayAdapter<DonationEntity> {
 		public TextView tvDonationDate;
 		public ImageView ivAgentImage;
 		public ProgressBar pbImagePreLoad;
+		public TextView tvDonationID;
 	}
 
 }

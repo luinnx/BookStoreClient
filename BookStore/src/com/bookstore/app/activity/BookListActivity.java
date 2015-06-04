@@ -103,7 +103,7 @@ public class BookListActivity extends BookStoreActionBarBase implements
 	@Override
 	public Object doInBackground() {
 		IAdminManager manager = new AdminManager();
-		return manager.getBookList(0);
+		return manager.getBookList(pageIndex);
 	}
 
 	@Override
@@ -111,8 +111,10 @@ public class BookListActivity extends BookStoreActionBarBase implements
 
 		if (data != null) {
 			bookListRoot = new BookListRoot();
+			bookListRoot=(BookListRoot) data;
 			if(whichMode.equals("download_all_book")){
-				if(bookListRoot != null && bookListRoot.bookList.size()>0){
+				
+				if(bookListRoot.bookList != null &&bookListRoot.bookList.size()>0){
 					adapter = new BookListAdapter(getApplicationContext(),
 							R.layout.book_list_item, bookListRoot.bookList);
 					lvAllAgentList.setAdapter(adapter);

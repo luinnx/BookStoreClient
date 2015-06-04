@@ -19,7 +19,7 @@
             android:src="@drawable/ic_done_work" />
 
         <TextView
-            android:id="@+id/tvBookName"
+            android:id="@+id/tvJobId"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -28,7 +28,20 @@
             android:text=""
             android:textStyle="bold"
             android:textColor="@color/text_color"
-            android:textSize="25sp"/>
+            android:textSize="22sp"/>
+        
+        <TextView
+            android:id="@+id/tvBookName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvJobId"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@id/ivBookImage"           
+            android:text=""
+            android:textStyle="normal"
+            android:textColor="@color/text_color"
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/tvAgentName"
@@ -36,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvBookName"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="2dp"
             android:layout_toRightOf="@+id/ivBookImage"
             android:text=""
             android:textColor="@color/text_color"
@@ -50,7 +63,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@id/tvAgentName"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="2dp"
             android:layout_toRightOf="@+id/ivBookImage"
             android:text=""
             android:textColor="@color/text_color"

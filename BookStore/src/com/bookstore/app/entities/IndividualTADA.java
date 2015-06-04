@@ -19,7 +19,7 @@ public class IndividualTADA {
 	public String starttime;
 	@SerializedName("vehicelname")
 	public String vehicelname;
-	@SerializedName("full_name")
+	@SerializedName("agentfullname")
 	public String Agentfull_name;
 	@SerializedName("totalamount")
 	public double totalamount;
@@ -31,4 +31,6 @@ public class IndividualTADA {
 	public double otheramount;
 	@SerializedName("gcmid")
 	public String gcmid;
+	@SerializedName("agentid")
+	public int agentid;
 }

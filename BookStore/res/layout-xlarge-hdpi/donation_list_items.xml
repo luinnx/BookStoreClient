@@ -23,9 +23,9 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:visibility="gone" />
-
+        
         <TextView
-            android:id="@+id/tvAgentName"
+            android:id="@+id/tvDonationID"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -35,6 +35,19 @@
             android:textStyle="bold"
             android:textColor="@color/text_color"
             android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/tvAgentName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvDonationID"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/ivAgentImage"           
+            android:text=""
+            android:textStyle="normal"
+            android:textColor="@color/text_color"
+            android:textSize="15sp"/>
 
         <TextView
             android:id="@+id/tvDonationAmount"

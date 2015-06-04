@@ -22,8 +22,6 @@
         android:layout_marginRight="5dp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_app_name" />
-    
-    
 
     <ScrollView
         android:id="@+id/scrollView1"
@@ -74,6 +72,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvNameBook"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/ivJobBookImage"
+                    android:text=""
+                    android:textColor="@color/text_color"
+                    android:textSize="20sp"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:id="@+id/tvActionAgentName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvJobStatus"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/ivJobBookImage"
                     android:text=""
@@ -138,8 +148,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:visibility="gone"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal"
+                    android:visibility="gone" >
 
                     <TextView
                         android:layout_width="0dp"
@@ -264,12 +274,13 @@
                         android:textSize="25sp"
                         android:textStyle="normal" />
                 </TableRow>
-                
+
                 <TableRow
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal"
+                    android:visibility="gone" >
 
                     <TextView
                         android:id="@+id/tvHeaderAssignedBy"

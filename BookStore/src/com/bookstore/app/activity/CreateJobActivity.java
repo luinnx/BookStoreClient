@@ -22,6 +22,7 @@ import com.bookstore.app.adapters.BookListAdapterForJob;
 import com.bookstore.app.adapters.TeacherListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.BookStoreActionBarBase;
+import com.bookstore.app.customview.EndlessScrollListener;
 import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
 import com.bookstore.app.entities.BookEntity;
@@ -68,6 +69,11 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 	BookEntity bookEntity = null;
 	AgentEntity agentEntity = null;
 	TeacherEntity teacherEntity = null;
+	AgentListRoot agentListRoot = null;
+
+	EndlessScrollListener scrollListener;
+	int pageIndex = 0;
+	String whichMode = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -123,10 +129,13 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 			loadInformation();
 		} else if (view.getId() == R.id.ivAddAgent) {
 			MODE = "AGENT_MODE";
+			pageIndex = 0;
+			whichMode="";
 			if (!CommonTasks.isOnline(this)) {
 				CommonTasks.goSettingPage(this);
 				return;
 			}
+
 			loadInformation();
 		} else if (view.getId() == R.id.btnSubmit) {
 			MODE = "JOB_SUBMIT";
@@ -156,14 +165,14 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 					return;
 				}
 				loadInformation();
-				
-			}else{
-				
+
+			} else {
+
 				CommonTasks.showToast(getApplicationContext(),
 						"Agent is not Activated Yet.");
 				return;
 			}
-			
+
 		}
 
 	}
@@ -413,7 +422,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 		} else if (MODE.equals("TEACHER_MODE")) {
 			return adminManager.getTeacherList();
 		} else if (MODE.equals("AGENT_MODE")) {
-			return adminManager.getAgentList(0);
+			return adminManager.getAgentList(pageIndex);
 		} else if (MODE.equals("JOB_SUBMIT")) {
 			/*
 			 * String bookName, String bookID, String no_of_book, String
@@ -453,9 +462,22 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 
 			} else if (MODE.equals("AGENT_MODE")) {
 
-				AgentListRoot agentListRoot = new AgentListRoot();
-				agentListRoot = (AgentListRoot) data;
-				getAllAgentDialog(agentListRoot);
+				if (whichMode.equals("download_next_Agent")) {
+
+					agentListRoot = new AgentListRoot();
+					if (agentListRoot != null
+							&& agentListRoot.agentList.size() > 0) {
+						for (AgentEntity agentEntity : agentListRoot.agentList) {
+							agentListAdapter.add(agentEntity);
+						}
+						agentListAdapter.notifyDataSetChanged();
+					}
+				} else {
+					agentListRoot = new AgentListRoot();
+					agentListRoot = (AgentListRoot) data;
+					getAllAgentDialog(agentListRoot);
+				}
+
 			} else if (MODE.equals("JOB_SUBMIT")) {
 				JobCreateEntity createEntity = new JobCreateEntity();
 				createEntity = (JobCreateEntity) data;
@@ -483,6 +505,35 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 		allAgentDialog.setTitle("All Agents ");
 		lvAllAgentList = (ListView) allAgentDialog
 				.findViewById(R.id.lvAllAgentList);
+
+		scrollListener = new EndlessScrollListener() {
+
+			@Override
+			public void onLoadMore(int page, int totalItemsCount) {
+				whichMode = "download_next_Agent";
+				pageIndex++;
+				loadInformation();
+			}
+		};
+		lvAllAgentList.setOnScrollListener(scrollListener);
+
+		if (whichMode.equals("download_next_Agent")) {
+
+			agentListRoot = new AgentListRoot();
+			if (agentListRoot != null && agentListRoot.agentList.size() > 0) {
+				for (AgentEntity agentEntity : agentListRoot.agentList) {
+					agentListAdapter.add(agentEntity);
+				}
+				agentListAdapter.notifyDataSetChanged();
+			} else {
+				agentListAdapter = new AgentListAdapter(
+						getApplicationContext(), R.layout.agent_list_item,
+						entities.agentList);
+			}
+
+			lvAllAgentList.setAdapter(agentListAdapter);
+		}
+
 		agentListAdapter = new AgentListAdapter(getApplicationContext(),
 				R.layout.agent_list_item, entities.agentList);
 		lvAllAgentList.setAdapter(agentListAdapter);

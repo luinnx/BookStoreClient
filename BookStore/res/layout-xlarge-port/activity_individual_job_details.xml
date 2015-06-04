@@ -79,6 +79,18 @@
                     android:textColor="@color/text_color"
                     android:textSize="20sp"
                     android:textStyle="italic" />
+                
+                <TextView
+                    android:id="@+id/tvActionAgentName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvJobStatus"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/ivJobBookImage"
+                    android:text=""
+                    android:textColor="@color/text_color"
+                    android:textSize="20sp"
+                    android:textStyle="italic" />
             </RelativeLayout>
 
             <TextView
@@ -268,6 +280,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:visibility="gone"
                     android:orientation="horizontal" >
 
                     <TextView
