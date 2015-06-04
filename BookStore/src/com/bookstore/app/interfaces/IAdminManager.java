@@ -17,6 +17,7 @@ import com.bookstore.app.entities.JobListRoot;
 import com.bookstore.app.entities.LoginEntity;
 import com.bookstore.app.entities.TaDaListRoot;
 import com.bookstore.app.entities.TeacherListRoot;
+import com.bookstore.app.entities.UserListRoot;
 
 public interface IAdminManager {
 	public LoginEntity getAuthentication(String email, String password,
@@ -31,6 +32,7 @@ public interface IAdminManager {
 			int isActive, int type);
 
 	public AgentListRoot getAgentList(int pageIndex);
+	public UserListRoot getAllUserList();
 
 	public AgentLocationRelated getIndividualAgentDetails(String agentID);
 

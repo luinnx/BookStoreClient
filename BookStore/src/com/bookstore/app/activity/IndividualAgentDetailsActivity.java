@@ -61,7 +61,7 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 
 	ImageView ivAgentImage;
 	TextView tvAgentName, tvAddress, tvMpoNumber, tvMobileNumber,
-			tvAgentCurrentLocation, tvCreateDate;
+			tvAgentCurrentLocation, tvCreateDate, tvUserType;
 	Button btnOk, btnCall;
 	String agentId = "";
 
@@ -102,7 +102,8 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 		tvAgentCurrentLocation = (TextView) findViewById(R.id.tvAgentCurrentLocation);
 		tvCreateDate = (TextView) findViewById(R.id.tvCreateDate);
 		ivAgentImage = (ImageView) findViewById(R.id.ivAgentImage);
-		trCreateDate=(TableRow) findViewById(R.id.trCreateDate);
+		trCreateDate = (TableRow) findViewById(R.id.trCreateDate);
+		tvUserType = (TextView) findViewById(R.id.tvUserType);
 
 		SupportMapFragment fragment = (SupportMapFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.actvityAgentLocationMap);
@@ -159,7 +160,6 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 			myBitmap = BitmapFactory.decodeResource(getResources(),
 					R.drawable.ic_person_24);
 		} else {
-			
 
 		}
 
@@ -176,24 +176,29 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 			tvAddress.setText(agentEntity.address);
 			tvMpoNumber.setText(agentEntity.mpo_no);
 			tvMobileNumber.setText(agentEntity.mobile_no);
-			if(agentEntity.location_name!=null){
+			if (agentEntity.location_name != null) {
 				tvAgentCurrentLocation.setText(agentEntity.location_name);
-			}else{
-				tvAgentCurrentLocation.setText("Agent Not Activated Yet.");
+			} else {
+				tvAgentCurrentLocation.setText(agentEntity.address);
 			}
-			
-			
-			if (agentEntity.create_date != null && !agentEntity.create_date.isEmpty() && !agentEntity.create_date.equals("null")) {
+
+			if (agentEntity.usertype == 1) {
+				tvUserType.setText("Admin");
+			} else {
+				tvUserType.setText("Agent");
+			}
+
+			if (agentEntity.create_date != null
+					&& !agentEntity.create_date.isEmpty()
+					&& !agentEntity.create_date.equals("null")) {
 				trCreateDate.setVisibility(View.VISIBLE);
 				tvCreateDate.setText(CommonTasks
 						.getLongToDate(agentEntity.create_date));
-			}else{
+			} else {
 				trCreateDate.setVisibility(View.GONE);
 			}
-			
-			
 
-			loadMap(agentEntity.latitude,agentEntity.longitude);
+			loadMap(agentEntity.latitude, agentEntity.longitude);
 
 		} else {
 			CommonTasks.showToast(getApplicationContext(),
@@ -202,8 +207,8 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 
 	}
 
-	private void loadMap(double lat,double lng) {
-		
+	private void loadMap(double lat, double lng) {
+
 		markers = new ArrayList<Marker>();
 		try {
 			frAgentLocationMap.clear();
@@ -236,9 +241,10 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 				ImageView ivAgentImage = (ImageView) marker
 						.findViewById(R.id.ivMapAgentImage);
 				numTxt.setText(agentEntity.full_name);
-				
-				myBitmap=(CommonTasks
-						.createCircularShape(CommonTasks.getBitmapFromSdCard(getApplicationContext(),"/sdcard/BookStore/"+""+agentId+".png")));
+
+				myBitmap = (CommonTasks.createCircularShape(CommonTasks
+						.getBitmapFromSdCard(getApplicationContext(),
+								"/sdcard/BookStore/" + "" + agentId + ".png")));
 				ivAgentImage.setImageBitmap(myBitmap);
 
 				markers.add(frAgentLocationMap.addMarker(new MarkerOptions()
@@ -248,13 +254,11 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 												this, marker)))));
 
 			}
-			//addressText = "";
-			if(addressText.equals("")){
-				addressText="Agent Not Activated Yet.";
+			// addressText = "";
+			if (addressText.equals("")) {
+				addressText = "Agent Not Activated Yet.";
 			}
 			tvAgentCurrentLocation.setText(addressText);
-			
-			
 
 			frAgentLocationMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 			LatLngBounds.Builder b = new LatLngBounds.Builder();
@@ -327,6 +331,7 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 		// Getting the position from the marker
 		TextView tvLastUpdateTime = (TextView) v
 				.findViewById(R.id.tvLastUpdateTime);
+		TextView tvUserType1 = (TextView) v.findViewById(R.id.tvUserType);
 
 		TextView tvLocationName = (TextView) v
 				.findViewById(R.id.tvLocationName);
@@ -335,8 +340,15 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 
 		tvAgentName.setText("Name :" + agentEntity.full_name);
 		tvLocationName.setText("Current Location :" + addressText);
-		/*tvLastUpdateTime.setText("Last Update :"
-				+ CommonTasks.getLongToDate(agentEntity.create_date));*/
+		if (agentEntity.usertype == 1) {
+			tvUserType1.setText("User Type : Admin");
+		} else {
+			tvUserType1.setText("User Type : Agent");
+		}
+		/*
+		 * tvLastUpdateTime.setText("Last Update :" +
+		 * CommonTasks.getLongToDate(agentEntity.create_date));
+		 */
 		ivAgentImage.setImageBitmap(CommonTasks.createCircularShape(myBitmap));
 
 		// Returning the view containing InfoWindow contents

@@ -39,7 +39,7 @@ public class AgentDonationListActivity extends AgentActionbarBase implements OnI
 		initialization();
 		
 		whichMode = "download_all_donation";
-		pageIndex++;
+		//pageIndex++;
 		LoadInformation();
 	}
 

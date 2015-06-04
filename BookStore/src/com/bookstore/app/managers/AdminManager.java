@@ -25,6 +25,7 @@ import com.bookstore.app.entities.JobListRoot;
 import com.bookstore.app.entities.LoginEntity;
 import com.bookstore.app.entities.TaDaListRoot;
 import com.bookstore.app.entities.TeacherListRoot;
+import com.bookstore.app.entities.UserListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
@@ -437,5 +438,22 @@ public class AdminManager implements IAdminManager {
 						quantity,available,price,bookid), Boolean.class);
 
 		return result;
+	}
+
+	@Override
+	public UserListRoot getAllUserList() {
+		
+		UserListRoot agentListRoot = null;
+		try {
+			agentListRoot = (UserListRoot) JSONfunctions
+					.retrieveDataFromStream(String.format(
+							CommonUrls.getInstance().getAllUser),
+							UserListRoot.class);
+			if (agentListRoot.agentList.size() > 0)
+				return agentListRoot;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
 	}
 }

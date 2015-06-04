@@ -26,10 +26,21 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tvLocationName"
+        android:id="@+id/tvUserType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvAgentName"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:text=""
+        android:textColor="#00F"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tvLocationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUserType"
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
         android:text=""

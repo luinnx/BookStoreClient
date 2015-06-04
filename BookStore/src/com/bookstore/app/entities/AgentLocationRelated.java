@@ -29,5 +29,7 @@ public class AgentLocationRelated {
 	public double latitude;
 	@SerializedName("longitude")
 	public double longitude;
+	@SerializedName("usertype")
+	public int usertype;
 
 }

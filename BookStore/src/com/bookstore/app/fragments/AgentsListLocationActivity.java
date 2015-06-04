@@ -10,11 +10,10 @@ import org.json.JSONObject;
 import com.androidquery.callback.ImageOptions;
 import com.bookstore.app.activity.IndividualAgentDetailsActivity;
 import com.bookstore.app.activity.R;
-import com.bookstore.app.adapters.AgentListAdapter;
+import com.bookstore.app.adapters.AllUserListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
-import com.bookstore.app.customview.EndlessScrollListener;
 import com.bookstore.app.entities.AgentEntity;
-import com.bookstore.app.entities.AgentListRoot;
+import com.bookstore.app.entities.UserListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
@@ -22,7 +21,6 @@ import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
 import com.bookstore.app.utils.CommonUrls;
 import com.bookstore.app.utils.ImageLoader;
-import com.google.android.gms.drive.internal.ad;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -66,8 +64,8 @@ public class AgentsListLocationActivity extends Fragment implements
 		OnMarkerClickListener, InfoWindowAdapter, OnClickListener {
 
 	ListView lvAgentList;
-	AgentListAdapter adapter;
-	AgentListRoot agentListRoot = null;
+	AllUserListAdapter adapter;
+	UserListRoot agentListRoot = null;
 	GoogleMap frAgentLocationMap;
 	DownloadableAsyncTask downloadAsyncTask;
 	ProgressDialog progressDialog;
@@ -167,8 +165,7 @@ public class AgentsListLocationActivity extends Fragment implements
 	@Override
 	public Object doInBackground() {
 		IAdminManager adminManager = new AdminManager();
-		//if (whichService.equals("Agent List")) {
-			agentListRoot = adminManager.getAgentList(0);
+			agentListRoot = adminManager.getAllUserList();
 			
 			Log.d("BSS", "Previous Agent:"+CommonTasks.getPreferences(getActivity(),
 					CommonConstraints.NO_OF_AGENT));
@@ -249,9 +246,9 @@ public class AgentsListLocationActivity extends Fragment implements
 	@Override
 	public void processDataAfterDownload(Object data) {
 		if (data != null) {
-			agentListRoot = (AgentListRoot) data;
+			agentListRoot = (UserListRoot) data;
 			if(agentListRoot != null && agentListRoot.agentList.size()>0){
-				adapter = new AgentListAdapter(getActivity(), R.layout.agent_list_item, agentListRoot.agentList);
+				adapter = new AllUserListAdapter(getActivity(), R.layout.agent_list_item, agentListRoot.agentList);
 				lvAgentList.setAdapter(adapter);
 				LoadMap(agentListRoot);
 			}
@@ -262,7 +259,7 @@ public class AgentsListLocationActivity extends Fragment implements
 
 	}
 
-	private void LoadMap(AgentListRoot agentListRoot2) {
+	private void LoadMap(UserListRoot agentListRoot2) {
 		markers = new ArrayList<Marker>();
 		try {
 			frAgentLocationMap.clear();
@@ -444,14 +441,20 @@ public class AgentsListLocationActivity extends Fragment implements
 
 		TextView tvLastUpdateTime = (TextView) v
 				.findViewById(R.id.tvLastUpdateTime);
+		TextView tvUserType1 = (TextView) v.findViewById(R.id.tvUserType);
 
 		TextView tvLocationName = (TextView) v
 				.findViewById(R.id.tvLocationName);
 		TextView tvAgentName = (TextView) v.findViewById(R.id.tvAgentName);
 		ImageView ivAgentImage = (ImageView) v.findViewById(R.id.ivAgentImage);
 
+		if (entity.usertype == 1) {
+			tvUserType1.setText("User Type : Admin");
+		} else {
+			tvUserType1.setText("User Type : Agent");
+		}
 		tvAgentName.setText("Name :" + entity.full_name);
-		tvLocationName.setText("Current Location :" + entity.address);
+		tvLocationName.setText("Current Location :" + entity.location_name);
 		/*tvLastUpdateTime.setText("Last Update :"
 				+ CommonTasks.getRelativeTime(Long.parseLong(entity.create_date)));*/
 		ivAgentImage.setImageBitmap(CommonTasks.createCircularShape(CommonTasks

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
+import com.bookstore.app.base.AgentActionbarBase;
 import com.bookstore.app.base.BookStoreActionBarBase;
 import com.bookstore.app.entities.AgentDonationResultEntity;
 import com.bookstore.app.interfaces.IAdminManager;
@@ -20,7 +21,7 @@ import com.bookstore.app.managers.AdminManager;
 import com.bookstore.app.utils.CommonTasks;
 
 public class AgentDonationAcceptRejectResultActivity extends
-		BookStoreActionBarBase implements IAsynchronousTask, OnClickListener {
+		AgentActionbarBase implements IAsynchronousTask, OnClickListener {
 
 	AgentDonationResultEntity donationEntity;
 	Button btnOK;

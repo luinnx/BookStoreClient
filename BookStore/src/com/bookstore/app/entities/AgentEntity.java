@@ -29,5 +29,9 @@ public class AgentEntity {
 	public double latitude;
 	@SerializedName("lang")
 	public double longitude;
+	@SerializedName("usertype")
+	public int usertype;
+	
+	
 
 }
