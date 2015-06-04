@@ -429,8 +429,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 						Bitmap bitmap = BitmapFactory.decodeFile(filePath); // load
 						// preview
 						// image
-						bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100,
-								false);
+						bitmap = Bitmap.createBitmap(bitmap);
 
 						ByteArrayOutputStream stream = new ByteArrayOutputStream();
 						if (bitmap.getByteCount() > (1024 * 1024)) {
@@ -470,8 +469,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 							Bitmap bitmap = BitmapFactory.decodeFile(fileSrc); // load
 																		// preview
 																		// image
-							bitmap = Bitmap.createScaledBitmap(bitmap, 100,
-									100, false);
+							bitmap = Bitmap.createBitmap(bitmap);
 
 							ByteArrayOutputStream stream = new ByteArrayOutputStream();
 							if (bitmap.getByteCount() > (1024 * 1024)) {
@@ -539,7 +537,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 					// retrieve the bitmap from the intent
 					Bitmap bitmap = (Bitmap) data.getExtras().get("data");
 
-					bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, false);
+					bitmap = Bitmap.createBitmap(bitmap);
 					// update the image view with the bitmap
 
 					ByteArrayOutputStream stream = new ByteArrayOutputStream();

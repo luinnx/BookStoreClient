@@ -259,8 +259,7 @@ public class AddAgentActivity extends BookStoreActionBarBase implements
 						bitmap = BitmapFactory.decodeFile(filePath); // load
 						// preview
 						// image
-						bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100,
-								false);
+						bitmap = Bitmap.createBitmap(bitmap);
 						// bmpDrawable = new BitmapDrawable(bitmapPreview);
 						ivCaptureImage.setImageBitmap(bitmap);
 
@@ -299,8 +298,7 @@ public class AddAgentActivity extends BookStoreActionBarBase implements
 							bitmap = BitmapFactory.decodeFile(fileSrc); // load
 																		// preview
 																		// image
-							bitmap = Bitmap.createScaledBitmap(bitmap, 100,
-									100, false);
+							bitmap = Bitmap.createBitmap(bitmap);
 							// bmpDrawable = new BitmapDrawable(bitmapPreview);
 							ivCaptureImage.setImageBitmap(bitmap);
 
@@ -384,7 +382,7 @@ public class AddAgentActivity extends BookStoreActionBarBase implements
 					Log.e("path of the image from camera ====> ",
 							selectedImagePath);
 
-					bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, false);
+					bitmap = Bitmap.createBitmap(bitmap);
 					// update the image view with the bitmap
 					ivCaptureImage.setImageBitmap(bitmap);
 
