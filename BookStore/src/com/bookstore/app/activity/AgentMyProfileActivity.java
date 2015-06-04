@@ -207,11 +207,6 @@ public class AgentMyProfileActivity extends AgentActionbarBase implements
 					CommonTasks.showToast(AgentMyProfileActivity.this, "Password not match!");
 					return;
 				}
-				
-				if (!CommonTasks.isOnline(getApplicationContext())) {
-					CommonTasks.goSettingPage(getApplicationContext());
-					return;
-				}
 				isChangePassword = true;
 				if (!CommonValues.getInstance().isOnline) {
 					CommonTasks.goSettingPage(AgentMyProfileActivity.this);

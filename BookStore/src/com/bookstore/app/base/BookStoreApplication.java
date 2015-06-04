@@ -129,6 +129,8 @@ public class BookStoreApplication extends Application{
 			        } catch (InterruptedException e) {
 			        	Log.e("BSA", e.getMessage());
 					}
+				}else{
+					CommonValues.getInstance().isOnline = false;
 				}
 				
 				handler.postDelayed(runnable,
