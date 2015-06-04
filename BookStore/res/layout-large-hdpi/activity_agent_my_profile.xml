@@ -34,7 +34,7 @@
                 android:layout_marginTop="5dp"
                 android:text="Personal Info"
                 android:textColor="@color/text_view_color"
-                android:textSize="15sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <View
@@ -66,7 +66,7 @@
                         android:layout_weight="0.4"
                         android:text="Name"
                         android:textColor="@color/text_view_color"
-                        android:textSize="15sp"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -76,7 +76,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="22sp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -92,7 +92,7 @@
                         android:layout_weight="0.4"
                         android:text="Mobile"
                         android:textColor="@color/text_view_color"
-                        android:textSize="15sp"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -102,7 +102,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="22sp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -118,7 +118,7 @@
                         android:layout_weight="0.4"
                         android:text="Email"
                         android:textColor="@color/text_view_color"
-                        android:textSize="15sp"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -128,7 +128,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="22sp"
                         android:textStyle="normal" />
                 </TableRow>
             </LinearLayout>
@@ -141,7 +141,7 @@
                 android:gravity="left"
                 android:text="Administrative Info"
                 android:textColor="@color/text_view_color"
-                android:textSize="15sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <View
@@ -173,7 +173,7 @@
                         android:layout_weight="0.4"
                         android:text="MPO Number"
                         android:textColor="@color/text_view_color"
-                        android:textSize="15sp"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -183,7 +183,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="22sp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -199,7 +199,7 @@
                         android:layout_weight="0.4"
                         android:text="Address"
                         android:textColor="@color/text_view_color"
-                        android:textSize="15sp"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -209,7 +209,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="22sp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -225,7 +225,7 @@
                         android:layout_weight="0.4"
                         android:text="Location"
                         android:textColor="@color/text_view_color"
-                        android:textSize="15sp"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -235,7 +235,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="22sp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -251,7 +251,7 @@
                         android:layout_weight="0.4"
                         android:text="Create Date"
                         android:textColor="@color/text_view_color"
-                        android:textSize="15sp"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -261,7 +261,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="22sp"
                         android:textStyle="normal" />
                 </TableRow>
             </LinearLayout>
