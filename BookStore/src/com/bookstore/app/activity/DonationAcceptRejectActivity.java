@@ -27,7 +27,7 @@ public class DonationAcceptRejectActivity extends BookStoreActionBarBase
 	DonationEntity donationEntity;
 	Button btnOK, btnReject, btnSubmit;
 	EditText etApprovedAmount;
-	TextView tvAgentName, tvDonationAmount, tvRequestDate, tvRequestPurpose;
+	TextView tvAgentName, tvDonationAmount, tvRequestDate, tvRequestPurpose,tvDonationId,tvDonationStatus;
 	DownloadableAsyncTask downloadableAsyncTask;
 	ProgressDialog progressDialog;
 	String whichPurpose = "FETCH_DONATION";
@@ -50,10 +50,12 @@ public class DonationAcceptRejectActivity extends BookStoreActionBarBase
 		tvRequestDate = (TextView) findViewById(R.id.tvRequestDate);
 		tvRequestPurpose = (TextView) findViewById(R.id.tvRequestPurpose);
 		etApprovedAmount = (EditText) findViewById(R.id.etApprovedAmount);
+		tvDonationId=(TextView) findViewById(R.id.tvDonationId);
+		tvDonationStatus=(TextView) findViewById(R.id.tvDonationStatus);
 		btnOK = (Button) findViewById(R.id.btnOK);
 		btnSubmit = (Button) findViewById(R.id.btnSubmit);
 		btnReject = (Button) findViewById(R.id.btnReject);
-
+		btnSubmit.setText("Accept");
 		btnOK.setOnClickListener(this);
 		btnSubmit.setOnClickListener(this);
 		btnReject.setOnClickListener(this);
@@ -113,6 +115,8 @@ public class DonationAcceptRejectActivity extends BookStoreActionBarBase
 				donationEntity = (DonationEntity) data;
 				tvAgentName.setText(donationEntity.agent_name);
 				tvDonationAmount.setText("" + donationEntity.Amount);
+				tvDonationId.setText(""+donationEntity.id);
+				//tvDonationStatus.setText(""+donationEntity.)
 				tvRequestDate.setText((String) DateUtils
 						.getRelativeTimeSpanString(donationEntity.date,
 								new Date().getTime(), DateUtils.DAY_IN_MILLIS));

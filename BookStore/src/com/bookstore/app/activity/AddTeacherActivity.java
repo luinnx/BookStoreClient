@@ -39,7 +39,9 @@ public class AddTeacherActivity extends BookStoreActionBarBase implements
 		etInstitutionName = (EditText) findViewById(R.id.etInstitutionName);
 		etTeacherPassword = (EditText) findViewById(R.id.etTeacherPassword);
 		btnOk = (Button) findViewById(R.id.btnOk);
+		ivCaptureImage=(ImageView) findViewById(R.id.ivCaptureImage);
 		btnOk.setOnClickListener(this);
+		ivCaptureImage.setVisibility(View.GONE);
 
 	}
 

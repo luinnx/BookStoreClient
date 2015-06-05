@@ -74,6 +74,8 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 	EndlessScrollListener scrollListener;
 	int pageIndex = 0;
 	String whichMode = "";
+	
+	String teacherID="",teacherInstitude="";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -144,11 +146,11 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Select a Books Books");
 				return;
-			} else if (teacherEntity == null) {
+			} /*else if (teacherEntity == null) {
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Select a teacher");
 				return;
-			} else if (agentEntity == null) {
+			}*/ else if (agentEntity == null) {
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Select an Agent");
 				return;
@@ -433,7 +435,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 			return adminManager
 					.createJob(bookEntity.full_name, "" + bookEntity._id, ""
 							+ etOrderAmountBooks.getText().toString().trim(),
-							"" + teacherEntity._id, teacherEntity.institute, ""
+							"" + teacherID, teacherInstitude, ""
 									+ CommonConstraints.PENDING_JOB, ""
 									+ agentEntity._id, agentEntity.gcm_id,
 							CommonTasks.getPreferences(getApplicationContext(),
@@ -577,6 +579,8 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 				teacherEntity = new TeacherEntity();
 				teacherEntity = entities.teacherList.get(position);
 
+				teacherID=""+teacherEntity._id;
+				teacherInstitude=teacherEntity.institute;
 				tvTeacherName.setText(teacherEntity.full_name);
 				tvTeacherInstitutionName.setText(teacherEntity.institute);
 				tvTeacherMobileNumber.setText(teacherEntity.mobile_no);

@@ -32,6 +32,56 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="WR-DONATION-ID"
+                android:textColor="@color/text_view_color"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDonationId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text=""
+                android:textColor="@color/text_color"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:text="Status"
+                android:textColor="@color/text_view_color"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDonationStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:text=""
+                android:textColor="@color/text_color"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.4"
                 android:text="Name"
                 android:textColor="@color/text_view_color"
@@ -182,6 +232,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Submit" />
+
         <Button
             android:id="@+id/btnReject"
             style="@style/Button_Style"

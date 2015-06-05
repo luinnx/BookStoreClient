@@ -5,14 +5,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
@@ -33,7 +31,7 @@ public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 			tvQuantity, tvPublishDate, tvPrice, tvMpoNumber, tvMobileNumber,
 			tvTeacherMobileNumber, tvAgentName, tvAgentsAddress,
 			tvAgentsCurrentLocation, tvAgentsMobileNumber, tvInstitude,
-			tvTeacherName,tvJobAssignedBy,tvHeaderAssignedBy,tvActionAgentName;
+			tvTeacherName,tvJobAssignedBy,tvHeaderAssignedBy,tvActionAgentName,tvJobId;
 	Button btnOk;
 	 
 
@@ -74,6 +72,7 @@ public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 		tvJobAssignedBy=(TextView) findViewById(R.id.tvJobAssignedBy);
 		tvHeaderAssignedBy=(TextView) findViewById(R.id.tvHeaderAssignedBy);
 		tvActionAgentName=(TextView) findViewById(R.id.tvActionAgentName);
+		tvJobId=(TextView) findViewById(R.id.tvJobId);
 
 		Bundle bundle = getIntent().getExtras();
 		jobID = bundle.getString("JOB_ID");
@@ -168,6 +167,7 @@ public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 				tvActionAgentName.setText("Assigned By : "+jobEntity.adminname);
 			}
 
+			tvJobId.setText("WR-JOB-ID : "+jobID);
 			tvAuthor.setText(jobEntity.authername);
 			tvAgentsCurrentLocation.setText(jobEntity.agentcurrentlocation);
 			tvISBN.setText(jobEntity.isbn);

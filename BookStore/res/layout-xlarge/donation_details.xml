@@ -23,6 +23,56 @@
         android:layout_marginTop="5dp"
         android:orientation="vertical"
         android:padding="10dp" >
+        
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="WR-DONATION-ID"
+                android:textColor="@color/text_view_color"
+                android:textSize="35sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDonationId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text=""
+                android:textColor="@color/text_color"
+                android:textSize="40sp"
+                android:textStyle="normal" />
+        </TableRow>
+        
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:text="Status"
+                android:textColor="@color/text_view_color"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDonationStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:text=""
+                android:textColor="@color/text_color"
+                android:textSize="40sp"
+                android:textStyle="normal" />
+        </TableRow>
 
         <TableRow
             android:layout_width="fill_parent"
