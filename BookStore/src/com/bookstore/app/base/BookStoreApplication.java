@@ -8,7 +8,6 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.BitmapAjaxCallback;
 import com.androidquery.callback.ImageOptions;
 import com.bookstore.app.activity.R;
-import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonUrls;
 import com.bookstore.app.utils.CommonValues;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;

@@ -11,6 +11,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.bookstore.app.adapters.DonationListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.BookStoreActionBarBase;
+import com.bookstore.app.customview.EndlessScrollListener;
+import com.bookstore.app.entities.BookEntity;
 import com.bookstore.app.entities.DonationEntity;
 import com.bookstore.app.entities.DonationListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
@@ -32,6 +34,8 @@ public class DonationListActivity extends BookStoreActionBarBase implements
 	DonationEntity donationEntity;
 	String approvedAmount;
 	int donationStatus;
+	int pageIndex = 0;
+	EndlessScrollListener scrollListener;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,16 @@ public class DonationListActivity extends BookStoreActionBarBase implements
 	private void initViews() {
 		lvAllDonationList = (ListView) findViewById(R.id.lvAllDonationList);
 		lvAllDonationList.setOnItemClickListener(this);
+		scrollListener = new EndlessScrollListener() {
+
+			@Override
+			public void onLoadMore(int page, int totalItemsCount) {
+				whichPurpose = "download_next_donation";
+				pageIndex++;
+				loadInforMation();
+			}
+		};
+		lvAllDonationList.setOnScrollListener(scrollListener);
 		if (!CommonTasks.isOnline(this)) {
 			CommonTasks.goSettingPage(this);
 			return;
@@ -76,29 +90,32 @@ public class DonationListActivity extends BookStoreActionBarBase implements
 	@Override
 	public Object doInBackground() {
 		IAdminManager manager = new AdminManager();
-		return manager.getAllDonationList(0);
+		return manager.getAllDonationList(pageIndex);
 	}
 
 	@Override
 	public void processDataAfterDownload(Object data) {
 		if (data != null) {
-
+			donationListRoot = new DonationListRoot();
+			donationListRoot = (DonationListRoot) data;
 			if (whichPurpose.equals("FETCH_DONATION")) {
-				donationListRoot = new DonationListRoot();
-				donationListRoot = (DonationListRoot) data;
-				adapter = new DonationListAdapter(getApplicationContext(),
-						R.layout.book_list_item, donationListRoot.donationList);
-				lvAllDonationList.setAdapter(adapter);
-			} /*
-			 * else { boolean b = (Boolean) data; if (b) {
-			 * CommonTasks.showToast(getApplicationContext(),
-			 * "Donation Approved Succesfully"); //lvAllDonationList.notify();
-			 * onBackPressed(); } else {
-			 * CommonTasks.showToast(getApplicationContext(),
-			 * "An Unexpected error occured.Please try again"); }
-			 * 
-			 * }
-			 */
+				if (donationListRoot != null
+						&& donationListRoot.donationList.size() > 0) {
+					adapter = new DonationListAdapter(getApplicationContext(),
+							R.layout.book_list_item,
+							donationListRoot.donationList);
+					lvAllDonationList.setAdapter(adapter);
+				}
+
+			} else if (whichPurpose.equals("download_next_donation")) {
+				if (donationListRoot != null
+						&& donationListRoot.donationList.size() > 0) {
+					for (DonationEntity donationEntity : donationListRoot.donationList) {
+						adapter.add(donationEntity);
+					}
+					adapter.notifyDataSetChanged();
+				}
+			}
 
 		} else {
 			CommonTasks.showToast(getApplicationContext(),
@@ -117,63 +134,6 @@ public class DonationListActivity extends BookStoreActionBarBase implements
 		intent.putExtra("DONATION_ID", "" + donationEntity.id);
 		startActivity(intent);
 
-		/*
-		 * donationDetails = new Dialog(this);
-		 * donationDetails.setContentView(R.layout.donation_details);
-		 * donationDetails.setCancelable(true);
-		 * donationDetails.setTitle("Donation Details Dialog");
-		 * 
-		 * TextView tvAgentName = (TextView) donationDetails
-		 * .findViewById(R.id.tvAgentName); TextView tvDonationAmount =
-		 * (TextView) donationDetails .findViewById(R.id.tvDonationAmount);
-		 * TextView tvRequestDate = (TextView) donationDetails
-		 * .findViewById(R.id.tvRequestDate); TextView tvRequestPurpose =
-		 * (TextView) donationDetails .findViewById(R.id.tvRequestPurpose);
-		 * final EditText etApprovedAmount = (EditText) donationDetails
-		 * .findViewById(R.id.etApprovedAmount); Button btnOK = (Button)
-		 * donationDetails.findViewById(R.id.btnOK); Button btnSubmit = (Button)
-		 * donationDetails .findViewById(R.id.btnSubmit); Button btnReject =
-		 * (Button) donationDetails .findViewById(R.id.btnReject);
-		 * 
-		 * tvAgentName.setText(donationEntity.agent_name);
-		 * tvDonationAmount.setText("" + donationEntity.Amount);
-		 * tvRequestDate.setText((String) DateUtils.getRelativeTimeSpanString(
-		 * donationEntity.date, new Date().getTime(), DateUtils.DAY_IN_MILLIS));
-		 * tvRequestPurpose.setText(donationEntity.comment);
-		 * 
-		 * btnOK.setOnClickListener(new View.OnClickListener() {
-		 * 
-		 * @Override public void onClick(View arg0) {
-		 * 
-		 * donationDetails.dismiss();
-		 * 
-		 * } });
-		 * 
-		 * btnSubmit.setOnClickListener(new View.OnClickListener() {
-		 * 
-		 * @Override public void onClick(View v) { if
-		 * (etApprovedAmount.getText().toString().trim().equals("")) {
-		 * CommonTasks.showToast(getApplicationContext(),
-		 * "Please Enter Approved Amount"); return; } whichPurpose =
-		 * "SUBMIT_DONATION"; donationStatus =
-		 * CommonConstraints.DONATION_COMPLETED; approvedAmount =
-		 * etApprovedAmount.getText().toString().trim(); loadInforMation();
-		 * donationDetails.dismiss();
-		 * 
-		 * } });
-		 * 
-		 * btnReject.setOnClickListener(new View.OnClickListener() {
-		 * 
-		 * @Override public void onClick(View v) {
-		 * 
-		 * whichPurpose = "SUBMIT_DONATION"; donationStatus =
-		 * CommonConstraints.DONATION_REGECTED; approvedAmount = "0";
-		 * loadInforMation(); donationDetails.dismiss();
-		 * 
-		 * } });
-		 * 
-		 * donationDetails.show();
-		 */
 	}
 
 }

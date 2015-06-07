@@ -75,6 +75,7 @@ public class BookStoreService extends Service implements IAsynchronousTask,
 					gcm = GoogleCloudMessaging.getInstance(this);
 				}
 				regid = gcm.register(CommonConstraints.APPID);
+				Log.d("BSS", "Sending GCM ID : "+regid);
 			}
 			IUser user = new UserManager();
 			return user.addGCMID(Integer.parseInt(CommonTasks.getPreferences(
@@ -89,6 +90,7 @@ public class BookStoreService extends Service implements IAsynchronousTask,
 	public void processDataAfterDownload(Object data) {
 		if (data != null) {
 			Boolean result = (Boolean) data;
+			Log.d("BSS", "GCM Id Sending Status : "+result);
 			if (result) {
 				CommonTasks.savePreferencesForReasonCode(this,
 						CommonConstraints.GCMID, regid);

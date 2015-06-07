@@ -58,7 +58,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.6"
+                android:layout_weight="0.4"
                 android:text="Status"
                 android:textColor="@color/text_view_color"
                 android:textSize="30sp"
@@ -68,7 +68,7 @@
                 android:id="@+id/tvDonationStatus"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.4"
+                android:layout_weight="0.6"
                 android:text=""
                 android:textColor="@color/text_color"
                 android:textSize="30sp"
@@ -179,6 +179,7 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/trApprovedAmount"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -210,6 +211,7 @@
         android:layout_width="fill_parent"
         android:layout_height="100dp"
         android:orientation="horizontal"
+        android:gravity="center_horizontal"
         android:weightSum="3" >
 
         <Button

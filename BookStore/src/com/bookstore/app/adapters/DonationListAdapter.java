@@ -18,6 +18,7 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.ImageOptions;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.entities.DonationEntity;
+import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
 import com.bookstore.app.utils.CommonUrls;
 import com.bookstore.app.utils.CommonValues;
@@ -28,7 +29,7 @@ public class DonationListAdapter extends ArrayAdapter<DonationEntity> {
 	DonationEntity donation;
 	ArrayList<DonationEntity> list;
 	Context context;
-	
+
 	ImageOptions imgOptions;
 	ImageLoader imageLoader;
 	private AQuery aq;
@@ -36,10 +37,10 @@ public class DonationListAdapter extends ArrayAdapter<DonationEntity> {
 	public DonationListAdapter(Context _context, int textViewResourceId,
 			List<DonationEntity> objects) {
 		super(_context, textViewResourceId, objects);
-		context=_context;
+		context = _context;
 		list = (ArrayList<DonationEntity>) objects;
 	}
-	
+
 	@Override
 	public int getCount() {
 		return list.size();
@@ -55,61 +56,84 @@ public class DonationListAdapter extends ArrayAdapter<DonationEntity> {
 	public long getItemId(int position) {
 		return position;
 	}
-	
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View jobView=convertView;
+		View jobView = convertView;
 		ViewHolder holder = null;
-		donation=list.get(position);
-		holder=new ViewHolder();
-		
-		try{
-			if( convertView==null){
+		donation = list.get(position);
+		holder = new ViewHolder();
+
+		try {
+			if (convertView == null) {
 				LayoutInflater inflater = (LayoutInflater) context
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				jobView = inflater.inflate(R.layout.donation_list_items, null);
-				
-				holder.ivAgentImage = (ImageView) jobView.findViewById(R.id.ivAgentImage);
-				holder.pbImagePreLoad = (ProgressBar) jobView.findViewById(R.id.pbImagePreLoad);
-				holder.tvAgentName = (TextView) jobView.findViewById(R.id.tvAgentName);
-				holder.tvDonationAmount = (TextView) jobView.findViewById(R.id.tvDonationAmount);
-				holder.tvDonationDate = (TextView) jobView.findViewById(R.id.tvDonationDate);
-				holder.tvDonationID=(TextView) jobView.findViewById(R.id.tvDonationID);
+
+				holder.ivAgentImage = (ImageView) jobView
+						.findViewById(R.id.ivAgentImage);
+				holder.pbImagePreLoad = (ProgressBar) jobView
+						.findViewById(R.id.pbImagePreLoad);
+				holder.tvAgentName = (TextView) jobView
+						.findViewById(R.id.tvAgentName);
+				holder.tvDonationAmount = (TextView) jobView
+						.findViewById(R.id.tvDonationAmount);
+				holder.tvDonationDate = (TextView) jobView
+						.findViewById(R.id.tvDonationDate);
+				holder.tvDonationID = (TextView) jobView
+						.findViewById(R.id.tvDonationID);
+				holder.tvDonationStatus = (TextView) jobView
+						.findViewById(R.id.tvDonationStatus);
 				aq = new AQuery(context);
 				imageLoader = new ImageLoader(context);
-				imgOptions = CommonValues.getInstance().defaultImageOptions; 		
-				imgOptions.targetWidth=100;
-				imgOptions.ratio=0;
+				imgOptions = CommonValues.getInstance().defaultImageOptions;
+				imgOptions.targetWidth = 100;
+				imgOptions.ratio = 0;
 				imgOptions.round = 8;
 				jobView.setTag(holder);
-			}else{
+			} else {
 				holder = (ViewHolder) jobView.getTag();
 			}
-			
-			holder.tvDonationID.setText("WR-DONATION-ID : "+donation.id);
-			holder.tvAgentName.setText("Agent Name : "+donation.agent_name);
-			holder.tvDonationAmount.setText("Requested Amount : "+String.valueOf(donation.Amount));
-			holder.tvDonationDate.setText("Date : "+ (String) DateUtils.getRelativeTimeSpanString(
-					donation.date, new Date().getTime(), DateUtils.DAY_IN_MILLIS));
-			
-			if(donation.pic_url != null){
-				aq.id(holder.ivAgentImage).image(context.getResources().getDrawable(R.drawable.ic_person));
-			}else{
-				aq.id(holder.ivAgentImage).image((CommonUrls.getInstance().IMAGE_BASE_URL+donation.pic_url.toString()),imgOptions);
+
+			holder.tvDonationID.setText("WR-DONATION-ID : " + donation.id);
+			holder.tvAgentName.setText("Agent Name : " + donation.agent_name);
+			holder.tvDonationAmount.setText("Requested Amount : "
+					+ String.valueOf(donation.Amount));
+			holder.tvDonationDate.setText("Date : "
+					+ (String) DateUtils.getRelativeTimeSpanString(
+							donation.date, new Date().getTime(),
+							DateUtils.DAY_IN_MILLIS));
+
+			if (donation.donationstatus == CommonConstraints.DONATION_COMPLETED) {
+				holder.tvDonationStatus.setText("Status : ACKNOLEDGED");
+			} else if (donation.donationstatus == CommonConstraints.DONATION_REGECTED) {
+				holder.tvDonationStatus.setText("Status : REGECTED");
+			} else if (donation.donationstatus == CommonConstraints.DONATION_SUBMIT) {
+				holder.tvDonationStatus.setText("Status : PENDING");
 			}
-			
-		}catch(Exception ex){
+
+			if (donation.pic_url != null) {
+				aq.id(holder.ivAgentImage).image(
+						context.getResources()
+								.getDrawable(R.drawable.ic_person));
+			} else {
+				aq.id(holder.ivAgentImage)
+						.image((CommonUrls.getInstance().IMAGE_BASE_URL + donation.pic_url
+								.toString()), imgOptions);
+			}
+
+		} catch (Exception ex) {
 			CommonTasks.showLogs(context, ex.getMessage());
 		}
 		return jobView;
 	}
-	
-	
+
 	public class ViewHolder {
 		public TextView tvAgentName;
 		public TextView tvDonationAmount;
 		public TextView tvDonationDate;
 		public ImageView ivAgentImage;
+		public TextView tvDonationStatus;
 		public ProgressBar pbImagePreLoad;
 		public TextView tvDonationID;
 	}

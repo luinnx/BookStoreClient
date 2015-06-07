@@ -20,14 +20,17 @@ public class DonationEntity {
 	public int id;
 	@SerializedName("gcmid")
 	public String gcmid;
+	@SerializedName("donationstatus")
+	public int donationstatus;
 }
 
 
-/*"agentid":2,
-"amount":220.0,
+/*"donationstatus":2,
+"agentid":2,
+"amount":500.0,
 "agentfullname":"Sajedul Karim",
 "agentpic":"",
-"gcmid":"APA91bFSiiXdMkbxqHF5tT-PrAurtPuFvw4tWXtg3eOpJVt8ac2KyOgQqRZCagvZtEIxazt0KkTvxVRQdGu8bo5OkaOwdAwmb1wtF7MiwoBWzJYfxhuasLljclOlLhfGsI60HgKiid1U-liPOUzao5nYimHPg4w8Kw",
-"donationdate":1432176157000,
-"comment":"For selling more 3 books",
-"id":1*/
+"gcmid":"APA91bF_lSZbmN3ROtotVanYk76UJ4AA8O4kSf-8B6aXFes8ZjWXgqEp98qHw8_UUzawECB7EqkmIxksBBy_bQG8hXfmLDGlzvOUEfGFrynGIpeyOY9UlSea4hAXXivLnStax510uF1cyjRAAmx2OLfqA7okFNtaAw",
+"donationdate":1433460855000,
+"comment":"à¦¬à¦‡ à¦¬à¦¿à¦•à§à¦°à¦¿ à¦œà¦¨à§à¦¯",
+"id":10*/

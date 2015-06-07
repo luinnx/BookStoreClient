@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
@@ -27,13 +28,15 @@ public class DonationAcceptRejectActivity extends BookStoreActionBarBase
 	DonationEntity donationEntity;
 	Button btnOK, btnReject, btnSubmit;
 	EditText etApprovedAmount;
-	TextView tvAgentName, tvDonationAmount, tvRequestDate, tvRequestPurpose,tvDonationId,tvDonationStatus;
+	TextView tvAgentName, tvDonationAmount, tvRequestDate, tvRequestPurpose,
+			tvDonationId, tvDonationStatus;
 	DownloadableAsyncTask downloadableAsyncTask;
 	ProgressDialog progressDialog;
 	String whichPurpose = "FETCH_DONATION";
 	String approvedAmount;
 	int donationStatus;
 	String donationId;
+	TableRow trApprovedAmount;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +53,12 @@ public class DonationAcceptRejectActivity extends BookStoreActionBarBase
 		tvRequestDate = (TextView) findViewById(R.id.tvRequestDate);
 		tvRequestPurpose = (TextView) findViewById(R.id.tvRequestPurpose);
 		etApprovedAmount = (EditText) findViewById(R.id.etApprovedAmount);
-		tvDonationId=(TextView) findViewById(R.id.tvDonationId);
-		tvDonationStatus=(TextView) findViewById(R.id.tvDonationStatus);
+		tvDonationId = (TextView) findViewById(R.id.tvDonationId);
+		tvDonationStatus = (TextView) findViewById(R.id.tvDonationStatus);
 		btnOK = (Button) findViewById(R.id.btnOK);
 		btnSubmit = (Button) findViewById(R.id.btnSubmit);
 		btnReject = (Button) findViewById(R.id.btnReject);
+		trApprovedAmount=(TableRow) findViewById(R.id.trApprovedAmount);
 		btnSubmit.setText("Accept");
 		btnOK.setOnClickListener(this);
 		btnSubmit.setOnClickListener(this);
@@ -115,8 +119,22 @@ public class DonationAcceptRejectActivity extends BookStoreActionBarBase
 				donationEntity = (DonationEntity) data;
 				tvAgentName.setText(donationEntity.agent_name);
 				tvDonationAmount.setText("" + donationEntity.Amount);
-				tvDonationId.setText(""+donationEntity.id);
-				//tvDonationStatus.setText(""+donationEntity.)
+				tvDonationId.setText("" + donationEntity.id);
+
+				if (donationEntity.donationstatus == CommonConstraints.DONATION_COMPLETED) {
+					tvDonationStatus.setText("ACKNOLEDGED");
+					btnSubmit.setVisibility(View.GONE);
+					btnReject.setVisibility(View.GONE);
+					trApprovedAmount.setVisibility(View.GONE);
+				} else if (donationEntity.donationstatus == CommonConstraints.DONATION_REGECTED) {
+					tvDonationStatus.setText("REGECTED");
+					btnSubmit.setVisibility(View.GONE);
+					btnReject.setVisibility(View.GONE);
+					trApprovedAmount.setVisibility(View.GONE);
+				} else if (donationEntity.donationstatus == CommonConstraints.DONATION_SUBMIT) {
+					tvDonationStatus.setText("PENDING");
+				}
+
 				tvRequestDate.setText((String) DateUtils
 						.getRelativeTimeSpanString(donationEntity.date,
 								new Date().getTime(), DateUtils.DAY_IN_MILLIS));
@@ -153,7 +171,7 @@ public class DonationAcceptRejectActivity extends BookStoreActionBarBase
 			whichPurpose = "SUBMIT_DONATION";
 			approvedAmount = "0";
 			donationStatus = CommonConstraints.DONATION_REGECTED;
-			//approvedAmount = etApprovedAmount.getText().toString().trim();
+			// approvedAmount = etApprovedAmount.getText().toString().trim();
 			loadInforMation();
 
 		} else if (view.getId() == R.id.btnSubmit) {

@@ -4,11 +4,13 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -44,6 +46,8 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 	String whichPurpose = "GET_JOB_INFO";
 	int jobSubmitStatus;
 	JobAcceptRejectDetails jobDetails;
+	Bitmap signetureBitmap=null;
+	AlertDialog alertDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +77,8 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 		tvAgentsMobileNumber = (TextView) findViewById(R.id.tvAgentsMobileNumber);
 		etAdminRemarks = (EditText) findViewById(R.id.etAdminRemarks);
 		ivTeachersSigneture=(ImageView) findViewById(R.id.ivTeachersSigneture);
+		
+		ivTeachersSigneture.setOnClickListener(this);
 
 		Bundle bundle = getIntent().getExtras();
 		jobID = bundle.getString("JOB_ID");
@@ -119,8 +125,8 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 					connection.setDoInput(true);
 					connection.connect();
 					InputStream input = connection.getInputStream();
-					Bitmap myBitmap = BitmapFactory.decodeStream(input);
-					ivTeachersSigneture.setImageBitmap(myBitmap);
+					signetureBitmap = BitmapFactory.decodeStream(input);
+					ivTeachersSigneture.setImageBitmap(signetureBitmap);
 				} else {
 					ivTeachersSigneture.setImageBitmap(BitmapFactory
 							.decodeResource(getResources(),
@@ -204,8 +210,27 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 			whichPurpose = "JOB_SUBMIT";
 			jobSubmitStatus = CommonConstraints.COMPLETED_JOB;
 			loadInformation();
+		}else if(view.getId()==R.id.ivTeachersSigneture){
+			showZoomedImage();
 		}
 
+	}
+
+	private void showZoomedImage() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this,
+				AlertDialog.THEME_HOLO_LIGHT);
+		LayoutInflater inflater = getLayoutInflater();
+		View josSubmitView = inflater.inflate(R.layout.show_zoomed_image, null);
+		builder.setView(josSubmitView);
+		builder.setTitle("Teacher Signeture");
+		builder.setCancelable(true);
+		
+		ImageView ivZoomedImage=(ImageView) josSubmitView.findViewById(R.id.ivZoomedImage);
+		ivZoomedImage.setImageBitmap(signetureBitmap);
+		
+		alertDialog = builder.create();
+		alertDialog.show();
+		
 	}
 
 }
