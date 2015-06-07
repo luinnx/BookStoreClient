@@ -3,6 +3,51 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
+    
+    <LinearLayout 
+        android:id="@+id/llImagePanel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:visibility="gone">
+        <ImageView 
+            android:id="@+id/image1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_launcher"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/app_name"
+            android:visibility="gone"
+            android:layout_marginRight="3dp"/>
+        <ImageView 
+            android:id="@+id/image2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_launcher"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/app_name"
+            android:visibility="gone"
+            android:layout_marginRight="3dp"/>
+        <ImageView 
+            android:id="@+id/image3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_launcher"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/app_name"
+            android:visibility="gone"
+            android:layout_marginRight="3dp"/>
+        <ImageView 
+            android:id="@+id/image4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_launcher"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/app_name"
+            android:visibility="gone"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"

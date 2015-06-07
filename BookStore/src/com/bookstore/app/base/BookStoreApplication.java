@@ -27,9 +27,7 @@ import android.os.Handler;
 import android.util.Log;
 
 public class BookStoreApplication extends Application{
-	
-	Runnable runnable;
-	Handler handler;
+
 	
 	@Override
 	public void onCreate() {
@@ -49,8 +47,6 @@ public class BookStoreApplication extends Application{
 
 		.displayer(new FadeInBitmapDisplayer(300)).build();
 		
-		handler = new Handler();
-		getOnlineStatus();
 	}
 	
 	private void initImageLoader(Context context) {
@@ -104,40 +100,6 @@ public class BookStoreApplication extends Application{
 		CommonUrls.initialization();
 		CommonValues.initialization();
 
-	}
-	
-	public void getOnlineStatus(){
-		runnable = new Runnable() {
-			
-			@Override
-			public void run() {
-				ConnectivityManager cm = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
-				NetworkInfo netInfo = cm.getActiveNetworkInfo();
-				if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-					try {
-						Process p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.com");
-				        int returnVal = p1.waitFor();
-				        if(returnVal == 0)
-				        	CommonValues.getInstance().isOnline = true;
-				        else
-				        	CommonValues.getInstance().isOnline = false;
-			        } catch (MalformedURLException e1) {
-			            Log.e("BSA", e1.getMessage());
-			        } catch (IOException e) {
-			        	Log.e("BSA", e.getMessage());
-			        } catch (InterruptedException e) {
-			        	Log.e("BSA", e.getMessage());
-					}
-				}else{
-					CommonValues.getInstance().isOnline = false;
-				}
-				
-				handler.postDelayed(runnable,
-						1 * 1000);
-			}
-		};
-		handler.postDelayed(runnable,
-				1 * 1000);
 	}
 
 }

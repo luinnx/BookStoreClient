@@ -36,7 +36,7 @@ public class BookStoreService extends Service implements IAsynchronousTask,
 		regid = CommonTasks.getPreferences(this, CommonConstraints.GCMID);
 		if (regid.isEmpty()) {
 
-			if (!CommonValues.getInstance().isOnline){
+			if (!CommonTasks.isOnline(this)){
 				LoadInformation();
 			}
 		}
@@ -100,7 +100,7 @@ public class BookStoreService extends Service implements IAsynchronousTask,
 
 	@Override
 	public void onLocationChanged(Location location) {
-		if (!CommonValues.getInstance().isOnline) {
+		if (!CommonTasks.isOnline(this)) {
 			CommonTasks.goSettingPage(this);
 			return;
 		}
