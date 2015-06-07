@@ -215,8 +215,7 @@ public class AdminManager implements IAdminManager {
 		Boolean result = false;
 		try {
 			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("fullname", URLEncoder.encode(bookName,
-					CommonConstraints.EncodingCode));
+			jsonObject.put("fullname", bookName);
 			jsonObject.put("auther_name", writterName);
 			jsonObject.put("publisher_name", publisherName);
 			jsonObject.put("puslish_date", publishDate);

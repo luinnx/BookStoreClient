@@ -3,6 +3,7 @@ package com.bookstore.app.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -40,7 +41,7 @@ public class AgentTADAListActivity extends AgentActionbarBase implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_agent_tada_list);
 		initViews();
-		if (!CommonValues.getInstance().isOnline) {
+		if (!CommonTasks.isOnline(this)) {
 			CommonTasks.goSettingPage(this);
 			return;
 		}
@@ -65,7 +66,7 @@ public class AgentTADAListActivity extends AgentActionbarBase implements
 
 			@Override
 			public void onLoadMore(int page, int totalItemsCount) {
-				if (!CommonValues.getInstance().isOnline) {
+				if (!CommonTasks.isOnline(AgentTADAListActivity.this)) {
 					CommonTasks.goSettingPage(AgentTADAListActivity.this);
 					return;
 				}
@@ -80,11 +81,16 @@ public class AgentTADAListActivity extends AgentActionbarBase implements
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-
-		TadaListEntity tada = taDaListRoot.tadaList.get(arg2);
-		Intent intent = new Intent(this, AgentTADAResultActivity.class);
-		intent.putExtra("TADA_ID", "" + tada.id);
-		startActivity(intent);
+		try{
+			TadaListEntity tada = (TadaListEntity) lvAllTaDaList.getItemAtPosition(arg2);
+			if(tada != null){
+				Intent intent = new Intent(this, AgentTADAResultActivity.class);
+				intent.putExtra("TADA_ID", "" + tada.id);
+				startActivity(intent);
+			}			
+		}catch(Exception ex){
+			Log.e("BS", ex.getMessage());
+		}
 
 	}
 

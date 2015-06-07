@@ -65,11 +65,12 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 			tvTeacherMobileNumber, tvAgentName, tvAgentsAddress,
 			tvAgentsCurrentLocation, tvAgentsMobileNumber, tvDialogCancel,tvAdminName,
 			tvDialogOK;
-	LinearLayout tvTakePhoto, tvFromGallery;
-	ImageView ivJobImage;
+	LinearLayout tvTakePhoto, tvFromGallery, llImagePanel;
+	ImageView ivJobImage, image1, image2, image3, image4;
 	EditText etTeacherPassword;
 	Button btnOk;
 	String jobID = "", mode = "", imageFilePath = "";
+	
 	AlertDialog alertDialog;
 	boolean isJobSubmit = false;
 	JobDetails jobDetails = null;
@@ -132,7 +133,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 			btnOk.setText("Submit");
 		}
 
-		if (!CommonValues.getInstance().isOnline) {
+		if (!CommonTasks.isOnline(this)) {
 			CommonTasks.goSettingPage(this);
 			return;
 		}
@@ -268,6 +269,16 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 				.findViewById(R.id.tvTakePhoto);
 		tvFromGallery = (LinearLayout) josSubmitView
 				.findViewById(R.id.tvFromGallery);
+		llImagePanel = (LinearLayout) josSubmitView
+				.findViewById(R.id.llImagePanel);
+		image1 = (ImageView) josSubmitView
+				.findViewById(R.id.image1);
+		image2 = (ImageView) josSubmitView
+				.findViewById(R.id.image2);
+		image3 = (ImageView) josSubmitView
+				.findViewById(R.id.image3);
+		image4 = (ImageView) josSubmitView
+				.findViewById(R.id.image4);
 
 		tvTakePhoto.setOnClickListener(new OnClickListener() {
 
@@ -323,7 +334,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 				}
 				outerObject = new JSONObject();
 				outerObject.put("Job_Submit", jsonArr);
-				if (!CommonValues.getInstance().isOnline) {
+				if (!CommonTasks.isOnline(AgentIndividualJobDetailsActivity.this)) {
 					CommonTasks.goSettingPage(AgentIndividualJobDetailsActivity.this);
 					return;
 				}
@@ -456,6 +467,22 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 						count += 1;
 						rowPic.add(Base64.encodeToString(selectedFile,
 								Base64.NO_WRAP));
+						llImagePanel.setVisibility(View.VISIBLE);
+						if(count==1){
+							image1.setVisibility(View.VISIBLE);
+							image1.setImageBitmap(bitmap);
+						}else if(count==2){
+							image2.setVisibility(View.VISIBLE);
+							image2.setImageBitmap(bitmap);
+						}else if(count==3){
+							image3.setVisibility(View.VISIBLE);
+							image3.setImageBitmap(bitmap);
+						}else if(count==4){
+							image4.setVisibility(View.VISIBLE);
+							image4.setImageBitmap(bitmap);
+						}else {
+							CommonTasks.showToast(this, "Maximum number of image are taken!");
+						}
 
 						cursor.close();
 					} else {
@@ -496,6 +523,22 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 							count += 1;
 							rowPic.add(Base64.encodeToString(selectedFile,
 									Base64.NO_WRAP));
+							llImagePanel.setVisibility(View.VISIBLE);
+							if(count==1){
+								image1.setVisibility(View.VISIBLE);
+								image1.setImageBitmap(bitmap);
+							}else if(count==2){
+								image2.setVisibility(View.VISIBLE);
+								image2.setImageBitmap(bitmap);
+							}else if(count==3){
+								image3.setVisibility(View.VISIBLE);
+								image3.setImageBitmap(bitmap);
+							}else if(count==4){
+								image4.setVisibility(View.VISIBLE);
+								image4.setImageBitmap(bitmap);
+							}else {
+								CommonTasks.showToast(this, "Maximum number of image are taken!");
+							}
 
 						} else {
 
@@ -524,12 +567,29 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 							count += 1;
 							rowPic.add(Base64.encodeToString(selectedFile,
 									Base64.NO_WRAP));
+							llImagePanel.setVisibility(View.VISIBLE);
+							if(count==1){
+								image1.setVisibility(View.VISIBLE);
+								image1.setImageBitmap(bitmap);
+							}else if(count==2){
+								image2.setVisibility(View.VISIBLE);
+								image2.setImageBitmap(bitmap);
+							}else if(count==3){
+								image3.setVisibility(View.VISIBLE);
+								image3.setImageBitmap(bitmap);
+							}else if(count==4){
+								image4.setVisibility(View.VISIBLE);
+								image4.setImageBitmap(bitmap);
+							}else {
+								CommonTasks.showToast(this, "Maximum number of image are taken!");
+							}
 						}
 					}
 
 				} else {
 					Toast.makeText(getApplicationContext(), "Cancelled",
 							Toast.LENGTH_SHORT).show();
+					
 				}
 			} else if (responseCode == RESULT_CANCELED) {
 				Toast.makeText(getApplicationContext(), "Cancelled",
@@ -561,6 +621,22 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 					count += 1;
 					rowPic.add(Base64.encodeToString(selectedFile,
 							Base64.NO_WRAP));
+					llImagePanel.setVisibility(View.VISIBLE);
+					if(count==1){
+						image1.setVisibility(View.VISIBLE);
+						image1.setImageBitmap(bitmap);
+					}else if(count==2){
+						image2.setVisibility(View.VISIBLE);
+						image2.setImageBitmap(bitmap);
+					}else if(count==3){
+						image3.setVisibility(View.VISIBLE);
+						image3.setImageBitmap(bitmap);
+					}else if(count==4){
+						image4.setVisibility(View.VISIBLE);
+						image4.setImageBitmap(bitmap);
+					}else {
+						CommonTasks.showToast(this, "Maximum number of image are taken!");
+					}
 				} else if (data.getExtras() == null) {
 
 					Toast.makeText(getApplicationContext(),
@@ -588,6 +664,22 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 					count += 1;
 					rowPic.add(Base64.encodeToString(selectedFile,
 							Base64.NO_WRAP));
+					llImagePanel.setVisibility(View.VISIBLE);
+					if(count==1){
+						image1.setVisibility(View.VISIBLE);
+						image1.setImageBitmap(bitmap);
+					}else if(count==2){
+						image2.setVisibility(View.VISIBLE);
+						image2.setImageBitmap(bitmap);
+					}else if(count==3){
+						image3.setVisibility(View.VISIBLE);
+						image3.setImageBitmap(bitmap);
+					}else if(count==4){
+						image4.setVisibility(View.VISIBLE);
+						image4.setImageBitmap(bitmap);
+					}else {
+						CommonTasks.showToast(this, "Maximum number of image are taken!");
+					}
 				}
 
 			} else if (responseCode == RESULT_CANCELED) {

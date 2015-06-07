@@ -54,7 +54,7 @@ public class AgentTADAResultActivity extends AgentActionbarBase implements
 		
 		Bundle bundle = getIntent().getExtras();
 		tadaID = bundle.getString("TADA_ID");
-		if (!CommonValues.getInstance().isOnline) {
+		if (!CommonTasks.isOnline(this)) {
 			CommonTasks.goSettingPage(this);
 			return;
 		}

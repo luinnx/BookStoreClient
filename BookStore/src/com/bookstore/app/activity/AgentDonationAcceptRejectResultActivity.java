@@ -56,7 +56,7 @@ public class AgentDonationAcceptRejectResultActivity extends
 
 		Bundle bundle = getIntent().getExtras();
 		donationId = bundle.getString("DONATION_ID");
-		if (!CommonValues.getInstance().isOnline) {
+		if (!CommonTasks.isOnline(this)) {
 			CommonTasks.goSettingPage(this);
 			return;
 		}
@@ -105,9 +105,8 @@ public class AgentDonationAcceptRejectResultActivity extends
 				tvRequestDate.setText((String) DateUtils
 						.getRelativeTimeSpanString(donationEntity.date,
 								new Date().getTime(), DateUtils.DAY_IN_MILLIS));
-
-				tvApprovedAmount.setText("" + donationEntity.approved_amount);
-				tvApprovedAgentId.setText(""+donationEntity.adminid);
+				
+				tvApprovedAgentId.setText(""+donationEntity.agentid);
 			}
 
 		} else {

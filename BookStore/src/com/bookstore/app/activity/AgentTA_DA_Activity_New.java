@@ -188,7 +188,7 @@ public class AgentTA_DA_Activity_New extends AgentActionbarBase implements
 						"Enter Tour Cost");
 				return;
 			}
-			if (!CommonValues.getInstance().isOnline) {
+			if (!CommonTasks.isOnline(this)) {
 				CommonTasks.goSettingPage(this);
 				return;
 			}

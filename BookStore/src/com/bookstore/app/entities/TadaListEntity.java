@@ -9,7 +9,7 @@ public class TadaListEntity {
 	public Double distance;
 	@SerializedName("agnetpic")
 	public String agentpic;
-	@SerializedName("agnetfullname")
+	@SerializedName("agentname")
 	public String agentname;
 	@SerializedName("createdate")
 	public long createdate;

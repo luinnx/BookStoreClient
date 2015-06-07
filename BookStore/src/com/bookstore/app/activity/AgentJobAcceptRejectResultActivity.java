@@ -95,7 +95,7 @@ public class AgentJobAcceptRejectResultActivity extends AgentActionbarBase
 			btnOk.setText("Submit");
 		}
 
-		if (!CommonValues.getInstance().isOnline) {
+		if (!CommonTasks.isOnline(this)) {
 			CommonTasks.goSettingPage(this);
 			return;
 		}

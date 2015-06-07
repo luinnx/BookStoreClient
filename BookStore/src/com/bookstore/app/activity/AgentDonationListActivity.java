@@ -39,7 +39,7 @@ public class AgentDonationListActivity extends AgentActionbarBase implements OnI
 		
 		initialization();
 		
-		if (!CommonValues.getInstance().isOnline) {
+		if (!CommonTasks.isOnline(this)) {
 			CommonTasks.goSettingPage(this);
 			return;
 		}		
@@ -56,7 +56,7 @@ public class AgentDonationListActivity extends AgentActionbarBase implements OnI
 
 			@Override
 			public void onLoadMore(int page, int totalItemsCount) {
-				if (!CommonValues.getInstance().isOnline) {
+				if (!CommonTasks.isOnline(getApplicationContext())) {
 					CommonTasks.goSettingPage(getApplicationContext());
 					return;
 				}

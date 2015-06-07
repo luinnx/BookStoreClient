@@ -61,7 +61,7 @@ public class AgentRejectedJobListFragment extends Fragment implements
 
 			@Override
 			public void onLoadMore(int page, int totalItemsCount) {
-				if (!CommonValues.getInstance().isOnline) {
+				if (!CommonTasks.isOnline(getActivity())) {
 					CommonTasks.goSettingPage(getActivity());
 					return;
 				}
@@ -78,7 +78,7 @@ public class AgentRejectedJobListFragment extends Fragment implements
 		// TODO Auto-generated method stub
 		super.setUserVisibleHint(isVisibleToUser);
 		if (isVisibleToUser) {
-			if (!CommonValues.getInstance().isOnline) {
+			if (!CommonTasks.isOnline(getActivity())) {
 				CommonTasks.goSettingPage(getActivity());
 				return;
 			}

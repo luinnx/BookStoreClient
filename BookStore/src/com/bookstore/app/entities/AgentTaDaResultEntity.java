@@ -21,8 +21,7 @@ public class AgentTaDaResultEntity {
 	@SerializedName("agentname")
 	public String agentname;
 	@SerializedName("totalamount")
-	public double totalamount;
-	
+	public double totalamount;	
 	@SerializedName("startplace")
 	public String StartPlace;
 	@SerializedName("endplace")
