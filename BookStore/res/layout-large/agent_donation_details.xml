@@ -158,7 +158,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:visibility="gone" >
 
             <TextView
                 android:layout_width="0dp"
@@ -174,7 +175,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="0.6"
-                android:hint="550"
+                android:hint=""
                 android:inputType="number"
                 android:textColor="@color/text_view_color"
                 android:textSize="30sp"

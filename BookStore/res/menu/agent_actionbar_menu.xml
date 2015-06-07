@@ -13,7 +13,7 @@
                 android:showAsAction="ifRoom"
                 android:title="Donation Add"/>
             <item
-                android:id="@+id/action_tada_list"
+                android:id="@+id/action_tada_add"
                 android:icon="@drawable/ic_tada_32"
                 android:showAsAction="ifRoom"
                 android:title="TA/DA Add"/>
