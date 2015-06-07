@@ -24,6 +24,8 @@ public class AddTeacherActivity extends BookStoreActionBarBase implements
 	Button btnOk;
 	DownloadableAsyncTask downloadAsyncTask;
 	ProgressDialog dialog;
+	
+	String teacherMobileNumber="",teacherUserName="",teacherPassword="";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

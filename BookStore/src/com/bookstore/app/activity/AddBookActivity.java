@@ -53,7 +53,7 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 		OnClickListener, IAsynchronousTask {
 
 	Spinner spCategory, spSubCatagory, spTextBooksElements, spSubSubCatagory,
-			spPublisher,spBookCondition;
+			spPublisher, spBookCondition;
 	String[] bookTypes, guideSubElements, textBookSubElements,
 			thirdDergeeSubElements;
 	String bookType, secondDegreeSubElement;
@@ -82,7 +82,7 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 	public String[] publications = new String[] { "Srijan Prokash",
 			"Grantha kutir", "Golden Future Publications", "Gan Prokash",
 			"Dikdarshan Prokashoni Ltd." };
-	private String[] bookConditions=new String[]{"New","Used"};
+	private String[] bookConditions = new String[] { "New", "Used" };
 
 	Uri uriSavedImage;
 	int count = 0;
@@ -94,7 +94,7 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 	Bitmap bitmap;
 
 	String selectedImagePath;
-	
+
 	DatePickerDialog datePickerDialog;
 
 	@Override
@@ -109,7 +109,7 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 		etBookName = (EditText) findViewById(R.id.etBookName);
 		etWritterName = (EditText) findViewById(R.id.etWritterName);
 		etPublisherName = (EditText) findViewById(R.id.etPublisherName);
-		//etBookCondition = (EditText) findViewById(R.id.etBookCondition);
+		// etBookCondition = (EditText) findViewById(R.id.etBookCondition);
 		etBookQuantity = (EditText) findViewById(R.id.etBookQuantity);
 		etISBNNumber = (EditText) findViewById(R.id.etISBNNumber);
 		etPublishDate = (EditText) findViewById(R.id.etPublishDate);
@@ -125,10 +125,11 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 		spPublisher = (Spinner) findViewById(R.id.spPublisher);
 		spPublisher.setAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_dropdown_item_1line, publications));
-		
-		spBookCondition=(Spinner) findViewById(R.id.spBookCondition);
-		
-		spBookCondition.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,bookConditions));
+
+		spBookCondition = (Spinner) findViewById(R.id.spBookCondition);
+
+		spBookCondition.setAdapter(new ArrayAdapter<String>(this,
+				android.R.layout.simple_dropdown_item_1line, bookConditions));
 
 		spCategory = (Spinner) findViewById(R.id.spCategory);
 		spSubCatagory = (Spinner) findViewById(R.id.spSubCatagory);
@@ -136,9 +137,10 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 		bookTypes = new String[] { "Guide Books", "Text Books" };
 		guideSubElements = new String[] { "SSC", "HSC", "DEGREE", "HONOURS",
 				"MASTERS", "TEST PAPERS" };
-		textBookSubElements = new String[] { "DEGREE", "HONOURS" };
+		textBookSubElements = new String[] { "SSC", "HSC", "DEGREE", "HONOURS",
+				"MASTERS", "TEST PAPERS" };
 		thirdDergeeSubElements = new String[] { "1st Year", "2nd Year",
-				"3rd Year" };
+				"3rd Year", "4th Year" };
 		spCategory.setAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_dropdown_item_1line, bookTypes));
 
@@ -194,7 +196,75 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 
 													}
 												});
-									} else {
+									} else if (secondDegreeSubElement
+											.equals("DEGREE")) {
+										spSubSubCatagory
+												.setVisibility(View.VISIBLE);
+
+										thirdDergeeSubElements = new String[] {
+												"1st Year", "2nd Year",
+												"3rd Year", "4th Year" };
+										spSubSubCatagory
+												.setAdapter(new ArrayAdapter<String>(
+														AddBookActivity.this,
+														android.R.layout.simple_dropdown_item_1line,
+														thirdDergeeSubElements));
+										spSubSubCatagory
+												.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+													@Override
+													public void onItemSelected(
+															AdapterView<?> arg0,
+															View arg1,
+															int position,
+															long arg3) {
+
+														subSubCatagory = position;
+													}
+
+													@Override
+													public void onNothingSelected(
+															AdapterView<?> arg0) {
+														// TODO Auto-generated
+														// method stub
+
+													}
+												});
+									} else if (secondDegreeSubElement
+											.equals("HSC")) {
+										spSubSubCatagory
+												.setVisibility(View.VISIBLE);
+
+										thirdDergeeSubElements = new String[] {
+												"1st Year", "2nd Year" };
+										spSubSubCatagory
+												.setAdapter(new ArrayAdapter<String>(
+														AddBookActivity.this,
+														android.R.layout.simple_dropdown_item_1line,
+														thirdDergeeSubElements));
+										spSubSubCatagory
+												.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+													@Override
+													public void onItemSelected(
+															AdapterView<?> arg0,
+															View arg1,
+															int position,
+															long arg3) {
+
+														subSubCatagory = position;
+													}
+
+													@Override
+													public void onNothingSelected(
+															AdapterView<?> arg0) {
+														// TODO Auto-generated
+														// method stub
+
+													}
+												});
+
+									}else {
 										subSubCatagory = 11;
 										spSubSubCatagory
 												.setVisibility(View.GONE);
@@ -228,7 +298,7 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 												.setVisibility(View.VISIBLE);
 										thirdDergeeSubElements = new String[] {
 												"1st Year", "2nd Year",
-												"3rd Year" };
+												"3rd Year", "4th Year" };
 										spSubSubCatagory
 												.setAdapter(new ArrayAdapter<String>(
 														AddBookActivity.this,
@@ -255,16 +325,78 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 
 													}
 												});
-									} else {
+									} else if (secondDegreeSubElement
+											.equals("DEGREE")) {
 										spSubSubCatagory
 												.setVisibility(View.VISIBLE);
-										thirdDergeeSubElements = new String[] { "1st Year" };
+
+										thirdDergeeSubElements = new String[] {
+												"1st Year", "2nd Year",
+												"3rd Year", "4th Year" };
 										spSubSubCatagory
 												.setAdapter(new ArrayAdapter<String>(
 														AddBookActivity.this,
 														android.R.layout.simple_dropdown_item_1line,
 														thirdDergeeSubElements));
-										subSubCatagory = 1;
+										spSubSubCatagory
+												.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+													@Override
+													public void onItemSelected(
+															AdapterView<?> arg0,
+															View arg1,
+															int position,
+															long arg3) {
+
+														subSubCatagory = position;
+													}
+
+													@Override
+													public void onNothingSelected(
+															AdapterView<?> arg0) {
+														// TODO Auto-generated
+														// method stub
+
+													}
+												});
+									} else if (secondDegreeSubElement
+											.equals("HSC")) {
+										spSubSubCatagory
+												.setVisibility(View.VISIBLE);
+
+										thirdDergeeSubElements = new String[] {
+												"1st Year", "2nd Year" };
+										spSubSubCatagory
+												.setAdapter(new ArrayAdapter<String>(
+														AddBookActivity.this,
+														android.R.layout.simple_dropdown_item_1line,
+														thirdDergeeSubElements));
+										spSubSubCatagory
+												.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+													@Override
+													public void onItemSelected(
+															AdapterView<?> arg0,
+															View arg1,
+															int position,
+															long arg3) {
+
+														subSubCatagory = position;
+													}
+
+													@Override
+													public void onNothingSelected(
+															AdapterView<?> arg0) {
+														// TODO Auto-generated
+														// method stub
+
+													}
+												});
+
+									} else {
+										subSubCatagory = 11;
+										spSubSubCatagory
+												.setVisibility(View.GONE);
 									}
 
 								}
@@ -300,20 +432,20 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 
 			}
 		});
-		
+
 		spBookCondition.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View arg1,
 					int pos, long arg3) {
-				bookCondition=parent.getItemAtPosition(pos).toString();
-				
+				bookCondition = parent.getItemAtPosition(pos).toString();
+
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
-				bookCondition=parent.getItemAtPosition(0).toString();
-				
+				bookCondition = parent.getItemAtPosition(0).toString();
+
 			}
 		});
 	}
@@ -331,7 +463,7 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Writter name");
 				return;
-			}  else if (etBookQuantity.getText().toString().trim().equals("")) {
+			} else if (etBookQuantity.getText().toString().trim().equals("")) {
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Enter book Quantity");
 				return;
@@ -356,7 +488,7 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 			bookName = etBookName.getText().toString().trim();
 			writterName = etWritterName.getText().toString().trim();
 			// publisherName = etPublisherName.getText().toString().trim();
-			//bookCondition = etBookCondition.getText().toString().trim();
+			// bookCondition = etBookCondition.getText().toString().trim();
 			bookQuantity = etBookQuantity.getText().toString().trim();
 			isbnNumber = etISBNNumber.getText().toString().trim();
 			publishDate = etPublishDate.getText().toString().trim();
@@ -387,8 +519,8 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 	protected Dialog onCreateDialog(int id) {
 		switch (id) {
 		case 1:
-			datePickerDialog=new DatePickerDialog(this, datePickerListener, year, month,
-					day);
+			datePickerDialog = new DatePickerDialog(this, datePickerListener,
+					year, month, day);
 			datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
 			return datePickerDialog;
 		}
@@ -465,7 +597,7 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 
 		myAlertDialog = new AlertDialog.Builder(this,
 				AlertDialog.THEME_HOLO_LIGHT);
-		//AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(this);
+		// AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(this);
 		LayoutInflater inflater = getLayoutInflater();
 		View josSubmitView = inflater.inflate(R.layout.image_choser_dialog,
 				null);
@@ -562,8 +694,6 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 		startActivityForResult(intent, 200);
 	}
 
-	
-
 	private String appFolderCheckandCreate() {
 
 		String appFolderPath = "";
@@ -656,72 +786,73 @@ public class AddBookActivity extends BookStoreActionBarBase implements
 
 						cursor.close();
 					} else {
-					
-					// our BitmapDrawable for the thumbnail
-					BitmapDrawable bmpDrawable = null;
-					// try to retrieve the image using the data from the intent
-					Cursor cursor = getContentResolver().query(data.getData(),
-							null, null, null, null);
-					if (cursor != null) {
 
-						cursor.moveToFirst();
+						// our BitmapDrawable for the thumbnail
+						BitmapDrawable bmpDrawable = null;
+						// try to retrieve the image using the data from the
+						// intent
+						Cursor cursor = getContentResolver().query(
+								data.getData(), null, null, null, null);
+						if (cursor != null) {
 
-						int idx = cursor.getColumnIndex(ImageColumns.DATA);
-						String fileSrc = cursor.getString(idx);
-						bitmap = BitmapFactory.decodeFile(fileSrc); // load
-																	// preview
-																	// image
-						bitmap = Bitmap.createBitmap(bitmap);
-						// bmpDrawable = new BitmapDrawable(bitmapPreview);
-						ivCaptureImage.setImageBitmap(bitmap);
+							cursor.moveToFirst();
 
-						ByteArrayOutputStream stream = new ByteArrayOutputStream();
-						if (bitmap.getByteCount() > (1024 * 1024)) {
-							bitmap.compress(Bitmap.CompressFormat.JPEG, 20,
-									stream);
-						}
-						if (bitmap.getByteCount() > (1024 * 512)) {
-							bitmap.compress(Bitmap.CompressFormat.JPEG, 40,
-									stream);
-						}
-						if (bitmap.getByteCount() > (1024 * 256)) {
-							bitmap.compress(Bitmap.CompressFormat.JPEG, 60,
-									stream);
+							int idx = cursor.getColumnIndex(ImageColumns.DATA);
+							String fileSrc = cursor.getString(idx);
+							bitmap = BitmapFactory.decodeFile(fileSrc); // load
+																		// preview
+																		// image
+							bitmap = Bitmap.createBitmap(bitmap);
+							// bmpDrawable = new BitmapDrawable(bitmapPreview);
+							ivCaptureImage.setImageBitmap(bitmap);
+
+							ByteArrayOutputStream stream = new ByteArrayOutputStream();
+							if (bitmap.getByteCount() > (1024 * 1024)) {
+								bitmap.compress(Bitmap.CompressFormat.JPEG, 20,
+										stream);
+							}
+							if (bitmap.getByteCount() > (1024 * 512)) {
+								bitmap.compress(Bitmap.CompressFormat.JPEG, 40,
+										stream);
+							}
+							if (bitmap.getByteCount() > (1024 * 256)) {
+								bitmap.compress(Bitmap.CompressFormat.JPEG, 60,
+										stream);
+							} else {
+								bitmap.compress(Bitmap.CompressFormat.JPEG,
+										100, stream);
+							}
+							selectedFile = stream.toByteArray();
+
 						} else {
-							bitmap.compress(Bitmap.CompressFormat.JPEG, 100,
-									stream);
-						}
-						selectedFile = stream.toByteArray();
 
-					} else {
+							bmpDrawable = new BitmapDrawable(getResources(),
+									data.getData().getPath());
+							ivCaptureImage.setImageDrawable(bmpDrawable);
 
-						bmpDrawable = new BitmapDrawable(getResources(), data
-								.getData().getPath());
-						ivCaptureImage.setImageDrawable(bmpDrawable);
+							bitmap = bmpDrawable.getBitmap();
 
-						bitmap = bmpDrawable.getBitmap();
+							ByteArrayOutputStream stream = new ByteArrayOutputStream();
+							if (bitmap.getByteCount() > (1024 * 1024)) {
+								bitmap.compress(Bitmap.CompressFormat.JPEG, 20,
+										stream);
+							}
+							if (bitmap.getByteCount() > (1024 * 512)) {
+								bitmap.compress(Bitmap.CompressFormat.JPEG, 40,
+										stream);
+							}
+							if (bitmap.getByteCount() > (1024 * 256)) {
+								bitmap.compress(Bitmap.CompressFormat.JPEG, 60,
+										stream);
+							} else {
+								bitmap.compress(Bitmap.CompressFormat.JPEG,
+										100, stream);
+							}
+							selectedFile = stream.toByteArray();
+						}
 
-						ByteArrayOutputStream stream = new ByteArrayOutputStream();
-						if (bitmap.getByteCount() > (1024 * 1024)) {
-							bitmap.compress(Bitmap.CompressFormat.JPEG, 20,
-									stream);
-						}
-						if (bitmap.getByteCount() > (1024 * 512)) {
-							bitmap.compress(Bitmap.CompressFormat.JPEG, 40,
-									stream);
-						}
-						if (bitmap.getByteCount() > (1024 * 256)) {
-							bitmap.compress(Bitmap.CompressFormat.JPEG, 60,
-									stream);
-						} else {
-							bitmap.compress(Bitmap.CompressFormat.JPEG, 100,
-									stream);
-						}
-						selectedFile = stream.toByteArray();
 					}
-
-				} 
-				}else {
+				} else {
 					Toast.makeText(getApplicationContext(), "Cancelled",
 							Toast.LENGTH_SHORT).show();
 				}

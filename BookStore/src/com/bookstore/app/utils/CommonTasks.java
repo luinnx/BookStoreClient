@@ -305,11 +305,12 @@ public class CommonTasks {
 
 	public static Bitmap getBitMapFromUrl(String _url) {
 		URL url;
-
+        Log.d("BSS", "Fetching Image : "+_url);
 		try {
 			url = new URL(_url);
 			HttpURLConnection connection = (HttpURLConnection) url
 					.openConnection();
+			
 			connection.setDoInput(true);
 			connection.connect();
 			InputStream input = connection.getInputStream();

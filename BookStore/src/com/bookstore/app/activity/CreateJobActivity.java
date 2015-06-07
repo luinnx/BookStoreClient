@@ -210,9 +210,10 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 		bookTypes = new String[] { "Guide Books", "Text Books" };
 		guideSubElements = new String[] { "SSC", "HSC", "DEGREE", "HONOURS",
 				"MASTERS", "TEST PAPERS" };
-		textBookSubElements = new String[] { "DEGREE", "HONOURS" };
+		textBookSubElements = new String[] { "SSC", "HSC", "DEGREE", "HONOURS",
+				"MASTERS", "TEST PAPERS" };
 		thirdDergeeSubElements = new String[] { "1st Year", "2nd Year",
-				"3rd Year" };
+				"3rd Year", "4th Year" };
 		spCategory.setAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_dropdown_item_1line, bookTypes));
 		spCategory.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -268,8 +269,79 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 
 													}
 												});
-									} else {
-										subSubCatagory = "-1";
+									} else if (secondDegreeSubElement
+											.equals("DEGREE")) {
+										spSubSubCatagory
+												.setVisibility(View.VISIBLE);
+
+										thirdDergeeSubElements = new String[] {
+												"1st Year", "2nd Year",
+												"3rd Year", "4th Year" };
+										spSubSubCatagory
+												.setAdapter(new ArrayAdapter<String>(
+														CreateJobActivity.this,
+														android.R.layout.simple_dropdown_item_1line,
+														thirdDergeeSubElements));
+										spSubSubCatagory
+												.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+													@Override
+													public void onItemSelected(
+															AdapterView<?> arg0,
+															View arg1,
+															int position,
+															long arg3) {
+
+														subSubCatagory = ""+position;
+													}
+
+													@Override
+													public void onNothingSelected(
+															AdapterView<?> arg0) {
+														// TODO Auto-generated
+														// method stub
+
+													}
+												});
+									} else if (secondDegreeSubElement
+											.equals("HSC")) {
+										spSubSubCatagory
+												.setVisibility(View.VISIBLE);
+
+										thirdDergeeSubElements = new String[] {
+												"1st Year", "2nd Year" };
+										spSubSubCatagory
+												.setAdapter(new ArrayAdapter<String>(
+														CreateJobActivity.this,
+														android.R.layout.simple_dropdown_item_1line,
+														thirdDergeeSubElements));
+										spSubSubCatagory
+												.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+													@Override
+													public void onItemSelected(
+															AdapterView<?> arg0,
+															View arg1,
+															int position,
+															long arg3) {
+
+														subSubCatagory = ""+position;
+													}
+
+													@Override
+													public void onNothingSelected(
+															AdapterView<?> arg0) {
+														// TODO Auto-generated
+														// method stub
+
+													}
+												});
+
+									}else {
+										/*subSubCatagory = "-1";
+										spSubSubCatagory
+												.setVisibility(View.GONE);*/
+										subSubCatagory = ""+11;
 										spSubSubCatagory
 												.setVisibility(View.GONE);
 									}
@@ -302,7 +374,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 												.setVisibility(View.VISIBLE);
 										thirdDergeeSubElements = new String[] {
 												"1st Year", "2nd Year",
-												"3rd Year" };
+												"3rd Year","4Th Year" };
 										spSubSubCatagory
 												.setAdapter(new ArrayAdapter<String>(
 														CreateJobActivity.this,
@@ -330,7 +402,82 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 
 													}
 												});
-									} else {
+									}else if (secondDegreeSubElement
+											.equals("DEGREE")) {
+										spSubSubCatagory
+												.setVisibility(View.VISIBLE);
+
+										thirdDergeeSubElements = new String[] {
+												"1st Year", "2nd Year",
+												"3rd Year", "4th Year" };
+										spSubSubCatagory
+												.setAdapter(new ArrayAdapter<String>(
+														CreateJobActivity.this,
+														android.R.layout.simple_dropdown_item_1line,
+														thirdDergeeSubElements));
+										spSubSubCatagory
+												.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+													@Override
+													public void onItemSelected(
+															AdapterView<?> arg0,
+															View arg1,
+															int position,
+															long arg3) {
+
+														subSubCatagory = ""+position;
+													}
+
+													@Override
+													public void onNothingSelected(
+															AdapterView<?> arg0) {
+														// TODO Auto-generated
+														// method stub
+
+													}
+												});
+									} else if (secondDegreeSubElement
+											.equals("HSC")) {
+										spSubSubCatagory
+												.setVisibility(View.VISIBLE);
+
+										thirdDergeeSubElements = new String[] {
+												"1st Year", "2nd Year" };
+										spSubSubCatagory
+												.setAdapter(new ArrayAdapter<String>(
+														CreateJobActivity.this,
+														android.R.layout.simple_dropdown_item_1line,
+														thirdDergeeSubElements));
+										spSubSubCatagory
+												.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+													@Override
+													public void onItemSelected(
+															AdapterView<?> arg0,
+															View arg1,
+															int position,
+															long arg3) {
+
+														subSubCatagory = ""+position;
+													}
+
+													@Override
+													public void onNothingSelected(
+															AdapterView<?> arg0) {
+														// TODO Auto-generated
+														// method stub
+
+													}
+												});
+
+									}else {
+										/*subSubCatagory = "-1";
+										spSubSubCatagory
+												.setVisibility(View.GONE);*/
+										subSubCatagory = ""+11;
+										spSubSubCatagory
+												.setVisibility(View.GONE);
+									}/* else {
 										spSubSubCatagory
 												.setVisibility(View.VISIBLE);
 										thirdDergeeSubElements = new String[] { "1st Year" };
@@ -340,7 +487,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 														android.R.layout.simple_dropdown_item_1line,
 														thirdDergeeSubElements));
 										subSubCatagory = "" + 0;
-									}
+									}*/
 
 								}
 

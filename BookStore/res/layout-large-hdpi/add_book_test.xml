@@ -253,7 +253,7 @@
                 android:layout_marginTop="10dp"
                 android:gravity="left"
                 android:hint="Enter Book Price"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:textColor="@color/text_color" >
             </EditText>
 
