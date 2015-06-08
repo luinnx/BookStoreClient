@@ -89,7 +89,6 @@
             android:configChanges="orientation"
             android:label="Create Agent"
             android:screenOrientation="portrait" >
-
         </activity>
         <activity
             android:name="com.bookstore.app.activity.AddTeacherActivity"
@@ -189,7 +188,6 @@
             android:name="com.bookstore.app.activity.IndividualBookEditActivity"
             android:label="Book Update" >
         </activity>
-        
         <activity
             android:name="com.bookstore.app.activity.AgentDonationListActivity"
             android:label="Donation List" >
@@ -208,6 +206,10 @@
         <service android:name="com.bookstore.app.base.GcmIntentService" />
         <service
             android:name="com.bookstore.app.base.BookStoreService"
+            android:enabled="true" >
+        </service>
+        <service
+            android:name="com.bookstore.app.base.InternetConnectionService"
             android:enabled="true" >
         </service>
     </application>

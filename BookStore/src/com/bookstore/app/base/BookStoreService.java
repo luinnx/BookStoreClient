@@ -1,15 +1,5 @@
 package com.bookstore.app.base;
 
-import com.bookstore.app.asynctasks.DownloadableAsyncTask;
-import com.bookstore.app.customview.AddLocation;
-import com.bookstore.app.interfaces.IAsynchronousTask;
-import com.bookstore.app.interfaces.IUser;
-import com.bookstore.app.managers.UserManager;
-import com.bookstore.app.utils.CommonConstraints;
-import com.bookstore.app.utils.CommonTasks;
-import com.bookstore.app.utils.CommonValues;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-
 import android.app.Service;
 import android.content.Intent;
 import android.location.Location;
@@ -18,6 +8,15 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+
+import com.bookstore.app.asynctasks.DownloadableAsyncTask;
+import com.bookstore.app.customview.AddLocation;
+import com.bookstore.app.interfaces.IAsynchronousTask;
+import com.bookstore.app.interfaces.IUser;
+import com.bookstore.app.managers.UserManager;
+import com.bookstore.app.utils.CommonConstraints;
+import com.bookstore.app.utils.CommonTasks;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 public class BookStoreService extends Service implements IAsynchronousTask,
 		LocationListener {
@@ -101,7 +100,7 @@ public class BookStoreService extends Service implements IAsynchronousTask,
 	@Override
 	public void onLocationChanged(Location location) {
 		if (!CommonTasks.isOnline(this)) {
-			CommonTasks.goSettingPage(this);
+			//CommonTasks.goSettingPage(this);
 			return;
 		}
 		new AddLocation(this).execute(location);

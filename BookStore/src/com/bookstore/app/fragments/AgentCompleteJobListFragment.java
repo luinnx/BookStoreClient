@@ -12,8 +12,6 @@ import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AgentManager;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
-import com.bookstore.app.utils.CommonValues;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
