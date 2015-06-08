@@ -74,8 +74,8 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 	EndlessScrollListener scrollListener;
 	int pageIndex = 0;
 	String whichMode = "";
-	
-	String teacherID="",teacherInstitude="";
+
+	String teacherID = "", teacherInstitude = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -159,7 +159,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Enter Amount of Books");
 				return;
-			} else if (agentEntity.gcm_id != null
+			} /*else if (agentEntity.gcm_id != null
 					&& !agentEntity.gcm_id.isEmpty()
 					&& !agentEntity.gcm_id.equals("null")) {
 				if (!CommonTasks.isOnline(this)) {
@@ -168,7 +168,10 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 				}
 				loadInformation();
 
-			} else {
+			*/
+			loadInformation();
+		}
+			else {
 
 				CommonTasks.showToast(getApplicationContext(),
 						"Agent is not Activated Yet.");
@@ -177,7 +180,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 
 		}
 
-	}
+	
 
 	private void selectSpeceficBook() {
 		selectSpeceficBooksDialog = new Dialog(this);
@@ -292,7 +295,8 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 															int position,
 															long arg3) {
 
-														subSubCatagory = ""+position;
+														subSubCatagory = ""
+																+ position;
 													}
 
 													@Override
@@ -325,7 +329,8 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 															int position,
 															long arg3) {
 
-														subSubCatagory = ""+position;
+														subSubCatagory = ""
+																+ position;
 													}
 
 													@Override
@@ -337,11 +342,13 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 													}
 												});
 
-									}else {
-										/*subSubCatagory = "-1";
-										spSubSubCatagory
-												.setVisibility(View.GONE);*/
-										subSubCatagory = ""+11;
+									} else {
+										/*
+										 * subSubCatagory = "-1";
+										 * spSubSubCatagory
+										 * .setVisibility(View.GONE);
+										 */
+										subSubCatagory = "" + 11;
 										spSubSubCatagory
 												.setVisibility(View.GONE);
 									}
@@ -374,7 +381,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 												.setVisibility(View.VISIBLE);
 										thirdDergeeSubElements = new String[] {
 												"1st Year", "2nd Year",
-												"3rd Year","4Th Year" };
+												"3rd Year", "4Th Year" };
 										spSubSubCatagory
 												.setAdapter(new ArrayAdapter<String>(
 														CreateJobActivity.this,
@@ -402,7 +409,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 
 													}
 												});
-									}else if (secondDegreeSubElement
+									} else if (secondDegreeSubElement
 											.equals("DEGREE")) {
 										spSubSubCatagory
 												.setVisibility(View.VISIBLE);
@@ -425,7 +432,8 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 															int position,
 															long arg3) {
 
-														subSubCatagory = ""+position;
+														subSubCatagory = ""
+																+ position;
 													}
 
 													@Override
@@ -458,7 +466,8 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 															int position,
 															long arg3) {
 
-														subSubCatagory = ""+position;
+														subSubCatagory = ""
+																+ position;
 													}
 
 													@Override
@@ -470,24 +479,26 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 													}
 												});
 
-									}else {
-										/*subSubCatagory = "-1";
-										spSubSubCatagory
-												.setVisibility(View.GONE);*/
-										subSubCatagory = ""+11;
+									} else {
+										/*
+										 * subSubCatagory = "-1";
+										 * spSubSubCatagory
+										 * .setVisibility(View.GONE);
+										 */
+										subSubCatagory = "" + 11;
 										spSubSubCatagory
 												.setVisibility(View.GONE);
-									}/* else {
-										spSubSubCatagory
-												.setVisibility(View.VISIBLE);
-										thirdDergeeSubElements = new String[] { "1st Year" };
-										spSubSubCatagory
-												.setAdapter(new ArrayAdapter<String>(
-														CreateJobActivity.this,
-														android.R.layout.simple_dropdown_item_1line,
-														thirdDergeeSubElements));
-										subSubCatagory = "" + 0;
-									}*/
+									}/*
+									 * else { spSubSubCatagory
+									 * .setVisibility(View.VISIBLE);
+									 * thirdDergeeSubElements = new String[] {
+									 * "1st Year" }; spSubSubCatagory
+									 * .setAdapter(new ArrayAdapter<String>(
+									 * CreateJobActivity.this,
+									 * android.R.layout.simple_dropdown_item_1line
+									 * , thirdDergeeSubElements));
+									 * subSubCatagory = "" + 0; }
+									 */
 
 								}
 
@@ -533,7 +544,8 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long arg3) {
 				bookEntity = new BookEntity();
-				bookEntity = entities.bookList.get(position);
+				bookEntity = (BookEntity) lvAllBookList
+						.getItemAtPosition(position);
 				tvBookName.setText(bookEntity.full_name);
 				tvAuthorName.setText(bookEntity.auther_name);
 				tvPublisherName.setText(bookEntity.publisher_name);
@@ -692,7 +704,8 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long arg3) {
 				agentEntity = new AgentEntity();
-				agentEntity = entities.agentList.get(position);
+				agentEntity = (AgentEntity) lvAllAgentList
+						.getItemAtPosition(position);
 
 				tvAgentName.setText(agentEntity.full_name);
 				tvAgentAddress.setText(agentEntity.address);
@@ -724,10 +737,11 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long arg3) {
 				teacherEntity = new TeacherEntity();
-				teacherEntity = entities.teacherList.get(position);
+				teacherEntity = (TeacherEntity) lvAllTeacherList
+						.getItemAtPosition(position);
 
-				teacherID=""+teacherEntity._id;
-				teacherInstitude=teacherEntity.institute;
+				teacherID = "" + teacherEntity._id;
+				teacherInstitude = teacherEntity.institute;
 				tvTeacherName.setText(teacherEntity.full_name);
 				tvTeacherInstitutionName.setText(teacherEntity.institute);
 				tvTeacherMobileNumber.setText(teacherEntity.mobile_no);

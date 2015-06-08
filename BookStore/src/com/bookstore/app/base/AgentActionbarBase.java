@@ -86,7 +86,7 @@ public abstract class AgentActionbarBase extends FragmentActivity {
 			startActivity(int2);
 			break;
 		case R.id.action_logout:
-			if(CommonValues.getInstance().isOnline)
+			if(CommonTasks.isOnline(getApplicationContext()))
 				new UserLogout(this).execute(Integer.parseInt(CommonTasks.getPreferences(this, CommonConstraints.USER_ID)));
 			else
 				CommonTasks.goSettingPage(getApplicationContext());

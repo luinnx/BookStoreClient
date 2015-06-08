@@ -36,7 +36,7 @@ public class BookStoreService extends Service implements IAsynchronousTask,
 		regid = CommonTasks.getPreferences(this, CommonConstraints.GCMID);
 		if (regid.isEmpty()) {
 
-			if (!CommonTasks.isOnline(this)){
+			if (CommonTasks.isOnline(this)){
 				LoadInformation();
 			}
 		}

@@ -54,20 +54,14 @@ public class AddTeacherActivity extends BookStoreActionBarBase implements
 				CommonTasks.showToast(getApplicationContext(),
 						"Enter Techer full name");
 				return;
-			}/* else if (etTeacherMobileNumber.getText().toString().trim()
+			} else if (etTeacherMobileNumber.getText().toString().trim()
 					.equals("")) {
-				CommonTasks.showToast(getApplicationContext(),
-						"Enter Techer Mobile Number");
-				return;
+				teacherMobileNumber="";
 			} else if (etTeacherUserName.getText().toString().trim().equals("")) {
-				CommonTasks.showToast(getApplicationContext(),
-						"Enter Techer User name");
-				return;
+				teacherUserName="";
 			} else if (etTeacherPassword.getText().toString().trim().equals("")) {
-				CommonTasks.showToast(getApplicationContext(),
-						"Enter Techer Password");
-				return;
-			}*/ else if (etInstitutionName.getText().toString().trim().equals("")) {
+				teacherPassword="";
+			} else if (etInstitutionName.getText().toString().trim().equals("")) {
 				CommonTasks.showToast(getApplicationContext(),
 						"Enter Institude name");
 				return;
@@ -108,9 +102,10 @@ public class AddTeacherActivity extends BookStoreActionBarBase implements
 	public Object doInBackground() {
 		IAdminManager adminManager = new AdminManager();
 		return adminManager.addTeacher(etTeacherFullName.getText().toString()
-				.trim(), etTeacherUserName.getText().toString().trim(),
-				etTeacherPassword.getText().toString().trim(),
-				etTeacherMobileNumber.getText().toString().trim(),
+				.trim(), 
+				etTeacherUserName.getText().toString().trim()==""?" ":etTeacherUserName.getText().toString().trim(),
+				etTeacherPassword.getText().toString().trim()==""?" ":etTeacherPassword.getText().toString().trim(),
+				etTeacherMobileNumber.getText().toString().trim()==""?" ":etTeacherMobileNumber.getText().toString().trim(),
 				etInstitutionName.getText().toString().trim());
 	}
 

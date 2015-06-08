@@ -136,7 +136,7 @@ public class CompletedJobsFragment extends Fragment implements
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 			long arg3) {
-		JobEntity jobEntity = jobListRoot.jobList.get(position);
+		JobEntity jobEntity = (JobEntity) listView.getItemAtPosition(position);
 		if (CommonTasks.getPreferences(getActivity(),
 				CommonConstraints.USER_TYPE).equals("1")) {
 			Intent intent = new Intent(getActivity(),

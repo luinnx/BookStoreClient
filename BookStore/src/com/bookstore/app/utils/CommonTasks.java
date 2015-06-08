@@ -138,6 +138,7 @@ public class CommonTasks {
 	}
 
 	public static boolean isOnline(Context context) {
+		boolean result=false;
 		ConnectivityManager cm = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -146,7 +147,7 @@ public class CommonTasks {
 				Process p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.com");
 		        int returnVal = p1.waitFor();
 		        if(returnVal == 0)
-		        	return true;
+		        	result= true;
 	        } catch (MalformedURLException e1) {
 	            Log.e("BSA", e1.getMessage());
 	        } catch (IOException e) {
@@ -155,7 +156,7 @@ public class CommonTasks {
 	        	Log.e("BSA", e.getMessage());
 			}
 		}
-		return false;
+		return result;
 	}
 
 	

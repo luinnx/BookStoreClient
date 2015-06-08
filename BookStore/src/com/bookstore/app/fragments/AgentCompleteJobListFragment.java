@@ -1,7 +1,5 @@
 package com.bookstore.app.fragments;
 
-import java.util.ArrayList;
-
 import com.bookstore.app.activity.AgentIndividualJobDetailsActivity;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.adapters.AgentJobListAdapter;

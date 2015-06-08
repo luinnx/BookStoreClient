@@ -12,7 +12,6 @@ import com.bookstore.app.adapters.DonationListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.BookStoreActionBarBase;
 import com.bookstore.app.customview.EndlessScrollListener;
-import com.bookstore.app.entities.BookEntity;
 import com.bookstore.app.entities.DonationEntity;
 import com.bookstore.app.entities.DonationListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
@@ -57,6 +56,7 @@ public class DonationListActivity extends BookStoreActionBarBase implements
 			}
 		};
 		lvAllDonationList.setOnScrollListener(scrollListener);
+		
 		if (!CommonTasks.isOnline(this)) {
 			CommonTasks.goSettingPage(this);
 			return;
@@ -127,7 +127,8 @@ public class DonationListActivity extends BookStoreActionBarBase implements
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 			long arg3) {
-		donationEntity = donationListRoot.donationList.get(position);
+		//donationEntity = donationListRoot.donationList.get(position);
+		donationEntity = (DonationEntity) lvAllDonationList.getItemAtPosition(position);
 
 		Intent intent = new Intent(getApplicationContext(),
 				DonationAcceptRejectActivity.class);

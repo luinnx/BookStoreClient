@@ -93,7 +93,7 @@ public class AdminRejectedJobListFragment extends Fragment implements
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 			long arg3) {
-		JobEntity jobEntity = jobListRoot.jobList.get(position);
+		JobEntity jobEntity = (JobEntity) listView.getItemAtPosition(position);
 		Intent intent = new Intent(getActivity(),
 				IndividualJobDetailsActivity.class);
 		intent.putExtra("JOB_ID", "" + jobEntity.jobid);

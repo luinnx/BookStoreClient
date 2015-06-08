@@ -397,7 +397,7 @@ public class AgentsListLocationActivity extends Fragment implements
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 			long arg3) {
-		AgentEntity agentEntity = agentListRoot.agentList.get(position);
+		AgentEntity agentEntity = (AgentEntity) lvAgentList.getItemAtPosition(position);
 		Intent intent = new Intent(getActivity(),
 				IndividualAgentDetailsActivity.class);
 		intent.putExtra("AGENT_ID", "" + agentEntity._id);

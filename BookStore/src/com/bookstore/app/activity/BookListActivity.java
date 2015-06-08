@@ -69,7 +69,7 @@ public class BookListActivity extends BookStoreActionBarBase implements
 	public void onItemClick(AdapterView<?> arg0, View view, int position,
 			long arg3) {
 		BookEntity bookEntity=new BookEntity();
-		bookEntity=bookListRoot.bookList.get(position);
+		bookEntity=(BookEntity) lvAllAgentList.getItemAtPosition(position);
 		Intent intent = new Intent(getApplicationContext(),
 				IndividualBookDetailsActivity.class);
 		intent.putExtra("BOOK_ID", bookEntity._id);
@@ -135,7 +135,7 @@ public class BookListActivity extends BookStoreActionBarBase implements
 	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position,
 			long arg3) {
 		BookEntity bookEntity=new BookEntity();
-		bookEntity=bookListRoot.bookList.get(position);
+		bookEntity=(BookEntity) lvAllAgentList.getItemAtPosition(position);
 		Intent intent = new Intent(getApplicationContext(),
 				IndividualBookEditActivity.class);
 		intent.putExtra("BOOK_ID", bookEntity._id);

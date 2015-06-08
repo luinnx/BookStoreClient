@@ -46,7 +46,7 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 	String whichPurpose = "GET_JOB_INFO";
 	int jobSubmitStatus;
 	JobAcceptRejectDetails jobDetails;
-	Bitmap signetureBitmap=null;
+	Bitmap signetureBitmap = null;
 	AlertDialog alertDialog;
 
 	@Override
@@ -76,8 +76,8 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 		tvAgentsAddress = (TextView) findViewById(R.id.tvAgentsAddress);
 		tvAgentsMobileNumber = (TextView) findViewById(R.id.tvAgentsMobileNumber);
 		etAdminRemarks = (EditText) findViewById(R.id.etAdminRemarks);
-		ivTeachersSigneture=(ImageView) findViewById(R.id.ivTeachersSigneture);
-		
+		ivTeachersSigneture = (ImageView) findViewById(R.id.ivTeachersSigneture);
+
 		ivTeachersSigneture.setOnClickListener(this);
 
 		Bundle bundle = getIntent().getExtras();
@@ -118,15 +118,20 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 			jobDetails = adminManager.getJobInfoAcceptReject(jobID);
 			try {
 				if (!jobDetails.teachersignature.equals("")) {
-					URL url = new URL(CommonUrls.getInstance().IMAGE_BASE_URL
+					/*URL url = new URL(CommonUrls.getInstance().IMAGE_BASE_URL
 							+ jobDetails.teachersignature);
 					HttpURLConnection connection = (HttpURLConnection) url
 							.openConnection();
 					connection.setDoInput(true);
 					connection.connect();
-					InputStream input = connection.getInputStream();
-					signetureBitmap = BitmapFactory.decodeStream(input);
-					ivTeachersSigneture.setImageBitmap(signetureBitmap);
+					InputStream input = connection.getInputStream();*/
+					
+					
+					signetureBitmap = CommonTasks.getBitMapFromUrl(CommonUrls
+							.getInstance().IMAGE_BASE_URL
+							+ jobDetails.teachersignature);
+					
+					//ivTeachersSigneture.setImageBitmap(signetureBitmap);
 				} else {
 					ivTeachersSigneture.setImageBitmap(BitmapFactory
 							.decodeResource(getResources(),
@@ -174,7 +179,8 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 	}
 
 	private void setValues(JobAcceptRejectDetails jobDetails2) {
-		// ivTeachersSigneture
+		if (signetureBitmap != null)
+			ivTeachersSigneture.setImageBitmap(signetureBitmap);
 		tvAuthor.setText(jobDetails.authername);
 		tvQuantity.setText("" + jobDetails.no_of_book);
 		tvPrice.setText("" + jobDetails.bookprice);
@@ -210,7 +216,7 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 			whichPurpose = "JOB_SUBMIT";
 			jobSubmitStatus = CommonConstraints.COMPLETED_JOB;
 			loadInformation();
-		}else if(view.getId()==R.id.ivTeachersSigneture){
+		} else if (view.getId() == R.id.ivTeachersSigneture) {
 			showZoomedImage();
 		}
 
@@ -224,13 +230,14 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 		builder.setView(josSubmitView);
 		builder.setTitle("Teacher Signeture");
 		builder.setCancelable(true);
-		
-		ImageView ivZoomedImage=(ImageView) josSubmitView.findViewById(R.id.ivZoomedImage);
+
+		ImageView ivZoomedImage = (ImageView) josSubmitView
+				.findViewById(R.id.ivZoomedImage);
 		ivZoomedImage.setImageBitmap(signetureBitmap);
-		
+
 		alertDialog = builder.create();
 		alertDialog.show();
-		
+
 	}
 
 }
