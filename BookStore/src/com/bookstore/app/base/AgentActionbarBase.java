@@ -61,7 +61,7 @@ public abstract class AgentActionbarBase extends FragmentActivity {
 		case R.id.action_donation:
 			agnetDonation();
 			break;
-		case R.id.action_tada_list:
+		case R.id.action_tada_add:
 			Intent int1 = new Intent(getApplicationContext(),
 					AgentTA_DA_Activity.class);
 			int1.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
