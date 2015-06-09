@@ -10,9 +10,9 @@ import com.bookstore.app.activity.AgentListActivity;
 import com.bookstore.app.activity.BookListActivity;
 import com.bookstore.app.activity.CreateJobActivity;
 import com.bookstore.app.activity.DonationListActivity;
-import com.bookstore.app.activity.LoginActivity;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.activity.TeacherListActivity;
+import com.bookstore.app.base.InternetConnectionService.ConnectionServiceCallback;
 import com.bookstore.app.customview.UserLogout;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
@@ -22,11 +22,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class BookStoreActionBarBase extends FragmentActivity {
+public class BookStoreActionBarBase extends FragmentActivity implements
+		ConnectionServiceCallback {
 
 	ActionBar actionBar;
 
@@ -35,6 +37,23 @@ public class BookStoreActionBarBase extends FragmentActivity {
 		setTheme(R.style.Theme_Example);
 		super.onCreate(savedInstanceState);
 		createActionBar();
+
+		//startNetCheckingService();
+	}
+
+	private void startNetCheckingService() {
+		Intent intent = new Intent(this, InternetConnectionService.class);
+		// Interval in seconds
+		intent.putExtra(InternetConnectionService.TAG_INTERVAL, 10);
+		// URL to ping
+		intent.putExtra(InternetConnectionService.TAG_URL_PING,
+				"http://www.google.com");
+		// Name of the class that is calling this service
+		intent.putExtra(InternetConnectionService.TAG_ACTIVITY_NAME, this
+				.getClass().getName());
+		// Starts the service
+		startService(intent);
+
 	}
 
 	private void createActionBar() {
@@ -82,7 +101,7 @@ public class BookStoreActionBarBase extends FragmentActivity {
 					android.R.anim.slide_out_right);
 			startActivity(intt);
 			break;
-			
+
 		case R.id.action_add_imei:
 			CommonTasks.showLogs(getApplicationContext(), "add teacher");
 			Intent intt2 = new Intent(getApplicationContext(),
@@ -135,7 +154,7 @@ public class BookStoreActionBarBase extends FragmentActivity {
 					android.R.anim.slide_out_right);
 			startActivity(tadaIntent);
 			break;
-			
+
 		case R.id.action_donation:
 			Intent int6 = new Intent(getApplicationContext(),
 					DonationListActivity.class);
@@ -158,15 +177,28 @@ public class BookStoreActionBarBase extends FragmentActivity {
 			Intent i = new Intent(Intent.ACTION_VIEW);
 			i.setData(Uri.parse(url));
 			startActivity(i);
-			
+
 			break;
 		case R.id.action_logout:
-			new UserLogout(this).execute(Integer.parseInt(CommonTasks.getPreferences(this, CommonConstraints.USER_ID)));
+			
+			new UserLogout(this).execute(Integer.parseInt(CommonTasks
+					.getPreferences(this, CommonConstraints.USER_ID)));
+			
 			break;
 		default:
 			break;
 		}
 		return true;
+	}
+
+	@Override
+	public void hasInternetConnection() {
+		Log.d("BSS", "HAS Internet");
+	}
+
+	@Override
+	public void hasNoInternetConnection() {
+		Log.d("BSS", "No Internet");
 	}
 
 }

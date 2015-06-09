@@ -27,7 +27,7 @@ public class InternetConnectionService extends Service{
 
     private Timer mTimer = null;
 
-    ConnectionServiceCallback mConnectionServiceCallback;
+    public static ConnectionServiceCallback mConnectionServiceCallback;
 
     @Override
     public IBinder onBind(Intent intent) {
