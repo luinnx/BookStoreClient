@@ -37,6 +37,8 @@ public class UserLogout extends AsyncTask<Integer, Void, Object> {
 
 	@Override
 	protected Object doInBackground(Integer... params) {
+		if(CommonTasks.isOnline(context))
+			return null;
 		IUser user = new UserManager();
 		return user.logout(params[0].hashCode());
 	}
@@ -51,18 +53,6 @@ public class UserLogout extends AsyncTask<Integer, Void, Object> {
 					CommonConstraints.USER_TYPE, "" + "");
 			CommonTasks.savePreferencesForReasonCode(context,
 					CommonConstraints.GCMID, "" + "");
-
-			/*try {
-				boolean rs = context.stopService(new Intent(context,
-						InternetConnectionService.class));
-				if (rs)
-					Log.d("BSS", "SERVICE STOPPED");
-				else
-					Log.d("BSS", "SERVICE STOPPED FAILED");
-				Thread.sleep(2000);
-			} catch (Exception ex) {
-				Log.d("BSS", "SERVICE STOPPED Exception : " + ex.getMessage());
-			}*/
 
 			Intent intent2 = new Intent(context, LoginActivity.class);
 			intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

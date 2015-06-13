@@ -28,6 +28,8 @@ public class AddDonation extends AsyncTask<Donation, Void, Boolean> {
 
 	@Override
 	protected Boolean doInBackground(Donation... params) {
+		if(CommonTasks.isOnline(context))
+			return null;
 		IAgent agent = new AgentManager();
 		return agent.addDonetion(Integer.parseInt(CommonTasks.getPreferences(context, CommonConstraints.USER_ID)), params[0].Amount, params[0].Comment);
 	}

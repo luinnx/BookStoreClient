@@ -5,6 +5,7 @@ import com.bookstore.app.activity.AddBookActivity;
 import com.bookstore.app.activity.AddIMEIActivity;
 import com.bookstore.app.activity.AddTeacherActivity;
 import com.bookstore.app.activity.AdminMapActivity;
+import com.bookstore.app.activity.AdminNoInterNetActivity;
 import com.bookstore.app.activity.AdminTADAListActivity;
 import com.bookstore.app.activity.AgentListActivity;
 import com.bookstore.app.activity.BookListActivity;
@@ -26,6 +27,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class BookStoreActionBarBase extends FragmentActivity implements
 		ConnectionServiceCallback {
@@ -42,9 +44,9 @@ public class BookStoreActionBarBase extends FragmentActivity implements
 	}
 
 	private void startNetCheckingService() {
-		Intent intent = new Intent(this, InternetConnectionService.class);
+		Intent intent = new Intent(BookStoreActionBarBase.this, InternetConnectionService.class);
 		// Interval in seconds
-		intent.putExtra(InternetConnectionService.TAG_INTERVAL, 10);
+		intent.putExtra(InternetConnectionService.TAG_INTERVAL, 20);
 		// URL to ping
 		intent.putExtra(InternetConnectionService.TAG_URL_PING,
 				"http://www.google.com");
@@ -180,10 +182,10 @@ public class BookStoreActionBarBase extends FragmentActivity implements
 
 			break;
 		case R.id.action_logout:
-			
+
 			new UserLogout(this).execute(Integer.parseInt(CommonTasks
 					.getPreferences(this, CommonConstraints.USER_ID)));
-			
+
 			break;
 		default:
 			break;
@@ -193,12 +195,15 @@ public class BookStoreActionBarBase extends FragmentActivity implements
 
 	@Override
 	public void hasInternetConnection() {
-		Log.d("BSS", "HAS Internet");
+		Log.d("BNS", "HAS Internet");
 	}
 
 	@Override
 	public void hasNoInternetConnection() {
-		Log.d("BSS", "No Internet");
+		Log.d("BNS", "No Internet");
+		//stopService(new Intent(this, InternetConnectionService.class));
+		Intent intent = new Intent(BookStoreActionBarBase.this, AdminNoInterNetActivity.class);
+		startActivity(intent);
 	}
 
 }

@@ -192,6 +192,8 @@
             android:name="com.bookstore.app.activity.AgentDonationListActivity"
             android:label="Donation List" >
         </activity>
+        <activity android:name="com.bookstore.app.activity.AdminNoInterNetActivity" >
+        </activity>
 
         <receiver
             android:name="com.bookstore.app.base.GcmBroadcastReceiver"

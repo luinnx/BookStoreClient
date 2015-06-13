@@ -3,6 +3,7 @@ package com.bookstore.app.base;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
@@ -42,8 +43,8 @@ public class InternetConnectionService extends Service{
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
-        interval = intent.getIntExtra(TAG_INTERVAL, 10);
+    	Log.d("BNS", "Internet Checking Registered");
+        interval = intent.getIntExtra(TAG_INTERVAL, 20);
         url_ping = intent.getStringExtra(TAG_URL_PING);
         activity_name = intent.getStringExtra(TAG_ACTIVITY_NAME);
 
@@ -77,6 +78,7 @@ public class InternetConnectionService extends Service{
     }
 
     private boolean isNetworkAvailable(){
+    	Log.d("BNS", "Checking Internet Start");
         HttpGet httpGet = new HttpGet(url_ping);
         HttpParams httpParameters = new BasicHttpParams();
 
@@ -101,4 +103,7 @@ public class InternetConnectionService extends Service{
         mConnectionServiceCallback.hasNoInternetConnection();
         return false;
     }
+    
+    
+    
 }

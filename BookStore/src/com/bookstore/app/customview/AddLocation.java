@@ -25,6 +25,9 @@ public class AddLocation extends AsyncTask<Location, Void, Object>{
 
 	@Override
 	protected Object doInBackground(Location... params) {
+		
+		if(CommonTasks.isOnline(context))
+			return null;
 		IAgent agent = new AgentManager();
 		return agent.addLocation(Integer.parseInt(CommonTasks.getPreferences(context, CommonConstraints.USER_ID)),
 				params[0].getLatitude(), 

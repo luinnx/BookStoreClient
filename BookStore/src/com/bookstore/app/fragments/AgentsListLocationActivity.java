@@ -81,12 +81,12 @@ public class AgentsListLocationActivity extends Fragment implements
 	ArrayList<Marker> markers;
 	Hashtable<String, String> uriMarkers;
 	Marker mainMarker;
-	//AgentLocationMapRoot agentLocationMapRoot = null;
+	// AgentLocationMapRoot agentLocationMapRoot = null;
 	private static View view;
 	ViewGroup parent;
 	String whichService = "Agent List";
 	ArrayList<Bitmap> mapPhotoList;
-	
+
 	ImageView ivRefresh;
 
 	@Override
@@ -122,10 +122,10 @@ public class AgentsListLocationActivity extends Fragment implements
 		lvAgentList = (ListView) root.findViewById(R.id.lvAgentList);
 
 		lvAgentList.setOnItemClickListener(this);
-		
-		ivRefresh=(ImageView) root.findViewById(R.id.ivRefresh);
+
+		ivRefresh = (ImageView) root.findViewById(R.id.ivRefresh);
 		ivRefresh.setOnClickListener(this);
-		
+
 		SupportMapFragment fragment = ((SupportMapFragment) getChildFragmentManager()
 				.findFragmentById(R.id.fragAgentLocationMap));
 		frAgentLocationMap = fragment.getMap();
@@ -165,29 +165,58 @@ public class AgentsListLocationActivity extends Fragment implements
 	@Override
 	public Object doInBackground() {
 		IAdminManager adminManager = new AdminManager();
-			agentListRoot = adminManager.getAllUserList();
-			
-			Log.d("BSS", "Previous Agent:"+CommonTasks.getPreferences(getActivity(),
-					CommonConstraints.NO_OF_AGENT));
-			if (CommonTasks.getPreferences(getActivity(),
-					CommonConstraints.NO_OF_AGENT).equals("")) {
+		agentListRoot = adminManager.getAllUserList();
 
-				for (AgentEntity iterable_element : agentListRoot.agentList) {
+		Log.d("BSS",
+				"Previous Agent:"
+						+ CommonTasks.getPreferences(getActivity(),
+								CommonConstraints.NO_OF_AGENT));
+		if (CommonTasks.getPreferences(getActivity(),
+				CommonConstraints.NO_OF_AGENT).equals("")) {
+
+			for (AgentEntity iterable_element : agentListRoot.agentList) {
+				if (!iterable_element.pic_url.equals("")) {
+					Bitmap bitmap = CommonTasks.getBitMapFromUrl(CommonUrls
+							.getInstance().IMAGE_BASE_URL
+							+ iterable_element.pic_url);
+
+					if (bitmap == null) {
+						CommonTasks.saveImageToDirectory(BitmapFactory
+								.decodeResource(getActivity().getResources(),
+										R.drawable.ic_person_24), ""
+								+ iterable_element._id);
+					} else {
+						CommonTasks.saveImageToDirectory(bitmap, ""
+								+ iterable_element._id);
+					}
+
+				} else {
+					CommonTasks.saveImageToDirectory(BitmapFactory
+							.decodeResource(getActivity().getResources(),
+									R.drawable.ic_person_24), ""
+							+ iterable_element._id);
+				}
+			}
+
+			CommonTasks.savePreferencesForReasonCode(getActivity(),
+					CommonConstraints.NO_OF_AGENT,
+					"" + agentListRoot.agentList.size());
+		} else {
+			int noOfAgent = Integer.parseInt(CommonTasks.getPreferences(
+					getActivity(), CommonConstraints.NO_OF_AGENT));
+			Log.d("BSS", "Current Agent:" + noOfAgent);
+			if (agentListRoot.agentList.size() > noOfAgent) {
+
+				for (int x = noOfAgent; x < agentListRoot.agentList.size(); x++) {
+					AgentEntity iterable_element = agentListRoot.agentList
+							.get(x);
 					if (!iterable_element.pic_url.equals("")) {
+
 						Bitmap bitmap = CommonTasks.getBitMapFromUrl(CommonUrls
 								.getInstance().IMAGE_BASE_URL
 								+ iterable_element.pic_url);
-
-						if (bitmap == null) {
-							CommonTasks.saveImageToDirectory(BitmapFactory
-									.decodeResource(getActivity()
-											.getResources(),
-											R.drawable.ic_person_24), ""
-									+ iterable_element._id);
-						} else {
-							CommonTasks.saveImageToDirectory(bitmap, ""
-									+ iterable_element._id);
-						}
+						CommonTasks.saveImageToDirectory(bitmap, ""
+								+ iterable_element._id);
 
 					} else {
 						CommonTasks.saveImageToDirectory(BitmapFactory
@@ -197,64 +226,31 @@ public class AgentsListLocationActivity extends Fragment implements
 					}
 				}
 
-				CommonTasks
-						.savePreferencesForReasonCode(
-								getActivity(),
-								CommonConstraints.NO_OF_AGENT,
-								""
-										+ agentListRoot.agentList
-												.size());
-			} else {
-				int noOfAgent = Integer.parseInt(CommonTasks.getPreferences(
-						getActivity(), CommonConstraints.NO_OF_AGENT));
-				Log.d("BSS", "Current Agent:"+noOfAgent);
-				if (agentListRoot.agentList.size() > noOfAgent) {
-
-					for (int x = noOfAgent; x < agentListRoot.agentList
-							.size(); x++) {
-						AgentEntity iterable_element = agentListRoot.agentList
-								.get(x);
-						if (!iterable_element.pic_url.equals("")) {
-
-							Bitmap bitmap = CommonTasks
-									.getBitMapFromUrl(CommonUrls.getInstance().IMAGE_BASE_URL
-											+ iterable_element.pic_url);
-							CommonTasks.saveImageToDirectory(bitmap, ""
-									+ iterable_element._id);
-
-						} else {
-							CommonTasks.saveImageToDirectory(BitmapFactory
-									.decodeResource(getActivity()
-											.getResources(),
-											R.drawable.ic_person_24), ""
-									+ iterable_element._id);
-						}
-					}
-
-					CommonTasks.savePreferencesForReasonCode(getActivity(),
-							CommonConstraints.NO_OF_AGENT,
-							"" + agentListRoot.agentList.size());
-
-				}
+				CommonTasks.savePreferencesForReasonCode(getActivity(),
+						CommonConstraints.NO_OF_AGENT, ""
+								+ agentListRoot.agentList.size());
 
 			}
-			
-			
-			
-			return agentListRoot;
-		} 
+
+		}
+
+		return agentListRoot;
+	}
+
 	@Override
 	public void processDataAfterDownload(Object data) {
 		if (data != null) {
 			agentListRoot = (UserListRoot) data;
-			if(agentListRoot != null && agentListRoot.agentList.size()>0){
-				adapter = new AllUserListAdapter(getActivity(), R.layout.agent_list_item, agentListRoot.agentList);
+			if (agentListRoot != null && agentListRoot.agentList.size() > 0) {
+				adapter = new AllUserListAdapter(getActivity(),
+						R.layout.agent_list_item, agentListRoot.agentList);
 				lvAgentList.setAdapter(adapter);
 				LoadMap(agentListRoot);
 			}
 
 		} else {
-			CommonTasks.showToast(getActivity(), "Can not loading data. Internal server error");
+			CommonTasks.showToast(getActivity(),
+					"Can not loading data. Internal server error");
 		}
 
 	}
@@ -263,71 +259,68 @@ public class AgentsListLocationActivity extends Fragment implements
 		markers = new ArrayList<Marker>();
 		try {
 			frAgentLocationMap.clear();
-			for (int rowIndex = 0; rowIndex < agentListRoot2.agentList
-					.size(); rowIndex++) {
+			for (int rowIndex = 0; rowIndex < agentListRoot2.agentList.size(); rowIndex++) {
 				double lat = agentListRoot2.agentList.get(rowIndex).latitude;
 				double lng = agentListRoot2.agentList.get(rowIndex).longitude;
-				if(lat<=0.0&&lng<=0.0)
-					break;
+				String msg = "NAME :"
+						+ agentListRoot2.agentList.get(rowIndex).full_name;
+				msg += " Lat :" + lat + " Long :" + lng + "";
+				Log.d("BSL", msg);
+				if (lat <= 0.0 && lng <= 0.0)
+					continue;
 				// create instance of latlng class.
 				LatLng Location = new LatLng(lat, lng);
-			/*	// Create instance of geocoder that is used for geting
-				// address if marker pointer in pressed.
-				Geocoder geocoder = new Geocoder(getActivity(),
-						Locale.getDefault());
-				// get list of address where lat and lang r putted
-				List<Address> addresses = geocoder.getFromLocation(
-						Location.latitude, Location.longitude, 1);
-				// check address are available and get it using for loop and
-				// store in address
-				if (addresses != null && addresses.size() > 0) {
-					Address address = addresses.get(0);
-					for (int lineIndex = 0; lineIndex < address
-							.getMaxAddressLineIndex(); lineIndex++) {
-						addressText = addressText
-								+ address.getAddressLine(lineIndex) + ", ";
-					}
-					addressText = addressText + address.getLocality() + ", "
-							+ address.getCountryName();*/
+				/*
+				 * // Create instance of geocoder that is used for geting //
+				 * address if marker pointer in pressed. Geocoder geocoder = new
+				 * Geocoder(getActivity(), Locale.getDefault()); // get list of
+				 * address where lat and lang r putted List<Address> addresses =
+				 * geocoder.getFromLocation( Location.latitude,
+				 * Location.longitude, 1); // check address are available and
+				 * get it using for loop and // store in address if (addresses
+				 * != null && addresses.size() > 0) { Address address =
+				 * addresses.get(0); for (int lineIndex = 0; lineIndex < address
+				 * .getMaxAddressLineIndex(); lineIndex++) { addressText =
+				 * addressText + address.getAddressLine(lineIndex) + ", "; }
+				 * addressText = addressText + address.getLocality() + ", " +
+				 * address.getCountryName();
+				 */
 
-					View marker = ((LayoutInflater) getActivity()
-							.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
-							.inflate(R.layout.custom_marker_layout, null);
-					TextView numTxt = (TextView) marker
-							.findViewById(R.id.tvInfoText);
-					CircularImageView ivAgentImage = (CircularImageView) marker
-							.findViewById(R.id.ivMapAgentImage);
-					numTxt.setText(agentListRoot2.agentList
-							.get(rowIndex).full_name);
+				View marker = ((LayoutInflater) getActivity().getSystemService(
+						Context.LAYOUT_INFLATER_SERVICE)).inflate(
+						R.layout.custom_marker_layout, null);
+				TextView numTxt = (TextView) marker
+						.findViewById(R.id.tvInfoText);
+				CircularImageView ivAgentImage = (CircularImageView) marker
+						.findViewById(R.id.ivMapAgentImage);
+				numTxt.setText(agentListRoot2.agentList.get(rowIndex).full_name);
 
-					/*
-					 * CommonTasks
-					 * .createCircularShape(mapPhotoList.get(rowIndex))
-					 */
+				/*
+				 * CommonTasks .createCircularShape(mapPhotoList.get(rowIndex))
+				 */
 
-					/*ivAgentImage.setImageBitmap(CommonTasks.createCircularShape(CommonTasks
-							.getBitmapFromSdCard("/sdcard/BookStore/" + "" + agentListRoot2.agentList
-									.get(rowIndex)._id
-									+ ".png")));*/
-					
-					
-					
-					ivAgentImage.setImageBitmap(CommonTasks
-							.createCircularShape(CommonTasks
-									.getBitmapFromSdCard(getActivity(),"/sdcard/BookStore/"
-											+ ""
-											+ agentListRoot2.agentList
-													.get(rowIndex)._id
-											+ ".png")));
+				/*
+				 * ivAgentImage.setImageBitmap(CommonTasks.createCircularShape(
+				 * CommonTasks .getBitmapFromSdCard("/sdcard/BookStore/" + "" +
+				 * agentListRoot2.agentList .get(rowIndex)._id + ".png")));
+				 */
 
-					markers.add(frAgentLocationMap
-							.addMarker(new MarkerOptions().position(Location)
-									.icon(BitmapDescriptorFactory
-											.fromBitmap(createDrawableFromView(
-													getActivity(), marker)))));
+				ivAgentImage.setImageBitmap(CommonTasks
+						.createCircularShape(CommonTasks.getBitmapFromSdCard(
+								getActivity(),
+								"/sdcard/BookStore/"
+										+ ""
+										+ agentListRoot2.agentList
+												.get(rowIndex)._id + ".png")));
 
-				}
-			
+				markers.add(frAgentLocationMap.addMarker(new MarkerOptions()
+						.position(Location).icon(
+								BitmapDescriptorFactory
+										.fromBitmap(createDrawableFromView(
+												getActivity(), marker)))));
+
+			}
+
 			frAgentLocationMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 			LatLngBounds.Builder b = new LatLngBounds.Builder();
 			if (markers.size() > 0) {
@@ -397,7 +390,8 @@ public class AgentsListLocationActivity extends Fragment implements
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 			long arg3) {
-		AgentEntity agentEntity = (AgentEntity) lvAgentList.getItemAtPosition(position);
+		AgentEntity agentEntity = (AgentEntity) lvAgentList
+				.getItemAtPosition(position);
 		Intent intent = new Intent(getActivity(),
 				IndividualAgentDetailsActivity.class);
 		intent.putExtra("AGENT_ID", "" + agentEntity._id);
@@ -430,10 +424,8 @@ public class AgentsListLocationActivity extends Fragment implements
 		LatLng latLng = marker.getPosition();
 		AgentEntity entity = null;
 		for (int i = 0; i < agentListRoot.agentList.size(); i++) {
-			if (latLng.latitude == agentListRoot.agentList
-					.get(i).latitude
-					&& latLng.longitude == agentListRoot.agentList
-							.get(i).longitude) {
+			if (latLng.latitude == agentListRoot.agentList.get(i).latitude
+					&& latLng.longitude == agentListRoot.agentList.get(i).longitude) {
 				entity = agentListRoot.agentList.get(i);
 				break;
 			}
@@ -455,11 +447,13 @@ public class AgentsListLocationActivity extends Fragment implements
 		}
 		tvAgentName.setText("Name :" + entity.full_name);
 		tvLocationName.setText("Current Location :" + entity.location_name);
-		/*tvLastUpdateTime.setText("Last Update :"
-				+ CommonTasks.getRelativeTime(Long.parseLong(entity.create_date)));*/
+		/*
+		 * tvLastUpdateTime.setText("Last Update :" +
+		 * CommonTasks.getRelativeTime(Long.parseLong(entity.create_date)));
+		 */
 		ivAgentImage.setImageBitmap(CommonTasks.createCircularShape(CommonTasks
-				.getBitmapFromSdCard(getActivity(),"/sdcard/BookStore/" + "" + entity._id
-						+ ".png")));
+				.getBitmapFromSdCard(getActivity(), "/sdcard/BookStore/" + ""
+						+ entity._id + ".png")));
 
 		return v;
 	}
@@ -471,7 +465,7 @@ public class AgentsListLocationActivity extends Fragment implements
 			return;
 		}
 		LoginRequest();
-		
+
 	}
 
 }
