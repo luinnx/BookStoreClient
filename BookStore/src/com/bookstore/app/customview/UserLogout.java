@@ -37,7 +37,7 @@ public class UserLogout extends AsyncTask<Integer, Void, Object> {
 
 	@Override
 	protected Object doInBackground(Integer... params) {
-		if(CommonTasks.isOnline(context))
+		if(!CommonTasks.isOnline(context))
 			return null;
 		IUser user = new UserManager();
 		return user.logout(params[0].hashCode());

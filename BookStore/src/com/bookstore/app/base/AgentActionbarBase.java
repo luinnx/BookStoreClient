@@ -148,13 +148,13 @@ public abstract class AgentActionbarBase extends FragmentActivity implements
 						.toString());
 				donation.Comment = etDonationComment.getText().toString();
 
-				if (CommonTasks.isOnline(getApplicationContext())) {
+				/*if (CommonTasks.isOnline(getApplicationContext())) {
 					new AddDonation(AgentActionbarBase.this).execute(donation);
 					alertDialog.dismiss();
 				} else {
 					CommonTasks.goSettingPage(getApplicationContext());
 					return;
-				}
+				}*/
 			}
 		});
 
