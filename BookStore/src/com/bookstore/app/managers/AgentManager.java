@@ -63,13 +63,16 @@ public class AgentManager implements IAgent {
 	public boolean addLocation(int agentid, double latitude, double longitude,
 			String locationName) {
 		boolean result = false;
+		Object object;
 		try {
-			result = (Boolean) JSONfunctions.retrieveDataFromStream(String
+			object = (Object) JSONfunctions.retrieveDataFromStream(String
 					.format(CommonUrls.getInstance().agentLocation, agentid,
 							latitude, longitude, URLEncoder.encode(
 									locationName,
 									CommonConstraints.EncodingCode)),
 					Boolean.class);
+			if(object!=null)
+			result=(Boolean) object;
 		} catch (Exception ex) {
 			Log.e("BS", ex.getMessage());
 		}

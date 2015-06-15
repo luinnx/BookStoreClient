@@ -346,8 +346,7 @@ public class AdminManager implements IAdminManager {
 		try {
 			result = (Boolean) JSONfunctions.retrieveDataFromStream(String
 					.format(CommonUrls.getInstance().setDonationACK,
-							donationID, URLEncoder.encode(agentGcmID,
-									CommonConstraints.EncodingCode),
+							donationID, agentGcmID,
 							donationStatus, adminID,amount), Boolean.class);
 		} catch (Exception exception) {
 			exception.printStackTrace();

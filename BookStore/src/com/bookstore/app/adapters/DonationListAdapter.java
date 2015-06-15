@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -111,6 +112,7 @@ public class DonationListAdapter extends ArrayAdapter<DonationEntity> {
 			} else if (donation.donationstatus == CommonConstraints.DONATION_SUBMIT) {
 				holder.tvDonationStatus.setText("Status : PENDING");
 			}
+			holder.tvDonationStatus.setTextColor(Color.BLUE);
 
 			if (donation.pic_url.equals("")) {
 				aq.id(holder.ivAgentImage).image(

@@ -171,6 +171,7 @@ public class DonationAcceptRejectActivity extends BookStoreActionBarBase
 		} else {
 			CommonTasks.showToast(getApplicationContext(),
 					"Internal Server Error. Please Try again");
+			super.onBackPressed();
 		}
 
 	}
