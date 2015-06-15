@@ -81,6 +81,12 @@ public class ActivityTADADetails extends BookStoreActionBarBase implements
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == R.id.btnDone) {
+			
+			if(btnDone.getText().equals("OK")){
+				super.onBackPressed();
+				return;
+			}
+			
 			whichPurpose = "TADA_SUBMIT";
 			LoadInformation();
 		}
@@ -143,12 +149,22 @@ public class ActivityTADADetails extends BookStoreActionBarBase implements
 				}
 			}
 
+		}else{
+			CommonTasks.showToast(getApplicationContext(), "Internal Server Error. Please try again");
 		}
 	}
 
 	private void setDataInfoView(IndividualTADA individualTADA) {
 		tvAgentName.setText("Agent Name : "+individualTADA.Agentfull_name);
-		tvTadaStatus.setText("Status : ");
+		
+		if(individualTADA.tadastatus==CommonConstraints.TADA_COMPLETED){
+			tvTadaStatus.setText("Status : COMPLETED");
+			btnDone.setText("OK");
+		}else if(individualTADA.tadastatus==CommonConstraints.TADA_SUBMIT){
+			tvTadaStatus.setText("Status : PENDING");
+		}
+		
+		
 		tvTadaDate.setText(individualTADA.tadadate);
 		tvStartPlace.setText(individualTADA.startplace);
 		tvStartTime.setText(individualTADA.starttime);

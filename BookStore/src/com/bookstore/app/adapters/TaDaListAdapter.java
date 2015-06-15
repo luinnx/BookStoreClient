@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,7 @@ public class TaDaListAdapter extends ArrayAdapter<TadaListEntity> {
 				holder.tvTotalAmount = (TextView) jobView.findViewById(R.id.tvTotalAmount);
 				holder.tvDistance = (TextView) jobView.findViewById(R.id.tvDistance);
 				holder.tvTadaID=(TextView) jobView.findViewById(R.id.tvTadaID);
+				holder.tvTadaStatus=(TextView) jobView.findViewById(R.id.tvTadaStatus);
 				
 				aq = new AQuery(context);
 				imageLoader = new ImageLoader(context);
@@ -90,6 +92,12 @@ public class TaDaListAdapter extends ArrayAdapter<TadaListEntity> {
 			holder.tvAgentName.setText("Agent Name : "+taDaEntity.agentname);
 			holder.tvDistance.setText("Distance : "+taDaEntity.distance+" KM");
 			holder.tvTotalAmount.setText("Total Amount : "+taDaEntity.totalamount +"Tk.");
+			
+			if(taDaEntity.tadastatus==CommonConstraints.TADA_COMPLETED){
+				holder.tvTadaStatus.setText("Status : COMPLETE");
+			}else {
+				holder.tvTadaStatus.setText("Status : PENDING");
+			}
 			
 			
 			if (taDaEntity.agentpic != null) {
@@ -123,6 +131,7 @@ public class TaDaListAdapter extends ArrayAdapter<TadaListEntity> {
 		public TextView tvTotalAmount;
 		public TextView tvDistance;
 		public TextView tvTadaID;
+		public TextView tvTadaStatus;
 	}
 
 }

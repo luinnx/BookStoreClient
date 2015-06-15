@@ -127,9 +127,7 @@ public class DonationListActivity extends BookStoreActionBarBase implements
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 			long arg3) {
-		//donationEntity = donationListRoot.donationList.get(position);
 		donationEntity = (DonationEntity) lvAllDonationList.getItemAtPosition(position);
-
 		Intent intent = new Intent(getApplicationContext(),
 				DonationAcceptRejectActivity.class);
 		intent.putExtra("DONATION_ID", "" + donationEntity.id);

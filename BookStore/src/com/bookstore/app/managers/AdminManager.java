@@ -362,8 +362,7 @@ public class AdminManager implements IAdminManager {
 		try {
 			result = (Boolean) JSONfunctions.retrieveDataFromStream(String
 					.format(CommonUrls.getInstance().setTadaACK,
-							tadaID, URLEncoder.encode(agentGcmID,
-									CommonConstraints.EncodingCode),
+							tadaID, agentGcmID,
 									tadastatus, adminID), Boolean.class);
 		} catch (Exception exception) {
 			exception.printStackTrace();

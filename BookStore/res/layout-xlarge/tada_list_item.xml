@@ -24,6 +24,31 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:visibility="gone" />
+        
+        <TextView
+            android:id="@+id/tvTadaID"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/ivAgentImage"
+            android:text=""
+            android:textColor="#000"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+        
+        <TextView
+            android:id="@+id/tvTadaStatus"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTadaID"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/ivAgentImage"
+            android:text=""
+            android:textColor="#000"
+            android:textSize="35sp"
+            android:textStyle="normal" />
 
         <TextView
             android:id="@+id/tvAgentName"
@@ -32,6 +57,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/ivAgentImage"
+            android:layout_below="@+id/tvTadaStatus"
             android:text="Md. Sajedul karim"
             android:textColor="#000"
             android:textSize="35sp"

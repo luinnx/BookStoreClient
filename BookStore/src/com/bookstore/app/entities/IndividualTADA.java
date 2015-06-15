@@ -33,4 +33,6 @@ public class IndividualTADA {
 	public String gcmid;
 	@SerializedName("agentid")
 	public int agentid;
+	@SerializedName("tadastatus")
+	public int tadastatus;
 }

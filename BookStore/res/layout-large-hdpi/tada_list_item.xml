@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-   android:background="#FFF"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFF"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -36,12 +36,25 @@
             android:textColor="#000"
             android:textSize="28sp"
             android:textStyle="bold" />
-        
+
+        <TextView
+            android:id="@+id/tvTadaStatus"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTadaID"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/ivAgentImage"
+            android:text=""
+            android:textColor="#000"
+            android:textSize="25sp"
+            android:textStyle="normal" />
+
         <TextView
             android:id="@+id/tvAgentName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvTadaID"
+            android:layout_below="@+id/tvTadaStatus"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/ivAgentImage"
