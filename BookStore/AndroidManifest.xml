@@ -134,7 +134,7 @@
         </activity>
         <activity
             android:name="com.bookstore.app.activity.DonationListActivity"
-            android:label="Profile" >
+            android:label="DONATION LIST" >
         </activity>
         <activity
             android:name="com.bookstore.app.activity.AdminMapActivity"
@@ -166,7 +166,7 @@
         </activity>
         <activity
             android:name="com.bookstore.app.activity.DonationAcceptRejectActivity"
-            android:label="Donation" >
+            android:label="Donation Details" >
         </activity>
         <activity
             android:name="com.bookstore.app.activity.AgentDonationAcceptRejectResultActivity"

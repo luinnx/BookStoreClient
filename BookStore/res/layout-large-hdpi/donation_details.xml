@@ -200,7 +200,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_weight="0.6"
                 android:hint=""
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:textColor="@color/text_view_color"
                 android:textSize="30sp"
                 android:textStyle="normal" />

@@ -27,7 +27,7 @@ public class JobListAdapter extends ArrayAdapter<JobEntity> {
 	JobEntity jobEntity;
 	ArrayList<JobEntity> list;
 	Context context;
-	
+
 	ImageOptions imgOptions;
 	ImageLoader imageLoader;
 	private AQuery aq;
@@ -35,7 +35,7 @@ public class JobListAdapter extends ArrayAdapter<JobEntity> {
 	public JobListAdapter(Context _context, int textViewResourceId,
 			List<JobEntity> objects) {
 		super(_context, textViewResourceId, objects);
-		context=_context;
+		context = _context;
 		list = (ArrayList<JobEntity>) objects;
 
 	}
@@ -58,46 +58,70 @@ public class JobListAdapter extends ArrayAdapter<JobEntity> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View jobView=convertView;
+		View jobView = convertView;
 		ViewHolder holder = null;
-		jobEntity=list.get(position);
-		holder=new ViewHolder();
-		
-		try{
-			if( convertView==null){
+		jobEntity = list.get(position);
+		holder = new ViewHolder();
+
+		try {
+			if (convertView == null) {
 				LayoutInflater inflater = (LayoutInflater) context
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				jobView = inflater.inflate(R.layout.job_list_item, null);
-				
-				holder.ivBookImage = (CircularImageView) jobView.findViewById(R.id.ivBookImage);
-				holder.pbImagePreLoad = (ProgressBar) jobView.findViewById(R.id.pbImagePreLoad);
-				holder.tvAgentName = (TextView) jobView.findViewById(R.id.tvAgentName);
-				holder.tvBookName = (TextView) jobView.findViewById(R.id.tvBookName);
-				holder.tvNumberOfBook = (TextView) jobView.findViewById(R.id.tvNumberOfBook);
-				holder.tvJobId=(TextView) jobView.findViewById(R.id.tvJobId);
+
+				holder.ivBookImage = (CircularImageView) jobView
+						.findViewById(R.id.ivBookImage);
+				holder.pbImagePreLoad = (ProgressBar) jobView
+						.findViewById(R.id.pbImagePreLoad);
+				holder.tvAgentName = (TextView) jobView
+						.findViewById(R.id.tvAgentName);
+				holder.tvBookName = (TextView) jobView
+						.findViewById(R.id.tvBookName);
+				holder.tvNumberOfBook = (TextView) jobView
+						.findViewById(R.id.tvNumberOfBook);
+				holder.tvJobId = (TextView) jobView.findViewById(R.id.tvJobId);
 				aq = new AQuery(context);
 				imageLoader = new ImageLoader(context);
-				imgOptions = CommonValues.getInstance().defaultImageOptions; 		
-				imgOptions.targetWidth=100;
-				imgOptions.ratio=0;
+				imgOptions = CommonValues.getInstance().defaultImageOptions;
+				imgOptions.targetWidth = 100;
+				imgOptions.ratio = 0;
 				imgOptions.round = 8;
 				jobView.setTag(holder);
-			}else{
+			} else {
 				holder = (ViewHolder) jobView.getTag();
 			}
-			
-			holder.tvAgentName.setText("Agent Name : "+jobEntity.agentname);
-			holder.tvBookName.setText("Book Name : "+jobEntity.bookname);
-			holder.tvNumberOfBook.setText("No. Of Items : "+jobEntity.quantity);
-			holder.tvJobId.setText("WR-JOB-ID :"+jobEntity.jobid);
-			
-			if(jobEntity.bookImage != null){
-				aq.id(holder.ivBookImage).image(context.getResources().getDrawable(R.drawable.ic_launcher));
-			}else{
-				aq.id(holder.ivBookImage).image((CommonUrls.getInstance().IMAGE_BASE_URL+jobEntity.bookImage.toString()),imgOptions);
+
+			holder.tvAgentName.setText("Agent Name : " + jobEntity.agentname);
+			holder.tvBookName.setText("Book Name : " + jobEntity.bookname);
+			holder.tvNumberOfBook.setText("No. Of Items : "
+					+ jobEntity.quantity);
+			holder.tvJobId.setText("WR-JOB-ID :" + jobEntity.jobid);
+
+			if ((jobEntity.bookImage.equals(""))) {
+				aq.id(holder.ivBookImage).image(
+						context.getResources().getDrawable(
+								R.drawable.ic_book_64));
+			} else {
+
+				holder.ivBookImage
+						.setImageBitmap(CommonTasks
+								.createCircularShape(CommonTasks
+										.getBitMapFromUrl(CommonUrls
+												.getInstance().IMAGE_BASE_URL
+												+ jobEntity.bookImage
+														.toString())));
 			}
-			
-		}catch(Exception ex){
+
+			/*
+			 * if(jobEntity.bookImage != null){
+			 * aq.id(holder.ivBookImage).image(context
+			 * .getResources().getDrawable(R.drawable.ic_launcher)); }else{
+			 * aq.id
+			 * (holder.ivBookImage).image((CommonUrls.getInstance().IMAGE_BASE_URL
+			 * +jobEntity.bookImage.toString()),imgOptions); }
+			 */
+
+		} catch (Exception ex) {
 			CommonTasks.showLogs(context, ex.getMessage());
 		}
 		return jobView;

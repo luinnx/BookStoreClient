@@ -103,9 +103,9 @@ public class AddTeacherActivity extends BookStoreActionBarBase implements
 		IAdminManager adminManager = new AdminManager();
 		return adminManager.addTeacher(etTeacherFullName.getText().toString()
 				.trim(), 
-				etTeacherUserName.getText().toString().trim()==""?" ":etTeacherUserName.getText().toString().trim(),
-				etTeacherPassword.getText().toString().trim()==""?" ":etTeacherPassword.getText().toString().trim(),
-				etTeacherMobileNumber.getText().toString().trim()==""?" ":etTeacherMobileNumber.getText().toString().trim(),
+				etTeacherUserName.getText().toString().trim().equals("")?"NULL":etTeacherUserName.getText().toString().trim(),
+				etTeacherPassword.getText().toString().trim().equals("")?"NULL":etTeacherPassword.getText().toString().trim(),
+				etTeacherMobileNumber.getText().toString().trim().equals("")?"NULL":etTeacherMobileNumber.getText().toString().trim(),
 				etInstitutionName.getText().toString().trim());
 	}
 

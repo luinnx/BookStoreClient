@@ -112,7 +112,19 @@ public class DonationListAdapter extends ArrayAdapter<DonationEntity> {
 				holder.tvDonationStatus.setText("Status : PENDING");
 			}
 
-			if (donation.pic_url != null) {
+			if (donation.pic_url.equals("")) {
+				aq.id(holder.ivAgentImage).image(
+						context.getResources().getDrawable(
+								R.drawable.ic_person_24));
+			} else {
+
+				holder.ivAgentImage.setImageBitmap(CommonTasks
+						.createCircularShape(CommonTasks.getBitmapFromSdCard(
+								context, "/sdcard/BookStore/" + ""
+										+ donation.agentid + ".png")));
+			}
+			
+			/*if (donation.pic_url != null) {
 				aq.id(holder.ivAgentImage).image(
 						context.getResources()
 								.getDrawable(R.drawable.ic_person));
@@ -120,7 +132,7 @@ public class DonationListAdapter extends ArrayAdapter<DonationEntity> {
 				aq.id(holder.ivAgentImage)
 						.image((CommonUrls.getInstance().IMAGE_BASE_URL + donation.pic_url
 								.toString()), imgOptions);
-			}
+			}*/
 
 		} catch (Exception ex) {
 			CommonTasks.showLogs(context, ex.getMessage());
