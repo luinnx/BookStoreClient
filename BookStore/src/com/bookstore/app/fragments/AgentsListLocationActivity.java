@@ -270,21 +270,6 @@ public class AgentsListLocationActivity extends Fragment implements
 					continue;
 				// create instance of latlng class.
 				LatLng Location = new LatLng(lat, lng);
-				/*
-				 * // Create instance of geocoder that is used for geting //
-				 * address if marker pointer in pressed. Geocoder geocoder = new
-				 * Geocoder(getActivity(), Locale.getDefault()); // get list of
-				 * address where lat and lang r putted List<Address> addresses =
-				 * geocoder.getFromLocation( Location.latitude,
-				 * Location.longitude, 1); // check address are available and
-				 * get it using for loop and // store in address if (addresses
-				 * != null && addresses.size() > 0) { Address address =
-				 * addresses.get(0); for (int lineIndex = 0; lineIndex < address
-				 * .getMaxAddressLineIndex(); lineIndex++) { addressText =
-				 * addressText + address.getAddressLine(lineIndex) + ", "; }
-				 * addressText = addressText + address.getLocality() + ", " +
-				 * address.getCountryName();
-				 */
 
 				View marker = ((LayoutInflater) getActivity().getSystemService(
 						Context.LAYOUT_INFLATER_SERVICE)).inflate(
@@ -294,16 +279,6 @@ public class AgentsListLocationActivity extends Fragment implements
 				CircularImageView ivAgentImage = (CircularImageView) marker
 						.findViewById(R.id.ivMapAgentImage);
 				numTxt.setText(agentListRoot2.agentList.get(rowIndex).full_name);
-
-				/*
-				 * CommonTasks .createCircularShape(mapPhotoList.get(rowIndex))
-				 */
-
-				/*
-				 * ivAgentImage.setImageBitmap(CommonTasks.createCircularShape(
-				 * CommonTasks .getBitmapFromSdCard("/sdcard/BookStore/" + "" +
-				 * agentListRoot2.agentList .get(rowIndex)._id + ".png")));
-				 */
 
 				ivAgentImage.setImageBitmap(CommonTasks
 						.createCircularShape(CommonTasks.getBitmapFromSdCard(

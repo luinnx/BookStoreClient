@@ -60,8 +60,8 @@ public class DonationAcceptRejectActivity extends BookStoreActionBarBase
 		btnOK = (Button) findViewById(R.id.btnOK);
 		btnSubmit = (Button) findViewById(R.id.btnSubmit);
 		btnReject = (Button) findViewById(R.id.btnReject);
-		trApprovedAmount=(TableRow) findViewById(R.id.trApprovedAmount);
-		ivAgentImage=(ImageView) findViewById(R.id.ivAgentImage);
+		trApprovedAmount = (TableRow) findViewById(R.id.trApprovedAmount);
+		ivAgentImage = (ImageView) findViewById(R.id.ivAgentImage);
 		btnSubmit.setText("Accept");
 		btnOK.setOnClickListener(this);
 		btnSubmit.setOnClickListener(this);
@@ -137,17 +137,19 @@ public class DonationAcceptRejectActivity extends BookStoreActionBarBase
 				} else if (donationEntity.donationstatus == CommonConstraints.DONATION_SUBMIT) {
 					tvDonationStatus.setText("PENDING");
 				}
-				
+
 				if (donationEntity.pic_url.equals("")) {
-					ivAgentImage.setImageDrawable((
-							getResources().getDrawable(
-									R.drawable.ic_person_24)));
+					ivAgentImage.setImageDrawable((getResources()
+							.getDrawable(R.drawable.ic_person_24)));
 				} else {
 
 					ivAgentImage.setImageBitmap(CommonTasks
-							.createCircularShape(CommonTasks.getBitmapFromSdCard(
-									getApplicationContext(), "/sdcard/BookStore/" + ""
-											+ donationEntity.agentid + ".png")));
+							.createCircularShape(CommonTasks
+									.getBitmapFromSdCard(
+											getApplicationContext(),
+											"/sdcard/BookStore/" + ""
+													+ donationEntity.agentid
+													+ ".png")));
 				}
 
 				tvRequestDate.setText((String) DateUtils

@@ -2,7 +2,6 @@ package com.bookstore.app.activity;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -34,14 +33,11 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.ImageOptions;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.BookStoreActionBarBase;
-import com.bookstore.app.entities.AgentEntity;
-import com.bookstore.app.entities.AgentLocationEntity;
 import com.bookstore.app.entities.AgentLocationRelated;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
 import com.bookstore.app.utils.CommonTasks;
-import com.bookstore.app.utils.CommonUrls;
 import com.bookstore.app.utils.ImageLoader;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -203,6 +199,7 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 		} else {
 			CommonTasks.showToast(getApplicationContext(),
 					"Internal Server error , please try again");
+			onBackPressed();
 		}
 
 	}
