@@ -10,17 +10,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:orientation="vertical" >
-        
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:text="TOUR Transportation COST"
-            android:layout_gravity="center"
             android:textColor="@color/text_color"
             android:textSize="17sp"
             android:textStyle="bold" />
+
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
@@ -75,9 +76,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:background="#00F" />
-        
-        
-        
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -85,14 +84,14 @@
 
             <TimePicker
                 android:id="@+id/ivStartTime"
-                android:layout_width="60dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="3dp"
-                android:layout_marginRight="1dp"
+                android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 android:gravity="right"
-                 />
+                android:visibility="gone"/>
 
             <EditText
                 android:id="@+id/etFrom"
@@ -107,30 +106,22 @@
                 android:textColor="@color/text_color" >
             </EditText>
         </RelativeLayout>
-        
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <!--
-        <TimePicker
-        android:id="@+id/ivEndTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-            -->
-
-            
             <TimePicker
                 android:id="@+id/ivEndTime"
                 android:layout_width="60dp"
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="3dp"
-                android:layout_marginRight="1dp"
+                android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
-                android:gravity="right"
-                 />
+                android:gravity="right" 
+                android:visibility="gone"/>
 
             <EditText
                 android:id="@+id/etTo"
@@ -146,61 +137,61 @@
                 android:textColor="@color/text_color" >
             </EditText>
         </RelativeLayout>
-        
+
         <EditText
-                android:id="@+id/etDistance"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:hint="Approximate Distance"
-                android:inputType="text"
-                android:textColor="@color/text_color" >
-            </EditText>
-            
+            android:id="@+id/etDistance"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:hint="Approximate Distance"
+            android:inputType="text"
+            android:textColor="@color/text_color" >
+        </EditText>
+
         <EditText
-                android:id="@+id/etCarName"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:hint="Which Vehicle"
-                android:inputType="text"
-                android:textColor="@color/text_color" >
-            </EditText>
-            
+            android:id="@+id/etCarName"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:hint="Which Vehicle"
+            android:inputType="text"
+            android:textColor="@color/text_color" >
+        </EditText>
+
         <EditText
-                android:id="@+id/etTourPurpose"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:hint="Which Purpose"
-                android:inputType="text"
-                android:textColor="@color/text_color" >
-            </EditText>
-            
+            android:id="@+id/etTourPurpose"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:hint="Which Purpose"
+            android:inputType="text"
+            android:textColor="@color/text_color" >
+        </EditText>
+
         <EditText
-                android:id="@+id/etTourCost"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:hint="Tour Cost"
-                android:inputType="text"
-                android:textColor="@color/text_color" >
-            </EditText>
-            <EditText
-                android:id="@+id/etOtherCost"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:hint="Others Cost"
-                android:inputType="text"
-                android:textColor="@color/text_color" >
-            </EditText>
-        
+            android:id="@+id/etTourCost"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:hint="Tour Cost"
+            android:inputType="text"
+            android:textColor="@color/text_color" >
+        </EditText>
+
+        <EditText
+            android:id="@+id/etOtherCost"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:hint="Others Cost"
+            android:inputType="text"
+            android:textColor="@color/text_color" >
+        </EditText>
     </LinearLayout>
 
 </LinearLayout>

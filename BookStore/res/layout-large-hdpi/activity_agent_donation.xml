@@ -12,12 +12,12 @@
         android:layout_height="70dp"
         android:ems="10"
         android:hint="@string/donation_amount"
-        android:inputType="numberDecimal"
         android:singleLine="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp" >
-
+        android:layout_marginTop="10dp"
+        android:inputType="numberPassword" >
+	
         <requestFocus />
     </EditText>
 
@@ -27,19 +27,18 @@
         android:layout_height="70dp"
         android:ems="10"
         android:hint="@string/donation_comment"
-        android:inputType="textMultiLine"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:inputType="text"
+        android:singleLine="true" />
 
     <Button
         android:id="@+id/btn_donation_submit"
         android:layout_width="fill_parent"
-        android:layout_height="70dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="50dp"
         android:text="Submit"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        style="@style/Button_Style" />
+        style="@style/Button_Style" 
+        android:layout_margin="10dp"/>
 
 </LinearLayout>

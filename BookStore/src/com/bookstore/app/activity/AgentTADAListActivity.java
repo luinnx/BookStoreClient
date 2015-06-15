@@ -123,7 +123,7 @@ public class AgentTADAListActivity extends AgentActionbarBase implements
 			if(whichMode.equals("download_all_tada")){
 				if(taDaListRoot != null && taDaListRoot.tadaList.size()>0){
 					adapter = new TaDaListAdapter(getApplicationContext(),
-							R.layout.agent_list_item, taDaListRoot.tadaList);
+							R.layout.tada_list_item, taDaListRoot.tadaList);
 					lvAllTaDaList.setAdapter(adapter);
 				}				
 			}else if(whichMode.equals("download_next_tada")){
