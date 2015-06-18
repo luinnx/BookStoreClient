@@ -93,7 +93,7 @@ public class TaDaListAdapter extends ArrayAdapter<TadaListEntity> {
 			holder.tvDistance.setText("Distance : "+taDaEntity.distance+" KM");
 			holder.tvTotalAmount.setText("Total Amount : "+taDaEntity.totalamount +"Tk.");
 			
-			if(taDaEntity.tadastatus==CommonConstraints.TADA_COMPLETED){
+			if(taDaEntity.status.equals("2")){
 				holder.tvTadaStatus.setText("Status : COMPLETE");
 			}else {
 				holder.tvTadaStatus.setText("Status : PENDING");

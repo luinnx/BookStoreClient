@@ -44,7 +44,7 @@ public abstract class AgentActionbarBase extends FragmentActivity implements
 
 	private void createActionBar() {
 		actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setDisplayHomeAsUpEnabled(false);
 		actionBar.setDisplayShowTitleEnabled(true);
 		actionBar.setHomeButtonEnabled(true);
 

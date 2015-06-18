@@ -136,8 +136,8 @@ public class AgentTADAListActivity extends AgentActionbarBase implements
 			}
 
 		} else {
-			CommonTasks.showToast(getApplicationContext(),
-					"Internal Server Error. Please Try again");
+			/*CommonTasks.showToast(getApplicationContext(),
+					"Internal Server Error. Please Try again");*/
 		}
 
 	}
