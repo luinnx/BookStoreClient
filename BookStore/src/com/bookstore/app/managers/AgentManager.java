@@ -7,7 +7,6 @@ import org.json.simple.JSONObject;
 import android.util.Log;
 
 import com.bookstore.app.entities.AgentDonationEntityRoot;
-import com.bookstore.app.entities.AgentDonationResultEntity;
 import com.bookstore.app.entities.AgentInfo;
 import com.bookstore.app.entities.AgentJobListRoot;
 import com.bookstore.app.entities.AgentTaDaResultEntity;
@@ -29,10 +28,12 @@ public class AgentManager implements IAgent {
 					.retrieveDataFromStream(String.format(
 							CommonUrls.getInstance().agentJobList, agentId,
 							job_status, pageIndex), AgentJobListRoot.class);
+			if(agentJobListRoot.agentJobList.size()>0)
+				return agentJobListRoot;
 		} catch (Exception ex) {
 			Log.e("BS", ex.getMessage());
 		}
-		return agentJobListRoot;
+		return null;
 	}
 
 	@Override
@@ -130,11 +131,13 @@ public class AgentManager implements IAgent {
 			listRoot=(TaDaListRoot) JSONfunctions.retrieveDataFromStream(String
 					.format(CommonUrls.getInstance().agent_tada_list,agentId,
 							pageIndex), TaDaListRoot.class);
+			if(listRoot.tadaList.size()>0)
+				return listRoot;
 		}catch(Exception exception){
 			Log.e("BS", exception.getMessage());
 		}
 		
-		return listRoot;
+		return null;
 	}
 
 	@Override
@@ -164,10 +167,12 @@ public class AgentManager implements IAgent {
 			listRoot=(AgentDonationEntityRoot) JSONfunctions.retrieveDataFromStream(String
 					.format(CommonUrls.getInstance().agent_donation_list,agentId,
 							pageIndex), AgentDonationEntityRoot.class);
+			if(listRoot.donationList.size()>0)
+				return listRoot;
 		}catch(Exception exception){
 			Log.e("BS", exception.getMessage());
 		}		
-		return listRoot;
+		return null;
 	}
 
 }

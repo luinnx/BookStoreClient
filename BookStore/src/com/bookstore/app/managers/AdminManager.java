@@ -2,14 +2,10 @@ package com.bookstore.app.managers;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.util.Base64;
 import android.util.Log;
 
 import com.bookstore.app.entities.AgentDonationResultEntity;
-import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.AgentListRoot;
 import com.bookstore.app.entities.AgentLocationMapRoot;
 import com.bookstore.app.entities.AgentLocationRelated;
@@ -28,7 +24,6 @@ import com.bookstore.app.entities.TeacherListRoot;
 import com.bookstore.app.entities.UserListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.utils.CommonConstraints;
-import com.bookstore.app.utils.CommonTasks;
 import com.bookstore.app.utils.CommonUrls;
 import com.bookstore.app.utils.JSONfunctions;
 
@@ -79,11 +74,13 @@ public class AdminManager implements IAdminManager {
 			listRoot = (TeacherListRoot) JSONfunctions.retrieveDataFromStream(
 					String.format(CommonUrls.getInstance().getAllTeacher),
 					TeacherListRoot.class);
+			if (listRoot.teacherList.size() > 0)
+				return listRoot;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		return listRoot;
+		return null;
 	}
 
 	@Override
@@ -93,7 +90,9 @@ public class AdminManager implements IAdminManager {
 		entity = (LoginEntity) JSONfunctions.retrieveDataFromStream(String
 				.format(CommonUrls.getInstance().getAuthentication, email,
 						password, imei), LoginEntity.class);
-		return entity;
+		if (entity != null)
+			return entity;
+		return null;
 	}
 
 	@Override
@@ -102,7 +101,9 @@ public class AdminManager implements IAdminManager {
 		entity = (JobEntity) JSONfunctions.retrieveDataFromStream(String
 				.format(CommonUrls.getInstance().individualJobDetails, jobId),
 				JobEntity.class);
-		return entity;
+		if (entity != null)
+			return entity;
+		return null;
 	}
 
 	/*
@@ -149,8 +150,8 @@ public class AdminManager implements IAdminManager {
 	public AgentLocationRelated getIndividualAgentDetails(String agentID) {
 		AgentLocationRelated agentEntity = null;
 		try {
-			agentEntity = (AgentLocationRelated) JSONfunctions.retrieveDataFromStream(
-					String.format(
+			agentEntity = (AgentLocationRelated) JSONfunctions
+					.retrieveDataFromStream(String.format(
 							CommonUrls.getInstance().getIndividualAgentDetails,
 							agentID), AgentLocationRelated.class);
 			if (agentEntity != null)
@@ -167,7 +168,10 @@ public class AdminManager implements IAdminManager {
 		bookListRoot = (BookListRoot) JSONfunctions.retrieveDataFromStream(
 				String.format(CommonUrls.getInstance().getAllBooks, pageIndex),
 				BookListRoot.class);
-		return bookListRoot;
+		if (bookListRoot.bookList.size() > 0)
+			return bookListRoot;
+
+		return null;
 	}
 
 	@Override
@@ -251,7 +255,11 @@ public class AdminManager implements IAdminManager {
 				String.format(CommonUrls.getInstance().searchSpeceficBooks,
 						catagory, subCatagory, subSubCatagory),
 				BookListRoot.class);
-		return bookListRoot;
+
+		if (bookListRoot.bookList.size() > 0)
+			return bookListRoot;
+
+		return null;
 	}
 
 	@Override
@@ -283,31 +291,25 @@ public class AdminManager implements IAdminManager {
 				.retrieveDataFromStream(String.format(
 						CommonUrls.getInstance().getDonationList, index),
 						DonationListRoot.class);
-		return donationListRoot;
+
+		if (donationListRoot.donationList.size() > 0)
+			return donationListRoot;
+
+		return null;
 	}
 
 	@Override
 	public AgentLocationMapRoot getAgentsLocation() {
-
-		List<Object> complexList = new ArrayList<Object>();
 
 		AgentLocationMapRoot agentLocationMapRoot = null;
 		agentLocationMapRoot = (AgentLocationMapRoot) JSONfunctions
 				.retrieveDataFromStream(
 						String.format(CommonUrls.getInstance().getAgentsLocationList),
 						AgentLocationMapRoot.class);
+		if (agentLocationMapRoot.agentLocationList.size() > 0)
+			return agentLocationMapRoot;
 
-		/*
-		 * complexList.add(agentLocationMapRoot);
-		 * 
-		 * AgentListRoot agentListRoot = null; try { agentListRoot =
-		 * (AgentListRoot) JSONfunctions .retrieveDataFromStream(String.format(
-		 * CommonUrls.getInstance().getAllAgent, pageIndex),
-		 * AgentListRoot.class); complexList.add(agentListRoot); } catch
-		 * (Exception ex) { ex.printStackTrace(); }
-		 */
-
-		return agentLocationMapRoot;
+		return null;
 	}
 
 	@Override
@@ -331,11 +333,13 @@ public class AdminManager implements IAdminManager {
 			listRoot = (TaDaListRoot) JSONfunctions.retrieveDataFromStream(
 					String.format(CommonUrls.getInstance().getTadaList,
 							pageIndex), TaDaListRoot.class);
+			if(listRoot.tadaList.size()>0)
+				return listRoot;
 		} catch (Exception exception) {
 			Log.e("BS", exception.getMessage());
 		}
 
-		return listRoot;
+		return null;
 	}
 
 	@Override
@@ -346,8 +350,8 @@ public class AdminManager implements IAdminManager {
 		try {
 			result = (Boolean) JSONfunctions.retrieveDataFromStream(String
 					.format(CommonUrls.getInstance().setDonationACK,
-							donationID, agentGcmID,
-							donationStatus, adminID,amount), Boolean.class);
+							donationID, agentGcmID, donationStatus, adminID,
+							amount), Boolean.class);
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
@@ -356,13 +360,13 @@ public class AdminManager implements IAdminManager {
 	}
 
 	@Override
-	public boolean tadaAck(String tadaID, String agentGcmID, int tadastatus,String adminID) {
+	public boolean tadaAck(String tadaID, String agentGcmID, int tadastatus,
+			String adminID) {
 		boolean result = false;
 		try {
 			result = (Boolean) JSONfunctions.retrieveDataFromStream(String
-					.format(CommonUrls.getInstance().setTadaACK,
-							tadaID, agentGcmID,
-									tadastatus, adminID), Boolean.class);
+					.format(CommonUrls.getInstance().setTadaACK, tadaID,
+							agentGcmID, tadastatus, adminID), Boolean.class);
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
@@ -373,9 +377,9 @@ public class AdminManager implements IAdminManager {
 	@Override
 	public JobAcceptRejectDetails getJobInfoAcceptReject(String jobID) {
 		JobAcceptRejectDetails entity = null;
-		entity = (JobAcceptRejectDetails) JSONfunctions.retrieveDataFromStream(String
-				.format(CommonUrls.getInstance().jobDetailsAcceptReject, jobID),
-				JobAcceptRejectDetails.class);
+		entity = (JobAcceptRejectDetails) JSONfunctions.retrieveDataFromStream(
+				String.format(CommonUrls.getInstance().jobDetailsAcceptReject,
+						jobID), JobAcceptRejectDetails.class);
 		return entity;
 	}
 
@@ -384,13 +388,15 @@ public class AdminManager implements IAdminManager {
 			String agentGcmID, String bookid, String no_of_book,
 			String jobStatus, String remarks) {
 		boolean result = false;
-		//jobID=%s&adminID=%s&agentGcmID=%s&bookid=%s&no_of_book=%s&jobStatus=%s&remarks=%s
+		// jobID=%s&adminID=%s&agentGcmID=%s&bookid=%s&no_of_book=%s&jobStatus=%s&remarks=%s
 		try {
 			result = (Boolean) JSONfunctions.retrieveDataFromStream(String
-					.format(CommonUrls.getInstance().setJobSubmitACK,
-							jobID, adminID,URLEncoder.encode(agentGcmID,
-									CommonConstraints.EncodingCode), bookid, no_of_book, jobStatus, URLEncoder.encode(remarks,
-									CommonConstraints.EncodingCode)), Boolean.class);
+					.format(CommonUrls.getInstance().setJobSubmitACK, jobID,
+							adminID, URLEncoder.encode(agentGcmID,
+									CommonConstraints.EncodingCode), bookid,
+							no_of_book, jobStatus, URLEncoder.encode(remarks,
+									CommonConstraints.EncodingCode)),
+					Boolean.class);
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
@@ -400,29 +406,31 @@ public class AdminManager implements IAdminManager {
 
 	@Override
 	public DonationEntity getIndividualDonationDetails(String donationId) {
-		DonationEntity donationEntity=null;
-		donationEntity = (DonationEntity) JSONfunctions.retrieveDataFromStream(String
-				.format(CommonUrls.getInstance().getIndividialDonation, donationId),
-				DonationEntity.class);
+		DonationEntity donationEntity = null;
+		donationEntity = (DonationEntity) JSONfunctions.retrieveDataFromStream(
+				String.format(CommonUrls.getInstance().getIndividialDonation,
+						donationId), DonationEntity.class);
 		return donationEntity;
 	}
 
 	@Override
 	public AgentDonationResultEntity agentGetIndividualDonationDetails(
 			String donationId) {
-		AgentDonationResultEntity donationEntity=null;
-		donationEntity = (AgentDonationResultEntity) JSONfunctions.retrieveDataFromStream(String
-				.format(CommonUrls.getInstance().agentGetIndividualDonationDetails, donationId),
-				AgentDonationResultEntity.class);
+		AgentDonationResultEntity donationEntity = null;
+		donationEntity = (AgentDonationResultEntity) JSONfunctions
+				.retrieveDataFromStream(
+						String.format(
+								CommonUrls.getInstance().agentGetIndividualDonationDetails,
+								donationId), AgentDonationResultEntity.class);
 		return donationEntity;
 	}
 
 	@Override
 	public Boolean addIMEI(String IMEI) {
 		Boolean result = false;
-		result = (Boolean) JSONfunctions.retrieveDataFromStream(String
-				.format(CommonUrls.getInstance().addImei,
-						IMEI), Boolean.class);
+		result = (Boolean) JSONfunctions.retrieveDataFromStream(
+				String.format(CommonUrls.getInstance().addImei, IMEI),
+				Boolean.class);
 
 		return result;
 	}
@@ -431,21 +439,21 @@ public class AdminManager implements IAdminManager {
 	public boolean bookEdit(int quantity, int available, double price,
 			int bookid) {
 		Boolean result = false;
-		result = (Boolean) JSONfunctions.retrieveDataFromStream(String
-				.format(CommonUrls.getInstance().bookEdit,
-						quantity,available,price,bookid), Boolean.class);
+		result = (Boolean) JSONfunctions.retrieveDataFromStream(String.format(
+				CommonUrls.getInstance().bookEdit, quantity, available, price,
+				bookid), Boolean.class);
 
 		return result;
 	}
 
 	@Override
 	public UserListRoot getAllUserList() {
-		
+
 		UserListRoot agentListRoot = null;
 		try {
 			agentListRoot = (UserListRoot) JSONfunctions
-					.retrieveDataFromStream(String.format(
-							CommonUrls.getInstance().getAllUser),
+					.retrieveDataFromStream(
+							String.format(CommonUrls.getInstance().getAllUser),
 							UserListRoot.class);
 			if (agentListRoot.agentList.size() > 0)
 				return agentListRoot;
