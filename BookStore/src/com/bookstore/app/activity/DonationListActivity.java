@@ -118,8 +118,8 @@ public class DonationListActivity extends BookStoreActionBarBase implements
 			}
 
 		} else {
-			CommonTasks.showToast(getApplicationContext(),
-					"Internal Server Error. Please Try again");
+			/*CommonTasks.showToast(getApplicationContext(),
+					"Internal Server Error. Please Try again");*/
 		}
 
 	}

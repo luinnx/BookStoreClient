@@ -294,7 +294,7 @@ public class AdminManager implements IAdminManager {
 
 		if (donationListRoot.donationList.size() > 0)
 			return donationListRoot;
-
+		else
 		return null;
 	}
 
