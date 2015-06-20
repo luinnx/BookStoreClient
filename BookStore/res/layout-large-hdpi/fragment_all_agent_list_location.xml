@@ -16,7 +16,7 @@
             android:id="@+id/fragAgentLocationMap"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_weight="4.3"
+            android:layout_weight="4.5"
             class="com.google.android.gms.maps.SupportMapFragment" />
 
         <RelativeLayout
@@ -36,7 +36,7 @@
             android:id="@+id/lvAgentList"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_weight="4.9" >
+            android:layout_weight="4.7" >
         </ListView>
     </LinearLayout>
 
