@@ -621,22 +621,27 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 					count += 1;
 					rowPic.add(Base64.encodeToString(selectedFile,
 							Base64.NO_WRAP));
-					llImagePanel.setVisibility(View.VISIBLE);
-					if(count==1){
-						image1.setVisibility(View.VISIBLE);
-						image1.setImageBitmap(bitmap);
-					}else if(count==2){
-						image2.setVisibility(View.VISIBLE);
-						image2.setImageBitmap(bitmap);
-					}else if(count==3){
-						image3.setVisibility(View.VISIBLE);
-						image3.setImageBitmap(bitmap);
-					}else if(count==4){
-						image4.setVisibility(View.VISIBLE);
-						image4.setImageBitmap(bitmap);
-					}else {
-						CommonTasks.showToast(this, "Maximum number of image are taken!");
+					if(llImagePanel == null){
+						CommonTasks.showToast(getApplicationContext(), "Please take image in landscape mode");
+					}else{
+						llImagePanel.setVisibility(View.VISIBLE);
+						if(count==1){
+							image1.setVisibility(View.VISIBLE);
+							image1.setImageBitmap(bitmap);
+						}else if(count==2){
+							image2.setVisibility(View.VISIBLE);
+							image2.setImageBitmap(bitmap);
+						}else if(count==3){
+							image3.setVisibility(View.VISIBLE);
+							image3.setImageBitmap(bitmap);
+						}else if(count==4){
+							image4.setVisibility(View.VISIBLE);
+							image4.setImageBitmap(bitmap);
+						}else {
+							CommonTasks.showToast(this, "Maximum number of image are taken!");
+						}
 					}
+					
 				} else if (data.getExtras() == null) {
 
 					Toast.makeText(getApplicationContext(),
@@ -664,21 +669,25 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 					count += 1;
 					rowPic.add(Base64.encodeToString(selectedFile,
 							Base64.NO_WRAP));
-					llImagePanel.setVisibility(View.VISIBLE);
-					if(count==1){
-						image1.setVisibility(View.VISIBLE);
-						image1.setImageBitmap(bitmap);
-					}else if(count==2){
-						image2.setVisibility(View.VISIBLE);
-						image2.setImageBitmap(bitmap);
-					}else if(count==3){
-						image3.setVisibility(View.VISIBLE);
-						image3.setImageBitmap(bitmap);
-					}else if(count==4){
-						image4.setVisibility(View.VISIBLE);
-						image4.setImageBitmap(bitmap);
-					}else {
-						CommonTasks.showToast(this, "Maximum number of image are taken!");
+					if(llImagePanel == null){
+						CommonTasks.showToast(getApplicationContext(), "Please take image in landscape mode");
+					}else{
+						llImagePanel.setVisibility(View.VISIBLE);
+						if(count==1){
+							image1.setVisibility(View.VISIBLE);
+							image1.setImageBitmap(bitmap);
+						}else if(count==2){
+							image2.setVisibility(View.VISIBLE);
+							image2.setImageBitmap(bitmap);
+						}else if(count==3){
+							image3.setVisibility(View.VISIBLE);
+							image3.setImageBitmap(bitmap);
+						}else if(count==4){
+							image4.setVisibility(View.VISIBLE);
+							image4.setImageBitmap(bitmap);
+						}else {
+							CommonTasks.showToast(this, "Maximum number of image are taken!");
+						}
 					}
 				}
 

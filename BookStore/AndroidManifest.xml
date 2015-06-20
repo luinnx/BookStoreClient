@@ -126,7 +126,8 @@
         </activity>
         <activity
             android:name="com.bookstore.app.activity.AgentIndividualJobDetailsActivity"
-            android:label="Job Details" >
+            android:label="Job Details"
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="com.bookstore.app.activity.AgentMyProfileActivity"
