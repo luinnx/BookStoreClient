@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background_color"
+    android:gravity="center"
     android:orientation="vertical" >
 
     <ImageView
@@ -11,11 +12,12 @@
         android:layout_gravity="center"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
+        android:visibility="gone"
         android:src="@drawable/ic_launcher" />
 
     <ImageView
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:layout_gravity="center"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -25,7 +27,7 @@
     <ImageView
         android:id="@+id/ivTeachersSigneture"
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:layout_gravity="center"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -52,12 +54,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:visibility="gone" >
+                android:visibility="visible" >
 
                 <ImageView
                     android:id="@+id/ivJobBookImage"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="50dp"
                     android:layout_marginTop="5dp"
@@ -70,11 +72,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_toRightOf="@+id/ivJobBookImage"
                     android:text=""
                     android:textColor="@color/text_color"
-                    android:textSize="25sp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -86,7 +88,7 @@
                     android:layout_toRightOf="@+id/ivJobBookImage"
                     android:text=""
                     android:textColor="@color/text_color"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:textStyle="italic" />
             </RelativeLayout>
 
@@ -98,7 +100,7 @@
                 android:gravity="left"
                 android:text="BooK Info"
                 android:textColor="@color/text_color"
-                android:textSize="25sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <View
@@ -128,7 +130,7 @@
                         android:layout_weight="0.4"
                         android:text="Author"
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -138,7 +140,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -155,7 +157,7 @@
                         android:layout_weight="0.4"
                         android:text="Publisher"
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -165,7 +167,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -182,7 +184,7 @@
                         android:layout_weight="0.4"
                         android:text="ISBN"
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -192,7 +194,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -208,7 +210,7 @@
                         android:layout_weight="0.4"
                         android:text="Quantity"
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -218,7 +220,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -235,7 +237,7 @@
                         android:layout_weight="0.4"
                         android:text="Publish date"
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -245,7 +247,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -261,7 +263,7 @@
                         android:layout_weight="0.4"
                         android:text="Price"
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -271,7 +273,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
             </LinearLayout>
@@ -284,7 +286,7 @@
                 android:gravity="left"
                 android:text="Teacher Info"
                 android:textColor="@color/text_color"
-                android:textSize="25sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <View
@@ -315,7 +317,7 @@
                         android:layout_weight="0.4"
                         android:text="Name"
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -325,7 +327,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -341,7 +343,7 @@
                         android:layout_weight="0.4"
                         android:text="Institution"
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -351,7 +353,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -368,7 +370,7 @@
                         android:layout_weight="0.4"
                         android:text="Mobile"
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -378,7 +380,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
             </LinearLayout>
@@ -391,7 +393,7 @@
                 android:gravity="left"
                 android:text="Agent Info"
                 android:textColor="@color/text_color"
-                android:textSize="25sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <View
@@ -422,7 +424,7 @@
                         android:layout_weight="0.4"
                         android:text="Name"
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -432,7 +434,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -449,7 +451,7 @@
                         android:layout_weight="0.4"
                         android:text="Address"
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -459,7 +461,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -476,7 +478,7 @@
                         android:layout_weight="0.4"
                         android:text="Current Location"
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -486,7 +488,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -502,7 +504,7 @@
                         android:layout_weight="0.4"
                         android:text="Mobile"
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -512,7 +514,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -528,7 +530,7 @@
                         android:layout_weight="0.4"
                         android:text="Remarks"
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <EditText
@@ -538,7 +540,7 @@
                         android:layout_weight="0.6"
                         android:hint="Add Remarks"
                         android:textColor="@color/text_color"
-                        android:textSize="25sp"
+                        android:textSize="15sp"
                         android:textStyle="normal" />
                 </TableRow>
             </LinearLayout>
@@ -574,7 +576,9 @@
                     android:id="@+id/btnAccept"
                     style="@style/Button_Style"
                     android:layout_width="0dp"
-                    android:layout_height="70dp"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp"
+                    android:textSize="17sp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:text="Accept" />

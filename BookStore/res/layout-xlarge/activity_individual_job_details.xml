@@ -11,6 +11,7 @@
         android:layout_gravity="center"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
+        android:visibility="gone"
         android:src="@drawable/ic_launcher" />
 
     <ImageView
@@ -49,8 +50,8 @@
 
                 <ImageView
                     android:id="@+id/ivJobBookImage"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="130dp"
+                    android:layout_height="80dp"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="50dp"
                     android:layout_marginTop="5dp"
@@ -65,7 +66,7 @@
                     android:layout_toRightOf="@+id/ivJobBookImage"
                     android:text=""
                     android:textColor="@color/text_color"
-                    android:textSize="19sp"
+                    android:textSize="32sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -78,7 +79,7 @@
                     android:layout_below="@+id/tvJobId"
                     android:text=""
                     android:textColor="@color/text_color"
-                    android:textSize="18sp"
+                    android:textSize="30sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -90,7 +91,7 @@
                     android:layout_toRightOf="@+id/ivJobBookImage"
                     android:text=""
                     android:textColor="@color/text_color"
-                    android:textSize="18sp"
+                    android:textSize="30sp"
                     android:textStyle="italic" />
                 
                 <TextView
@@ -102,7 +103,7 @@
                     android:layout_toRightOf="@+id/ivJobBookImage"
                     android:text=""
                     android:textColor="@color/text_color"
-                    android:textSize="18sp"
+                    android:textSize="30sp"
                     android:textStyle="italic" />
             </RelativeLayout>
 
@@ -114,7 +115,7 @@
                 android:gravity="left"
                 android:text="BooK Info"
                 android:textColor="@color/text_color"
-                android:textSize="15sp"
+                android:textSize="35dp"
                 android:textStyle="bold" />
 
             <View
@@ -144,7 +145,7 @@
                         android:layout_weight="0.4"
                         android:text="Author"
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -154,7 +155,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -171,7 +172,7 @@
                         android:layout_weight="0.4"
                         android:text="Publisher"
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -181,7 +182,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -197,7 +198,7 @@
                         android:layout_weight="0.4"
                         android:text="ISBN"
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -207,7 +208,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -223,7 +224,7 @@
                         android:layout_weight="0.4"
                         android:text="Quantity"
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -233,7 +234,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -249,7 +250,7 @@
                         android:layout_weight="0.4"
                         android:text="Publish date"
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -259,7 +260,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -275,7 +276,7 @@
                         android:layout_weight="0.4"
                         android:text="Price"
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -285,7 +286,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="normal" />
                 </TableRow>
                 <TableRow
@@ -301,7 +302,7 @@
                         android:layout_weight="0.4"
                         android:text="Price"
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -311,7 +312,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="normal" />
                 </TableRow>
             </LinearLayout>
@@ -324,7 +325,7 @@
                 android:gravity="left"
                 android:text="Teacher Info"
                 android:textColor="@color/text_color"
-                android:textSize="15sp"
+                android:textSize="35dp"
                 android:textStyle="bold" />
 
             <View
@@ -355,7 +356,7 @@
                         android:layout_weight="0.4"
                         android:text="Name"
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -365,7 +366,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -381,7 +382,7 @@
                         android:layout_weight="0.4"
                         android:text="Institution"
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -391,7 +392,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -407,7 +408,7 @@
                         android:layout_weight="0.4"
                         android:text="Mobile"
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -417,7 +418,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="normal" />
                 </TableRow>
             </LinearLayout>
@@ -430,7 +431,7 @@
                 android:gravity="left"
                 android:text="Agent Info"
                 android:textColor="@color/text_color"
-                android:textSize="15sp"
+                android:textSize="35dp"
                 android:textStyle="bold" />
 
             <View
@@ -461,7 +462,7 @@
                         android:layout_weight="0.4"
                         android:text="Name"
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -471,7 +472,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -487,7 +488,7 @@
                         android:layout_weight="0.4"
                         android:text="Address"
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -497,7 +498,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -513,7 +514,7 @@
                         android:layout_weight="0.4"
                         android:text="Current Location"
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -523,7 +524,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="normal" />
                 </TableRow>
 
@@ -539,7 +540,7 @@
                         android:layout_weight="0.4"
                         android:text="Mobile"
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -549,7 +550,7 @@
                         android:layout_weight="0.6"
                         android:text=""
                         android:textColor="@color/text_color"
-                        android:textSize="15sp"
+                        android:textSize="35dp"
                         android:textStyle="normal" />
                 </TableRow>
             </LinearLayout>
@@ -558,7 +559,9 @@
                 android:id="@+id/btnOk"
                 style="@style/Button_Style"
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="35sp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"

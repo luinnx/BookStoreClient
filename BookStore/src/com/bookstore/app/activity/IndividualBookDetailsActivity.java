@@ -2,6 +2,7 @@ package com.bookstore.app.activity;
 
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -97,6 +98,9 @@ public class IndividualBookDetailsActivity extends BookStoreActionBarBase
 		bitmap = CommonTasks.getBitMapFromUrl(CommonUrls
 				.getInstance().IMAGE_BASE_URL
 				+ bookEntity.pic_url);
+		if(bitmap==null){
+			bitmap=BitmapFactory.decodeResource(getResources(), R.drawable.ic_book_64);
+		}
 		return bookEntity;
 		
 		
@@ -107,7 +111,7 @@ public class IndividualBookDetailsActivity extends BookStoreActionBarBase
 		if (data != null) {
 			BookEntity bookEntity = new BookEntity();
 			bookEntity = (BookEntity) data;
-			tvBookName.setText(bookEntity.full_name);
+			tvBookName.setText("Book Name : "+bookEntity.full_name);
 			tvISBNNumber.setText(bookEntity.isbn_no);
 			tvPublisherName.setText(bookEntity.publisher_name);
 			tvBookQuantity.setText("" + bookEntity.quantity);

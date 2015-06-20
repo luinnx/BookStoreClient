@@ -77,6 +77,8 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 		tvAgentsMobileNumber = (TextView) findViewById(R.id.tvAgentsMobileNumber);
 		etAdminRemarks = (EditText) findViewById(R.id.etAdminRemarks);
 		ivTeachersSigneture = (ImageView) findViewById(R.id.ivTeachersSigneture);
+		tvNameBook = (TextView) findViewById(R.id.tvNameBook);
+		tvJobStatus = (TextView) findViewById(R.id.tvJobStatus);
 
 		ivTeachersSigneture.setOnClickListener(this);
 
@@ -118,20 +120,19 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 			jobDetails = adminManager.getJobInfoAcceptReject(jobID);
 			try {
 				if (!jobDetails.teachersignature.equals("")) {
-					/*URL url = new URL(CommonUrls.getInstance().IMAGE_BASE_URL
-							+ jobDetails.teachersignature);
-					HttpURLConnection connection = (HttpURLConnection) url
-							.openConnection();
-					connection.setDoInput(true);
-					connection.connect();
-					InputStream input = connection.getInputStream();*/
-					
-					
+					/*
+					 * URL url = new URL(CommonUrls.getInstance().IMAGE_BASE_URL
+					 * + jobDetails.teachersignature); HttpURLConnection
+					 * connection = (HttpURLConnection) url .openConnection();
+					 * connection.setDoInput(true); connection.connect();
+					 * InputStream input = connection.getInputStream();
+					 */
+
 					signetureBitmap = CommonTasks.getBitMapFromUrl(CommonUrls
 							.getInstance().IMAGE_BASE_URL
 							+ jobDetails.teachersignature);
-					
-					//ivTeachersSigneture.setImageBitmap(signetureBitmap);
+
+					// ivTeachersSigneture.setImageBitmap(signetureBitmap);
 				} else {
 					ivTeachersSigneture.setImageBitmap(BitmapFactory
 							.decodeResource(getResources(),
@@ -188,6 +189,8 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 		tvInstitudes.setText(jobDetails.institute);
 		tvAgentName.setText(jobDetails.agentname);
 		tvAgentsMobileNumber.setText(jobDetails.agentmobilenumber);
+		tvNameBook.setText("Book Name : " + jobDetails2.bookname);
+		tvJobStatus.setText("Assigned By :" + jobDetails2.adminname);
 
 	}
 

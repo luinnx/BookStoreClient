@@ -39,7 +39,7 @@ public class JobAcceptRejectDetails {
 	@SerializedName("institute")
 	public String institute;
 	@SerializedName("jobstatus")
-	public boolean jobstatus;
+	public String jobstatus;
 	@SerializedName("isbn")
 	public String isbn;
 	@SerializedName("agentmobilenumber")
@@ -51,4 +51,6 @@ public class JobAcceptRejectDetails {
 	public String authername;
 	@SerializedName("agentcurrentlocation")
 	public String agentcurrentlocation;
+	@SerializedName("adminname")
+	public String adminname;
 }

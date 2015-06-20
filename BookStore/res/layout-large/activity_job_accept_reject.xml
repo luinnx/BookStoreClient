@@ -4,24 +4,6 @@
     android:layout_height="match_parent"
     android:background="@color/app_background_color"
     android:orientation="vertical" >
-
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/ic_launcher" />
-
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_app_name" />
-    
     <ImageView
         android:id="@+id/ivTeachersSigneture"
         android:layout_width="fill_parent"
@@ -55,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:visibility="gone" >
+                android:visibility="visible" >
 
                 <ImageView
                     android:id="@+id/ivJobBookImage"
@@ -73,7 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_toRightOf="@+id/ivJobBookImage"
                     android:text=""
                     android:textColor="@color/text_color"
