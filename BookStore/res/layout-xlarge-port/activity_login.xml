@@ -58,7 +58,7 @@
 
         <Button
             android:id="@+id/b_Login"
-            style="@style/Button_Style"
+           android:background="@drawable/button_bg"
             android:layout_width="fill_parent"
             android:layout_height="70dp"
             android:layout_marginLeft="30dp"
@@ -68,7 +68,7 @@
 
         <Button
             android:id="@+id/b_ForgotPassword"
-            style="@style/Button_Style"
+           android:background="@drawable/button_bg"
             android:layout_width="fill_parent"
             android:layout_height="70dp"
             android:layout_marginLeft="30dp"

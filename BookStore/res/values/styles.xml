@@ -64,12 +64,12 @@
 
     <style name="Button_Style">
 
-        <!--
-        <item name="android:background">#245b9b</item>
+        
+        <!-- <item name="android:background">#245b9b</item>
         <item name="android:textColor">#fff</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">bold</item>
-        -->
+        <item name="android:textStyle">bold</item> -->
+       
         <item name="android:buttonStyle">@style/button</item>
     </style>
 

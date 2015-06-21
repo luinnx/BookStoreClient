@@ -111,12 +111,8 @@ public class TaDaListAdapter extends ArrayAdapter<TadaListEntity> {
 								context, "/sdcard/BookStore/" + ""
 										+ taDaEntity.agentid + ".png")));
 			}
-			
-			/*if(!taDaEntity.agentpic .equals("")){
-				aq.id(holder.ivAgentImage).image((CommonUrls.getInstance().IMAGE_BASE_URL+taDaEntity.agentpic.toString()),imgOptions);
-			}else{
-				aq.id(holder.ivAgentImage).image(context.getResources().getDrawable(R.drawable.ic_person));
-			}*/
+			holder.tvAgentName.setVisibility(View.GONE);
+			holder.ivAgentImage.setVisibility(View.GONE);
 			
 		}catch(Exception ex){
 			CommonTasks.showLogs(context, ex.getMessage());

@@ -9,6 +9,7 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
@@ -21,18 +22,21 @@ import com.bookstore.app.managers.AdminManager;
 import com.bookstore.app.utils.CommonTasks;
 import com.bookstore.app.utils.CommonValues;
 
-public class AgentDonationAcceptRejectResultActivity extends
-		AgentActionbarBase implements IAsynchronousTask, OnClickListener {
+public class AgentDonationAcceptRejectResultActivity extends AgentActionbarBase
+		implements IAsynchronousTask, OnClickListener {
 
 	AgentDonationResultEntity donationEntity;
 	Button btnOK;
-	TextView tvAgentName, tvDonationAmount, tvRequestDate, tvApprovedAmount,tvApprovedAgentId, tvRequestPurpose;
+	TextView tvAgentName, tvDonationAmount, tvRequestDate, tvApprovedAmount,
+			tvApprovedAgentId, tvRequestPurpose;
 	DownloadableAsyncTask downloadableAsyncTask;
 	ProgressDialog progressDialog;
 	String whichPurpose = "FETCH_DONATION";
 	String approvedAmount;
 	int donationStatus;
 	String donationId;
+	TextView tvDonationStatus, tvDonationID;
+	ImageView ivAgentImage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +52,19 @@ public class AgentDonationAcceptRejectResultActivity extends
 		tvDonationAmount = (TextView) findViewById(R.id.tvDonationAmount);
 		tvRequestDate = (TextView) findViewById(R.id.tvRequestDate);
 		tvApprovedAmount = (TextView) findViewById(R.id.tvApprovedAmount);
-		tvApprovedAgentId=(TextView) findViewById(R.id.tvApprovedAgentId);
+		tvApprovedAgentId = (TextView) findViewById(R.id.tvApprovedAgentId);
 		tvRequestPurpose = (TextView) findViewById(R.id.tvRequestPurpose);
+		tvDonationStatus = (TextView) findViewById(R.id.tvDonationStatus);
+		tvDonationID = (TextView) findViewById(R.id.tvDonationID);
+		ivAgentImage=(ImageView) findViewById(R.id.ivAgentImage);
 		btnOK = (Button) findViewById(R.id.btnOK);
+		ivAgentImage.setVisibility(View.GONE);
 
 		btnOK.setOnClickListener(this);
 
 		Bundle bundle = getIntent().getExtras();
 		donationId = bundle.getString("DONATION_ID");
+		donationStatus = bundle.getInt("DONATION_STATUS");
 		if (!CommonTasks.isOnline(this)) {
 			CommonTasks.goSettingPage(this);
 			return;
@@ -105,8 +114,18 @@ public class AgentDonationAcceptRejectResultActivity extends
 				tvRequestDate.setText((String) DateUtils
 						.getRelativeTimeSpanString(donationEntity.date,
 								new Date().getTime(), DateUtils.DAY_IN_MILLIS));
-				
-				tvApprovedAgentId.setText(""+donationEntity.agentid);
+
+				tvApprovedAgentId.setText("" + donationEntity.agentid);
+
+				if (donationStatus == 1) {
+					tvDonationStatus.setText("Pending");
+				} else if (donationStatus == 2) {
+					tvDonationStatus.setText("Completed");
+				} else {
+					tvDonationStatus.setText("Rejected");
+				}
+				tvDonationID.setText(""+donationEntity.id);
+
 			}
 
 		} else {

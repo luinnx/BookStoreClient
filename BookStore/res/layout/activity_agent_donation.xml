@@ -40,6 +40,6 @@
         android:text="Submit"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        style="@style/Button_Style" />
+       android:background="@drawable/button_bg" />
 
 </LinearLayout>

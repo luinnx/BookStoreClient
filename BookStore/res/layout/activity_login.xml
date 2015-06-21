@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:background="@color/app_background_color"
     android:orientation="vertical" >
 
@@ -58,7 +59,7 @@
 
         <Button
             android:id="@+id/b_Login"
-            style="@style/Button_Style"
+           android:background="@drawable/button_bg"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="30dp"
@@ -68,7 +69,7 @@
 
         <Button
             android:id="@+id/b_ForgotPassword"
-            style="@style/Button_Style"
+            android:background="@drawable/button_bg"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="30dp"
@@ -85,6 +86,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="97dp"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/ic_app_banner" />
 
 </RelativeLayout>

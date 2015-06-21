@@ -298,7 +298,7 @@
 
                 <Button
                     android:id="@+id/btnOk"
-                    style="@style/Button_Style"
+                   android:background="@drawable/button_bg"
                     android:layout_width="0dp"
                     android:layout_height="70dp"
                     android:layout_weight="1"
@@ -306,7 +306,7 @@
 
                 <Button
                     android:id="@+id/btnCall"
-                    style="@style/Button_Style"
+                   android:background="@drawable/button_bg"
                     android:layout_width="0dp"
                     android:layout_height="70dp"
                     android:layout_marginLeft="5dp"

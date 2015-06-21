@@ -164,7 +164,7 @@
 
         <Button
             android:id="@+id/btnOK"
-            style="@style/Button_Style"
+           android:background="@drawable/button_bg"
             android:layout_width="0dp"
             android:layout_height="70dp"
             android:layout_marginLeft="5dp"
@@ -177,7 +177,7 @@
 
         <Button
             android:id="@+id/btnSubmit"
-            style="@style/Button_Style"
+           android:background="@drawable/button_bg"
             android:layout_width="0dp"
             android:layout_height="70dp"
             android:layout_marginRight="5dp"
@@ -189,7 +189,7 @@
         
         <Button
             android:id="@+id/btnReject"
-            style="@style/Button_Style"
+           android:background="@drawable/button_bg"
             android:layout_width="0dp"
             android:layout_height="70dp"
             android:layout_marginRight="5dp"

@@ -76,6 +76,7 @@ public class AgentDonationListActivity extends AgentActionbarBase implements OnI
 			if(agentDonationEntity != null){
 				Intent intent = new Intent(this, AgentDonationAcceptRejectResultActivity.class);
 				intent.putExtra("DONATION_ID", ""+agentDonationEntity.id);
+				intent.putExtra("DONATION_STATUS", agentDonationEntity.status);
 				intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(intent);
 			}
