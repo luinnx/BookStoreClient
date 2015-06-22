@@ -2,6 +2,7 @@ package com.bookstore.app.adapters;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.ImageOptions;
@@ -18,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -26,6 +26,7 @@ public class BookListAdapter extends ArrayAdapter<BookEntity> {
 
 	BookEntity bookEntity;
 	ArrayList<BookEntity> list;
+	ArrayList<BookEntity> listSearch;
 	Context context;
 	
 	ImageOptions imgOptions;
@@ -37,6 +38,8 @@ public class BookListAdapter extends ArrayAdapter<BookEntity> {
 		super(_context, textViewResourceId, objects);
 		context=_context;
 		list = (ArrayList<BookEntity>) objects;
+		listSearch=new ArrayList<BookEntity>();
+		listSearch.addAll(list);
 
 	}
 
@@ -109,5 +112,20 @@ public class BookListAdapter extends ArrayAdapter<BookEntity> {
 		public TextView tvNumberOfBook;
 		public CircularImageView ivBookImage;
 		public ProgressBar pbImagePreLoad;
+	}
+	
+	public void searchBooks(String query){
+		list.clear();
+		if(query.length()==0)
+			list.addAll(listSearch);
+		else {
+			for (BookEntity entity : this.listSearch) {
+				if (entity.full_name.toLowerCase(Locale.getDefault())
+						.contains(query)) {
+					this.list.add(entity);
+				}
+			}
+		}
+		notifyDataSetChanged();
 	}
 }

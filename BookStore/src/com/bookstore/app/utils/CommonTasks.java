@@ -17,6 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -376,6 +378,20 @@ public class CommonTasks {
 		}
 
 		return bitmap;
+	}
+	
+	public static boolean isEmailValid(String email) {
+	    boolean isValid = false;
+
+	    String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+	    CharSequence inputStr = email;
+
+	    Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+	    Matcher matcher = pattern.matcher(inputStr);
+	    if (matcher.matches()) {
+	        isValid = true;
+	    }
+	    return isValid;
 	}
 	
 	

@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 
 import com.bookstore.app.adapters.AgentListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
@@ -20,7 +22,7 @@ import com.bookstore.app.managers.AdminManager;
 import com.bookstore.app.utils.CommonTasks;
 
 public class AgentListActivity extends BookStoreActionBarBase implements
-		OnItemClickListener, IAsynchronousTask {
+		OnItemClickListener, IAsynchronousTask, OnQueryTextListener {
 
 	ListView lvAllAgentList;
 	DownloadableAsyncTask downloadableAsyncTask;
@@ -31,6 +33,7 @@ public class AgentListActivity extends BookStoreActionBarBase implements
 	EndlessScrollListener scrollListener;
 	int pageIndex = 0;
 	String whichMode="";
+	SearchView searchView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,8 @@ public class AgentListActivity extends BookStoreActionBarBase implements
 	}
 
 	private void initViews() {
+		searchView=(SearchView) findViewById(R.id.svAgentList);
+		searchView.setOnQueryTextListener(this);
 		lvAllAgentList = (ListView) findViewById(R.id.lvAllAgentList);
 		lvAllAgentList.setOnItemClickListener(this);
 		pageIndex=0;
@@ -136,6 +141,18 @@ public class AgentListActivity extends BookStoreActionBarBase implements
 		} else {
 			CommonTasks.showToast(getApplicationContext(), "Internal Server  Error!!! Please Try again later");
 		}
+	}
+
+	@Override
+	public boolean onQueryTextChange(String query) {
+		adapter.searchAgent(query);
+		return true;
+	}
+
+	@Override
+	public boolean onQueryTextSubmit(String arg0) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

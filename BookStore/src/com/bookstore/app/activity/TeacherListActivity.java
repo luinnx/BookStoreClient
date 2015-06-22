@@ -1,15 +1,14 @@
 package com.bookstore.app.activity;
 
-import java.util.ArrayList;
-
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 
 import com.bookstore.app.adapters.TeacherListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.BookStoreActionBarBase;
-import com.bookstore.app.entities.TeacherEntity;
 import com.bookstore.app.entities.TeacherListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
@@ -17,12 +16,13 @@ import com.bookstore.app.managers.AdminManager;
 import com.bookstore.app.utils.CommonTasks;
 
 public class TeacherListActivity extends BookStoreActionBarBase implements
-		IAsynchronousTask {
+		IAsynchronousTask, OnQueryTextListener {
 
 	ListView lvAllTeacherList;
 	DownloadableAsyncTask downloadableAsyncTask;
 	ProgressDialog progressDialog;
 	TeacherListAdapter adapter;
+	SearchView searchView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +40,9 @@ public class TeacherListActivity extends BookStoreActionBarBase implements
 
 	private void initViews() {
 		lvAllTeacherList = (ListView) findViewById(R.id.lvAllTeacherList);
+		searchView=(SearchView) findViewById(R.id.svTeacherList);
+		
+		searchView.setOnQueryTextListener(this);
 
 	}
 
@@ -86,6 +89,18 @@ public class TeacherListActivity extends BookStoreActionBarBase implements
 					"Internal Server Error. Please Try again later");
 		}
 
+	}
+
+	@Override
+	public boolean onQueryTextChange(String charText) {
+		adapter.searchTeacher(charText);
+		return true;
+	}
+
+	@Override
+	public boolean onQueryTextSubmit(String arg0) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

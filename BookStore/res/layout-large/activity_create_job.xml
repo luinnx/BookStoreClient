@@ -224,7 +224,9 @@
                         android:layout_weight="0.6"
                         android:gravity="left"
                         android:hint="Amount of books"
-                        android:inputType="phone"
+                         android:inputType="number"
+                        android:digits="0123456789"
+                        android:maxLength="4"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="normal" />

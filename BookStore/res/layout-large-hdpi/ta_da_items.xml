@@ -145,7 +145,8 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:hint="Approximate Distance"
-            android:inputType="text"
+            android:inputType="number"
+                 android:digits="0123456789."
             android:textColor="@color/text_color" >
         </EditText>
 
@@ -178,7 +179,8 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:hint="Tour Cost"
-            android:inputType="text"
+            android:inputType="number"
+                 android:digits="0123456789."
             android:textColor="@color/text_color" >
         </EditText>
 
@@ -189,7 +191,8 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:hint="Others Cost"
-            android:inputType="text"
+            android:inputType="number"
+                 android:digits="0123456789."
             android:textColor="@color/text_color" >
         </EditText>
     </LinearLayout>

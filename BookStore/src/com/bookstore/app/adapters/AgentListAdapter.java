@@ -2,11 +2,13 @@ package com.bookstore.app.adapters;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.ImageOptions;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.entities.AgentEntity;
+import com.bookstore.app.entities.TeacherEntity;
 import com.bookstore.app.utils.CommonTasks;
 import com.bookstore.app.utils.CommonValues;
 import com.bookstore.app.utils.ImageLoader;
@@ -23,6 +25,7 @@ public class AgentListAdapter extends ArrayAdapter<AgentEntity> {
 
 	AgentEntity agentEntity;
 	ArrayList<AgentEntity> list;
+	ArrayList<AgentEntity> listSearch;
 	Context context;
 
 	ImageOptions imgOptions;
@@ -34,6 +37,8 @@ public class AgentListAdapter extends ArrayAdapter<AgentEntity> {
 		super(_context, textViewResourceId, objects);
 		context = _context;
 		list = (ArrayList<AgentEntity>) objects;
+		listSearch = new ArrayList<AgentEntity>();
+		listSearch.addAll(list);
 
 	}
 
@@ -84,14 +89,12 @@ public class AgentListAdapter extends ArrayAdapter<AgentEntity> {
 			}
 
 			holder.tvAgentName.setText(agentEntity.full_name);
-			
-			if(agentEntity.location_name!=null){
+
+			if (agentEntity.location_name != null) {
 				holder.tvAgentAddress.setText(agentEntity.location_name);
-			}else{
+			} else {
 				holder.tvAgentAddress.setText(agentEntity.address);
 			}
-			
-			
 
 			// aq.id(holder.ivAgentImage).image(context.getResources().getDrawable(R.drawable.ic_person_24));
 			if (agentEntity.pic_url.equals("")) {
@@ -116,5 +119,21 @@ public class AgentListAdapter extends ArrayAdapter<AgentEntity> {
 		public TextView tvAgentName;
 		public TextView tvAgentAddress;
 		public CircularImageView ivAgentImage;
+	}
+
+	public void searchAgent(String query) {
+		list.clear();
+		if (query.length() == 0)
+			list.addAll(listSearch);
+
+		else {
+			for (AgentEntity agentEntity : this.listSearch) {
+				if (agentEntity.full_name.toLowerCase(Locale.getDefault())
+						.contains(query)) {
+					this.list.add(agentEntity);
+				}
+			}
+		}
+		notifyDataSetChanged();
 	}
 }

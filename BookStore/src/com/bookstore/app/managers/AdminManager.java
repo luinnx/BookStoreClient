@@ -274,7 +274,7 @@ public class AdminManager implements IAdminManager {
 			result = (JobCreateEntity) JSONfunctions.retrieveDataFromStream(
 					String.format(CommonUrls.getInstance().createJob, bookID,
 							no_of_book, teacherID, jobStatus, agentID,
-							URLEncoder.encode(agentGCMID,
+							URLEncoder.encode(agentGCMID==null?"":agentGCMID,
 									CommonConstraints.EncodingCode), adminId),
 					JobCreateEntity.class);
 		} catch (UnsupportedEncodingException e) {

@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -76,6 +78,8 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 	String whichMode = "";
 
 	String teacherID = "", teacherInstitude = "";
+	
+	SearchView searchView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +136,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 		} else if (view.getId() == R.id.ivAddAgent) {
 			MODE = "AGENT_MODE";
 			pageIndex = 0;
-			whichMode="";
+			whichMode = "";
 			if (!CommonTasks.isOnline(this)) {
 				CommonTasks.goSettingPage(this);
 				return;
@@ -146,11 +150,7 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Select a Books Books");
 				return;
-			} /*else if (teacherEntity == null) {
-				CommonTasks.showToast(getApplicationContext(),
-						"Please Select a teacher");
-				return;
-			}*/ else if (agentEntity == null) {
+			} else if (agentEntity == null) {
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Select an Agent");
 				return;
@@ -159,28 +159,32 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 				CommonTasks.showToast(getApplicationContext(),
 						"Please Enter Amount of Books");
 				return;
-			} /*else if (agentEntity.gcm_id != null
-					&& !agentEntity.gcm_id.isEmpty()
+			} else if (Integer.parseInt(etOrderAmountBooks.getText().toString()
+					.trim()) > bookEntity.avaible) {
+				CommonTasks.showToast(getApplicationContext(),
+						"Assigned Book Amount Crossing the Stock Amount");
+				return;
+			}
+
+			/*if (agentEntity.gcm_id != null && !agentEntity.gcm_id.isEmpty()
 					&& !agentEntity.gcm_id.equals("null")) {
 				if (!CommonTasks.isOnline(this)) {
 					CommonTasks.goSettingPage(this);
 					return;
 				}
 				loadInformation();
-
-			*/
-			loadInformation();
-		}
-			else {
+			} else {
 
 				CommonTasks.showToast(getApplicationContext(),
 						"Agent is not Activated Yet.");
 				return;
-			}
+			}*/
+			
+			loadInformation();
 
 		}
 
-	
+	}
 
 	private void selectSpeceficBook() {
 		selectSpeceficBooksDialog = new Dialog(this);
@@ -728,9 +732,28 @@ public class CreateJobActivity extends BookStoreActionBarBase implements
 		allTeacherDialog.setTitle("All Teachers ");
 		lvAllTeacherList = (ListView) allTeacherDialog
 				.findViewById(R.id.lvAllTeacherList);
+		searchView=(SearchView) allTeacherDialog.findViewById(R.id.svTeacherList);
 		teacherListAdapter = new TeacherListAdapter(getApplicationContext(),
 				R.layout.teacher_list_item, entities.teacherList);
 		lvAllTeacherList.setAdapter(teacherListAdapter);
+		
+		
+		searchView.setOnQueryTextListener(new OnQueryTextListener() {
+			
+			@Override
+			public boolean onQueryTextSubmit(String query) {
+				teacherListAdapter.searchTeacher(query);
+				return true;
+			}
+			
+			@Override
+			public boolean onQueryTextChange(String newText) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+		});
+		
+		
 		lvAllTeacherList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override

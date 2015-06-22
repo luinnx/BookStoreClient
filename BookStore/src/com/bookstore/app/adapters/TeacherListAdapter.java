@@ -2,10 +2,12 @@ package com.bookstore.app.adapters;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.bookstore.app.activity.R;
 import com.bookstore.app.entities.TeacherEntity;
 import com.bookstore.app.utils.CommonTasks;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ public class TeacherListAdapter extends ArrayAdapter<TeacherEntity> {
 
 	TeacherEntity teacherEntity;
 	ArrayList<TeacherEntity> list;
+	ArrayList<TeacherEntity> listForSearch;
 	Context context;
 
 
@@ -25,6 +28,8 @@ public class TeacherListAdapter extends ArrayAdapter<TeacherEntity> {
 		super(_context, textViewResourceId, objects);
 		context = _context;
 		list = (ArrayList<TeacherEntity>) objects;
+		listForSearch=new ArrayList<TeacherEntity>();
+		listForSearch.addAll(list);
 
 	}
 
@@ -94,5 +99,22 @@ public class TeacherListAdapter extends ArrayAdapter<TeacherEntity> {
 		public TextView tvTeacherName;
 		public TextView tvInstitutionName;
 		public TextView tvMobileNumber;
+	}
+	
+	public void searchTeacher(String charText ){
+		charText = charText.toLowerCase(Locale.getDefault());
+		this.list.clear();
+		
+		if(charText.length()==0){
+			this.list.addAll(this.listForSearch);
+		}else{
+			for(TeacherEntity teacherEntity:this.listForSearch){
+				if(teacherEntity.institute.toLowerCase(Locale.getDefault()).contains(charText)){
+					this.list.add(teacherEntity);
+				}
+			}
+		}
+		notifyDataSetChanged();
+		
 	}
 }

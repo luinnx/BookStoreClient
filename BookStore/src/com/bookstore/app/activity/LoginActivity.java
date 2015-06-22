@@ -67,7 +67,10 @@ public class LoginActivity extends Activity implements OnClickListener, IAsynchr
 		if (etUserPassword.getText().toString().equals("")) {
 			Toast.makeText(this, "Enter Password!", Toast.LENGTH_SHORT).show();
 			return;
-		} else {
+		} else if(!CommonTasks.isEmailValid(etUserEmail.getText().toString().trim())){
+			Toast.makeText(this, "Email Address is not Valid", Toast.LENGTH_SHORT).show();
+			return;
+		}else {
 			password = etUserPassword.getText().toString().trim();
 
 		}

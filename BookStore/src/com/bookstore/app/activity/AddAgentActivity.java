@@ -99,6 +99,10 @@ public class AddAgentActivity extends BookStoreActionBarBase implements
 				CommonTasks.showToast(getApplicationContext(),
 						"Enter Agent Email");
 				return;
+			}else if(!CommonTasks.isEmailValid(etAgentEmail.getText().toString().trim())){
+				CommonTasks.showToast(getApplicationContext(),
+						"Agent Email Address is not Valid");
+				return;
 			} else if (etAgentAddress.getText().toString().trim().equals("")) {
 				CommonTasks.showToast(getApplicationContext(),
 						"Enter Agent Address");
