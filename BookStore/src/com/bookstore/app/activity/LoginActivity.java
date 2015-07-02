@@ -53,6 +53,10 @@ public class LoginActivity extends Activity implements OnClickListener, IAsynchr
 	public void onClick(View view) {
 		if (view.getId() == R.id.b_Login) {
 			validation();
+		}else if(view.getId() == R.id.b_ForgotPassword){
+			Intent intent = new Intent(this, ActivityForgotPassword.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			startActivity(intent);
 		}
 		
 	}

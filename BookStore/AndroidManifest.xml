@@ -200,6 +200,10 @@
         </activity>
         <activity android:name="com.bookstore.app.activity.AdminNoInterNetActivity" >
         </activity>
+        <activity 
+            android:name="com.bookstore.app.activity.ActivityForgotPassword">
+            
+        </activity>
 
         <receiver
             android:name="com.bookstore.app.base.GcmBroadcastReceiver"
