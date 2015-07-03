@@ -635,4 +635,87 @@ public class JSONfunctions {
 		}
 		return null;
 	}
+	
+	public static Object addLocationsOnly(String _url, Class<?> dataClass) {
+		InputStream inputStream = null;
+		Log.d("BSS", "URL : "+_url);
+		URI url = null;
+		try {
+			url = new URI("" + _url);
+			
+		} catch (URISyntaxException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		CommonValues.getInstance().ExceptionCode = CommonConstraints.NO_EXCEPTION;
+		try {
+			HttpParams httpParameters = new BasicHttpParams();
+			HttpConnectionParams.setConnectionTimeout(httpParameters,
+					TIMEOUT_MILLISEC);
+			HttpConnectionParams.setSoTimeout(httpParameters, TIMEOUT_MILLISEC);
+			HttpGet httpGet = new HttpGet(url);
+			// Set accept header
+			// httpGet.setHeader("Accept", "application/json");
+			// httpGet.setHeader("Content-Type", "application/xml");
+			HttpClient httpclient = new DefaultHttpClient(httpParameters);
+
+			HttpResponse response;
+
+			response = httpclient.execute(httpGet);
+
+			// check response ok(200) code
+			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+				HttpEntity entity = response.getEntity();
+				if (entity != null) {
+					inputStream = entity.getContent();
+					try {
+						BufferedReader reader = new BufferedReader(
+								new InputStreamReader(inputStream, "ISO-8859-1"),
+								8);
+						StringBuilder sb = new StringBuilder();
+						String line = null;
+						while ((line = reader.readLine()) != null) {
+							sb.append(line + "\n");
+						}
+
+						Gson gson = new Gson(); // return
+						return gson.fromJson(fixEncoding(sb.toString()),
+								dataClass);
+
+					} catch (Exception e) {
+						Log.e("log_tag",
+								"Error converting result " + e.toString());
+						CommonValues.getInstance().IsServerConnectionError = true;
+					}
+
+				}
+			}
+
+		} catch (ClientProtocolException e) {
+			Log.e("log_tag", "Error in " + e.toString());
+			CommonValues.getInstance().ExceptionCode = CommonConstraints.CLIENT_PROTOCOL_EXCEPTION;
+		} catch (IllegalStateException e) {
+			Log.e("log_tag", "Error in " + e.toString());
+			CommonValues.getInstance().ExceptionCode = CommonConstraints.ILLEGAL_STATE_EXCEPTION;
+		} catch (UnsupportedEncodingException e) {
+			Log.e("log_tag", "Error in " + e.toString());
+			CommonValues.getInstance().ExceptionCode = CommonConstraints.UNSUPPORTED_ENCODING_EXCEPTION;
+		} catch (IOException e) {
+			Log.e("log_tag", "Error in " + e.toString());
+			CommonValues.getInstance().ExceptionCode = CommonConstraints.IO_EXCEPTION;
+		} catch (Exception e) {
+			Log.e("log_tag", "Error in " + e.toString());
+			CommonValues.getInstance().ExceptionCode = CommonConstraints.GENERAL_EXCEPTION;
+		} finally {
+			try {
+				if (inputStream != null) {
+					inputStream.close();
+				}
+			} catch (IOException e) {
+				Log.e("log_tag", "Error in " + e.toString());
+				CommonValues.getInstance().ExceptionCode = CommonConstraints.IO_EXCEPTION;
+			}
+		}
+		return null;
+	}
 }

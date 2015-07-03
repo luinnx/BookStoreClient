@@ -1,9 +1,16 @@
 package com.bookstore.app.managers;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLEncoder;
 
 import org.json.simple.JSONObject;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.bookstore.app.entities.AgentDonationEntityRoot;
@@ -28,7 +35,7 @@ public class AgentManager implements IAgent {
 					.retrieveDataFromStream(String.format(
 							CommonUrls.getInstance().agentJobList, agentId,
 							job_status, pageIndex), AgentJobListRoot.class);
-			if(agentJobListRoot.agentJobList.size()>0)
+			if (agentJobListRoot.agentJobList.size() > 0)
 				return agentJobListRoot;
 		} catch (Exception ex) {
 			Log.e("BS", ex.getMessage());
@@ -53,7 +60,9 @@ public class AgentManager implements IAgent {
 	public boolean jobSubmit(JSONObject jsonObject) {
 		Boolean result = false;
 		try {
-			result = (Boolean) JSONfunctions.retrieveDataFromJsonPostURL(CommonUrls.getInstance().jobSubimt, jsonObject, Boolean.class);
+			result = (Boolean) JSONfunctions.retrieveDataFromJsonPostURL(
+					CommonUrls.getInstance().jobSubimt, jsonObject,
+					Boolean.class);
 		} catch (Exception ex) {
 			Log.e("BS", ex.getMessage());
 		}
@@ -65,15 +74,14 @@ public class AgentManager implements IAgent {
 			String locationName) {
 		boolean result = false;
 		Object object;
+
 		try {
-			object = (Object) JSONfunctions.retrieveDataFromStream(String
-					.format(CommonUrls.getInstance().agentLocation, agentid,
-							latitude, longitude, URLEncoder.encode(
-									locationName,
-									CommonConstraints.EncodingCode)),
-					Boolean.class);
-			if(object!=null)
-			result=(Boolean) object;
+			object = (Object) JSONfunctions.addLocationsOnly(String.format(
+					CommonUrls.getInstance().agentLocation, agentid, latitude,
+					longitude, URLEncoder.encode(locationName,
+							CommonConstraints.EncodingCode)), Boolean.class);
+			if (object != null)
+				result = (Boolean) object;
 		} catch (Exception ex) {
 			Log.e("BS", ex.getMessage());
 		}
@@ -112,40 +120,43 @@ public class AgentManager implements IAgent {
 	public boolean submitTaDa(String agentID, String date, String startPlace,
 			String startTime, String endPlace, String endTime,
 			String description, String vehicelName, String distance,
-			String amount, String otherAmount,String totalAmount, String status) {
+			String amount, String otherAmount, String totalAmount, String status) {
 		boolean result = false;
 
 		result = (Boolean) JSONfunctions.retrieveDataFromStream(String.format(
-				CommonUrls.getInstance().addTada, agentID, date,
-				startPlace, startTime, endPlace, endTime, description,
-				vehicelName, distance, amount,otherAmount, totalAmount, status),
+				CommonUrls.getInstance().addTada, agentID, date, startPlace,
+				startTime, endPlace, endTime, description, vehicelName,
+				distance, amount, otherAmount, totalAmount, status),
 				Boolean.class);
 
 		return result;
 	}
 
 	@Override
-	public TaDaListRoot getAllTaDaList(String agentId,int pageIndex) {
-		TaDaListRoot listRoot=null;
-		try{
-			listRoot=(TaDaListRoot) JSONfunctions.retrieveDataFromStream(String
-					.format(CommonUrls.getInstance().agent_tada_list,agentId,
-							pageIndex), TaDaListRoot.class);
-			if(listRoot.tadaList.size()>0)
+	public TaDaListRoot getAllTaDaList(String agentId, int pageIndex) {
+		TaDaListRoot listRoot = null;
+		try {
+			listRoot = (TaDaListRoot) JSONfunctions.retrieveDataFromStream(
+					String.format(CommonUrls.getInstance().agent_tada_list,
+							agentId, pageIndex), TaDaListRoot.class);
+			if (listRoot.tadaList.size() > 0)
 				return listRoot;
-		}catch(Exception exception){
+		} catch (Exception exception) {
 			Log.e("BS", exception.getMessage());
 		}
-		
+
 		return null;
 	}
 
 	@Override
 	public boolean addTada(JSONObject jsonObject) {
 		boolean result = false;
-		try{
-			result = (Boolean) JSONfunctions.retrieveDataFromJsonPostURL(CommonUrls.getInstance().addTada, jsonObject, Boolean.class);
-		}catch(Exception ex){
+		try {
+			result = (Boolean) JSONfunctions
+					.retrieveDataFromJsonPostURL(
+							CommonUrls.getInstance().addTada, jsonObject,
+							Boolean.class);
+		} catch (Exception ex) {
 			Log.e("BSA", ex.getMessage());
 		}
 		return result;
@@ -153,25 +164,27 @@ public class AgentManager implements IAgent {
 
 	@Override
 	public AgentTaDaResultEntity getIndividualTadaResultDetails(String tadaID) {
-		AgentTaDaResultEntity donationEntity=null;
-		donationEntity = (AgentTaDaResultEntity) JSONfunctions.retrieveDataFromStream(String
-				.format(CommonUrls.getInstance().get_individual_tada_details, tadaID),
-				AgentTaDaResultEntity.class);
+		AgentTaDaResultEntity donationEntity = null;
+		donationEntity = (AgentTaDaResultEntity) JSONfunctions
+				.retrieveDataFromStream(String.format(
+						CommonUrls.getInstance().get_individual_tada_details,
+						tadaID), AgentTaDaResultEntity.class);
 		return donationEntity;
 	}
 
 	@Override
 	public AgentDonationEntityRoot getAllDonation(int agentId, int pageIndex) {
-		AgentDonationEntityRoot listRoot=null;
-		try{
-			listRoot=(AgentDonationEntityRoot) JSONfunctions.retrieveDataFromStream(String
-					.format(CommonUrls.getInstance().agent_donation_list,agentId,
-							pageIndex), AgentDonationEntityRoot.class);
-			if(listRoot.donationList.size()>0)
+		AgentDonationEntityRoot listRoot = null;
+		try {
+			listRoot = (AgentDonationEntityRoot) JSONfunctions
+					.retrieveDataFromStream(String.format(
+							CommonUrls.getInstance().agent_donation_list,
+							agentId, pageIndex), AgentDonationEntityRoot.class);
+			if (listRoot.donationList.size() > 0)
 				return listRoot;
-		}catch(Exception exception){
+		} catch (Exception exception) {
 			Log.e("BS", exception.getMessage());
-		}		
+		}
 		return null;
 	}
 

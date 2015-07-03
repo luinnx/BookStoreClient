@@ -47,7 +47,7 @@
                     android:id="@+id/tvDonationID"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
+                    android:layout_weight="0.6"
                     android:text=""
                     android:textColor="@color/text_color"
                     android:textSize="15sp"
@@ -62,7 +62,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
+                    android:layout_weight="0.6"
                     android:text="Status"
                     android:textColor="@color/text_view_color"
                     android:textSize="15sp"
@@ -87,7 +87,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
+                    android:layout_weight="0.6"
                     android:text="Agent Name"
                     android:textColor="@color/text_view_color"
                     android:textSize="15sp"
@@ -113,7 +113,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
+                    android:layout_weight="0.6"
                     android:text="Date"
                     android:textColor="@color/text_view_color"
                     android:textSize="15sp"
@@ -139,7 +139,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
+                    android:layout_weight="0.6"
                     android:text="Purpose"
                     android:textColor="@color/text_view_color"
                     android:textSize="15sp"
@@ -165,7 +165,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
+                    android:layout_weight="0.6"
                     android:text="Agent ID"
                     android:textColor="@color/text_view_color"
                     android:textSize="15sp"
@@ -191,8 +191,8 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
-                    android:text="Amount"
+                    android:layout_weight="0.6"
+                    android:text="Requested Amount"
                     android:textColor="@color/text_view_color"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -207,18 +207,17 @@
                     android:textSize="15sp"
                     android:textStyle="normal" />
             </TableRow>
-
+            
             <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:orientation="horizontal"
-                android:visibility="gone" >
+                android:orientation="horizontal" >
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
+                    android:layout_weight="0.6"
                     android:text="Approved Amount"
                     android:textColor="@color/text_view_color"
                     android:textSize="15sp"
@@ -226,15 +225,16 @@
 
                 <TextView
                     android:id="@+id/tvApprovedAmount"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
                     android:layout_weight="0.6"
-                    android:hint=""
-                    android:inputType="number"
-                    android:textColor="@color/text_view_color"
+                    android:text=""
+                    android:textColor="@color/text_color"
                     android:textSize="15sp"
                     android:textStyle="normal" />
             </TableRow>
+
+           
 
             <Button
                 android:id="@+id/btnOK"

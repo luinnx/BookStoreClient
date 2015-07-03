@@ -98,7 +98,7 @@ public class AllUserListAdapter extends ArrayAdapter<AgentEntity> {
 				holder.tvAgentAddress.setText("Location : "+agentEntity.address);
 			}
 			
-			
+			holder.tvAgentAddress.setVisibility(View.GONE);
 
 			// aq.id(holder.ivAgentImage).image(context.getResources().getDrawable(R.drawable.ic_person_24));
 			if (agentEntity.pic_url.equals("")) {

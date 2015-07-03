@@ -108,11 +108,11 @@ public class AgentDonationAcceptRejectResultActivity extends AgentActionbarBase
 
 			if (whichPurpose.equals("FETCH_DONATION")) {
 				donationEntity = (AgentDonationResultEntity) data;
-				tvAgentName.setText(donationEntity.agent_name);
-				tvDonationAmount.setText("" + donationEntity.Amount);
+				tvAgentName.setText(donationEntity.agentfullname);
+				tvDonationAmount.setText("" + donationEntity.amount);
 				tvRequestPurpose.setText(donationEntity.comment);
 				tvRequestDate.setText((String) DateUtils
-						.getRelativeTimeSpanString(donationEntity.date,
+						.getRelativeTimeSpanString(donationEntity.donationdate,
 								new Date().getTime(), DateUtils.DAY_IN_MILLIS));
 
 				tvApprovedAgentId.setText("" + donationEntity.agentid);

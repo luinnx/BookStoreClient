@@ -212,7 +212,7 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 
 			// create instance of latlng class.
 			LatLng Location = new LatLng(lat, lng);
-			// Create instance of geocoder that is used for geting
+		/*	// Create instance of geocoder that is used for geting
 			// address if marker pointer in pressed.
 			Geocoder geocoder = new Geocoder(this, Locale.getDefault());
 			// get list of address where lat and lang r putted
@@ -227,30 +227,32 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 					addressText = addressText
 							+ address.getAddressLine(lineIndex) + ", ";
 				}
-				addressText = addressText + address.getLocality() + ", "
-						+ address.getCountryName();
+				
 
-				View marker = ((LayoutInflater) this
-						.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
-						.inflate(R.layout.custom_marker_layout, null);
-				TextView numTxt = (TextView) marker
-						.findViewById(R.id.tvInfoText);
-				ImageView ivAgentImage = (ImageView) marker
-						.findViewById(R.id.ivMapAgentImage);
-				numTxt.setText(agentEntity.full_name);
+			}*/
+			
+			addressText = CommonTasks.getLocationNameFromLatLong(getApplicationContext(), Location);
 
-				myBitmap = (CommonTasks.createCircularShape(CommonTasks
-						.getBitmapFromSdCard(getApplicationContext(),
-								"/sdcard/BookStore/" + "" + agentId + ".png")));
-				ivAgentImage.setImageBitmap(myBitmap);
+			View marker = ((LayoutInflater) this
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+					.inflate(R.layout.custom_marker_layout, null);
+			TextView numTxt = (TextView) marker
+					.findViewById(R.id.tvInfoText);
+			ImageView ivAgentImage = (ImageView) marker
+					.findViewById(R.id.ivMapAgentImage);
+			numTxt.setText(agentEntity.full_name);
 
-				markers.add(frAgentLocationMap.addMarker(new MarkerOptions()
-						.position(Location).icon(
-								BitmapDescriptorFactory
-										.fromBitmap(createDrawableFromView(
-												this, marker)))));
+			myBitmap = (CommonTasks.createCircularShape(CommonTasks
+					.getBitmapFromSdCard(getApplicationContext(),
+							"/sdcard/BookStore/" + "" + agentId + ".png")));
+			ivAgentImage.setImageBitmap(myBitmap);
 
-			}
+			markers.add(frAgentLocationMap.addMarker(new MarkerOptions()
+					.position(Location).icon(
+							BitmapDescriptorFactory
+									.fromBitmap(createDrawableFromView(
+											this, marker)))));
+			
 			// addressText = "";
 			if (addressText.equals("")) {
 				addressText = "Agent Not Activated Yet.";

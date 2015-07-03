@@ -24,6 +24,7 @@ public class CommonUrls {
 	public String forgot_password = BASE_URL+"user/forgot_password?userID=%s";
 	public String changePassword = BASE_URL + "user/change_password?userID=%s&oldPassword=%s&newPassword=%s";
 	public String logout = BASE_URL + "user/logout?userID=%s";
+	public String forgotPassWord=BASE_URL+"user/forgot_password?imei=%s&mpo=%s";
 
 	// agent api
 	public String agentJobList = BASE_URL+ "agent/job_list?agentId=%s&job_status=%s&pageIndex=%s";

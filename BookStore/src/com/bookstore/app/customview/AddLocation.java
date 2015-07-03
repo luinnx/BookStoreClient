@@ -1,5 +1,10 @@
 package com.bookstore.app.customview;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 
@@ -10,6 +15,8 @@ import com.bookstore.app.utils.CommonTasks;
 import com.google.android.gms.maps.model.LatLng;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -28,6 +35,16 @@ public class AddLocation extends AsyncTask<Location, Void, Object>{
 		
 		if(!CommonTasks.isOnline(context))
 			return null;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		IAgent agent = new AgentManager();
 		return agent.addLocation(Integer.parseInt(CommonTasks.getPreferences(context, CommonConstraints.USER_ID)),
 				params[0].getLatitude(), 

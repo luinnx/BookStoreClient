@@ -15,6 +15,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -26,6 +28,7 @@ import org.json.simple.JSONObject;
 import com.bookstore.app.activity.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.maps.model.LatLng;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -41,6 +44,8 @@ import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Shader.TileMode;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Environment;
@@ -392,6 +397,27 @@ public class CommonTasks {
 	        isValid = true;
 	    }
 	    return isValid;
+	}
+	
+	public static String getLocationNameFromLatLong(Context context,LatLng latLng){
+		String locationName="";
+		
+		try{
+			Geocoder geocoder=new Geocoder(context, Locale.getDefault());
+			List<Address> addresses=geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+			
+			if(addresses!=null&&addresses.size()>0){
+				Address address=addresses.get(0);
+				for(int lineIndex=0;lineIndex<address.getMaxAddressLineIndex();lineIndex++){
+					locationName+=address.getAddressLine(lineIndex)+",";
+				}
+				locationName = locationName + address.getLocality()
+						+ ", " + address.getCountryName();
+			}
+		}catch(Exception ex){
+			Log.e("BSS", ex.getMessage());
+		}
+		return locationName;
 	}
 	
 	

@@ -31,6 +31,8 @@ public class AgentEntity {
 	public double longitude;
 	@SerializedName("usertype")
 	public int usertype;
+	@SerializedName("location_update_time")
+	public long location_update_time;
 	
 	
 

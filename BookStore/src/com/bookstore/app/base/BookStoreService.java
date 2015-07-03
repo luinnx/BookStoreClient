@@ -35,7 +35,7 @@ public class BookStoreService extends Service implements IAsynchronousTask,
 		regid = CommonTasks.getPreferences(this, CommonConstraints.GCMID);
 		if (regid.isEmpty()) {
 
-			if (CommonTasks.isOnline(this)){
+			if (CommonTasks.isOnline(this)) {
 				LoadInformation();
 			}
 		}
@@ -47,6 +47,7 @@ public class BookStoreService extends Service implements IAsynchronousTask,
 		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 		locationManager.requestLocationUpdates(
 				LocationManager.NETWORK_PROVIDER, 600000, 0, this);
+
 	}
 
 	private void LoadInformation() {
@@ -74,7 +75,7 @@ public class BookStoreService extends Service implements IAsynchronousTask,
 					gcm = GoogleCloudMessaging.getInstance(this);
 				}
 				regid = gcm.register(CommonConstraints.APPID);
-				Log.d("BSS", "Sending GCM ID : "+regid);
+				Log.d("BSS", "Sending GCM ID : " + regid);
 			}
 			IUser user = new UserManager();
 			return user.addGCMID(Integer.parseInt(CommonTasks.getPreferences(
@@ -89,7 +90,7 @@ public class BookStoreService extends Service implements IAsynchronousTask,
 	public void processDataAfterDownload(Object data) {
 		if (data != null) {
 			Boolean result = (Boolean) data;
-			Log.d("BSS", "GCM Id Sending Status : "+result);
+			Log.d("BSS", "GCM Id Sending Status : " + result);
 			if (result) {
 				CommonTasks.savePreferencesForReasonCode(this,
 						CommonConstraints.GCMID, regid);
@@ -100,7 +101,7 @@ public class BookStoreService extends Service implements IAsynchronousTask,
 	@Override
 	public void onLocationChanged(Location location) {
 		if (!CommonTasks.isOnline(this)) {
-			//CommonTasks.goSettingPage(this);
+			// CommonTasks.goSettingPage(this);
 			return;
 		}
 		new AddLocation(this).execute(location);
