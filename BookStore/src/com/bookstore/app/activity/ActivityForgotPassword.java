@@ -78,7 +78,7 @@ public class ActivityForgotPassword extends Activity implements OnClickListener,
 	@Override
 	public void processDataAfterDownload(Object data) {
 		if(data != null){
-			boolean result = (boolean) data;
+			boolean result = (Boolean) data;
 			if(result){
 				confirmationMessage();
 			}else{

@@ -108,7 +108,14 @@ public class AgentDonationAcceptRejectResultActivity extends AgentActionbarBase
 
 			if (whichPurpose.equals("FETCH_DONATION")) {
 				donationEntity = (AgentDonationResultEntity) data;
-				tvAgentName.setText(donationEntity.agentfullname);
+				
+				if(donationEntity.adminname!=null){
+					tvAgentName.setText(donationEntity.adminname);
+				}else{
+					tvAgentName.setText("Not Found");
+				}
+				
+				
 				tvDonationAmount.setText("" + donationEntity.amount);
 				tvRequestPurpose.setText(donationEntity.comment);
 				tvRequestDate.setText((String) DateUtils
@@ -125,6 +132,7 @@ public class AgentDonationAcceptRejectResultActivity extends AgentActionbarBase
 					tvDonationStatus.setText("Rejected");
 				}
 				tvDonationID.setText(""+donationEntity.id);
+				tvApprovedAmount.setText(""+donationEntity.acceptedamount);
 
 			}
 

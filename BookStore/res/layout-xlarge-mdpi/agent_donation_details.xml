@@ -88,7 +88,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.4"
-                    android:text="Name"
+                    android:text="Admin Name"
                     android:textColor="@color/text_view_color"
                     android:textSize="30sp"
                     android:textStyle="bold" />
@@ -192,7 +192,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.4"
-                    android:text="Amount"
+                    android:text="Requested Amount"
                     android:textColor="@color/text_view_color"
                     android:textSize="30sp"
                     android:textStyle="bold" />
@@ -213,7 +213,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
-                android:visibility="gone" >
+                android:visibility="visible" >
 
                 <TextView
                     android:layout_width="0dp"
