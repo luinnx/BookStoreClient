@@ -12,7 +12,6 @@ import com.bookstore.app.activity.IndividualAgentDetailsActivity;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.adapters.AllUserListAdapter;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
-import com.bookstore.app.base.BookStoreService;
 import com.bookstore.app.entities.AgentEntity;
 import com.bookstore.app.entities.UserListRoot;
 import com.bookstore.app.interfaces.IAdminManager;
@@ -306,7 +305,7 @@ public class AgentsListLocationActivity extends Fragment implements
 				LatLngBounds bounds = b.build();
 				CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds,
 						35, 35, 5);
-				frAgentLocationMap.animateCamera(cu);
+				frAgentLocationMap.animateCamera(CameraUpdateFactory.newLatLngZoom(bounds.getCenter(),6));
 			}
 
 		} catch (Exception ex) {
@@ -423,10 +422,10 @@ public class AgentsListLocationActivity extends Fragment implements
 		}
 		tvAgentName.setText("Name :" + entity.full_name);
 		tvLocationName.setText("Current Location :" + CommonTasks.getLocationNameFromLatLong(getActivity(),latLng));
-		/*
-		 * tvLastUpdateTime.setText("Last Update :" +
-		 * CommonTasks.getRelativeTime(Long.parseLong(entity.create_date)));
-		 */
+		
+		 tvLastUpdateTime.setText("Last Update :" +
+				 CommonTasks.getLongToDate(""+entity.location_update_time));
+		 
 		ivAgentImage.setImageBitmap(CommonTasks.createCircularShape(CommonTasks
 				.getBitmapFromSdCard(getActivity(), "/sdcard/BookStore/" + ""
 						+ entity._id + ".png")));

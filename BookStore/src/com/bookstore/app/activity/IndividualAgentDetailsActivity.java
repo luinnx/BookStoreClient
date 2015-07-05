@@ -212,24 +212,6 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 
 			// create instance of latlng class.
 			LatLng Location = new LatLng(lat, lng);
-		/*	// Create instance of geocoder that is used for geting
-			// address if marker pointer in pressed.
-			Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-			// get list of address where lat and lang r putted
-			List<Address> addresses = geocoder.getFromLocation(
-					Location.latitude, Location.longitude, 1);
-			// check address are available and get it using for loop and
-			// store in address
-			if (addresses != null && addresses.size() > 0) {
-				Address address = addresses.get(0);
-				for (int lineIndex = 0; lineIndex < address
-						.getMaxAddressLineIndex(); lineIndex++) {
-					addressText = addressText
-							+ address.getAddressLine(lineIndex) + ", ";
-				}
-				
-
-			}*/
 			
 			addressText = CommonTasks.getLocationNameFromLatLong(getApplicationContext(), Location);
 
@@ -253,12 +235,10 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 									.fromBitmap(createDrawableFromView(
 											this, marker)))));
 			
-			// addressText = "";
 			if (addressText.equals("")) {
 				addressText = "Agent Not Activated Yet.";
 			}
 			tvAgentCurrentLocation.setText(addressText);
-
 			frAgentLocationMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 			LatLngBounds.Builder b = new LatLngBounds.Builder();
 			if (markers.size() > 0) {
@@ -266,9 +246,9 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 					b.include(m.getPosition());
 				}
 				LatLngBounds bounds = b.build();
-				CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds,
-						70, 70, 5);
-				frAgentLocationMap.animateCamera(cu);
+				
+				frAgentLocationMap.animateCamera(CameraUpdateFactory.newLatLngZoom(bounds.getCenter(),10));
+				
 			}
 
 		} catch (Exception ex) {
@@ -336,7 +316,9 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 				.findViewById(R.id.tvLocationName);
 		TextView tvAgentName = (TextView) v.findViewById(R.id.tvAgentName);
 		ImageView ivAgentImage = (ImageView) v.findViewById(R.id.ivAgentImage);
-
+		
+		tvLastUpdateTime.setText("Update Time :" +
+				 CommonTasks.getLongToDate(""+agentEntity.create_date));
 		tvAgentName.setText("Name :" + agentEntity.full_name);
 		tvLocationName.setText("Current Location :" + addressText);
 		if (agentEntity.usertype == 1) {
