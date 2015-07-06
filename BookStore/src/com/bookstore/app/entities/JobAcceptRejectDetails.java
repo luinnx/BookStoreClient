@@ -1,5 +1,7 @@
 package com.bookstore.app.entities;
 
+import java.util.ArrayList;
+
 import com.google.gson.annotations.SerializedName;
 
 public class JobAcceptRejectDetails {
@@ -53,4 +55,11 @@ public class JobAcceptRejectDetails {
 	public String agentcurrentlocation;
 	@SerializedName("adminname")
 	public String adminname;
+	
+	@SerializedName("Imeages")
+	public ArrayList<JobImage> jobImagesList;
+	
+	public JobAcceptRejectDetails() {
+		jobImagesList = new ArrayList<>();
+	}
 }
