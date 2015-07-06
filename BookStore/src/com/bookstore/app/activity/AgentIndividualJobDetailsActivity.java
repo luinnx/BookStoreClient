@@ -82,7 +82,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 	JSONArray jsonArr = new JSONArray();
 	JSONObject innterObject = new JSONObject();
 	int count = 0;
-	ArrayList<String> rowPic = new ArrayList<String>();
+	ArrayList<String> rowPic = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +137,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 			CommonTasks.goSettingPage(this);
 			return;
 		}
+		rowPic = new ArrayList<String>();
 		LoadInformation();
 	}
 
@@ -324,12 +325,13 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 					return;
 				}
 				int sl = CommonTasks.getPicSlNo();
-				for (String string : rowPic) {
+				for(int i=0;i<rowPic.size();i++){
+					innterObject = new JSONObject();
 					innterObject.put("pic_sl_no", sl);
 					innterObject.put("no_of_pic", count);
 					innterObject.put("job_status", 2);
 					innterObject.put("jobID", Integer.parseInt(jobID));
-					innterObject.put("rowImgaeByte", string);
+					innterObject.put("rowImgaeByte", rowPic.get(i));
 					jsonArr.add(innterObject);
 				}
 				outerObject = new JSONObject();
@@ -413,6 +415,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 	protected void onActivityResult(int requestCode, int responseCode,
 			Intent data) {
 		super.onActivityResult(requestCode, responseCode, data);
+		selectedFile = null;
 		if (requestCode == 200) {
 			if (responseCode == RESULT_OK) {
 				if (data != null) {
@@ -465,7 +468,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 						}
 						selectedFile = stream.toByteArray();
 						count += 1;
-						rowPic.add(Base64.encodeToString(selectedFile,
+						rowPic.add(Base64.encodeToString(stream.toByteArray(),
 								Base64.NO_WRAP));
 						llImagePanel.setVisibility(View.VISIBLE);
 						if(count==1){
@@ -521,7 +524,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 							}
 							selectedFile = stream.toByteArray();
 							count += 1;
-							rowPic.add(Base64.encodeToString(selectedFile,
+							rowPic.add(Base64.encodeToString(stream.toByteArray(),
 									Base64.NO_WRAP));
 							llImagePanel.setVisibility(View.VISIBLE);
 							if(count==1){
@@ -539,7 +542,6 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 							}else {
 								CommonTasks.showToast(this, "Maximum number of image are taken!");
 							}
-
 						} else {
 
 							bmpDrawable = new BitmapDrawable(getResources(),
@@ -565,7 +567,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 							}
 							selectedFile = stream.toByteArray();
 							count += 1;
-							rowPic.add(Base64.encodeToString(selectedFile,
+							rowPic.add(Base64.encodeToString(stream.toByteArray(),
 									Base64.NO_WRAP));
 							llImagePanel.setVisibility(View.VISIBLE);
 							if(count==1){
@@ -619,7 +621,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 					}
 					selectedFile = stream.toByteArray();
 					count += 1;
-					rowPic.add(Base64.encodeToString(selectedFile,
+					rowPic.add(Base64.encodeToString(stream.toByteArray(),
 							Base64.NO_WRAP));
 					if(llImagePanel == null){
 						CommonTasks.showToast(getApplicationContext(), "Please take image in landscape mode");
@@ -667,7 +669,7 @@ public class AgentIndividualJobDetailsActivity extends AgentActionbarBase
 					}
 					selectedFile = stream.toByteArray();
 					count += 1;
-					rowPic.add(Base64.encodeToString(selectedFile,
+					rowPic.add(Base64.encodeToString(stream.toByteArray(),
 							Base64.NO_WRAP));
 					if(llImagePanel == null){
 						CommonTasks.showToast(getApplicationContext(), "Please take image in landscape mode");
