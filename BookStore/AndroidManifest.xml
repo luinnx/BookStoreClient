@@ -94,7 +94,7 @@
             android:name="com.bookstore.app.activity.AddAgentActivity"
             android:configChanges="orientation"
             android:label="Create Agent"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="com.bookstore.app.activity.AddTeacherActivity"

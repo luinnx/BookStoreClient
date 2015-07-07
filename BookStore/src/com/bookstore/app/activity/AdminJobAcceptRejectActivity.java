@@ -1,9 +1,5 @@
 package com.bookstore.app.activity;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
@@ -16,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
@@ -31,7 +28,8 @@ import com.bookstore.app.utils.CommonUrls;
 public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 		implements OnClickListener, IAsynchronousTask {
 
-	ImageView ivTeachersSigneture;
+	ImageView ivTeachersSigneture, ivTeachersSigneture2, ivTeachersSigneture3,
+			ivTeachersSigneture4;
 	TextView tvNameBook, tvJobStatus, tvAuthor, tvCurrentLocation, tvISBN,
 			tvQuantity, tvPublishDate, tvPrice, tvMpoNumber, tvMobileNumber,
 			tvTeacherMobileNumber, tvAgentName, tvAgentsAddress,
@@ -39,6 +37,7 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 			tvTeacherName;
 	Button btnOk, btnReject, btnAccept;
 	EditText etAdminRemarks;
+	LinearLayout llTeachersSigneture;
 
 	DownloadableAsyncTask downloadableAsyncTask;
 	ProgressDialog dialog;
@@ -79,8 +78,16 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 		ivTeachersSigneture = (ImageView) findViewById(R.id.ivTeachersSigneture);
 		tvNameBook = (TextView) findViewById(R.id.tvNameBook);
 		tvJobStatus = (TextView) findViewById(R.id.tvJobStatus);
+		llTeachersSigneture=(LinearLayout) findViewById(R.id.llTeachersSigneture);
+
+		ivTeachersSigneture2 = (ImageView) findViewById(R.id.ivTeachersSigneture2);
+		ivTeachersSigneture3 = (ImageView) findViewById(R.id.ivTeachersSigneture3);
+		ivTeachersSigneture4 = (ImageView) findViewById(R.id.ivTeachersSigneture4);
 
 		ivTeachersSigneture.setOnClickListener(this);
+		ivTeachersSigneture2.setOnClickListener(this);
+		ivTeachersSigneture3.setOnClickListener(this);
+		ivTeachersSigneture4.setOnClickListener(this);		
 
 		Bundle bundle = getIntent().getExtras();
 		jobID = bundle.getString("JOB_ID");
@@ -120,19 +127,10 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 			jobDetails = adminManager.getJobInfoAcceptReject(jobID);
 			try {
 				if (!jobDetails.teachersignature.equals("")) {
-					/*
-					 * URL url = new URL(CommonUrls.getInstance().IMAGE_BASE_URL
-					 * + jobDetails.teachersignature); HttpURLConnection
-					 * connection = (HttpURLConnection) url .openConnection();
-					 * connection.setDoInput(true); connection.connect();
-					 * InputStream input = connection.getInputStream();
-					 */
-
 					signetureBitmap = CommonTasks.getBitMapFromUrl(CommonUrls
 							.getInstance().IMAGE_BASE_URL
 							+ jobDetails.teachersignature);
 
-					// ivTeachersSigneture.setImageBitmap(signetureBitmap);
 				} else {
 					ivTeachersSigneture.setImageBitmap(BitmapFactory
 							.decodeResource(getResources(),
@@ -219,7 +217,10 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 			whichPurpose = "JOB_SUBMIT";
 			jobSubmitStatus = CommonConstraints.COMPLETED_JOB;
 			loadInformation();
-		} else if (view.getId() == R.id.ivTeachersSigneture) {
+		} else if ((view.getId() == R.id.ivTeachersSigneture)
+				|| (view.getId() == R.id.ivTeachersSigneture2)
+				|| (view.getId() == R.id.ivTeachersSigneture3)
+				|| (view.getId() == R.id.ivTeachersSigneture4)) {
 			showZoomedImage();
 		}
 
