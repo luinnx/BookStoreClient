@@ -1,5 +1,8 @@
 package com.bookstore.app.activity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
@@ -18,6 +21,7 @@ import android.widget.TextView;
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.BookStoreActionBarBase;
 import com.bookstore.app.entities.JobAcceptRejectDetails;
+import com.bookstore.app.entities.JobImage;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
@@ -47,6 +51,8 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 	JobAcceptRejectDetails jobDetails;
 	Bitmap signetureBitmap = null;
 	AlertDialog alertDialog;
+
+	List<Bitmap> signetureBitmapList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +84,7 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 		ivTeachersSigneture = (ImageView) findViewById(R.id.ivTeachersSigneture);
 		tvNameBook = (TextView) findViewById(R.id.tvNameBook);
 		tvJobStatus = (TextView) findViewById(R.id.tvJobStatus);
-		llTeachersSigneture=(LinearLayout) findViewById(R.id.llTeachersSigneture);
+		llTeachersSigneture = (LinearLayout) findViewById(R.id.llTeachersSigneture);
 
 		ivTeachersSigneture2 = (ImageView) findViewById(R.id.ivTeachersSigneture2);
 		ivTeachersSigneture3 = (ImageView) findViewById(R.id.ivTeachersSigneture3);
@@ -87,7 +93,7 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 		ivTeachersSigneture.setOnClickListener(this);
 		ivTeachersSigneture2.setOnClickListener(this);
 		ivTeachersSigneture3.setOnClickListener(this);
-		ivTeachersSigneture4.setOnClickListener(this);		
+		ivTeachersSigneture4.setOnClickListener(this);
 
 		Bundle bundle = getIntent().getExtras();
 		jobID = bundle.getString("JOB_ID");
@@ -126,16 +132,20 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 			IAdminManager adminManager = new AdminManager();
 			jobDetails = adminManager.getJobInfoAcceptReject(jobID);
 			try {
-				if (!jobDetails.teachersignature.equals("")) {
-					signetureBitmap = CommonTasks.getBitMapFromUrl(CommonUrls
-							.getInstance().IMAGE_BASE_URL
-							+ jobDetails.teachersignature);
-
+				signetureBitmapList = new ArrayList<Bitmap>();
+				Bitmap b;
+				if (jobDetails.jobImagesList.size() > 0
+						&& jobDetails.jobImagesList != null) {
+					for (JobImage img : jobDetails.jobImagesList) {
+						b=CommonTasks.getBitMapFromUrl(CommonUrls
+								.getInstance().IMAGE_BASE_URL+""+img.images);
+						if(b!=null)
+						signetureBitmapList.add(b);
+					}
 				} else {
-					ivTeachersSigneture.setImageBitmap(BitmapFactory
-							.decodeResource(getResources(),
-									R.drawable.ic_person_24));
+					llTeachersSigneture.setVisibility(View.GONE);
 				}
+
 			} catch (Exception exception) {
 				exception.printStackTrace();
 			}
@@ -178,8 +188,40 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 	}
 
 	private void setValues(JobAcceptRejectDetails jobDetails2) {
-		if (signetureBitmap != null)
-			ivTeachersSigneture.setImageBitmap(signetureBitmap);
+		/*
+		 * if (signetureBitmap != null)
+		 * ivTeachersSigneture.setImageBitmap(signetureBitmap);
+		 */
+
+		if (signetureBitmapList.size() > 0) {
+			if (signetureBitmapList.size() == 1) {
+				ivTeachersSigneture
+						.setImageBitmap(signetureBitmapList.get(0));
+				ivTeachersSigneture2.setVisibility(View.GONE);
+				ivTeachersSigneture3.setVisibility(View.GONE);
+				ivTeachersSigneture4.setVisibility(View.GONE);
+			} else if (signetureBitmapList.size() == 2) {
+				ivTeachersSigneture
+						.setImageBitmap(signetureBitmapList.get(0));
+				ivTeachersSigneture2
+						.setImageBitmap(signetureBitmapList.get(1));
+				ivTeachersSigneture3.setVisibility(View.GONE);
+				ivTeachersSigneture4.setVisibility(View.GONE);
+			} else if (signetureBitmapList.size() == 3) {
+				ivTeachersSigneture.setImageBitmap(signetureBitmapList.get(0));
+				ivTeachersSigneture2.setImageBitmap(signetureBitmapList.get(1));
+				ivTeachersSigneture3.setImageBitmap(signetureBitmapList.get(2));
+				ivTeachersSigneture4.setVisibility(View.GONE);
+			} else if (signetureBitmapList.size() == 4) {
+				ivTeachersSigneture.setImageBitmap(signetureBitmapList.get(0));
+				ivTeachersSigneture2.setImageBitmap(signetureBitmapList.get(1));
+				ivTeachersSigneture3.setImageBitmap(signetureBitmapList.get(2));
+				ivTeachersSigneture3.setImageBitmap(signetureBitmapList.get(3));
+			}
+		}else{
+			llTeachersSigneture.setVisibility(View.GONE);
+		}
+
 		tvAuthor.setText(jobDetails.authername);
 		tvQuantity.setText("" + jobDetails.no_of_book);
 		tvPrice.setText("" + jobDetails.bookprice);
@@ -217,16 +259,19 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 			whichPurpose = "JOB_SUBMIT";
 			jobSubmitStatus = CommonConstraints.COMPLETED_JOB;
 			loadInformation();
-		} else if ((view.getId() == R.id.ivTeachersSigneture)
-				|| (view.getId() == R.id.ivTeachersSigneture2)
-				|| (view.getId() == R.id.ivTeachersSigneture3)
-				|| (view.getId() == R.id.ivTeachersSigneture4)) {
-			showZoomedImage();
+		} else if ((view.getId() == R.id.ivTeachersSigneture)) {
+			showZoomedImage(signetureBitmapList.get(0));
+		} else if ((view.getId() == R.id.ivTeachersSigneture2)) {
+			showZoomedImage(signetureBitmapList.get(1));
+		} else if ((view.getId() == R.id.ivTeachersSigneture3)) {
+			showZoomedImage(signetureBitmapList.get(2));
+		} else if ((view.getId() == R.id.ivTeachersSigneture4)) {
+			showZoomedImage(signetureBitmapList.get(3));
 		}
 
 	}
 
-	private void showZoomedImage() {
+	private void showZoomedImage(Bitmap image) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this,
 				AlertDialog.THEME_HOLO_LIGHT);
 		LayoutInflater inflater = getLayoutInflater();
@@ -237,7 +282,7 @@ public class AdminJobAcceptRejectActivity extends BookStoreActionBarBase
 
 		ImageView ivZoomedImage = (ImageView) josSubmitView
 				.findViewById(R.id.ivZoomedImage);
-		ivZoomedImage.setImageBitmap(signetureBitmap);
+		ivZoomedImage.setImageBitmap(image);
 
 		alertDialog = builder.create();
 		alertDialog.show();
