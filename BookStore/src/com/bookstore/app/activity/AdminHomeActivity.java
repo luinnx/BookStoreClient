@@ -24,7 +24,8 @@ public class AdminHomeActivity extends BookStoreActionBarBase implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_admin_home);
-		
+		if(CommonTasks.checkPlayServices(this))
+			startService(new Intent(this, BookStoreService.class));
 
 		pager = (ViewPager) findViewById(R.id.viewPager);
 

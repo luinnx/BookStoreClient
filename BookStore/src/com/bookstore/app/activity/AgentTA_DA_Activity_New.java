@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -28,7 +27,6 @@ import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AgentManager;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
-import com.bookstore.app.utils.CommonValues;
 
 public class AgentTA_DA_Activity_New extends AgentActionbarBase implements
 		OnClickListener, IAsynchronousTask {

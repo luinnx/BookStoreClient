@@ -107,8 +107,12 @@ public class AllUserListAdapter extends ArrayAdapter<AgentEntity> {
 								R.drawable.ic_person_24));
 			} else {
 
-				aq.id(holder.ivAgentImage).image(CommonTasks
+				/*aq.id(holder.ivAgentImage).image(CommonTasks
 						.createCircularShape(CommonTasks.getBitmapFromSdCard(
+								context, "/sdcard/BookStore/" + ""
+										+ agentEntity._id + ".png")));*/
+				
+				aq.id(holder.ivAgentImage).image((CommonTasks.getBitmapFromSdCard(
 								context, "/sdcard/BookStore/" + ""
 										+ agentEntity._id + ".png")));
 			}

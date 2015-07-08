@@ -34,15 +34,7 @@ public class AddLocation extends AsyncTask<Location, Void, Object>{
 	protected Object doInBackground(Location... params) {
 		
 		if(!CommonTasks.isOnline(context))
-			return null;
-		
-		
-		
-		
-		
-		
-		
-		
+			return null;	
 		
 		
 		IAgent agent = new AgentManager();

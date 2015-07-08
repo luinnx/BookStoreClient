@@ -1,7 +1,6 @@
 package com.bookstore.app.activity;
 
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
-import com.bookstore.app.base.BookStoreService;
 import com.bookstore.app.entities.LoginEntity;
 import com.bookstore.app.interfaces.IAdminManager;
 import com.bookstore.app.interfaces.IAsynchronousTask;
@@ -129,8 +128,7 @@ public class LoginActivity extends Activity implements OnClickListener, IAsynchr
 
 				if (entity.type == 1) {
 					// Admin
-					if(CommonTasks.checkPlayServices(this))
-						startService(new Intent(this, BookStoreService.class));
+					
 					this.finish();
 					Intent intent = new Intent(this,
 							AdminHomeActivity.class);

@@ -90,10 +90,10 @@ public class JobListAdapter extends ArrayAdapter<JobEntity> {
 			holder.tvNumberOfBook.setText("No. Of Items : "+jobEntity.quantity);
 			holder.tvJobId.setText("WR-JOB-ID :"+jobEntity.jobid);
 			
-			if(jobEntity.bookImage != null){
+			if(jobEntity.bookImage == null){
 				aq.id(holder.ivBookImage).image(context.getResources().getDrawable(R.drawable.ic_launcher));
 			}else{
-				aq.id(holder.ivBookImage).image((CommonUrls.getInstance().IMAGE_BASE_URL+jobEntity.bookImage.toString()),imgOptions);
+				aq.id(holder.ivBookImage).image((CommonUrls.getInstance().IMAGE_BASE_URL+jobEntity.bookImage.toString()));
 			}
 			
 		}catch(Exception ex){

@@ -42,7 +42,7 @@ import com.bookstore.app.utils.CommonValues;
 public class AgentTA_DA_Activity extends AgentActionbarBase implements
 		OnClickListener, IAsynchronousTask {
 
-	LinearLayout llParentContainer;
+	LinearLayout llParentContainer,rlTotalCostContainer,rlTransportationCostContainer;
 	ImageView ivAddCost;
 	View child;
 	ArrayList<LinearLayout> mViews = new ArrayList<LinearLayout>();
@@ -81,6 +81,11 @@ public class AgentTA_DA_Activity extends AgentActionbarBase implements
 		tvTotalCost = (TextView) findViewById(R.id.tvTotalCost);
 		etOthersCost = (EditText) findViewById(R.id.etOthersCost);
 		etTourPurpose= (EditText) findViewById(R.id.etTourPurpose);
+		
+		rlTotalCostContainer=(LinearLayout) findViewById(R.id.rlTotalCostContainer);
+		rlTransportationCostContainer=(LinearLayout) findViewById(R.id.rlTransportationCostContainer);
+		
+		rlTotalCostContainer.setVisibility(View.GONE);
 
 		btnOk = (Button) findViewById(R.id.btnOk);
 

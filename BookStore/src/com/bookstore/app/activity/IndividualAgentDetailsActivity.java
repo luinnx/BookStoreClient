@@ -330,8 +330,8 @@ public class IndividualAgentDetailsActivity extends BookStoreActionBarBase
 		 * tvLastUpdateTime.setText("Last Update :" +
 		 * CommonTasks.getLongToDate(agentEntity.create_date));
 		 */
-		ivAgentImage.setImageBitmap(CommonTasks.createCircularShape(myBitmap));
-
+		//ivAgentImage.setImageBitmap(CommonTasks.createCircularShape(myBitmap));
+		ivAgentImage.setImageBitmap(myBitmap);
 		// Returning the view containing InfoWindow contents
 		return v;
 	}

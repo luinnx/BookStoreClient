@@ -179,7 +179,9 @@ public class CommonTasks {
 	}
 
 	public static void showLogs(Context context, String message) {
-		Log.d(CommonConstraints.TAG, message);
+		if(message==null||message.equals(""))
+			return;
+		Log.d(CommonConstraints.TAG, ""+message);
 	}
 
 	public static boolean isOnline(Context context) {
@@ -352,6 +354,7 @@ public class CommonTasks {
 	public static Bitmap getBitMapFromUrl(String _url) {
 		URL url;
         Log.d("BSS", "Fetching Image : "+_url);
+        
 		try {
 			url = new URL(_url);
 			HttpURLConnection connection = (HttpURLConnection) url

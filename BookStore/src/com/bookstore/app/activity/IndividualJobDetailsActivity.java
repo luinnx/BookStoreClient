@@ -122,6 +122,7 @@ public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 
 		if (jobEntity.bookImage != null && !jobEntity.bookImage.isEmpty()
 				&& !jobEntity.bookImage.equals("null")) {
+			Bitmap myBitmap=null;
 			try {
 				URL url = new URL(CommonUrls.getInstance().IMAGE_BASE_URL
 						+ jobEntity.bookImage);
@@ -130,16 +131,17 @@ public class IndividualJobDetailsActivity extends BookStoreActionBarBase
 				connection.setDoInput(true);
 				connection.connect();
 				InputStream input = connection.getInputStream();
-				Bitmap myBitmap = BitmapFactory.decodeStream(input);
-				ivJobBookImage.setImageBitmap(CommonTasks
-						.createCircularShape(myBitmap));
+				myBitmap = BitmapFactory.decodeStream(input);
+				ivJobBookImage.setImageBitmap(myBitmap);
 			} catch (Exception exception) {
 				exception.printStackTrace();
 				
+			}finally{
+				if(myBitmap==null)
+					ivJobBookImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_book_64));
 			}
 		}else{
-			ivJobBookImage.setImageBitmap(CommonTasks
-					.createCircularShape(BitmapFactory.decodeResource(getResources(), R.drawable.ic_book_64)));
+			ivJobBookImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_book_64));
 		}
 
 		return jobEntity;
