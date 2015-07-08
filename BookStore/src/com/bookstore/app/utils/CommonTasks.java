@@ -150,9 +150,11 @@ public class CommonTasks {
 
 	@SuppressLint("SimpleDateFormat")
 	public static String getLongToDate(String time) {
+		
+		
 		long foo = Long.parseLong(time);
 		Date date = new Date(foo);
-		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		return (formatter.format(date));
 	}
 
