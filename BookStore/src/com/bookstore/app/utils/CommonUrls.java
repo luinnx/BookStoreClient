@@ -4,10 +4,10 @@ public class CommonUrls {
 
 	static CommonUrls commonUrls;
 
-	// public String BASE_URL="http://192.168.0.103:8080/BookStoreService/api/";
+	// public String BASE_URL="http://192.168.0.103:8180/BookStoreService/api/";
 
-	/*public String BASE_URL = "http://192.168.0.50:8084/BookStoreService/api/";
-	public String IMAGE_BASE_URL = "http://192.168.0.50:8084/BookStoreService";*/
+	public String BASE_URL = "http://192.168.0.103:8180/BookStoreService/api/";
+	public String IMAGE_BASE_URL = "http://192.168.0.103:8180/BookStoreService";
 	
 	/*public String BASE_URL = "http://182.48.75.85:8080/BookStoreService/api/";
 	public String IMAGE_BASE_URL = "http://182.48.75.85:8080/BookStoreService";*/
@@ -15,8 +15,8 @@ public class CommonUrls {
 	/*public String BASE_URL = "http://173.82.4.196:8080/BookStoreService/api/";
 	public String IMAGE_BASE_URL = "http://173.82.4.196:8080/BookStoreService";*/
 	
-	public String BASE_URL = "http://107.155.75.62:8080/BookStoreService/api/";
-	public String IMAGE_BASE_URL = "http://107.155.75.62:8080/BookStoreService";
+	//public String BASE_URL = "http://107.155.75.62:8080/BookStoreService/api/";
+	//public String IMAGE_BASE_URL = "http://107.155.75.62:8080/BookStoreService";
 	
 	//user Common pi
 	public String getAuthentication = BASE_URL+"user/authentication?email=%s&password=%s&IMEI=%s";
@@ -38,7 +38,7 @@ public class CommonUrls {
 	public String agent_tada_list=BASE_URL+"agent/get_tada_list?agent_id=%s&pageindex=%s";
 	public String agentGetIndividualDonationDetails = BASE_URL+"agent/get_individual_doantion_details?doantionID=%s";
 	public String get_individual_tada_details = BASE_URL+"agent/get_individual_tada_details?tadaID=%s";
-	
+	public String addDailyActivity=BASE_URL+"agent/set_dayly_activity";
 	//get_individual_tada_details
 	
 
@@ -70,6 +70,7 @@ public class CommonUrls {
 	public String getAllUser=BASE_URL+"admin/all_user_list";
 	
 	public String addImei=BASE_URL+"admin/add_imei?imei=%s";
+	
 	
 	public static CommonUrls getInstance() {
 		return commonUrls;

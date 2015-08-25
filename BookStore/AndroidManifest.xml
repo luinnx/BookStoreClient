@@ -205,6 +205,11 @@
             android:name="com.bookstore.app.activity.ActivityForgotPassword">
             
         </activity>
+        <activity 
+            android:name="com.bookstore.app.activity.DailyActivityAdd"
+            android:label="Daily Activity">
+            
+        </activity>
 
         <receiver
             android:name="com.bookstore.app.base.GcmBroadcastReceiver"

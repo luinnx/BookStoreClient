@@ -5,6 +5,7 @@ import com.bookstore.app.activity.AgentDonationListActivity;
 import com.bookstore.app.activity.AgentMyProfileActivity;
 import com.bookstore.app.activity.AgentTADAListActivity;
 import com.bookstore.app.activity.AgentTA_DA_Activity;
+import com.bookstore.app.activity.DailyActivityAdd;
 import com.bookstore.app.activity.R;
 import com.bookstore.app.base.InternetConnectionService.ConnectionServiceCallback;
 import com.bookstore.app.customview.AddDonation;
@@ -12,6 +13,7 @@ import com.bookstore.app.customview.UserLogout;
 import com.bookstore.app.entities.Donation;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
+
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -83,6 +85,11 @@ public abstract class AgentActionbarBase extends FragmentActivity implements
 					AgentTA_DA_Activity.class);
 			int1.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			startActivity(int1);
+			break;
+		case R.id.action_activity_add:
+			Intent dailyActivity=new Intent(getApplicationContext(), DailyActivityAdd.class);
+			dailyActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			startActivity(dailyActivity);
 			break;
 		case R.id.actionTadaList:
 			Intent int4 = new Intent(getApplicationContext(),

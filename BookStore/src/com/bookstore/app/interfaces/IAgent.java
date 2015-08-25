@@ -7,6 +7,7 @@ import com.bookstore.app.entities.AgentInfo;
 import com.bookstore.app.entities.AgentJobListRoot;
 import com.bookstore.app.entities.AgentTaDaResultEntity;
 import com.bookstore.app.entities.JobDetails;
+import com.bookstore.app.entities.ResponseEntity;
 import com.bookstore.app.entities.TaDaListRoot;
 
 import org.json.simple.JSONObject;
@@ -36,4 +37,6 @@ public interface IAgent {
 	
 	public boolean addTada(JSONObject jsonObject);
 	public AgentTaDaResultEntity getIndividualTadaResultDetails(String tadaID);
+	
+	public ResponseEntity addDailyActivity(org.json.JSONObject jsonObject);
 }

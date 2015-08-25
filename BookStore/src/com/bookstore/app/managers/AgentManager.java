@@ -18,6 +18,7 @@ import com.bookstore.app.entities.AgentInfo;
 import com.bookstore.app.entities.AgentJobListRoot;
 import com.bookstore.app.entities.AgentTaDaResultEntity;
 import com.bookstore.app.entities.JobDetails;
+import com.bookstore.app.entities.ResponseEntity;
 import com.bookstore.app.entities.TaDaListRoot;
 import com.bookstore.app.interfaces.IAgent;
 import com.bookstore.app.utils.CommonConstraints;
@@ -186,6 +187,17 @@ public class AgentManager implements IAgent {
 			Log.e("BS", exception.getMessage());
 		}
 		return null;
+	}
+
+	@Override
+	public ResponseEntity addDailyActivity(org.json.JSONObject jsonObject) {
+		ResponseEntity responseEntity=null;
+		try{
+			responseEntity=(ResponseEntity) JSONfunctions.retrieveDataFromJsonPost(CommonUrls.getInstance().addDailyActivity, jsonObject, ResponseEntity.class);
+		}catch(Exception exception){
+			Log.d("BSS", exception.getMessage()==null?"":exception.getMessage());
+		}
+		return responseEntity;
 	}
 
 }
