@@ -4,6 +4,7 @@ package com.bookstore.app.asynctasks;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class DownloadableAsyncTask extends AsyncTask<Void, Void, Object> {
 
@@ -26,7 +27,7 @@ public class DownloadableAsyncTask extends AsyncTask<Void, Void, Object> {
 				return asynchronousTask.doInBackground();
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			Log.d("BSS", ex.getMessage()==null?"":ex.getMessage());
 		}
 		return null;
 	}
