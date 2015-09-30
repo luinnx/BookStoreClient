@@ -21,7 +21,7 @@
                 android:id="@+id/action_activity_add"
                 android:icon="@drawable/ic_activity_32"
                 android:showAsAction="ifRoom"
-                android:title="Activity Add"/>
+                android:title="Specimen Copy"/>
         </menu>
     </item>
     
