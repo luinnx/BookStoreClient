@@ -203,6 +203,17 @@
                 android:digits="0123456789."
                 android:textColor="@color/text_color" >
             </EditText>
+            
+            <EditText
+                android:id="@+id/etOtherCostPurpose"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:hint="Others Cost Purpose"
+                android:inputType="text"
+                android:textColor="@color/text_color" >
+            </EditText>
         
     </LinearLayout>
 

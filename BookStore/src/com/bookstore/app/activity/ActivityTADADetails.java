@@ -26,7 +26,7 @@ public class ActivityTADADetails extends BookStoreActionBarBase implements
 	ProgressDialog progressDialog;
 	TextView tvAgentName, tvTadaStatus, tvTadaDate, tvStartPlace, tvStartTime,
 			tvEndPlace, tvEndTime, tvComment, tvVehicelName, tvDistance,
-			tvAmount, tvOtherAmount, tvTotalAmount,tvTadaId;
+			tvAmount, tvOtherAmount, tvTotalAmount,tvTadaId,tvOtherCostPurpose;
 	Button btnDone;
 	IndividualTADA individualTADA;
 	String whichPurpose = "GetTadaInfo";
@@ -69,6 +69,7 @@ public class ActivityTADADetails extends BookStoreActionBarBase implements
 		tvTotalAmount = (TextView) findViewById(R.id.tvTotalAmount);
 		ivAgentPic=(ImageView) findViewById(R.id.ivAgentPic);
 		tvTadaId=(TextView) findViewById(R.id.tvTadaId);
+		tvOtherCostPurpose=(TextView) findViewById(R.id.tvOtherCostPurpose);
 
 		btnDone = (Button) findViewById(R.id.btnDone);
 
@@ -177,6 +178,7 @@ public class ActivityTADADetails extends BookStoreActionBarBase implements
 		tvOtherAmount.setText("" + individualTADA.otheramount);
 		tvTotalAmount.setText("" + individualTADA.totalamount);
 		tvTadaId.setText("WR-TADA-ID : "+tadaID);
+		tvOtherCostPurpose.setText(individualTADA.othercostpurpose);
 		
 
 		ivAgentPic.setImageBitmap(CommonTasks

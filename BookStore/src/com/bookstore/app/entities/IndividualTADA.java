@@ -35,4 +35,6 @@ public class IndividualTADA {
 	public int agentid;
 	@SerializedName("tadastatus")
 	public int tadastatus;
+	@SerializedName("othercostpurpose")
+	public String othercostpurpose;
 }

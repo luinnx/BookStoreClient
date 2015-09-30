@@ -91,7 +91,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 android:gravity="right"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/etFrom"
@@ -120,8 +120,8 @@
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
-                android:gravity="right" 
-                android:visibility="gone"/>
+                android:gravity="right"
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/etTo"
@@ -144,9 +144,9 @@
             android:layout_height="40dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
+            android:digits="0123456789."
             android:hint="Approximate Distance"
             android:inputType="number"
-                 android:digits="0123456789."
             android:textColor="@color/text_color" >
         </EditText>
 
@@ -178,9 +178,9 @@
             android:layout_height="40dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
+            android:digits="0123456789."
             android:hint="Tour Cost"
             android:inputType="number"
-                 android:digits="0123456789."
             android:textColor="@color/text_color" >
         </EditText>
 
@@ -190,11 +190,22 @@
             android:layout_height="40dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
+            android:digits="0123456789."
             android:hint="Others Cost"
             android:inputType="number"
-                 android:digits="0123456789."
             android:textColor="@color/text_color" >
         </EditText>
+
+        <EditText
+                android:id="@+id/etOtherCostPurpose"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:hint="Others Cost Purpose"
+                android:inputType="text"
+                android:textColor="@color/text_color" >
+            </EditText>
     </LinearLayout>
 
 </LinearLayout>

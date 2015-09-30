@@ -50,7 +50,7 @@ public class AgentTA_DA_Activity extends AgentActionbarBase implements
 	int viewChildCount = 0;
 	Button btnOk;
 	EditText etTourCost, etPublishDate, etFrom, etTo, etDistance, etCarName,
-			etOtherCost, etTourPurpose;
+			etOtherCost, etTourPurpose,etOtherCostPurpose;
 
 	TimePicker ivStartTime, ivEndTime;
 	TextView tvTotalCost;
@@ -121,6 +121,7 @@ public class AgentTA_DA_Activity extends AgentActionbarBase implements
 			etTourCost = (EditText) (child.findViewById(R.id.etTourCost));
 			etOtherCost = (EditText) (child.findViewById(R.id.etOtherCost));
 			etTourPurpose = (EditText) (child.findViewById(R.id.etTourPurpose));
+			etOtherCostPurpose=(EditText) (child.findViewById(R.id.etOtherCostPurpose));
 			etTourCost.addTextChangedListener(new TextWatcher() {
 
 				@Override
@@ -198,7 +199,7 @@ public class AgentTA_DA_Activity extends AgentActionbarBase implements
 							|| etTo.getText().toString().trim().equals("")
 							|| etFrom.getText().toString().trim().equals("") || etCarName
 							.getText().toString().trim().equals(""))
-					|| etTourPurpose.getText().toString().trim().equals("")){
+					|| etTourPurpose.getText().toString().trim().equals("")|| etOtherCostPurpose.getText().toString().trim().equals("")){
 				return;
 						
 					}
@@ -259,7 +260,7 @@ public class AgentTA_DA_Activity extends AgentActionbarBase implements
 					jsonObj.put("description", tourPurpose);
 					jsonObj.put("vehicelName", CarName);
 					jsonObj.put("distance", Distance);
-
+					jsonObj.put("other_cost_purpose", etOtherCost.getText().toString().trim());
 					jsonObj.put("amount", TourCost);
 					jsonObj.put("otherAmount", othersAmount);
 					jsonObj.put("totalAmount", Double.parseDouble(othersAmount)

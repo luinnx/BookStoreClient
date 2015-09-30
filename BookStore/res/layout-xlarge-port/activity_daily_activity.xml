@@ -73,7 +73,7 @@
                 android:layout_marginTop="5dp"
                 android:gravity="left"
                 android:textSize="25sp"
-                android:hint="Institude Name"
+                android:hint="Institute Name"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/text_color" >
             </EditText>
@@ -86,7 +86,7 @@
                 android:layout_marginTop="5dp"
                 android:gravity="left"
                 android:textSize="25sp"
-                android:hint="Faculty Name"
+                android:hint="Department Name"
                 android:inputType="text"
                 android:textColor="@color/text_color" >
             </EditText>
@@ -111,7 +111,7 @@
                 android:layout_marginTop="5dp"
                 android:gravity="left"
                 android:textSize="25sp"
-                android:hint="Mobile Number"
+                android:hint="Teacher/Library Mobile Number"
                 android:inputType="phone"
                 android:textColor="@color/text_color" >
             </EditText>
