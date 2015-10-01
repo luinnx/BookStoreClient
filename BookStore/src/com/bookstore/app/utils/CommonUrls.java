@@ -59,6 +59,7 @@ public class CommonUrls {
 	public String jobDetailsAcceptReject=BASE_URL+"admin/job_detais_ack?jobID=%s";
 	public String bookEdit = BASE_URL+"admin/edit_book?quantity=%s&available=%s&price=%s&bookid=%s";
 	public String getAllUser=BASE_URL+"admin/all_user_list";
+	public String getAllActivity=BASE_URL+"admin/get_all_activity";
 	
 	public String addImei=BASE_URL+"admin/add_imei?imei=%s";
 	

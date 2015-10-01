@@ -43,10 +43,30 @@ public class BookStoreService extends Service implements IAsynchronousTask,
 		return START_STICKY;
 	}
 
-	private void getLocation() {
+private void getLocation() {
+		
+		
 		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-		locationManager.requestLocationUpdates(
-				LocationManager.NETWORK_PROVIDER, 600000, 0, this);
+		if (locationManager != null) {
+			boolean isGPSProvider = locationManager
+					.isProviderEnabled(LocationManager.GPS_PROVIDER);
+			boolean isNetworkProvider = locationManager
+					.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+			if (isGPSProvider) {
+				locationManager.requestLocationUpdates(
+						LocationManager.GPS_PROVIDER, 600000, 0, this);
+			}
+			if (isNetworkProvider) {
+				locationManager.requestLocationUpdates(
+						LocationManager.NETWORK_PROVIDER, 600000, 0, this);
+			} else {
+				CommonTasks.showToast(getApplicationContext(), 
+						"Location manager is not enable.");
+				return;
+			}
+		}
+		
+		
 
 	}
 

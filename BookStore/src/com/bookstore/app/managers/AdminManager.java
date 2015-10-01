@@ -2,9 +2,11 @@ package com.bookstore.app.managers;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+
 import android.util.Base64;
 import android.util.Log;
 
+import com.bookstore.app.entities.ActivityEntityRoot;
 import com.bookstore.app.entities.AgentDonationResultEntity;
 import com.bookstore.app.entities.AgentListRoot;
 import com.bookstore.app.entities.AgentLocationMapRoot;
@@ -457,6 +459,22 @@ public class AdminManager implements IAdminManager {
 							UserListRoot.class);
 			if (agentListRoot.agentList.size() > 0)
 				return agentListRoot;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public ActivityEntityRoot getAllActivity() {
+		ActivityEntityRoot root=null;
+		try {
+			root = (ActivityEntityRoot) JSONfunctions
+					.retrieveDataFromStream(
+							String.format(CommonUrls.getInstance().getAllActivity),
+							ActivityEntityRoot.class);
+			if (root.activityList.size() > 0)
+				return root;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

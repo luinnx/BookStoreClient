@@ -4,6 +4,7 @@ import com.bookstore.app.fragments.AdminRejectedJobListFragment;
 import com.bookstore.app.fragments.AdminSubmittedJobFragment;
 import com.bookstore.app.fragments.AgentsListLocationActivity;
 import com.bookstore.app.fragments.CompletedJobsFragment;
+import com.bookstore.app.fragments.CompletedJobsFragmentNew;
 import com.bookstore.app.fragments.PendingJobsFragment;
 
 import android.support.v4.app.Fragment;
@@ -23,8 +24,8 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
 			return AgentsListLocationActivity
 					.newInstance("AgentsListLocationActivity, Instance 1");
 		case 1:
-			return CompletedJobsFragment
-					.newInstance("CompletedJobsFragment, Instance 2");
+			return CompletedJobsFragmentNew
+					.newInstance("CompletedJobsFragmentNew, Instance 2");
 		case 2:
 			return PendingJobsFragment
 					.newInstance("PendingJobsFragment, Instance 3");

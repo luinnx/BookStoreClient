@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.base.AgentActionbarBase;
@@ -26,20 +27,22 @@ import com.bookstore.app.managers.AgentManager;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
 
-public class DailyActivityAdd extends AgentActionbarBase implements OnClickListener, IAsynchronousTask{
-	EditText etTeacherName ,etInstitudeName,etFaculty,etDistrict,etMobileNumber,
-	etBookName,etQuantity,etActivityDate;
+public class DailyActivityAdd extends AgentActionbarBase implements
+		OnClickListener, IAsynchronousTask {
+	EditText etTeacherName, etInstitudeName, etFaculty, etDistrict,
+			etMobileNumber, etBookName, etQuantity, etActivityDate;
 	ImageView ivActivityDate;
 	Button btnSubmit;
-	
+
 	private int year;
 	private int month;
 	private int day;
 	DatePickerDialog datePickerDialog;
-	
+
 	DownloadableAsyncTask asyncTask;
 	ProgressDialog progressDialog;
-	JSONObject jsonObject=null;
+	JSONObject jsonObject = null;
+	Dialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,81 +50,138 @@ public class DailyActivityAdd extends AgentActionbarBase implements OnClickListe
 		setContentView(R.layout.activity_daily_activity);
 		initViews();
 	}
-	
+
 	private void initViews() {
-		etTeacherName=(EditText) findViewById(R.id.etTeacherName);
-		etInstitudeName=(EditText) findViewById(R.id.etInstitudeName);
-		etFaculty=(EditText) findViewById(R.id.etFaculty);
-		etDistrict=(EditText) findViewById(R.id.etDistrict);
-		etMobileNumber=(EditText) findViewById(R.id.etMobileNumber);
-		etBookName=(EditText) findViewById(R.id.etBookName);
-		etQuantity=(EditText) findViewById(R.id.etQuantity);
-		etActivityDate=(EditText) findViewById(R.id.etActivityDate);
-		
-		ivActivityDate=(ImageView) findViewById(R.id.ivActivityDate);
-		btnSubmit=(Button) findViewById(R.id.btnSubmit);
+		etTeacherName = (EditText) findViewById(R.id.etTeacherName);
+		etInstitudeName = (EditText) findViewById(R.id.etInstitudeName);
+		etFaculty = (EditText) findViewById(R.id.etFaculty);
+		etDistrict = (EditText) findViewById(R.id.etDistrict);
+		etMobileNumber = (EditText) findViewById(R.id.etMobileNumber);
+		etBookName = (EditText) findViewById(R.id.etBookName);
+		etQuantity = (EditText) findViewById(R.id.etQuantity);
+		etActivityDate = (EditText) findViewById(R.id.etActivityDate);
+
+		ivActivityDate = (ImageView) findViewById(R.id.ivActivityDate);
+		btnSubmit = (Button) findViewById(R.id.btnSubmit);
+		btnSubmit.setText("Preview");
 		btnSubmit.setOnClickListener(this);
 		ivActivityDate.setOnClickListener(this);
-		
-	}
 
-	
+	}
 
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onClick(View arg0) {
-		
-		if(arg0.getId()==R.id.ivActivityDate){
+
+		if (arg0.getId() == R.id.ivActivityDate) {
 			final Calendar c = Calendar.getInstance();
 			year = c.get(Calendar.YEAR);
 			month = c.get(Calendar.MONTH);
 			day = c.get(Calendar.DAY_OF_MONTH);
 			showDialog(1);
-		}else{
-		
-		if(etTeacherName.getText().toString().trim().equals("")){
-			CommonTasks.showToast(getApplicationContext(), "Enter Teacher name");
-			return;
-		}else if(etInstitudeName.getText().toString().trim().equals("")){
-			CommonTasks.showToast(getApplicationContext(), "Enter Institude Name");
-			return;
-		}else if(etFaculty.getText().toString().trim().equals("")){
-			CommonTasks.showToast(getApplicationContext(), "Enter Faculty Name");
-			return;
-		}else if(etDistrict.getText().toString().trim().equals("")){
-			CommonTasks.showToast(getApplicationContext(), "Enter District");
-			return;
-		}else if(etMobileNumber.getText().toString().trim().equals("")){
-			CommonTasks.showToast(getApplicationContext(), "Enter Mobile Number");
-			return;
-		}else if(etBookName.getText().toString().trim().equals("")){
-			CommonTasks.showToast(getApplicationContext(), "Enter Book Name");
-			return;
-		}else if(etQuantity.getText().toString().trim().equals("")){
-			CommonTasks.showToast(getApplicationContext(), "Enter Book Quantity");
-			return;
-		}else if(etActivityDate.getText().toString().trim().equals("")){
-			CommonTasks.showToast(getApplicationContext(), "Enter Date");
-			return;
-		}
-		
-		createJsonAndSendToServer();
+		} else {
+
+			if (etTeacherName.getText().toString().trim().equals("")) {
+				CommonTasks.showToast(getApplicationContext(),
+						"Enter Teacher name");
+				return;
+			} else if (etInstitudeName.getText().toString().trim().equals("")) {
+				CommonTasks.showToast(getApplicationContext(),
+						"Enter Institude Name");
+				return;
+			} else if (etFaculty.getText().toString().trim().equals("")) {
+				CommonTasks.showToast(getApplicationContext(),
+						"Enter Faculty Name");
+				return;
+			} else if (etDistrict.getText().toString().trim().equals("")) {
+				CommonTasks
+						.showToast(getApplicationContext(), "Enter District");
+				return;
+			} else if (etMobileNumber.getText().toString().trim().equals("")) {
+				CommonTasks.showToast(getApplicationContext(),
+						"Enter Mobile Number");
+				return;
+			} else if (etBookName.getText().toString().trim().equals("")) {
+				CommonTasks.showToast(getApplicationContext(),
+						"Enter Book Name");
+				return;
+			} else if (etQuantity.getText().toString().trim().equals("")) {
+				CommonTasks.showToast(getApplicationContext(),
+						"Enter Book Quantity");
+				return;
+			} else if (etActivityDate.getText().toString().trim().equals("")) {
+				CommonTasks.showToast(getApplicationContext(), "Enter Date");
+				return;
+			}
+
+			showPreview();
 		}
 	}
-	
+
+	private void showPreview() {
+		dialog = new Dialog(this);
+		dialog.setContentView(R.layout.agent_activity_preview);
+		dialog.setTitle("Specimen Copy Preview");
+		dialog.setCancelable(true);
+		TextView tvTeacherName, tvInstitudeName, tvFaculty, tvDistrict, tvMobileNumber, tvBookName, tvQuantity, tvActivityDate;
+		Button btnEdit, btnSubmit;
+
+		tvTeacherName = (TextView) dialog.findViewById(R.id.tvTeacherName);
+		tvInstitudeName = (TextView) dialog.findViewById(R.id.tvInstitudeName);
+		tvFaculty = (TextView) dialog.findViewById(R.id.tvFaculty);
+		tvDistrict = (TextView) dialog.findViewById(R.id.tvDistrict);
+		tvMobileNumber = (TextView) dialog.findViewById(R.id.tvMobileNumber);
+		tvBookName = (TextView) dialog.findViewById(R.id.tvBookName);
+		tvQuantity = (TextView) dialog.findViewById(R.id.tvQuantity);
+		tvActivityDate = (TextView) dialog.findViewById(R.id.tvActivityDate);
+
+		btnEdit = (Button) dialog.findViewById(R.id.btnEdit);
+		btnSubmit = (Button) dialog.findViewById(R.id.btnSubmit);
+
+		btnSubmit.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				createJsonAndSendToServer();
+
+			}
+		});
+
+		btnEdit.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+
+			}
+		});
+
+		tvTeacherName.setText(etTeacherName.getText().toString().trim());
+		tvInstitudeName.setText(etInstitudeName.getText().toString().trim());
+		tvFaculty.setText(etFaculty.getText().toString().trim());
+		tvDistrict.setText(etDistrict.getText().toString().trim());
+		tvMobileNumber.setText(etMobileNumber.getText().toString().trim());
+		tvBookName.setText(etBookName.getText().toString().trim());
+		tvQuantity.setText(etQuantity.getText().toString().trim());
+		tvActivityDate.setText(etActivityDate.getText().toString().trim());
+
+		dialog.show();
+
+	}
+
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		switch (id) {
 		case 1:
 			// set date picker as current date
-			datePickerDialog=new DatePickerDialog(this, datePickerListener, year, month,
-					day);
+			datePickerDialog = new DatePickerDialog(this, datePickerListener,
+					year, month, day);
 			datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
 			return datePickerDialog;
 		}
 		return null;
 	}
-	
+
 	private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
 
 		// when dialog box is closed, below method will be called.
@@ -136,35 +196,43 @@ public class DailyActivityAdd extends AgentActionbarBase implements OnClickListe
 
 		}
 	};
-	
-	private void LoadInforamtion(){
-		if(asyncTask != null)
+
+	private void LoadInforamtion() {
+		if (asyncTask != null)
 			asyncTask.cancel(true);
 		asyncTask = new DownloadableAsyncTask(this);
 		asyncTask.execute();
 	}
 
 	private void createJsonAndSendToServer() {
-		try{
-			jsonObject=new JSONObject();
-			
-			jsonObject.put("user_id", CommonTasks.getPreferences(getApplicationContext(), CommonConstraints.USER_ID));
-			jsonObject.put("activity_date", etActivityDate.getText().toString().trim());
-			jsonObject.put("teacherName", etTeacherName.getText().toString().trim());
-			jsonObject.put("institute_name", etInstitudeName.getText().toString().trim());
-			jsonObject.put("inititute_address", etInstitudeName.getText().toString().trim());
+		try {
+			jsonObject = new JSONObject();
+
+			jsonObject.put("user_id", CommonTasks.getPreferences(
+					getApplicationContext(), CommonConstraints.USER_ID));
+			jsonObject.put("activity_date", etActivityDate.getText().toString()
+					.trim());
+			jsonObject.put("teacherName", etTeacherName.getText().toString()
+					.trim());
+			jsonObject.put("institute_name", etInstitudeName.getText()
+					.toString().trim());
+			jsonObject.put("inititute_address", etInstitudeName.getText()
+					.toString().trim());
 			jsonObject.put("book_name", etBookName.getText().toString().trim());
-			jsonObject.put("book_quantity", etQuantity.getText().toString().trim());
-			jsonObject.put("teacher_mobile_number", etMobileNumber.getText().toString().trim());
+			jsonObject.put("book_quantity", etQuantity.getText().toString()
+					.trim());
+			jsonObject.put("teacher_mobile_number", etMobileNumber.getText()
+					.toString().trim());
 			jsonObject.put("district", etDistrict.getText().toString().trim());
 			jsonObject.put("group_name", etFaculty.getText().toString().trim());
-			
+
 			LoadInforamtion();
-		}catch(Exception exception){
-			Log.d("BSS", exception.getMessage()==null?"":exception.getMessage());
+		} catch (Exception exception) {
+			Log.d("BSS",
+					exception.getMessage() == null ? "" : exception
+							.getMessage());
 		}
-		
-		
+
 	}
 
 	@Override
@@ -173,36 +241,36 @@ public class DailyActivityAdd extends AgentActionbarBase implements OnClickListe
 		progressDialog.setMessage("Please Wait...");
 		progressDialog.setCancelable(false);
 		progressDialog.show();
-		
+
 	}
 
 	@Override
 	public void hideProgressBar() {
 		progressDialog.dismiss();
-		
+
 	}
 
 	@Override
 	public Object doInBackground() {
-		IAgent agent=new AgentManager();
+		IAgent agent = new AgentManager();
 		return agent.addDailyActivity(jsonObject);
 	}
 
 	@Override
 	public void processDataAfterDownload(Object data) {
-		if(data!=null){
-			ResponseEntity entity=(ResponseEntity) data;
-			if(entity.status){
+		if (data != null) {
+			ResponseEntity entity = (ResponseEntity) data;
+			if (entity.status) {
 				CommonTasks.showToast(getApplicationContext(), entity.message);
 				super.onBackPressed();
-			}else{
+			} else {
 				CommonTasks.showToast(getApplicationContext(), entity.message);
 			}
-		}else{
-			CommonTasks.showToast(getApplicationContext(), "Critical Exception Occured. Please Try again later");
+		} else {
+			CommonTasks.showToast(getApplicationContext(),
+					"Critical Exception Occured. Please Try again later");
 		}
-		
-	}
 
+	}
 
 }

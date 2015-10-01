@@ -48,8 +48,8 @@ public class AddLocation extends AsyncTask<Location, Void, Object>{
 	protected void onPostExecute(Object result) {
 		if(result != null){
 			Boolean agentLocationResult = (Boolean) result;
-			//if(agentLocationResult)
-				//CommonTasks.showToast(context, "Location Update Successfully");
+			if(agentLocationResult)
+				Log.d("LS", "Location Update Successfully");
 		}
 	}
 	
