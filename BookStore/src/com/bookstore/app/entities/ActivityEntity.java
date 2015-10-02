@@ -1,15 +1,21 @@
 package com.bookstore.app.entities;
 
+import java.io.Serializable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class ActivityEntity {
+public class ActivityEntity implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@SerializedName("_id")
 	public int id;
 	@SerializedName("user_id")
     public int user_id;
 	@SerializedName("activity_date")
     public String activity_date;
-	@SerializedName("teacherName")
+	@SerializedName("teacher_name")
     public String teacherName;
 	@SerializedName("institute_name")
     public String institute_name;

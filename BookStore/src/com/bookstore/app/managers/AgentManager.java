@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import com.bookstore.app.entities.ActivityEntityRoot;
 import com.bookstore.app.entities.AgentDonationEntityRoot;
 import com.bookstore.app.entities.AgentInfo;
 import com.bookstore.app.entities.AgentJobListRoot;
@@ -198,6 +199,22 @@ public class AgentManager implements IAgent {
 			Log.d("BSS", exception.getMessage()==null?"":exception.getMessage());
 		}
 		return responseEntity;
+	}
+
+	@Override
+	public ActivityEntityRoot getAllActivity(String agentId) {
+		ActivityEntityRoot root=null;
+		try {
+			root = (ActivityEntityRoot) JSONfunctions
+					.retrieveDataFromStream(
+							String.format(CommonUrls.getInstance().agentGetAllActivity,agentId),
+							ActivityEntityRoot.class);
+			if (root.activityList.size() > 0)
+				return root;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
 	}
 
 }

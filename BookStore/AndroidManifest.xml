@@ -34,8 +34,8 @@
         android:name="com.bookstore.app.base.BookStoreApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:largeHeap="true"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:theme="@style/Theme.NoTitleBar" >
         <uses-library android:name="com.google.android.maps" />
         <!-- Debug Key -->
@@ -69,7 +69,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name="com.bookstore.app.activity.SplashScreenActivity"
             android:label="@string/app_name" >
@@ -201,14 +200,19 @@
         </activity>
         <activity android:name="com.bookstore.app.activity.AdminNoInterNetActivity" >
         </activity>
-        <activity 
-            android:name="com.bookstore.app.activity.ActivityForgotPassword">
-            
+        <activity android:name="com.bookstore.app.activity.ActivityForgotPassword" >
         </activity>
-        <activity 
+        <activity
             android:name="com.bookstore.app.activity.DailyActivityAdd"
-            android:label="Daily Activity">
-            
+            android:label="Daily Activity" >
+        </activity>
+        <activity
+            android:name="com.bookstore.app.activity.ActivityDetails"
+            android:label="Specimen Copy" >
+        </activity>
+        <activity
+            android:name="com.bookstore.app.activity.ActivityDetailsForAdmin"
+            android:label="Details" >
         </activity>
 
         <receiver

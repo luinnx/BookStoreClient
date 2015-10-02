@@ -6,8 +6,8 @@
     android:orientation="vertical" >
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_gravity="center"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
@@ -16,7 +16,7 @@
     <ImageView
         android:id="@+id/ivAppName"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:layout_gravity="center"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -27,8 +27,8 @@
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginRight="5dp" >
 
         <LinearLayout
@@ -43,7 +43,7 @@
                 android:layout_marginTop="5dp"
                 android:text="Teacher/Library Info"
                 android:textColor="@color/text_color"
-                android:textSize="15sp"
+                android:textSize="35sp"
                 android:textStyle="bold" />
 
             <View
@@ -68,6 +68,7 @@
                     android:gravity="left"
                     android:text="Teacher/Library Name :"
                     android:textColor="@color/text_color"
+                    android:textSize="30sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -79,7 +80,8 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:text="Sajedul Karim Mesuk"
-                    android:textColor="@color/text_color" >
+                    android:textColor="@color/text_color"
+                    android:textSize="30sp" >
                 </TextView>
             </TableRow>
 
@@ -98,6 +100,7 @@
                     android:gravity="left"
                     android:text="Institute Name :"
                     android:textColor="@color/text_color"
+                    android:textSize="30sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -109,7 +112,8 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:text="Rajshahi University Of Engineering And Technology"
-                    android:textColor="@color/text_color" >
+                    android:textColor="@color/text_color"
+                    android:textSize="30sp" >
                 </TextView>
             </TableRow>
 
@@ -128,6 +132,7 @@
                     android:gravity="left"
                     android:text="Department Name :"
                     android:textColor="@color/text_color"
+                    android:textSize="30sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -139,7 +144,8 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:text="Computer Science and Engineering"
-                    android:textColor="@color/text_color" >
+                    android:textColor="@color/text_color"
+                    android:textSize="30sp" >
                 </TextView>
             </TableRow>
 
@@ -158,6 +164,7 @@
                     android:gravity="left"
                     android:text="District Name :"
                     android:textColor="@color/text_color"
+                    android:textSize="30sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -169,7 +176,8 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:text="Rajshahi"
-                    android:textColor="@color/text_color" >
+                    android:textColor="@color/text_color"
+                    android:textSize="30sp" >
                 </TextView>
             </TableRow>
 
@@ -188,6 +196,7 @@
                     android:gravity="left"
                     android:text="Teacher/Library Mobile Number :"
                     android:textColor="@color/text_color"
+                    android:textSize="30sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -199,7 +208,8 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:text="01737186095"
-                    android:textColor="@color/text_color" >
+                    android:textColor="@color/text_color"
+                    android:textSize="30sp" >
                 </TextView>
             </TableRow>
 
@@ -209,7 +219,7 @@
                 android:layout_marginTop="5dp"
                 android:text="Book Info"
                 android:textColor="@color/text_color"
-                android:textSize="15sp"
+                android:textSize="35sp"
                 android:textStyle="bold" />
 
             <View
@@ -234,6 +244,7 @@
                     android:gravity="left"
                     android:text="Book Name :"
                     android:textColor="@color/text_color"
+                    android:textSize="30sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -245,7 +256,8 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:text="Bangla First Paper"
-                    android:textColor="@color/text_color" >
+                    android:textColor="@color/text_color"
+                    android:textSize="30sp" >
                 </TextView>
             </TableRow>
 
@@ -264,6 +276,7 @@
                     android:gravity="left"
                     android:text="No. Of Book :"
                     android:textColor="@color/text_color"
+                    android:textSize="30sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -275,7 +288,8 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:text="3"
-                    android:textColor="@color/text_color" >
+                    android:textColor="@color/text_color"
+                    android:textSize="30sp" >
                 </TextView>
             </TableRow>
 
@@ -294,6 +308,7 @@
                     android:gravity="left"
                     android:text="Complete date :"
                     android:textColor="@color/text_color"
+                    android:textSize="30sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -305,16 +320,17 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:text="25 May, 2015"
-                    android:textColor="@color/text_color" >
+                    android:textColor="@color/text_color"
+                    android:textSize="30sp" >
                 </TextView>
             </TableRow>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginBottom="5dp"
                 android:gravity="center"
+                android:orientation="horizontal"
                 android:weightSum="2" >
 
                 <Button

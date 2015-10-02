@@ -1,5 +1,7 @@
 package com.bookstore.app.base;
 
+import com.bookstore.app.activity.ActivityDetails;
+import com.bookstore.app.activity.ActivityDetailsForAdmin;
 import com.bookstore.app.activity.ActivityTADADetails;
 import com.bookstore.app.activity.AdminJobAcceptRejectActivity;
 import com.bookstore.app.activity.AgentDonationAcceptRejectResultActivity;
@@ -41,6 +43,7 @@ public class GcmIntentService extends IntentService {
 	public static final String JOB_SUBMIT = "JOB_SUBMIT";
 	public static final String JOB_CREATE = "JOB_CREATE";
 	public static final String JOB_REJECTED = "JOB_REJECTED";
+	public static final String SPECIMEN_SEND="SPECIMEN_SEND";
 
 	public GcmIntentService() {
 		super("GcmIntentService");
@@ -137,7 +140,14 @@ public class GcmIntentService extends IntentService {
 				intent.putExtra("TADA", pushNotification.id);
 				NOTIFICATION_ID = 5;
 
-			} else {
+			}else if (pushNotification.Status.equals(SPECIMEN_SEND)) {
+				intent = new Intent(getApplicationContext(),
+						ActivityDetailsForAdmin.class);
+
+				intent.putExtra("ACTIVITY_ID", pushNotification.id);
+				NOTIFICATION_ID =17;
+
+			}  else {
 				return;
 			}
 

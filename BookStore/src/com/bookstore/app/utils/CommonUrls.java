@@ -4,9 +4,9 @@ public class CommonUrls {
 
 	static CommonUrls commonUrls;
 
-	public String BASE_URL="http://192.168.0.106:8180/BookStoreService/api/";
+	//public String BASE_URL="http://192.168.0.106:8180/BookStoreService/api/";
 	
-	//public String BASE_URL = "http://107.155.75.62:8080/BookStoreService/api/";
+	public String BASE_URL = "http://107.155.75.62:8080/BookStoreService/api/";
 	public String IMAGE_BASE_URL = "http://107.155.75.62:8080/BookStoreService";
 	
 	//user Common pi
@@ -60,6 +60,8 @@ public class CommonUrls {
 	public String bookEdit = BASE_URL+"admin/edit_book?quantity=%s&available=%s&price=%s&bookid=%s";
 	public String getAllUser=BASE_URL+"admin/all_user_list";
 	public String getAllActivity=BASE_URL+"admin/get_all_activity";
+	public String agentGetAllActivity=BASE_URL+"agent/get_my_activity?agentid=%s";
+	public String getActivityDetails=BASE_URL+"admin/get_activity_details?activityid=%s";
 	
 	public String addImei=BASE_URL+"admin/add_imei?imei=%s";
 	

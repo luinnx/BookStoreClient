@@ -7,8 +7,10 @@ import com.bookstore.app.asynctasks.DownloadableAsyncTask;
 import com.bookstore.app.entities.ActivityEntity;
 import com.bookstore.app.entities.ActivityEntityRoot;
 import com.bookstore.app.interfaces.IAdminManager;
+import com.bookstore.app.interfaces.IAgent;
 import com.bookstore.app.interfaces.IAsynchronousTask;
 import com.bookstore.app.managers.AdminManager;
+import com.bookstore.app.managers.AgentManager;
 import com.bookstore.app.utils.CommonConstraints;
 import com.bookstore.app.utils.CommonTasks;
 
@@ -23,7 +25,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class CompletedJobsFragmentNew extends Fragment implements
+public class AgentCompleteJobListFragmentNew extends Fragment implements
 		IAsynchronousTask, OnItemClickListener {
 
 	DownloadableAsyncTask downloadableAsyncTask;
@@ -44,9 +46,9 @@ public class CompletedJobsFragmentNew extends Fragment implements
 		return v;
 	}
 
-	public static CompletedJobsFragmentNew newInstance(String text) {
+	public static AgentCompleteJobListFragmentNew newInstance(String text) {
 
-		CompletedJobsFragmentNew f = new CompletedJobsFragmentNew();
+		AgentCompleteJobListFragmentNew f = new AgentCompleteJobListFragmentNew();
 		Bundle b = new Bundle();
 		b.putString("msg", text);
 
@@ -73,12 +75,6 @@ public class CompletedJobsFragmentNew extends Fragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		
-		/*if (!CommonTasks.isOnline(getActivity())) {
-			CommonTasks.goSettingPage(getActivity());
-			return;
-		}
-		loadInformation();*/
 	}
 
 	public void loadInformation() {
@@ -105,9 +101,9 @@ public class CompletedJobsFragmentNew extends Fragment implements
 
 	@Override
 	public Object doInBackground() {
-		IAdminManager manager = new AdminManager();
+		IAgent manager = new AgentManager();
 
-		return manager.getAllActivity();
+		return manager.getAllActivity(CommonTasks.getPreferences(getActivity(), CommonConstraints.USER_ID));
 	}
 
 	@Override
@@ -130,7 +126,6 @@ public class CompletedJobsFragmentNew extends Fragment implements
 
 	}
 
-	@SuppressWarnings("unused")
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 			long arg3) {

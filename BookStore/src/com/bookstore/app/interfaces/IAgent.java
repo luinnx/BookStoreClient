@@ -2,6 +2,7 @@ package com.bookstore.app.interfaces;
 
 import org.json.simple.JSONObject;
 
+import com.bookstore.app.entities.ActivityEntityRoot;
 import com.bookstore.app.entities.AgentDonationEntityRoot;
 import com.bookstore.app.entities.AgentInfo;
 import com.bookstore.app.entities.AgentJobListRoot;
@@ -39,4 +40,5 @@ public interface IAgent {
 	public AgentTaDaResultEntity getIndividualTadaResultDetails(String tadaID);
 	
 	public ResponseEntity addDailyActivity(org.json.JSONObject jsonObject);
+	public ActivityEntityRoot getAllActivity(String agentId);
 }

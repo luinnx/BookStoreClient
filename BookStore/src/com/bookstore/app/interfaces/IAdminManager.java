@@ -1,5 +1,6 @@
 package com.bookstore.app.interfaces;
 
+import com.bookstore.app.entities.ActivityEntity;
 import com.bookstore.app.entities.ActivityEntityRoot;
 import com.bookstore.app.entities.AgentDonationResultEntity;
 import com.bookstore.app.entities.AgentEntity;
@@ -79,6 +80,7 @@ public interface IAdminManager {
 	public Boolean addIMEI(String IMEI);
 	public boolean bookEdit(int quantity, int available, double price, int bookid);
 	public ActivityEntityRoot getAllActivity();
+	public ActivityEntity getActivityDetails(String activityId);
 	
 
 }

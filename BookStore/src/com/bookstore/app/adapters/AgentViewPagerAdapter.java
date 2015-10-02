@@ -1,6 +1,7 @@
 package com.bookstore.app.adapters;
 
 import com.bookstore.app.fragments.AgentCompleteJobListFragment;
+import com.bookstore.app.fragments.AgentCompleteJobListFragmentNew;
 import com.bookstore.app.fragments.AgentPendingJobListFragment;
 import com.bookstore.app.fragments.AgentRejectedJobListFragment;
 import com.bookstore.app.fragments.AgentSubmitedJobListFragment;
@@ -19,7 +20,7 @@ public class AgentViewPagerAdapter extends FragmentPagerAdapter{
 	public Fragment getItem(int position) {
 		switch (position) {
 		case 0:			
-			return new AgentCompleteJobListFragment();
+			return new AgentCompleteJobListFragmentNew();
 		case 1:			
 			return new AgentPendingJobListFragment();
 		case 2:

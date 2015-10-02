@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import android.util.Base64;
 import android.util.Log;
 
+import com.bookstore.app.entities.ActivityEntity;
 import com.bookstore.app.entities.ActivityEntityRoot;
 import com.bookstore.app.entities.AgentDonationResultEntity;
 import com.bookstore.app.entities.AgentListRoot;
@@ -479,5 +480,20 @@ public class AdminManager implements IAdminManager {
 			ex.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public ActivityEntity getActivityDetails(String activityId) {
+		
+		ActivityEntity activityEntity=null;
+		try {
+			activityEntity = (ActivityEntity) JSONfunctions
+					.retrieveDataFromStream(
+							String.format(CommonUrls.getInstance().getActivityDetails,activityId),
+							ActivityEntity.class);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return activityEntity;
 	}
 }
