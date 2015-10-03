@@ -32,6 +32,7 @@ public class BookStoreService extends Service implements IAsynchronousTask,
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+		
 		regid = CommonTasks.getPreferences(this, CommonConstraints.GCMID);
 		if (regid.isEmpty()) {
 
@@ -45,7 +46,6 @@ public class BookStoreService extends Service implements IAsynchronousTask,
 
 private void getLocation() {
 		
-		
 		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 		if (locationManager != null) {
 			boolean isGPSProvider = locationManager
@@ -54,14 +54,16 @@ private void getLocation() {
 					.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 			if (isGPSProvider) {
 				locationManager.requestLocationUpdates(
-						LocationManager.GPS_PROVIDER, 600000, 0, this);
+						LocationManager.GPS_PROVIDER, 180000, 0, this);
+				return;
 			}
 			if (isNetworkProvider) {
 				locationManager.requestLocationUpdates(
-						LocationManager.NETWORK_PROVIDER, 600000, 0, this);
+						LocationManager.NETWORK_PROVIDER, 180000, 0, this);
 			} else {
 				CommonTasks.showToast(getApplicationContext(), 
 						"Location manager is not enable.");
+				Log.d("LS", "No Location Provider Enabled.");
 				return;
 			}
 		}
@@ -120,6 +122,8 @@ private void getLocation() {
 
 	@Override
 	public void onLocationChanged(Location location) {
+		CommonTasks.showToast(getApplicationContext(), 
+				"location changed");
 		if (!CommonTasks.isOnline(this)) {
 			// CommonTasks.goSettingPage(this);
 			return;

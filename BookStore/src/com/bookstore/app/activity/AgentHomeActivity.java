@@ -12,9 +12,12 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
-public class AgentHomeActivity extends AgentActionbarBase implements TabListener {
-	String[] tab = { "Completed Jobs", "Pending Jobs", "Submitted  Job", "Rejected Job"};
+public class AgentHomeActivity extends AgentActionbarBase implements
+		TabListener {
+	String[] tab = { "Completed Jobs", "Pending Jobs", "Submitted  Job",
+			"Rejected Job" };
 	ViewPager pager;
 	AgentViewPagerAdapter adapter;
 
@@ -23,58 +26,73 @@ public class AgentHomeActivity extends AgentActionbarBase implements TabListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_agent_home);
 		initialization();
-		if(CommonTasks.checkPlayServices(this))
-			startService(new Intent(this, BookStoreService.class));
-		
+
 	}
 
 	private void initialization() {
 		pager = (ViewPager) findViewById(R.id.agentMasterPage);
 		adapter = new AgentViewPagerAdapter(getSupportFragmentManager());
 		pager.setAdapter(adapter);
-		
+
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		// Adding Tabs
-        for (String tab_name : tab) {
-            actionBar.addTab(actionBar.newTab().setText(tab_name)
-                    .setTabListener(this));
-        }
-        
-        pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-        	 
-            @Override
-            public void onPageSelected(int position) {
-                actionBar.setSelectedNavigationItem(position);
-            }
-         
-            @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
-            }
-         
-            @Override
-            public void onPageScrollStateChanged(int arg0) {
-            }
-        });
+		for (String tab_name : tab) {
+			actionBar.addTab(actionBar.newTab().setText(tab_name)
+					.setTabListener(this));
+		}
+
+		pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+			@Override
+			public void onPageSelected(int position) {
+				actionBar.setSelectedNavigationItem(position);
+			}
+
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+			}
+		});
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		if (CommonTasks.checkPlayServices(this)) {
+			if (!CommonTasks.checkServiceIsRunning(getApplicationContext())) {
+				Log.d("BOOT", "Agent Home: Service is Starting");
+				startService(new Intent(this, BookStoreService.class));
+			} else {
+				Log.d("BOOT",
+						"Agent Home : BookStore Service is already Running");
+			}
+		} else {
+			Log.d("BOOT", "Agent Home : Play Service Not Enabled");
+		}
 	}
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		pager.setCurrentItem(tab.getPosition());
-		
+
 	}
 
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		Intent intent = new Intent(Intent.ACTION_MAIN);

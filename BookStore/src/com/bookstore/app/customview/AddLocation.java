@@ -1,10 +1,5 @@
 package com.bookstore.app.customview;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 
@@ -15,8 +10,6 @@ import com.bookstore.app.utils.CommonTasks;
 import com.google.android.gms.maps.model.LatLng;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -48,8 +41,11 @@ public class AddLocation extends AsyncTask<Location, Void, Object>{
 	protected void onPostExecute(Object result) {
 		if(result != null){
 			Boolean agentLocationResult = (Boolean) result;
-			if(agentLocationResult)
-				Log.d("LS", "Location Update Successfully");
+			if(agentLocationResult){
+				Log.d("LS", "Location Update Successfully");}
+			else{
+				Log.d("LS", "Location Update Failed");
+			}
 		}
 	}
 	

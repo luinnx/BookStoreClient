@@ -32,7 +32,9 @@ import com.google.android.gms.maps.model.LatLng;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -462,6 +464,19 @@ public class CommonTasks {
 		}
 		return locationName;
 	}
+	
+	public static boolean checkServiceIsRunning(Context context){
+	     ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) 
+	            {
+	                if ("com.bookstore.app.base.BookStoreService"
+	                        .equals(service.service.getClassName())) 
+	                {
+	                    return true;
+	                }
+	            }
+	         return false;
+	    }
 	
 	
 }
