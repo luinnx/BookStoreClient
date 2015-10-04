@@ -51,6 +51,7 @@ import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Environment;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
@@ -111,49 +112,48 @@ public class CommonTasks {
 		return result;
 
 	}
-	
+
 	public static String millisToLongDHMS(long duration) {
-        StringBuffer res = new StringBuffer();
-        long temp = 0;
-        if (duration >= ONE_SECOND) {
-          temp = duration / ONE_DAY;
-          if (temp > 0) {
-            duration -= temp * ONE_DAY;
-            res.append(temp).append(" day").append(temp > 1 ? "s" : "")
-               .append(duration >= ONE_MINUTE ? ", " : "");
-          }
+		StringBuffer res = new StringBuffer();
+		long temp = 0;
+		if (duration >= ONE_SECOND) {
+			temp = duration / ONE_DAY;
+			if (temp > 0) {
+				duration -= temp * ONE_DAY;
+				res.append(temp).append(" day").append(temp > 1 ? "s" : "")
+						.append(duration >= ONE_MINUTE ? ", " : "");
+			}
 
-          temp = duration / ONE_HOUR;
-          if (temp > 0) {
-            duration -= temp * ONE_HOUR;
-            res.append(temp).append(" hour").append(temp > 1 ? "s" : "")
-               .append(duration >= ONE_MINUTE ? ", " : "");
-          }
+			temp = duration / ONE_HOUR;
+			if (temp > 0) {
+				duration -= temp * ONE_HOUR;
+				res.append(temp).append(" hour").append(temp > 1 ? "s" : "")
+						.append(duration >= ONE_MINUTE ? ", " : "");
+			}
 
-          temp = duration / ONE_MINUTE;
-          if (temp > 0) {
-            duration -= temp * ONE_MINUTE;
-            res.append(temp).append(" minute").append(temp > 1 ? "s" : "");
-          }
+			temp = duration / ONE_MINUTE;
+			if (temp > 0) {
+				duration -= temp * ONE_MINUTE;
+				res.append(temp).append(" minute").append(temp > 1 ? "s" : "");
+			}
 
-          if (!res.toString().equals("") && duration >= ONE_SECOND) {
-            res.append(" and ");
-          }
+			if (!res.toString().equals("") && duration >= ONE_SECOND) {
+				res.append(" and ");
+			}
 
-          temp = duration / ONE_SECOND;
-          if (temp > 0) {
-            res.append(temp).append(" second").append(temp > 1 ? "s" : "");
-          }
-          return res.toString();
-        } else {
-          return "0 second";
-        }
-      }
+			temp = duration / ONE_SECOND;
+			if (temp > 0) {
+				res.append(temp).append(" second").append(temp > 1 ? "s" : "");
+			}
+			return res.toString();
+		} else {
+			return "0 second";
+		}
+	}
 
 	@SuppressLint("SimpleDateFormat")
 	public static String getLongToDate(String time) {
-		
-		
+
 		long foo = Long.parseLong(time);
 		Date date = new Date(foo);
 		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -183,34 +183,33 @@ public class CommonTasks {
 	}
 
 	public static void showLogs(Context context, String message) {
-		if(message==null||message.equals(""))
+		if (message == null || message.equals(""))
 			return;
-		Log.d(CommonConstraints.TAG, ""+message);
+		Log.d(CommonConstraints.TAG, "" + message);
 	}
 
 	public static boolean isOnline(Context context) {
-		boolean result=false;
+		boolean result = false;
 		ConnectivityManager cm = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo netInfo = cm.getActiveNetworkInfo();
 		if (netInfo != null && netInfo.isConnectedOrConnecting()) {
 			try {
-				Process p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.com");
-		        int returnVal = p1.waitFor();
-		        if(returnVal == 0)
-		        	result= true;
-	        } catch (MalformedURLException e1) {
-	            Log.e("BSA", e1.getMessage());
-	        } catch (IOException e) {
-	        	Log.e("BSA", e.getMessage());
-	        } catch (InterruptedException e) {
-	        	Log.e("BSA", e.getMessage());
+				Process p1 = java.lang.Runtime.getRuntime().exec(
+						"ping -c 1 www.google.com");
+				int returnVal = p1.waitFor();
+				if (returnVal == 0)
+					result = true;
+			} catch (MalformedURLException e1) {
+				Log.e("BSA", e1.getMessage());
+			} catch (IOException e) {
+				Log.e("BSA", e.getMessage());
+			} catch (InterruptedException e) {
+				Log.e("BSA", e.getMessage());
 			}
 		}
 		return result;
 	}
-
-	
 
 	@SuppressWarnings("unchecked")
 	public static JSONObject convertResultsetToJson(ResultSet resultSet,
@@ -357,13 +356,13 @@ public class CommonTasks {
 
 	public static Bitmap getBitMapFromUrl(String _url) {
 		URL url;
-        Log.d("BSS", "Fetching Image : "+_url);
-        
+		Log.d("BSS", "Fetching Image : " + _url);
+
 		try {
 			url = new URL(_url);
 			HttpURLConnection connection = (HttpURLConnection) url
 					.openConnection();
-			
+
 			connection.setDoInput(true);
 			connection.connect();
 			InputStream input = connection.getInputStream();
@@ -385,43 +384,42 @@ public class CommonTasks {
 		return null;
 	}
 
-	public static Bitmap getBitmapFromSdCard(Context  context,String imagePath) {
+	public static Bitmap getBitmapFromSdCard(Context context, String imagePath) {
 
 		Log.d("BSS", "Getting Image :" + imagePath);
 		Bitmap bitmap = null;
 		File f = new File(imagePath);
-		
-		
+
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
 		try {
-			if(f.exists()){
-				bitmap = BitmapFactory.decodeStream(new FileInputStream(f), null,
-						options);
-			}else{
-				bitmap=BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_person);
+			if (f.exists()) {
+				bitmap = BitmapFactory.decodeStream(new FileInputStream(f),
+						null, options);
+			} else {
+				bitmap = BitmapFactory.decodeResource(context.getResources(),
+						R.drawable.ic_person);
 			}
-			
+
 		} catch (FileNotFoundException e) {
 			Log.d("BSS", e.getMessage());
 		}
 
 		return bitmap;
 	}
-	
+
 	public static Bitmap getBitmapFromSdCard(String imagePath) {
 
 		Log.d("BSS", "Getting Image :" + imagePath);
 		Bitmap bitmap = null;
 		File f = new File(imagePath);
-		
-		
+
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
 		try {
-			if(f.exists()){
-				bitmap = BitmapFactory.decodeStream(new FileInputStream(f), null,
-						options);
+			if (f.exists()) {
+				bitmap = BitmapFactory.decodeStream(new FileInputStream(f),
+						null, options);
 			}
 		} catch (FileNotFoundException e) {
 			Log.d("BSS", e.getMessage());
@@ -429,54 +427,71 @@ public class CommonTasks {
 
 		return bitmap;
 	}
-	
+
 	public static boolean isEmailValid(String email) {
-	    boolean isValid = false;
+		boolean isValid = false;
 
-	    String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
-	    CharSequence inputStr = email;
+		String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+		CharSequence inputStr = email;
 
-	    Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-	    Matcher matcher = pattern.matcher(inputStr);
-	    if (matcher.matches()) {
-	        isValid = true;
-	    }
-	    return isValid;
+		Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+		Matcher matcher = pattern.matcher(inputStr);
+		if (matcher.matches()) {
+			isValid = true;
+		}
+		return isValid;
 	}
-	
-	public static String getLocationNameFromLatLong(Context context,LatLng latLng){
-		String locationName="";
-		
-		try{
-			Geocoder geocoder=new Geocoder(context, Locale.getDefault());
-			List<Address> addresses=geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
-			
-			if(addresses!=null&&addresses.size()>0){
-				Address address=addresses.get(0);
-				for(int lineIndex=0;lineIndex<address.getMaxAddressLineIndex();lineIndex++){
-					locationName+=address.getAddressLine(lineIndex)+",";
+
+	public static String getLocationNameFromLatLong(Context context,
+			LatLng latLng) {
+		String locationName = "";
+
+		try {
+			Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+			List<Address> addresses = geocoder.getFromLocation(latLng.latitude,
+					latLng.longitude, 1);
+
+			if (addresses != null && addresses.size() > 0) {
+				Address address = addresses.get(0);
+				for (int lineIndex = 0; lineIndex < address
+						.getMaxAddressLineIndex(); lineIndex++) {
+					locationName += address.getAddressLine(lineIndex) + ",";
 				}
-				locationName = locationName + address.getLocality()
-						+ ", " + address.getCountryName();
+				locationName = locationName + address.getLocality() + ", "
+						+ address.getCountryName();
 			}
-		}catch(Exception ex){
+		} catch (Exception ex) {
 			Log.e("BSS", ex.getMessage());
 		}
 		return locationName;
 	}
-	
-	public static boolean checkServiceIsRunning(Context context){
-	     ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) 
-	            {
-	                if ("com.bookstore.app.base.BookStoreService"
-	                        .equals(service.service.getClassName())) 
-	                {
-	                    return true;
-	                }
-	            }
-	         return false;
-	    }
-	
-	
+
+	public static boolean checkServiceIsRunning(Context context) {
+		ActivityManager manager = (ActivityManager) context
+				.getSystemService(Context.ACTIVITY_SERVICE);
+		for (RunningServiceInfo service : manager
+				.getRunningServices(Integer.MAX_VALUE)) {
+			if ("com.bookstore.app.base.BookStoreService"
+					.equals(service.service.getClassName())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean isValidLatLng(double lat, double lng) {
+		if (lat < -90 || lat > 90) {
+			return false;
+		} else if (lng < -180 || lng > 180) {
+			return false;
+		}
+		return true;
+	}
+
+	public static void doVibration(Context context) {
+		Vibrator v = (Vibrator) context
+				.getSystemService(Context.VIBRATOR_SERVICE);
+		v.vibrate(500);
+	}
+
 }

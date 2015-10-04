@@ -70,7 +70,7 @@ public class ActivityListAdapter extends ArrayAdapter<ActivityEntity> {
 			}
 
 			holder.tvActivityId.setText(""+jobEntity.id);
-			holder.tvAgentname.setText(jobEntity.full_name);
+			holder.tvAgentname.setText(jobEntity.book_name);
 			holder.tvNoOfBook.setText("" + jobEntity.book_quantity);
 			holder.tvDate.setText(jobEntity.activity_date);
 

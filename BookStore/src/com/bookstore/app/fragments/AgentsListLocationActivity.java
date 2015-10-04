@@ -262,6 +262,9 @@ public class AgentsListLocationActivity extends Fragment implements
 			for (int rowIndex = 0; rowIndex < agentListRoot2.agentList.size(); rowIndex++) {
 				double lat = agentListRoot2.agentList.get(rowIndex).latitude;
 				double lng = agentListRoot2.agentList.get(rowIndex).longitude;
+				
+				if(!CommonTasks.isValidLatLng(lat, lng))
+				return;
 				String msg = "NAME :"
 						+ agentListRoot2.agentList.get(rowIndex).full_name;
 				msg += " Lat :" + lat + " Long :" + lng + "";

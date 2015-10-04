@@ -122,8 +122,6 @@ private void getLocation() {
 
 	@Override
 	public void onLocationChanged(Location location) {
-		CommonTasks.showToast(getApplicationContext(), 
-				"location changed");
 		if (!CommonTasks.isOnline(this)) {
 			// CommonTasks.goSettingPage(this);
 			return;
